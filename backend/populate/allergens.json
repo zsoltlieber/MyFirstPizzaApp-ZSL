@@ -1,0 +1,36 @@
+{
+    "allergens": [
+        {
+            "id": 1,
+            "name": "gluten"
+        },
+        {
+            "id": 2,
+            "name": "lactose"
+        },
+        {
+            "id": 3,
+            "name": "fish"
+        },
+        {
+            "id": 4,
+            "name": "crustesian"
+        },
+        {
+            "id": 5,
+            "name": "egg"
+        },
+        {
+            "id": 6,
+            "name": "soy"
+        },
+        {
+            "id": 7,
+            "name": "mustard"
+        },
+        {
+            "id": 8,
+            "name": "mushroom"
+        }
+    ]
+}
