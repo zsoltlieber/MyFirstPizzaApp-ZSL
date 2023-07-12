@@ -1,8 +1,8 @@
 {
     "pizzaTypes": [
         {
-            "id": 1,
-            "name": "Margherita",
+            "pizzaId": 1,
+            "pizzaName": "Margherita",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "garlic",
@@ -16,8 +16,8 @@
             "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_margarita_500x500.jpg"
         },
         {
-            "id": 2,
-            "name": "Prosciutto",
+            "pizzaId": 2,
+            "pizzaName": "Prosciutto",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "garlic",
@@ -31,8 +31,8 @@
             "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2021_02_PH_mobilapp_termekkepek_500x500_capricciosa.jpg"
         },
         {
-            "id": 3,
-            "name": "Salami",
+            "pizzaId": 3,
+            "pizzaName": "Salami",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "oregano",
@@ -47,8 +47,8 @@
             "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_olasz_500x500.jpg"
         },
         {
-            "id": 4,
-            "name": "Hawaii",
+            "pizzaId": 4,
+            "pizzaName": "Hawaii",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "pineapple",
@@ -63,8 +63,8 @@
             "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_hawaii_500x500.jpg"
         },
         {
-            "id": 5,
-            "name": "Tonno",
+            "pizzaId": 5,
+            "pizzaName": "Tonno",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "garlic",
@@ -83,8 +83,8 @@
             "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_szuperszuprem_500x500.jpg"
         },
         {
-            "id": 6,
-            "name": "Frutti di mare",
+            "pizzaId": 6,
+            "pizzaName": "Frutti di mare",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "garlic",
@@ -99,8 +99,8 @@
             "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_husimado_500x500.jpg"
         },
         {
-            "id": 7,
-            "name": "Funghi",
+            "pizzaId": 7,
+            "pizzaName": "Funghi",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "garlic",
@@ -116,8 +116,8 @@
             "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_dallas_500x500.jpg"
         },
         {
-            "id": 8,
-            "name": "Gluten-Free Margherita",
+            "pizzaId": 8,
+            "pizzaName": "Gluten-Free Margherita",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "garlic",
@@ -132,8 +132,8 @@
             "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_margarita_500x500.jpg"
         },
         {
-            "id": 9,
-            "name": "Gluten and Egg free Funghi",
+            "pizzaId": 9,
+            "pizzaName": "Gluten and Egg free Funghi",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "garlic",
@@ -147,8 +147,8 @@
             "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2021_02_PH_mobilapp_termekkepek_500x500_farmer.jpg"
         },
         {
-            "id": 10,
-            "name": "Gluten free quattro formaggi",
+            "pizzaId": 10,
+            "pizzaName": "Gluten free quattro formaggi",
             "ingredients": [
                 "San Marzano tomato sauce",
                 "garlic",

@@ -13,9 +13,25 @@ const PORT = 8080;
 const app = express();
 dotenv.config();
 
+/*
+var MongoClient = require('mongodb').MongoClient;
+//Create a database named "mydb":
+var url = "mongodb://localhost:27017/mydb";
+
+MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    console.log("Database created!");
+    db.close();
+});
+
+*/
+
+
+
 const connect = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URL)
+        console.log("Database created!");
     }
     catch (error) {
         throw error;
@@ -29,6 +45,8 @@ mongoose.connection.on("disconnected", () => {
 mongoose.connection.on("connected", () => {
     console.log("MongoDB is connected!")
 });
+
+app.use(express.json());
 
 app.use("/api/auth", authenticationRoute);
 app.use("/api/allergens", allergensRoute);
