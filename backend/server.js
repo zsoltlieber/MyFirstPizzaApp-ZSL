@@ -30,12 +30,12 @@ mongoose.connection.on("connected", () => {
     console.log("MongoDB is connected!")
 });
 
-app.use("api/auth", authenticationRoute);
-app.use("api/allergens", allergensRoute);
-app.use("api/pizzas", pizzaTypesRoute);
-app.use("api/clients", clientsRoute);
-app.use("api/messages", messagesRoute);
-app.use("api/orders", ordersRoute);
+app.use("/api/auth", authenticationRoute);
+app.use("/api/allergens", allergensRoute);
+app.use("/api/pizzas", pizzaTypesRoute);
+app.use("/api/clients", clientsRoute);
+app.use("/api/messages", messagesRoute);
+app.use("/api/orders", ordersRoute);
 
 app.listen(PORT, () => {
     connect();
