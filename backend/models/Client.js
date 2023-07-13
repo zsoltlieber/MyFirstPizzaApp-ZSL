@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ClientSchema = new Schema({
-    clientId: String,
+    clientId: Number,
     firstName: {
         type: String,
         required: true
@@ -45,4 +45,4 @@ const ClientSchema = new Schema({
     },
 });
 
-export default mongoose.model("Client", ClientSchema);
+export default mongoose.model("clients", ClientSchema);
