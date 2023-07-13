@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const MessageSchema = new Schema({
-    clientId: String,
+    clientId: Number,
     clientName: {
         type: String,
         require: true
@@ -18,4 +18,4 @@ const MessageSchema = new Schema({
     }
 });
 
-export default mongoose.model("Message", MessageSchema); 
+export default mongoose.model("messages", MessageSchema); 

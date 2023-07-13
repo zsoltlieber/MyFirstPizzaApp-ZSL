@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
-    clientId: String,
+    orderId: Number,
+    clientId: Number,
     orderedItems: [{
         pizzaId: {
             type: String,
@@ -21,4 +22,4 @@ const OrderSchema = new Schema({
     }
 });
 
-export default mongoose.model("Order", OrderSchema);
+export default mongoose.model("orders", OrderSchema);
