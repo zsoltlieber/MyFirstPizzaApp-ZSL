@@ -8,25 +8,9 @@ import pizzaTypesRoute from './routes/pizzaTypes.js';
 import ordersRoute from './routes/orders.js';
 import messagesRoute from './routes/messages.js';
 
-
 const PORT = 8080;
 const app = express();
 dotenv.config();
-
-/*
-var MongoClient = require('mongodb').MongoClient;
-//Create a database named "mydb":
-var url = "mongodb://localhost:27017/mydb";
-
-MongoClient.connect(url, function (err, db) {
-    if (err) throw err;
-    console.log("Database created!");
-    db.close();
-});
-
-*/
-
-
 
 const connect = async () => {
     try {
@@ -48,14 +32,18 @@ mongoose.connection.on("connected", () => {
 
 app.use(express.json());
 
-app.use("/api/auth", authenticationRoute);
+app.use("/api/authentication", authenticationRoute);
 app.use("/api/allergens", allergensRoute);
-app.use("/api/pizzas", pizzaTypesRoute);
+app.use("/api/pizzaTypes", pizzaTypesRoute);
 app.use("/api/clients", clientsRoute);
 app.use("/api/messages", messagesRoute);
 app.use("/api/orders", ordersRoute);
 
 app.listen(PORT, () => {
-    connect();
     console.log(`Backend server listen on: ${PORT} port!`)
+});
+
+connect().catch((err) => {
+    console.error(err);
+    process.exit(1);
 });
