@@ -1,0 +1,63 @@
+{
+    "clients": [
+        [
+            {
+                "clientId": 1,
+                "firstName": "Gáspár",
+                "middleName": "",
+                "lastName": "Kovács",
+                "email": "kogazsi@mai.hu",
+                "password": "password1",
+                "phoneNumber": [
+                    "+36-30-123-4567"
+                ],
+                "address": [
+                    {
+                        "postCode": "1121",
+                        "city": "Budapest",
+                        "streetAndNumber": "Hősök tere 1.",
+                        "otherInfo": "2.em. 2. kapukód:22"
+                    }
+                ]
+            },
+            {
+                "clientId": 2,
+                "firstName": "Béla",
+                "middleName": "László",
+                "lastName": "Kovács",
+                "email": "kolabe@mai.hu",
+                "password": "password2",
+                "phoneNumber": [
+                    "+36-30-123-4567"
+                ],
+                "address": [
+                    {
+                        "postCode": "1121",
+                        "city": "Budapest",
+                        "streetAndNumber": "Vereckei utca 21.",
+                        "otherInfo": "2.em. 2. kapukód:22"
+                    }
+                ]
+            },
+            {
+                "clientId": 5,
+                "firstName": "Béla",
+                "middleName": "Nagybányai",
+                "lastName": "Kovács",
+                "email": "KoNagyBela@mai.hu",
+                "password": "password3",
+                "phoneNumber": [
+                    "+36-30-123-4567"
+                ],
+                "address": [
+                    {
+                        "postCode": "1121",
+                        "city": "Budapest",
+                        "streetAndNumber": "Hősök tere 15.",
+                        "otherInfo": "1.em. 2. kapukód:12"
+                    }
+                ]
+            }
+        ]
+    ]
+}
