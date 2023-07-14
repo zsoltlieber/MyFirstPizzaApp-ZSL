@@ -6,20 +6,28 @@ const ClientSchema = new Schema({
     clientId: Number,
     firstName: {
         type: String,
-        require: true
+        require: true,
+        unique: true
     },
     middleName: String,
     lastName: {
         type: String,
-        require: true
+        require: true,
+        unique: true
     },
     email: {
         type: String,
-        require: true
+        require: true,
+        unique: true
     },
     password: {
         type: String,
-        require: true
+        require: true,
+        unique: true
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
     phoneNumber: [String],
     address: [
@@ -45,4 +53,4 @@ const ClientSchema = new Schema({
     },
 });
 
-export default mongoose.model("clients", ClientSchema);
+export default mongoose.model("Clients", ClientSchema);

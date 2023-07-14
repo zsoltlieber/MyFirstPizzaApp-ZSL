@@ -4,9 +4,10 @@
             "clientId": 1,
             "firstName": "Gáspár",
             "middleName": "",
-            "lastName": "Kovács",
+            "lastName": "Kovacs",
             "email": "kogazsi@mai.hu",
             "password": "password1",
+            "isAdmin": false,
             "phoneNumber": [
                 "+36-30-123-4567"
             ],
@@ -26,6 +27,7 @@
             "lastName": "Kovács",
             "email": "kolabe@mai.hu",
             "password": "password2",
+            "isAdmin": false,
             "phoneNumber": [
                 "+36-30-123-4567"
             ],
@@ -51,6 +53,7 @@
             "lastName": "Kovács",
             "email": "KoNagyBela@mai.hu",
             "password": "password3",
+            "isAdmin": false,
             "phoneNumber": [
                 "+36-30-123-4567",
                 "+36-30-123-4568"

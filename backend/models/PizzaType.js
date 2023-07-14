@@ -11,4 +11,4 @@ const PizzaTypeSchema = new Schema({
     src: String    
 });
 
-export default mongoose.model("pizzatypes", PizzaTypeSchema);
+export default mongoose.model("Pizzatypes", PizzaTypeSchema);

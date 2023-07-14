@@ -32,7 +32,7 @@ mongoose.connection.on("connected", () => {
 
 app.use(express.json());
 
-app.use("/api/authentication", authenticationRoute);
+app.use("/api/auth", authenticationRoute);
 app.use("/api/allergens", allergensRoute);
 app.use("/api/pizzaTypes", pizzaTypesRoute);
 app.use("/api/clients", clientsRoute);

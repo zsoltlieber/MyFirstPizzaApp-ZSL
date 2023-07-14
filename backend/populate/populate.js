@@ -59,11 +59,11 @@ const populateMessages = async () => {
 const main = async () => {
     await mongoose.connect(mongoUrl);
 
-    await populateAllergens();
     await populateMessages();
-    await populateClients();
     await populateOrders();
+    await populateClients();
     await populatePizzaTypes();
+    //await populateAllergens();
 
     await mongoose.disconnect();
 };
