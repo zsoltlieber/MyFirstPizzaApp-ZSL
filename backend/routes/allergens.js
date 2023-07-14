@@ -7,7 +7,6 @@ import {
     getAllergens
 } from '../controllers/allergens.js';
 
-
 const allergensRouter = express.Router();
 
 allergensRouter.post("/", createAllergen);
@@ -16,8 +15,8 @@ allergensRouter.put("/:id", updateAllergen);
 
 allergensRouter.delete("/:id", deleteAllergen);
 
-allergensRouter.get("/:id", getAllergen);
-
 allergensRouter.get("/", getAllergens);
+
+allergensRouter.get("/:id", getAllergen);
 
 export default allergensRouter;
