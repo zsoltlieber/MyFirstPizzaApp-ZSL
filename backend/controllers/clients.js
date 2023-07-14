@@ -7,7 +7,7 @@ export const createClient = (async (req, res, next) => {
     try {
         const savedClient = await newClient.save();
         res.status(200).json(savedClient);
-        console.log(`${savedClient.clientId + " " + savedClient.firstName + " " + savedClient.lastName} client has been saved!`);
+        console.log(`${savedClient.clientName} - client has been saved!`);
 
     } catch (error) {
         next(error)
@@ -22,7 +22,7 @@ export const updateClient = (async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatedClient);
-        console.log(`${updatedClient.clientId + " " + updatedClient.firstName + " " + updatedClient.lastName} has been updated!`);
+        console.log(`${updatedClient.clientId + " " + updatedClient.clientName} - has been updated!`);
 
     } catch (error) {
         next(error)

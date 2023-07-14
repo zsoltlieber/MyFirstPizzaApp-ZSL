@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import authenticationRoute from './routes/authentication.js';
+import authRoute from './routes/auth.js';
 import clientsRoute from './routes/clients.js';
 import allergensRoute from './routes/allergens.js';
 import pizzaTypesRoute from './routes/pizzaTypes.js';
@@ -32,7 +32,7 @@ mongoose.connection.on("connected", () => {
 
 app.use(express.json());
 
-app.use("/api/auth", authenticationRoute);
+app.use("/api/auth", authRoute);
 app.use("/api/allergens", allergensRoute);
 app.use("/api/pizzaTypes", pizzaTypesRoute);
 app.use("/api/clients", clientsRoute);

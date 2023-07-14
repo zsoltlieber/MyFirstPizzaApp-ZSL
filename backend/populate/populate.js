@@ -12,8 +12,8 @@ import clientsData from './clients.json' assert {type: 'json'};
 import ordersData from './orders.json' assert {type: 'json'};
 import messagesData from './messages.json' assert {type: 'json'};
 
-
 dotenv.config();
+
 const allergens = allergensData.allergens;
 const pizzaTypes = pizzaTypesData.pizzaTypes;
 const clients = clientsData.clients;
@@ -59,11 +59,11 @@ const populateMessages = async () => {
 const main = async () => {
     await mongoose.connect(mongoUrl);
 
+    await populateAllergens();
+    await populatePizzaTypes();
     await populateMessages();
     await populateOrders();
     await populateClients();
-    await populatePizzaTypes();
-    //await populateAllergens();
 
     await mongoose.disconnect();
 };

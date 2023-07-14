@@ -4,27 +4,9 @@ const { Schema } = mongoose;
 
 const ClientSchema = new Schema({
     clientId: Number,
-    firstName: {
-        type: String,
-        require: true,
-        unique: true
-    },
-    middleName: String,
-    lastName: {
-        type: String,
-        require: true,
-        unique: true
-    },
-    email: {
-        type: String,
-        require: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        require: true,
-        unique: true
-    },
+    clientName: String,
+    email: String,
+    password: String,
     isAdmin: {
         type: Boolean,
         default: false
@@ -32,18 +14,9 @@ const ClientSchema = new Schema({
     phoneNumber: [String],
     address: [
         {
-            postCode: {
-                type: String,
-                require: true
-            },
-            city: {
-                type: String,
-                require: true
-            },
-            streetAndNumber: {
-                type: String,
-                require: true
-            },
+            postCode: String,
+            city: String,
+            streetAndNumber: String,
             otherInfo: String
         },
     ],
