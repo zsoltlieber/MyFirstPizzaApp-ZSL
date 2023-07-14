@@ -52,7 +52,8 @@
             "email": "KoNagyBela@mai.hu",
             "password": "password3",
             "phoneNumber": [
-                "+36-30-123-4567"
+                "+36-30-123-4567",
+                "+36-30-123-4568"
             ],
             "address": [
                 {
