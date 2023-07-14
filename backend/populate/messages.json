@@ -1,22 +1,22 @@
 {
     "messages": [
         {
-            "clientId": 3,
+            "clientId": 1,
             "clientName": "Nagy Okos István",
             "message": "Ez egy nagyon jó pizzéria"
         },
         {
-            "clientId": 35,
+            "clientId": 5,
             "clientName": "Nagy Ügyes Gárpár",
             "message": "Ez a világbajnokok legjobb pizzériája"
         },
         {
-            "clientId": 50,
+            "clientId": 2,
             "clientName": "Kovács Melánia",
             "message": "Ez egy nagyon vacak pizzéria"
         },
         {
-            "clientId": 112,
+            "clientId": 5,
             "clientName": "Kiss András",
             "message": "Ez egy nagyon végtelenül pocsék pizzéria"
         }

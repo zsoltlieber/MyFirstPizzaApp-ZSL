@@ -1,70 +1,68 @@
 {
     "orders": [
-        [
-            {
-                "orderId": 1,
-                "clientId": 154,
-                "orderedItems": [
-                    {
-                        "pizzaId": "11",
-                        "pricePerEach": 3900,
-                        "quantity": 3
-                    },
-                    {
-                        "pizzaId": "31",
-                        "pricePerEach": 4900,
-                        "quantity": 1
-                    }
-                ]
-            },
-            {
-                "orderId": 4,
-                "clientId": 154,
-                "orderedItems": [
-                    {
-                        "pizzaId": "13331",
-                        "pricePerEach": 5900,
-                        "quantity": 1
-                    },
-                    {
-                        "pizzaId": "31",
-                        "pricePerEach": 4900,
-                        "quantity": 1
-                    }
-                ]
-            },
-            {
-                "orderId": 549,
-                "clientId": 154,
-                "orderedItems": [
-                    {
-                        "pizzaId": "11",
-                        "pricePerEach": 3900,
-                        "quantity": 3
-                    },
-                    {
-                        "pizzaId": "31",
-                        "pricePerEach": 4900,
-                        "quantity": 1
-                    }
-                ]
-            },
-            {
-                "orderId": 549,
-                "clientId": 154,
-                "orderedItems": [
-                    {
-                        "pizzaId": "11",
-                        "pricePerEach": 3900,
-                        "quantity": 3
-                    },
-                    {
-                        "pizzaId": "31",
-                        "pricePerEach": 4900,
-                        "quantity": 1
-                    }
-                ]
-            }
-        ]
+        {
+            "orderId": 1,
+            "clientId": 1,
+            "orderedItems": [
+                {
+                    "pizzaId": "1",
+                    "pricePerEach": 3900,
+                    "quantity": 3
+                },
+                {
+                    "pizzaId": "3",
+                    "pricePerEach": 4900,
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "orderId": 2,
+            "clientId": 2,
+            "orderedItems": [
+                {
+                    "pizzaId": "2",
+                    "pricePerEach": 5900,
+                    "quantity": 1
+                },
+                {
+                    "pizzaId": "3",
+                    "pricePerEach": 4900,
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "orderId": 3,
+            "clientId": 1,
+            "orderedItems": [
+                {
+                    "pizzaId": "1",
+                    "pricePerEach": 3900,
+                    "quantity": 3
+                },
+                {
+                    "pizzaId": "3",
+                    "pricePerEach": 4900,
+                    "quantity": 1
+                }
+            ]
+        },
+        {
+            "orderId": 4,
+            "clientId": 5,
+            "orderedItems": [
+                {
+                    "pizzaId": "2",
+                    "pricePerEach": 3900,
+                    "quantity": 3
+                },
+                {
+                    "pizzaId": "1",
+                    "pricePerEach": 4900,
+                    "quantity": 1
+                }
+            ]
+        }
     ]
 }

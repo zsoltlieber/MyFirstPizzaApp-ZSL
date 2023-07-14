@@ -6,35 +6,35 @@ const ClientSchema = new Schema({
     clientId: Number,
     firstName: {
         type: String,
-        required: true
+        require: true
     },
     middleName: String,
     lastName: {
         type: String,
-        required: true
+        require: true
     },
     email: {
         type: String,
-        required: true
+        require: true
     },
     password: {
         type: String,
-        required: true
+        require: true
     },
     phoneNumber: [String],
     address: [
         {
             postCode: {
                 type: String,
-                required: true
+                require: true
             },
             city: {
                 type: String,
-                required: true
+                require: true
             },
             streetAndNumber: {
                 type: String,
-                required: true
+                require: true
             },
             otherInfo: String
         },
