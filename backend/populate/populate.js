@@ -35,6 +35,10 @@ const main = async () => {
     await populateAllergens();
     await populatePizzaTypes();
 
+    await populateClietns();
+    await populateOrders();
+    await populateMessages();
+    
     await mongoose.disconnect();
 };
 
