@@ -8,7 +8,6 @@ import pizzaTypesRoute from './routes/pizzaTypes.js';
 import ordersRoute from './routes/orders.js';
 import messagesRoute from './routes/messages.js';
 
-
 const PORT = 8080;
 const app = express();
 dotenv.config();
@@ -16,6 +15,7 @@ dotenv.config();
 const connect = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URL)
+        console.log("Database created!");
     }
     catch (error) {
         throw error;
@@ -30,14 +30,20 @@ mongoose.connection.on("connected", () => {
     console.log("MongoDB is connected!")
 });
 
-app.use("/api/auth", authenticationRoute);
+app.use(express.json());
+
+app.use("/api/authentication", authenticationRoute);
 app.use("/api/allergens", allergensRoute);
-app.use("/api/pizzas", pizzaTypesRoute);
+app.use("/api/pizzaTypes", pizzaTypesRoute);
 app.use("/api/clients", clientsRoute);
 app.use("/api/messages", messagesRoute);
 app.use("/api/orders", ordersRoute);
 
 app.listen(PORT, () => {
-    connect();
     console.log(`Backend server listen on: ${PORT} port!`)
+});
+
+connect().catch((err) => {
+    console.error(err);
+    process.exit(1);
 });
