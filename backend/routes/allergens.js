@@ -3,8 +3,8 @@ import {
     createAllergen,
     updateAllergen,
     deleteAllergen,
-    getAllergen,
-    getAllergens
+    getAllergens,
+    getAllergen
 } from '../controllers/allergens.js';
 
 const allergensRouter = express.Router();

@@ -7,7 +7,7 @@ export const createAllergen = async (req, res, next) => {
     try {
         const savedAllergen = await newAllergen.save();
         res.status(200).json(savedAllergen);
-        console.log(`${savedAllergen.allergenId + " - " + savedAllergen.allergenName} has been saved!`);
+        console.log(`${savedAllergen.allergenId + " - " + savedAllergen.allergenName} allergen has been saved!`);
 
     } catch (error) {
         next(error);
@@ -63,6 +63,6 @@ export default {
     createAllergen,
     updateAllergen,
     deleteAllergen,
-    getAllergen,
-    getAllergens
+    getAllergens,
+    getAllergen
 }

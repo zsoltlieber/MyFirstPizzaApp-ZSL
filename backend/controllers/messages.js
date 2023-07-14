@@ -60,7 +60,6 @@ export const getMessage = async (req, res, next) => {
     }
 };
 
-
 export default {
     createMessage,
     upgradeMessage,
