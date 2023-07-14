@@ -1,7 +1,10 @@
 import express from 'express';
 import {
-    createAllergen, updateAllergen, deleteAllergen,
-    getAllergen, getAllergens
+    createAllergen,
+    updateAllergen,
+    deleteAllergen,
+    getAllergen,
+    getAllergens
 } from '../controllers/allergens.js';
 
 
