@@ -1,10 +1,11 @@
 import express from 'express';
-import { verifyToken, verifyClient, verifyAdmin } from '../utils/verifyToken.js';
+import { verifyAdmin } from '../utils/verifyToken.js';
 
 import {
     createPizzaType,
     updatePizzaType,
     deletePizzaType,
+    getPizzaTypesAll,
     getPizzaTypes,
     getPizzaType
 } from '../controllers/pizzaTypes.js';
@@ -13,12 +14,14 @@ const pizzaTypesRouter = express.Router();
 
 pizzaTypesRouter.post("/", verifyAdmin, createPizzaType);
 
-pizzaTypesRouter.put("/:id",verifyAdmin, updatePizzaType);
+pizzaTypesRouter.put("/:id", verifyAdmin, updatePizzaType);
 
 pizzaTypesRouter.delete("/:id", verifyAdmin, deletePizzaType);
 
-pizzaTypesRouter.get("/",  getPizzaTypes);
+pizzaTypesRouter.get("/all", verifyAdmin, getPizzaTypesAll);
 
-pizzaTypesRouter.get("/:id",  getPizzaType);
+pizzaTypesRouter.get("/", getPizzaTypes);
+
+pizzaTypesRouter.get("/:id", getPizzaType);
 
 export default pizzaTypesRouter;

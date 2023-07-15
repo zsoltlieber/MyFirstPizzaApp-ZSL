@@ -1,7 +1,6 @@
 [
     {
         "orderId": 1,
-        "clientId": 1,
         "orderedItems": [
             {
                 "pizzaId": "1",
@@ -17,7 +16,6 @@
     },
     {
         "orderId": 2,
-        "clientId": 2,
         "orderedItems": [
             {
                 "pizzaId": "2",
@@ -33,7 +31,6 @@
     },
     {
         "orderId": 3,
-        "clientId": 1,
         "orderedItems": [
             {
                 "pizzaId": "1",
@@ -49,7 +46,6 @@
     },
     {
         "orderId": 4,
-        "clientId": 5,
         "orderedItems": [
             {
                 "pizzaId": "2",

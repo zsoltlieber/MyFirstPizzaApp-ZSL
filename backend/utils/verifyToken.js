@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import createError from './error.js';
 import { error } from 'console';
 
-export const verifyToken = (req, res, next) => { 
+export const verifyToken = (req, res, next) => {
 
     const jwtToken = req.cookies.access_token;
 
@@ -12,17 +12,17 @@ export const verifyToken = (req, res, next) => {
 
     jwt.verify(jwtToken, process.env.JWT, (error, client) => {
         if (error) return next(createError(403, "Token is not valid!"));
-        
+
         //if token is valid
         req.client = client;
         next();
     });
 }
 
-export const verifyClient = (req, res, next) => { 
+export const verifyClient = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.client.id === req.params.id || req.client.isAdmin) {
-            next();   
+            next();
         } else {
             if (error) return next(createError(403, "You are not authorized!"));
         }

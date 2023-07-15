@@ -7,7 +7,7 @@ export const createAllergen = async (req, res, next) => {
     try {
         const savedAllergen = await newAllergen.save();
         res.status(200).json(savedAllergen);
-        console.log(`${savedAllergen.allergenId + " - " + savedAllergen.allergenName} allergen has been saved!`);
+        console.log(`${savedAllergen.allergenName} - allergen has been saved!`);
 
     } catch (error) {
         next(error);
@@ -15,13 +15,16 @@ export const createAllergen = async (req, res, next) => {
 };
 
 export const updateAllergen = async (req, res, next) => {
+    const actialClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
+    req.body = JSON.parse(`{"clientId":"${actialClientId}",`.concat(JSON.stringify(req.body).slice(1)));
+
     try {
         const updateAllergen = await Allergen.findByIdAndUpdate(
             req.params.id,
             { $set: req.body },
             { new: true });
         res.status(200).json(updateAllergen);
-        console.log(`${updateAllergen.allergenId + " - " + updateAllergen.allergenName} has been updated!`);
+        console.log(`${updateAllergen._id} - ${updateAllergen.allergenName} - has been updated!`);
 
     } catch (error) {
         next(error);
@@ -31,8 +34,18 @@ export const updateAllergen = async (req, res, next) => {
 export const deleteAllergen = async (req, res, next) => {
     try {
         await Allergen.findByIdAndDelete(req.params.id);
-        res.status(200).json(`${req.params.id} allergen has been deleted!`);
-        console.log(`${req.params.id} allergen has been deleted!`);
+        res.status(200).json(`${req.params.id} - allergen has been deleted!`);
+        console.log(`${req.params.id} - allergen has been deleted!`);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getAllergensAll = async (req, res, next) => {
+    try {
+        const allergens = await Allergen.find();
+        res.status(200).json(allergens);
 
     } catch (error) {
         next(error);
@@ -41,7 +54,7 @@ export const deleteAllergen = async (req, res, next) => {
 
 export const getAllergens = async (req, res, next) => {
     try {
-        const allergens = await Allergen.find();
+        const allergens = (await Allergen.find()).filter((data) => data.isActive);
         res.status(200).json(allergens);
 
     } catch (error) {
@@ -63,6 +76,7 @@ export default {
     createAllergen,
     updateAllergen,
     deleteAllergen,
+    getAllergensAll,
     getAllergens,
     getAllergen
 }
