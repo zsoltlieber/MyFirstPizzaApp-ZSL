@@ -1,5 +1,6 @@
 import Client from '../models/Client.js';
 import bcrypt from 'bcryptjs';
+import  createError from '../utils/error.js';
 
 export const register = async (req, res, next) => {
 
@@ -12,9 +13,9 @@ export const register = async (req, res, next) => {
             password: hashedPassword
         });
 
-        await newClient.save()
-        res.status(200).send("User has been created.")
-
+        await newClient.save();
+        res.status(200).json(`${newClient.clientName} - client was registered.`);
+        console.log(`${newClient.clientName} - client was registered.`);
 
     } catch (error) {
         next(error);
@@ -26,7 +27,6 @@ export const login = async (req, res, next) => {
     try {
         const client = await Client.findOne({ clientName: req.body.clientName });
         if (!client) return next(createError(404, "Client not found!"));
-        
         const isPasswordCorrect = await bcrypt.compare(req.body.password, client.password);
         if (!isPasswordCorrect) return next(createError(400, "Wrong client name or password!"));
 
@@ -39,5 +39,5 @@ export const login = async (req, res, next) => {
 
 export default {
     register,
-    login
+    login,
 }
