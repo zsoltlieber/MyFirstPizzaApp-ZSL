@@ -16,7 +16,15 @@ const OrderSchema = new Schema({
             type: Number,
             min: 1
         },
-        quantity: Number
+        quantity: Number,
+        isInProcess: {
+            type: Boolean,
+            default: false
+        },
+        isReady: {
+            type: Boolean,
+            default: false
+        }
     }],
     created: {
         type: Date,

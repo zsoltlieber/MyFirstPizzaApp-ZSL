@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyClient, verifyAdmin } from '../utils/verifyToken.js';
+import {verifyToken, verifyClient, verifyAdmin } from '../utils/verifyToken.js';
 
 import {
     registerClient,
@@ -11,7 +11,7 @@ import {
 
 const clientsRouter = express.Router();
 
-/*
+
 clientsRouter.get("/checkAuthentication", verifyToken, (req, res, next) => {
     const loggedClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
     res.send(`Hello ${loggedClientId}  Client, you are logged in!`);
@@ -27,7 +27,7 @@ clientsRouter.get("/checkAdmin/:id", verifyAdmin, (req, res, next) => {
     res.send(`Hello ${req.params.id}  Admin, you are logged in you can delete all accounts!`);
     console.log(`Hello ${req.params.id}  Admin, you are logged in you can delete all accounts!`);
 });
-*/
+
 
 clientsRouter.post("/register", registerClient);
 

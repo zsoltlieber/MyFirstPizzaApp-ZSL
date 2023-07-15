@@ -35,7 +35,6 @@ const populatePizzaTypes = async () => {
 
 const populateClients = async () => {
     await ClientModel.deleteMany({});
-    console.log(clients)
     await ClientModel.create(...clients);
     console.log("Clients db created from json data");
 }

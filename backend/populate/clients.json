@@ -3,7 +3,7 @@
         "clientId": 1,
         "clientName": "Kovács Gáspár",
         "email": "kogazsi@mai.hu",
-        "password": "password1",
+        "password": "$2a$12$YuzziSwKCfj6uVDIer196eeNonOH1qfS.32hpk0m5DS0O3eu0Jbuy",
         "phoneNumber": [
             "+36-30-123-4567"
         ],
@@ -20,7 +20,7 @@
         "clientId": 2,
         "clientName": "Kovács László Béla",
         "email": "kolabe@mai.hu",
-        "password": "password2",
+        "password": "$2a$12$kRHPpKzcMvRrt32f3ktIxeYKw0MwuLBHna5Lk6vNr/uuJSpDmdKP2",
         "phoneNumber": [
             "+36-30-123-4567"
         ],
@@ -43,7 +43,7 @@
         "clientId": 3,
         "clientName": "Nagybányai Lakatos Töhötöm",
         "email": "KoNagyBela@mai.hu",
-        "password": "password3",
+        "password": "$2a$12$E1KH0S3cVdTmgyz.wzNoSuCUbn.J6vtxv7GFc7PbUK2dyS8MXm8mq",
         "phoneNumber": [
             "+36-30-123-4567",
             "+36-30-123-4568"
@@ -61,7 +61,7 @@
         "clientId": 4,
         "clientName": "Main Admin",
         "email": "MainAdmin@mail.hu",
-        "password": "passwordSecret12345",
+        "password": "$2a$12$wly2Mw1FweKS4oTvh1thAeUVbLt.tEtmnhQUEE1q8FsQo0OsBsGPG",
         "isAdmin": true
     }
 ]

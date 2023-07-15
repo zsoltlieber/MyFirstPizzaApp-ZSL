@@ -17,8 +17,8 @@ messagesRouter.put("/:id", verifyClient, upgradeMessage);
 
 messagesRouter.delete("/:id", verifyClient, deleteMessage);
 
-messagesRouter.get("/", verifyAdmin, getMessages);
+messagesRouter.get("/", getMessages);
 
-messagesRouter.get("/:id", verifyClient, getMessage);
+messagesRouter.get("/:id",  getMessage);
 
 export default messagesRouter;
