@@ -1,4 +1,6 @@
 import express from 'express';
+import { verifyToken, verifyClient, verifyAdmin } from '../utils/verifyToken.js';
+
 import {
     createMessage,
     upgradeMessage,
@@ -9,14 +11,14 @@ import {
 
 const messagesRouter = express.Router();
 
-messagesRouter.post("/", createMessage);
+messagesRouter.post("/", verifyClient, createMessage);
 
-messagesRouter.put("/:id", upgradeMessage);
+messagesRouter.put("/:id", verifyClient, upgradeMessage);
 
-messagesRouter.delete("/:id", deleteMessage);
+messagesRouter.delete("/:id", verifyClient, deleteMessage);
 
-messagesRouter.get("/", getMessages);
+messagesRouter.get("/", verifyAdmin, getMessages);
 
-messagesRouter.get("/:id", getMessage);
+messagesRouter.get("/:id", verifyClient, getMessage);
 
 export default messagesRouter;

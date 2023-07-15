@@ -1,4 +1,6 @@
 import express from 'express';
+import { verifyToken, verifyClient, verifyAdmin } from '../utils/verifyToken.js';
+
 import {
     createAllergen,
     updateAllergen,
@@ -9,14 +11,14 @@ import {
 
 const allergensRouter = express.Router();
 
-allergensRouter.post("/", createAllergen);
+allergensRouter.post("/", verifyAdmin, createAllergen);
 
-allergensRouter.put("/:id", updateAllergen);
+allergensRouter.put("/:id", verifyAdmin, updateAllergen);
 
-allergensRouter.delete("/:id", deleteAllergen);
+allergensRouter.delete("/:id", verifyAdmin, deleteAllergen);
 
-allergensRouter.get("/", getAllergens);
+allergensRouter.get("/", verifyClient, getAllergens);
 
-allergensRouter.get("/:id", getAllergen);
+allergensRouter.get("/:id", verifyClient, getAllergen);
 
 export default allergensRouter;

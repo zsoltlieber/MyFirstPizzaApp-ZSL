@@ -1,4 +1,6 @@
 import express from 'express';
+import { verifyToken, verifyClient, verifyAdmin } from '../utils/verifyToken.js';
+
 import {
     createOrder,
     updateOrder,
@@ -9,14 +11,14 @@ import {
 
 const ordersRouter = express.Router();
 
-ordersRouter.post("/", createOrder);
+ordersRouter.post("/", verifyClient, createOrder);
 
-ordersRouter.put("/:id", updateOrder);
+ordersRouter.put("/:id", verifyClient, updateOrder);
 
-ordersRouter.delete("/:id", deleteOrder);
+ordersRouter.delete("/:id", verifyClient, deleteOrder);
 
-ordersRouter.get("/", getOrders);
+ordersRouter.get("/", verifyAdmin, getOrders);
 
-ordersRouter.get("/:id", getOrder);
+ordersRouter.get("/:id", verifyClient, getOrder);
 
 export default ordersRouter;
