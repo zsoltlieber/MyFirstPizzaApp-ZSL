@@ -3,9 +3,10 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const AllergenSchema = new Schema({
-    clientId: {
-        type: String,
-        require: true
+    clientId: {                     //last modifier ID or initial ID
+        type: String, 
+        require: true, 
+        default: "initial"
     }, 
     allergenName: {
         type: String,

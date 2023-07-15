@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
-    clientId: {
+    clientId: {                     //last modifier ID or initial ID
         type: String,
-        require: true
+        require: true,
+        default: "initial"
     },
     orderedItems: [{
         pizzaId: {

@@ -1,6 +1,5 @@
 [
     {
-        "clientId": 1,
         "clientName": "Kovács Gáspár",
         "email": "kogazsi@mai.hu",
         "password": "$2a$12$YuzziSwKCfj6uVDIer196eeNonOH1qfS.32hpk0m5DS0O3eu0Jbuy",
@@ -17,7 +16,6 @@
         ]
     },
     {
-        "clientId": 2,
         "clientName": "Kovács László Béla",
         "email": "kolabe@mai.hu",
         "password": "$2a$12$kRHPpKzcMvRrt32f3ktIxeYKw0MwuLBHna5Lk6vNr/uuJSpDmdKP2",
@@ -40,7 +38,6 @@
         ]
     },
     {
-        "clientId": 3,
         "clientName": "Nagybányai Lakatos Töhötöm",
         "email": "KoNagyBela@mai.hu",
         "password": "$2a$12$E1KH0S3cVdTmgyz.wzNoSuCUbn.J6vtxv7GFc7PbUK2dyS8MXm8mq",
@@ -58,7 +55,6 @@
         ]
     },
     {
-        "clientId": 4,
         "clientName": "Main Admin",
         "email": "MainAdmin@mail.hu",
         "password": "$2a$12$wly2Mw1FweKS4oTvh1thAeUVbLt.tEtmnhQUEE1q8FsQo0OsBsGPG",

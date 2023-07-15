@@ -3,7 +3,10 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ClientSchema = new Schema({
-    clientId: String,
+    clientId: {
+        type: String,                     //last modifier ID or initial ID
+        default: "initial"
+    },
     clientName: {
         type: String,
         require: true
