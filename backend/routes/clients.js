@@ -1,6 +1,8 @@
 import express from 'express';
+import {verifyToken, verifyClient, verifyAdmin } from '../utils/verifyToken.js';
+
 import {
-    createClient,
+    registerClient,
     updateClient,
     deleteClient,
     getClients,
@@ -9,14 +11,32 @@ import {
 
 const clientsRouter = express.Router();
 
-clientsRouter.post("/", createClient);
 
-clientsRouter.put("/:id", updateClient);
+clientsRouter.get("/checkAuthentication", verifyToken, (req, res, next) => {
+    const loggedClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
+    res.send(`Hello ${loggedClientId}  Client, you are logged in!`);
+    console.log(`Hello ${loggedClientId}  Client, you are logged in!`);
+});
 
-clientsRouter.delete("/:id", deleteClient);
+clientsRouter.get("/checkClient/:id", verifyClient, (req, res, next) => {
+    res.send(`Hello ${req.params.id}}  Client, you are logged in you can delete your account!`);
+    console.log(`Hello ${req.params.id}}  Client, you are logged in you can delete your account!`);
+});
 
-clientsRouter.get("/", getClients);
+clientsRouter.get("/checkAdmin/:id", verifyAdmin, (req, res, next) => {
+    res.send(`Hello ${req.params.id}  Admin, you are logged in you can delete all accounts!`);
+    console.log(`Hello ${req.params.id}  Admin, you are logged in you can delete all accounts!`);
+});
 
-clientsRouter.get("/:id", getClient);
+
+clientsRouter.post("/register", registerClient);
+
+clientsRouter.put("/:id", verifyClient, updateClient);
+
+clientsRouter.delete("/:id", verifyClient, deleteClient);
+
+clientsRouter.get("/", verifyAdmin, getClients);
+
+clientsRouter.get("/:id", verifyClient, getClient);
 
 export default clientsRouter;

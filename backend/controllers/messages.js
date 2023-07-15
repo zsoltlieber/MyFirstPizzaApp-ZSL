@@ -7,7 +7,7 @@ export const createMessage = async (req, res, next) => {
     try {
         const savedMessage = await newMessage.save();
         res.status(200).json(savedMessage);
-        console.log(`${savedMessage.clientId + " - " + savedMessage.clientName} message has been saved!`);
+        console.log(`${savedMessage.clientName} message has been saved!`);
     }
     catch (error) {
         next(error);
@@ -22,7 +22,7 @@ export const upgradeMessage = async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatedMessage);
-        console.log(`${updatedMessage.clientId + " - " + updatedMessage.clientName} message has been updated!`);
+        console.log(`${updatedMessage.clientName} message has been updated!`);
 
     } catch (error) {
         next(error);

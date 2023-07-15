@@ -7,6 +7,7 @@ import allergensRoute from './routes/allergens.js';
 import pizzaTypesRoute from './routes/pizzaTypes.js';
 import ordersRoute from './routes/orders.js';
 import messagesRoute from './routes/messages.js';
+import cookieParser from "cookie-parser";
 
 const PORT = 8080;
 const app = express();
@@ -30,6 +31,7 @@ mongoose.connection.on("connected", () => {
     console.log("MongoDB is connected!")
 });
 
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/auth", authRoute);

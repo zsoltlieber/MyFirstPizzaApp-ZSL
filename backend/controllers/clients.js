@@ -1,17 +1,22 @@
 import Client from '../models/Client.js';
+import bcrypt from 'bcryptjs';
 
-export const createClient = (async (req, res, next) => {
+export const registerClient = (async (req, res, next) => {
 
-    const newClient = new Client(req.body);
+        try {
+            const salt = bcrypt.genSaltSync(10);
+            const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-    try {
-        const savedClient = await newClient.save();
-        res.status(200).json(savedClient);
-        console.log(`${savedClient.clientName} - client has been saved!`);
+            const newClient = new Client(req.body);
+            newClient.password = hashedPassword;
 
-    } catch (error) {
-        next(error)
-    };
+            await newClient.save();
+            res.status(200).json(newClient);
+            console.log(`${newClient.clientName} - client was registered.`);
+
+        } catch (error) {
+            next(error);
+        }
 });
 
 export const updateClient = (async (req, res, next) => {
@@ -61,7 +66,7 @@ export const getClient = (async (req, res, next) => {
 });
 
 export default {
-    createClient,
+    registerClient,
     updateClient,
     deleteClient,
     getClients,
