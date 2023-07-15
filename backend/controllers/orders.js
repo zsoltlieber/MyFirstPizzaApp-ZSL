@@ -38,9 +38,19 @@ export const deleteOrder = async (req, res, next) => {
     }
 };
 
+export const getOrdersAll = async (req, res, next) => {
+    try {
+        const orders = await Order.find();
+        res.status(200).json(orders);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const getOrders = async (req, res, next) => {
     try {
-        const orders = await Order.find().filter((data) => data.isActive);
+        const orders = (await Order.find()).filter((data) => data.isActive);
         res.status(200).json(orders);
 
     } catch (error) {
@@ -50,7 +60,7 @@ export const getOrders = async (req, res, next) => {
 
 export const getOrder = async (req, res, next) => {
     try {
-        const actualOrder = await Order.findById(req.params.id).filter((data) => data.isActive);
+        const actualOrder = await Order.findById(req.params.id);
         res.status(200).json(actualOrder);
 
     } catch (error) {
@@ -62,6 +72,7 @@ export default {
     createOrder,
     updateOrder,
     deleteOrder,
+    getOrdersAll,
     getOrders,
     getOrder
 }

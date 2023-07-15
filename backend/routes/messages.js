@@ -5,6 +5,7 @@ import {
     createMessage,
     upgradeMessage,
     deleteMessage,
+    getMessagesAll,
     getMessages,
     getMessage
 } from '../controllers/messages.js'
@@ -16,6 +17,8 @@ messagesRouter.post("/", verifyToken, createMessage);
 messagesRouter.put("/:id", verifyClient, upgradeMessage);
 
 messagesRouter.delete("/:id", verifyAdmin, deleteMessage);
+
+messagesRouter.get("/all", verifyAdmin, getMessagesAll);
 
 messagesRouter.get("/", getMessages);
 

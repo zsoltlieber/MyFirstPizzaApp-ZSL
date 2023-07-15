@@ -5,6 +5,7 @@ import {
     createPizzaType,
     updatePizzaType,
     deletePizzaType,
+    getPizzaTypesAll,
     getPizzaTypes,
     getPizzaType
 } from '../controllers/pizzaTypes.js';
@@ -16,6 +17,8 @@ pizzaTypesRouter.post("/", verifyAdmin, createPizzaType);
 pizzaTypesRouter.put("/:id", verifyAdmin, updatePizzaType);
 
 pizzaTypesRouter.delete("/:id", verifyAdmin, deletePizzaType);
+
+pizzaTypesRouter.get("/all", verifyAdmin, getPizzaTypesAll);
 
 pizzaTypesRouter.get("/", getPizzaTypes);
 

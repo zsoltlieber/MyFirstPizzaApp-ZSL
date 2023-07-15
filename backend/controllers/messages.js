@@ -40,9 +40,19 @@ export const deleteMessage = async (req, res, next) => {
     }
 };
 
+export const getMessagesAll = async (req, res, next) => {
+    try {
+        const messages = await Message.find();
+        res.status(200).json(messages);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const getMessages = async (req, res, next) => {
     try {
-        const messages = await Message.find().filter((data) => data.isActive);
+        const messages = (await Message.find()).filter((data) => data.isActive);
         res.status(200).json(messages);
 
     } catch (error) {
@@ -52,7 +62,7 @@ export const getMessages = async (req, res, next) => {
 
 export const getMessage = async (req, res, next) => {
     try {
-        const actualMessage = await Message.findById(req.params.id).filter((data) => data.isActive);
+        const actualMessage = await Message.findById(req.params.id);
         res.status(200).json(actualMessage);
 
     } catch (error) {
@@ -64,6 +74,7 @@ export default {
     createMessage,
     upgradeMessage,
     deleteMessage,
+    getMessagesAll,
     getMessages,
     getMessage,
 }

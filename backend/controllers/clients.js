@@ -45,9 +45,19 @@ export const deleteClient = (async (req, res, next) => {
     };
 });
 
+export const getClientsAll = (async (req, res, next) => {
+    try {
+        const clients = await Client.find();
+        res.status(200).json(clients);
+
+    } catch (error) {
+        next(error)
+    };
+});
+
 export const getClients = (async (req, res, next) => {
     try {
-        const clients = await Client.find().filter((data) => data.isActive);
+        const clients = (await Client.find()).filter((data) => data.isActive);
         res.status(200).json(clients);
 
     } catch (error) {
@@ -57,7 +67,7 @@ export const getClients = (async (req, res, next) => {
 
 export const getClient = (async (req, res, next) => {
     try {
-        const actualClient = await Client.findById(req.params.id).filter((data) => data.isActive);
+        const actualClient = await Client.findById(req.params.id);
         res.status(200).json(actualClient);
 
     } catch (error) {
@@ -69,6 +79,7 @@ export default {
     registerClient,
     updateClient,
     deleteClient,
+    getClientsAll,
     getClients,
     getClient
 }

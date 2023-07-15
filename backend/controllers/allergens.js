@@ -39,9 +39,19 @@ export const deleteAllergen = async (req, res, next) => {
     }
 };
 
+export const getAllergensAll = async (req, res, next) => {
+    try {
+        const allergens = await Allergen.find();
+        res.status(200).json(allergens);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const getAllergens = async (req, res, next) => {
     try {
-        const allergens = await Allergen.find().filter((data) => data.isActive);
+        const allergens = (await Allergen.find()).filter((data) => data.isActive);
         res.status(200).json(allergens);
 
     } catch (error) {
@@ -51,7 +61,7 @@ export const getAllergens = async (req, res, next) => {
 
 export const getAllergen = async (req, res, next) => {
     try {
-        const currentAllergen = await Allergen.findById(req.params.id).filter((data) => data.isActive);
+        const currentAllergen = await Allergen.findById(req.params.id);
         res.status(200).json(currentAllergen);
 
     } catch (error) {
@@ -63,6 +73,7 @@ export default {
     createAllergen,
     updateAllergen,
     deleteAllergen,
+    getAllergensAll,
     getAllergens,
     getAllergen
 }

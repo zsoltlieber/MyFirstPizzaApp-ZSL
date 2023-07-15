@@ -5,6 +5,7 @@ import {
     registerClient,
     updateClient,
     deleteClient,
+    getClientsAll,
     getClients,
     getClient
 } from '../controllers/clients.js';
@@ -37,6 +38,8 @@ clientsRouter.post("/register", registerClient);
 clientsRouter.put("/:id", verifyClient, updateClient);
 
 clientsRouter.delete("/:id", verifyAdmin, deleteClient);
+
+clientsRouter.get("/all", verifyAdmin, getClientsAll);
 
 clientsRouter.get("/", verifyAdmin, getClients);
 

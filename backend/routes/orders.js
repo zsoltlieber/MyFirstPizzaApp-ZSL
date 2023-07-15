@@ -5,6 +5,7 @@ import {
     createOrder,
     updateOrder,
     deleteOrder,
+    getOrdersAll,
     getOrders,
     getOrder
 } from '../controllers/orders.js'
@@ -16,6 +17,8 @@ ordersRouter.post("/", verifyToken, createOrder);
 ordersRouter.put("/:id", verifyClient, updateOrder);
 
 ordersRouter.delete("/:id", verifyAdmin, deleteOrder);
+
+ordersRouter.get("/all", verifyAdmin, getOrdersAll);
 
 ordersRouter.get("/", verifyAdmin, getOrders);
 

@@ -5,6 +5,7 @@ import {
     createAllergen,
     updateAllergen,
     deleteAllergen,
+    getAllergensAll,
     getAllergens,
     getAllergen
 } from '../controllers/allergens.js';
@@ -16,6 +17,8 @@ allergensRouter.post("/", verifyAdmin, createAllergen);
 allergensRouter.put("/:id", verifyAdmin, updateAllergen);
 
 allergensRouter.delete("/:id", verifyAdmin, deleteAllergen);
+
+allergensRouter.get("/all", verifyAdmin, getAllergensAll);
 
 allergensRouter.get("/", getAllergens);
 

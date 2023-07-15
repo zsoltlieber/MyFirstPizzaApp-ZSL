@@ -40,9 +40,19 @@ export const deletePizzaType = async (req, res, next) => {
     }
 };
 
+export const getPizzaTypesAll = async (req, res, next) => {
+    try {
+        const pizzaTypes = await PizzaType.find();
+        res.status(200).json(pizzaTypes);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const getPizzaTypes = async (req, res, next) => {
     try {
-        const pizzaTypes = await PizzaType.find().filter((data) => data.isActive);
+        const pizzaTypes = (await PizzaType.find()).filter((data) => data.isActive);
         res.status(200).json(pizzaTypes);
 
     } catch (error) {
@@ -52,7 +62,7 @@ export const getPizzaTypes = async (req, res, next) => {
 
 export const getPizzaType = async (req, res, next) => {
     try {
-        const actualPizzaType = await PizzaType.findById(req.params.id).filter((data) => data.isActive);
+        const actualPizzaType = await PizzaType.findById(req.params.id);
         res.status(200).json(actualPizzaType);
 
     } catch (error) {
@@ -64,6 +74,7 @@ export default {
     createPizzaType,
     updatePizzaType,
     deletePizzaType,
+    getPizzaTypesAll,
     getPizzaTypes,
     getPizzaType
 }
