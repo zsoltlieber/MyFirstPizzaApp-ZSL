@@ -3,8 +3,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
-    orderId: Number,
-    clientId: Number,
+    clientId: {
+        type: String,
+        require: true
+    },
     orderedItems: [{
         pizzaId: {
             type: String,
@@ -14,7 +16,15 @@ const OrderSchema = new Schema({
             type: Number,
             min: 1
         },
-        quantity: Number
+        quantity: Number,
+        isInProcess: {
+            type: Boolean,
+            default: false
+        },
+        isReady: {
+            type: Boolean,
+            default: false
+        }
     }],
     created: {
         type: Date,

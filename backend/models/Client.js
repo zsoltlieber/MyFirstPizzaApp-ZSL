@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ClientSchema = new Schema({
-    clientId: Number,
     clientName: String,
     email: String,
     password: String,

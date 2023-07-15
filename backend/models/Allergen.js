@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const AllergenSchema = new Schema({
-    allergenId: Number,
     allergenName: {
         type: String,
         require: true

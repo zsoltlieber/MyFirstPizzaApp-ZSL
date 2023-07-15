@@ -7,7 +7,7 @@ export const createPizzaType = async (req, res, next) => {
     try {
         const savedPizzaType = await newPizzaType.save();
         res.status(200).json(savedPizzaType);
-        console.log(`${savedPizzaType.pizzaId + " - " + savedPizzaType.pizzaName} pizzatype has been saved!`);
+        console.log(`${savedPizzaType._id + " - " +savedPizzaType.pizzaName} pizzatype has been saved!`);
 
     } catch (error) {
         next(error);
@@ -22,7 +22,7 @@ export const updatePizzaType = async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatePizzaType);
-        console.log(`${updatePizzaType.pizzaId + " - " + updatePizzaType.pizzaName} has been updated!`);
+        console.log(`${updatePizzaType._id + " - " + updatePizzaType.pizzaName} has been updated!`);
 
     } catch (error) {
         next(error);
