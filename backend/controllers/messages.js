@@ -14,7 +14,10 @@ export const createMessage = async (req, res, next) => {
     }
 };
 
-export const upgradeMessage = async (req, res, next) => {
+export const updateMessage = async (req, res, next) => {
+    const actialClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
+    req.body = JSON.parse(`{"clientId":"${actialClientId}",`.concat(JSON.stringify(req.body).slice(1)));
+
     try {
         const updatedMessage = await Message.findByIdAndUpdate(
             req.params.id,
@@ -22,7 +25,7 @@ export const upgradeMessage = async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatedMessage);
-        console.log(`${updatedMessage.clientName} - message has been updated!`);
+        console.log(`${updatedMessage._id} - ${updatedMessage.clientName} - message has been updated!`);
 
     } catch (error) {
         next(error);
@@ -72,7 +75,7 @@ export const getMessage = async (req, res, next) => {
 
 export default {
     createMessage,
-    upgradeMessage,
+    updateMessage,
     deleteMessage,
     getMessagesAll,
     getMessages,

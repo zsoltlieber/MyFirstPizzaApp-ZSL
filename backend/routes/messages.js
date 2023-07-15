@@ -3,7 +3,7 @@ import { verifyToken, verifyClient, verifyAdmin } from '../utils/verifyToken.js'
 
 import {
     createMessage,
-    upgradeMessage,
+    updateMessage,
     deleteMessage,
     getMessagesAll,
     getMessages,
@@ -14,7 +14,7 @@ const messagesRouter = express.Router();
 
 messagesRouter.post("/", verifyToken, createMessage);
 
-messagesRouter.put("/:id", verifyClient, upgradeMessage);
+messagesRouter.put("/:id", verifyClient, updateMessage);
 
 messagesRouter.delete("/:id", verifyAdmin, deleteMessage);
 

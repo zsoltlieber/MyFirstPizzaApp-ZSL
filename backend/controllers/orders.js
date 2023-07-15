@@ -13,6 +13,9 @@ export const createOrder = async (req, res, next) => {
 };
 
 export const updateOrder = async (req, res, next) => {
+    const actialClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
+    req.body = JSON.parse(`{"clientId":"${actialClientId}",`.concat(JSON.stringify(req.body).slice(1)));
+
     try {
         const updatedOrder = await Order.findByIdAndUpdate(
             req.params.id,
@@ -20,7 +23,7 @@ export const updateOrder = async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatedOrder);
-        console.log(`${updatedOrder.clientId} - order has been updated!`)
+        console.log(`${updatedOrder._id} - order has been updated!`)
 
     } catch (error) {
         next(error);

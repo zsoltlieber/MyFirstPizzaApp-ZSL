@@ -15,6 +15,9 @@ export const createPizzaType = async (req, res, next) => {
 };
 
 export const updatePizzaType = async (req, res, next) => {
+    const actialClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
+    req.body = JSON.parse(`{"clientId":"${actialClientId}",`.concat(JSON.stringify(req.body).slice(1)));
+
     try {
         const updatePizzaType = await PizzaType.findByIdAndUpdate(
             req.params.id,
@@ -22,7 +25,7 @@ export const updatePizzaType = async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatePizzaType);
-        console.log(`${updatePizzaType.pizzaName} - pizza type has been updated!`);
+        console.log(`${updatePizzaType._id} - ${updatePizzaType.pizzaName} - pizza type has been updated!`);
 
     } catch (error) {
         next(error);

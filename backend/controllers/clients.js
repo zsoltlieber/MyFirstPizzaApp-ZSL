@@ -20,6 +20,9 @@ export const registerClient = (async (req, res, next) => {
 });
 
 export const updateClient = (async (req, res, next) => {
+    const actialClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
+    req.body = JSON.parse(`{"clientId":"${actialClientId}",`.concat(JSON.stringify(req.body).slice(1)));
+
     try {
         const updatedClient = await Client.findByIdAndUpdate(
             req.params.id,
@@ -27,7 +30,7 @@ export const updateClient = (async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatedClient);
-        console.log(`${updatedClient.clientName} - has been updated!`);
+        console.log(`${updatedClient._id} - ${updatedClient.clientName} - has been updated!`);
 
     } catch (error) {
         next(error)
