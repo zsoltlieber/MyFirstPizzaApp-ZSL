@@ -3,15 +3,16 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ClientSchema = new Schema({
+    clientId: String,
     clientName: {
         type: String,
         require: true
-    }, 
-    email:  String, 
+    },
+    email: String,
     password: {
         type: String,
         require: true
-    }, 
+    },
     isAdmin: {
         type: Boolean,
         default: false
@@ -28,7 +29,7 @@ const ClientSchema = new Schema({
     isActive: {
         type: Boolean,
         default: true
-    }, 
+    },
     created: {
         type: Date,
         default: Date.now

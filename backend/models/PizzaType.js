@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const PizzaTypeSchema = new Schema({
+    clientId: {
+        type: String,
+        require: true
+    }, 
     pizzaName: {
         type: String,
         require: true

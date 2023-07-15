@@ -3,6 +3,10 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const MessageSchema = new Schema({
+    clientId: {
+        type: String,
+        require: true
+    }, 
     clientName: {
         type: String,
         require: true
