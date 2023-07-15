@@ -3,26 +3,6 @@ import bcrypt from 'bcryptjs';
 import createError from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
-export const register = async (req, res, next) => {
-
-    try {
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-
-        const newClient = new Client({
-            clientName: req.body.clientName,
-            password: hashedPassword
-        });
-
-        await newClient.save();
-        res.status(200).json(`${newClient.clientName} - client was registered.`);
-        console.log(`${newClient.clientName} - client was registered.`);
-
-    } catch (error) {
-        next(error);
-    }
-}
-
 export const login = async (req, res, next) => {
 
     try {
@@ -47,6 +27,5 @@ export const login = async (req, res, next) => {
 }
 
 export default {
-    register,
     login,
 }

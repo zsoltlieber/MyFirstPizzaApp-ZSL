@@ -2,7 +2,7 @@ import express from 'express';
 import { verifyClient, verifyAdmin } from '../utils/verifyToken.js';
 
 import {
-    createClient,
+    registerClient,
     updateClient,
     deleteClient,
     getClients,
@@ -29,7 +29,7 @@ clientsRouter.get("/checkAdmin/:id", verifyAdmin, (req, res, next) => {
 });
 */
 
-clientsRouter.post("/", createClient);
+clientsRouter.post("/register", registerClient);
 
 clientsRouter.put("/:id", verifyClient, updateClient);
 
