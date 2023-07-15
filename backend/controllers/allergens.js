@@ -7,7 +7,7 @@ export const createAllergen = async (req, res, next) => {
     try {
         const savedAllergen = await newAllergen.save();
         res.status(200).json(savedAllergen);
-        console.log(`${savedAllergen.allergenId + " - " + savedAllergen.allergenName} allergen has been saved!`);
+        console.log(`${savedAllergen.allergenName} - allergen has been saved!`);
 
     } catch (error) {
         next(error);
@@ -21,7 +21,7 @@ export const updateAllergen = async (req, res, next) => {
             { $set: req.body },
             { new: true });
         res.status(200).json(updateAllergen);
-        console.log(`${updateAllergen.allergenId + " - " + updateAllergen.allergenName} has been updated!`);
+        console.log(`${updateAllergen.allergenName} - has been updated!`);
 
     } catch (error) {
         next(error);
@@ -31,8 +31,8 @@ export const updateAllergen = async (req, res, next) => {
 export const deleteAllergen = async (req, res, next) => {
     try {
         await Allergen.findByIdAndDelete(req.params.id);
-        res.status(200).json(`${req.params.id} allergen has been deleted!`);
-        console.log(`${req.params.id} allergen has been deleted!`);
+        res.status(200).json(`${req.params.id} - allergen has been deleted!`);
+        console.log(`${req.params.id} - allergen has been deleted!`);
 
     } catch (error) {
         next(error);
@@ -41,7 +41,7 @@ export const deleteAllergen = async (req, res, next) => {
 
 export const getAllergens = async (req, res, next) => {
     try {
-        const allergens = await Allergen.find();
+        const allergens = await Allergen.find().filter((data) => data.isActive);
         res.status(200).json(allergens);
 
     } catch (error) {
@@ -51,7 +51,7 @@ export const getAllergens = async (req, res, next) => {
 
 export const getAllergen = async (req, res, next) => {
     try {
-        const currentAllergen = await Allergen.findById(req.params.id);
+        const currentAllergen = await Allergen.findById(req.params.id).filter((data) => data.isActive);
         res.status(200).json(currentAllergen);
 
     } catch (error) {

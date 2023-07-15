@@ -3,20 +3,20 @@ import bcrypt from 'bcryptjs';
 
 export const registerClient = (async (req, res, next) => {
 
-        try {
-            const salt = bcrypt.genSaltSync(10);
-            const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+    try {
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-            const newClient = new Client(req.body);
-            newClient.password = hashedPassword;
+        const newClient = new Client(req.body);
+        newClient.password = hashedPassword;
 
-            await newClient.save();
-            res.status(200).json(newClient);
-            console.log(`${newClient.clientName} - client was registered.`);
+        await newClient.save();
+        res.status(200).json(newClient);
+        console.log(`${newClient.clientName} - client was registered.`);
 
-        } catch (error) {
-            next(error);
-        }
+    } catch (error) {
+        next(error);
+    }
 });
 
 export const updateClient = (async (req, res, next) => {
@@ -27,7 +27,7 @@ export const updateClient = (async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatedClient);
-        console.log(`${updatedClient.clientId + " " + updatedClient.clientName} - has been updated!`);
+        console.log(`${updatedClient.clientName} - has been updated!`);
 
     } catch (error) {
         next(error)
@@ -37,8 +37,8 @@ export const updateClient = (async (req, res, next) => {
 export const deleteClient = (async (req, res, next) => {
     try {
         await Client.findByIdAndDelete(req.params.id);
-        res.status(200).json(`${req.params.id} client has been deleted!`);
-        console.log(`${req.params.id} client has been deleted!`);
+        res.status(200).json(`${req.params.id} - client has been deleted!`);
+        console.log(`${req.params.id} - client has been deleted!`);
 
     } catch (error) {
         next(error)
@@ -47,7 +47,7 @@ export const deleteClient = (async (req, res, next) => {
 
 export const getClients = (async (req, res, next) => {
     try {
-        const clients = await Client.find();
+        const clients = await Client.find().filter((data) => data.isActive);
         res.status(200).json(clients);
 
     } catch (error) {
@@ -57,7 +57,7 @@ export const getClients = (async (req, res, next) => {
 
 export const getClient = (async (req, res, next) => {
     try {
-        const actualClient = await Client.findById(req.params.id);
+        const actualClient = await Client.findById(req.params.id).filter((data) => data.isActive);
         res.status(200).json(actualClient);
 
     } catch (error) {

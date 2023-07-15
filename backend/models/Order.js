@@ -26,6 +26,10 @@ const OrderSchema = new Schema({
             default: false
         }
     }],
+    isActive: {
+        type: Boolean,
+        default: true
+    }, 
     created: {
         type: Date,
         default: Date.now

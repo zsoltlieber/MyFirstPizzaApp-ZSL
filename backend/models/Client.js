@@ -3,9 +3,15 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ClientSchema = new Schema({
-    clientName: String,
-    email: String,
-    password: String,
+    clientName: {
+        type: String,
+        require: true
+    }, 
+    email:  String, 
+    password: {
+        type: String,
+        require: true
+    }, 
     isAdmin: {
         type: Boolean,
         default: false
@@ -19,6 +25,10 @@ const ClientSchema = new Schema({
             otherInfo: String
         },
     ],
+    isActive: {
+        type: Boolean,
+        default: true
+    }, 
     created: {
         type: Date,
         default: Date.now

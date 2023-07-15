@@ -11,6 +11,10 @@ const MessageSchema = new Schema({
         type: String,
         require: true
     },
+    isActive: {
+        type: Boolean,
+        default: true
+    }, 
     created: {
         type: Date,
         default: Date.now

@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyToken, verifyClient, verifyAdmin } from '../utils/verifyToken.js';
+import { verifyAdmin } from '../utils/verifyToken.js';
 
 import {
     createAllergen,
