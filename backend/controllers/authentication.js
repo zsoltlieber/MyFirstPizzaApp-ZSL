@@ -30,7 +30,8 @@ export const login = async (req, res, next) => {
         const isPasswordCorrect = await bcrypt.compare(req.body.password, client.password);
         if (!isPasswordCorrect) return next(createError(400, "Wrong client name or password!"));
 
-        res.status(200).json(client);
+        res.status(200).json(`${ client.clientName } - client loged in!`);
+        console.log(`${client.clientName } - client loged in!`);
 
     } catch (error) {
         next(error);
