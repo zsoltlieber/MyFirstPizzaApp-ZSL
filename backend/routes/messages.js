@@ -12,7 +12,7 @@ import {
 
 const messagesRouter = express.Router();
 
-messagesRouter.post("/", verifyToken, createMessage);
+messagesRouter.post("/", createMessage);
 
 messagesRouter.put("/:id", verifyClient, updateMessage);
 
