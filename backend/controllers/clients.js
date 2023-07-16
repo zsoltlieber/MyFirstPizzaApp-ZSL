@@ -20,8 +20,8 @@ export const registerClient = (async (req, res, next) => {
 });
 
 export const updateClient = (async (req, res, next) => {
-    const actialClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
-    req.body = JSON.parse(`{"clientId":"${actialClientId}",`.concat(JSON.stringify(req.body).slice(1)));
+    const actualClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
+    req.body = JSON.parse(`{"lastManipulatorId":"${actualClientId}",`.concat(JSON.stringify(req.body).slice(1)));
 
     try {
         const updatedClient = await Client.findByIdAndUpdate(

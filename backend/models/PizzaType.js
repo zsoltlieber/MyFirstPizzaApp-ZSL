@@ -3,11 +3,6 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const PizzaTypeSchema = new Schema({
-    clientId: {                     //last modifier ID or initial ID
-        type: String,
-        require: true,
-        default: "initial"
-    }, 
     pizzaName: {
         type: String,
         require: true
@@ -26,6 +21,11 @@ const PizzaTypeSchema = new Schema({
         type: Boolean,
         default: true
     },
+    lastManipulatorId: {                     //last modifier ID or initial ID
+        type: String,
+        require: true,
+        default: "initial"
+    }, 
     created: {
         type: Date,
         default: Date.now

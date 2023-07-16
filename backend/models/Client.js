@@ -3,10 +3,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ClientSchema = new Schema({
-    clientId: {
-        type: String,                     //last modifier ID or initial ID
-        default: "initial"
-    },
     clientName: {
         type: String,
         require: true
@@ -33,6 +29,11 @@ const ClientSchema = new Schema({
         type: Boolean,
         default: true
     },
+    lastManipulatorId: {                     //last modifier ID or initial ID
+        type: String,
+        require: true,
+        default: "initial"
+    }, 
     created: {
         type: Date,
         default: Date.now

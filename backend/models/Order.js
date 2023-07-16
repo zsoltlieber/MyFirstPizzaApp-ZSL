@@ -3,11 +3,6 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
-    clientId: {                     //last modifier ID or initial ID
-        type: String,
-        require: true,
-        default: "initial"
-    },
     orderedItems: [{
         pizzaId: {
             type: String,
@@ -30,6 +25,11 @@ const OrderSchema = new Schema({
     isActive: {
         type: Boolean,
         default: true
+    }, 
+    lastManipulatorId: {                     //last modifier ID or initial ID
+        type: String,
+        require: true,
+        default: "initial"
     }, 
     created: {
         type: Date,
