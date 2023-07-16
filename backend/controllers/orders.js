@@ -2,6 +2,8 @@ import Order from "../models/Order.js";
 
 export const createOrder = async (req, res, next) => {
     const newOrder = new Order(req.body);
+    const actualClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
+    newOrder.lastManipulatorId = actualClientId;
     try {
         const savedOrder = await newOrder.save();
         res.status(200).json(savedOrder);
