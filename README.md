@@ -8,8 +8,8 @@ The App able to make all relevant job (showing sellable producte, authorization,
 ## In details: 
 - the user administration (authentication, authorization using jwt token, bcrypt etc.), 
 - the product administration (load pizza types, allergens, make admin tasks),
-- the client role (list pizza types, list own data (e.g cliend name, address, order, message, remove or client data)
-- the admin role (load pizza types, allergens, make admin tasks, list all (e.g. removed data), delete all data)
+- the client role (list pizza types, list own data (e.g cliend name, address, order, message, remove own client data, remove that own order which procedure has not started)
+- the admin role (load pizza types, allergens, make admin tasks, list all (contained removed data), delete all data)
 
 ## Technological background:
 - MongoDB   database
@@ -20,8 +20,7 @@ The App able to make all relevant job (showing sellable producte, authorization,
 ## How to run this APP
 
 ### 1. VS Code must be installed on your computer
-####    You can check it with this command: 
-####        code --version
+####    You can check it with this command:  code --version
 
 ### 2. Chose backend directory as active one and run 
 ####    npm install
