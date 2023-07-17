@@ -2,6 +2,16 @@
 
 ## MY FIRST PIZZA APP for pizza bakers and sellers 
 
+## This aplication was built for managers who want to administrate all of a Pizza Buffet work. 
+## Client administratin (authorization, ordering, payment, message sending from clients and answering
+## by the admin user.
+
+## In details: 
+. the user administration (authentication, authorization using jwt token, bcrypt etc.), 
+. the product administration (load pizza types, allergens, make admin tasks),
+- the client role (list pizza types, list own data (e.g cliend name, address, order, message, remove or client data)
+- the admin role (load pizza types, allergens, make admin tasks, list all (e.g. removed data), delete all data)
+
 ## Technological background:
 - MongoDB   database
 - Express   backend 
