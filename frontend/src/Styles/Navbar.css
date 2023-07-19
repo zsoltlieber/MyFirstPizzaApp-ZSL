@@ -1,0 +1,19 @@
+.Navbar-container {
+    width: 97.5%;
+    height: 20%;
+    background-color: rgb(197, 168, 131);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    font-size: larger;
+    color: white;
+    padding: 20px;
+    
+}
+a {
+    text-decoration: none;
+    border: 2px solid wheat;
+    border-radius: 5px;
+    padding: 10px;
+}
