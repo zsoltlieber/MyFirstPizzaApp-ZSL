@@ -22,9 +22,20 @@ The App able to make all relevant job (showing sellable producte, authorization,
 ### 1. VS Code must be installed on your computer
 ####    You can check it with this command:  code --version
 
-### 2. Chose backend directory as active one and run 
-####    npm install
-####    npm run dev
+### 2. Clone the aplication code from GitHub repository
+    ```
+    git clone https://github.com/zsoltlieber/MyFirstPizzaApp-ZSL.git
+    ```
 
-### 3. Chose frontend directory as active one and run
-####    npm start 
+### 3. Chose backend directory as active one and run 
+    ```
+    cd backend
+    npm install
+    npm run populate
+    npm run dev
+    ```
+### 4. Chose frontend directory as active one and run
+    ```
+    cd frontend
+    npm start
+    ```
