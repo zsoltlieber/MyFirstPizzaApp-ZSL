@@ -12,7 +12,7 @@ import {
 
 const messagesRouter = express.Router();
 
-messagesRouter.post("/", createMessage);
+messagesRouter.post("/", verifyClient, createMessage);
 
 messagesRouter.put("/:id", verifyClient, updateMessage);
 
@@ -22,6 +22,6 @@ messagesRouter.get("/all", verifyAdmin, getMessagesAll);
 
 messagesRouter.get("/", getMessages);
 
-messagesRouter.get("/:id", getMessage);
+messagesRouter.get("/:id", verifyClient, getMessage);
 
 export default messagesRouter;

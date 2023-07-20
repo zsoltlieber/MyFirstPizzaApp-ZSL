@@ -2,30 +2,32 @@ import Order from "../models/Order.js";
 import createError from "../utils/error.js";
 
 export const createOrder = async (req, res, next) => {
-
-    const newOrder = new Order(req.body);
-    newOrder.lastManipulatorId = req.client.id;
-
     try {
-        const savedOrder = await newOrder.save();
-        res.status(200).json(savedOrder);
-        console.log(`${savedOrder._id} - order has been saved!`)
+        if (!req.client.isAdmin && !req.body.orderClientId.match(req.client.id)) {
+            return next(createError(403, "The login ClientID is not equals the given ClientID!"))
+        }
+        else {
+            req.body.lastManipulatorId = req.client.id;
+            req.body.orderClientId = req.client.id;
+            const newOrder = new Order(req.body);
 
+            const savedOrder = await newOrder.save();
+            res.status(200).json(savedOrder);
+            console.log(`${savedOrder._id} - order has been saved!`)
+        }
     } catch (error) {
         next(error);
     }
 };
 
 export const updateOrder = async (req, res, next) => {
-
-    req.body.lastManipulatorId = req.client.id;
-
     try {
         const actualOrder = await Order.findById(req.params.id);
         if (!req.client.isAdmin && !actualOrder.lastManipulatorId.match(req.client.id)) {
             return next(createError(403, "Not allowed to access that client data!"))
         }
         else {
+            req.body.lastManipulatorId = req.client.id;
             const updatedOrder = await Order.findByIdAndUpdate(
                 req.params.id,
                 { $set: req.body },
@@ -52,10 +54,12 @@ export const deleteOrder = async (req, res, next) => {
 
 export const getOrdersAll = async (req, res, next) => {
     try {
-        const orders = await Order.find();
-        if (!req.client.isAcmin) orders.filter(order => order.lastManipulatorId.match(req.client.id));
-        res.status(200).json(orders);
-
+        let orders = await Order.find()
+        console.log(orders)
+        if (!req.client.isAcmin) {
+            orders = orders.filter(order => order.orderClientId.match(req.client.id));
+            res.status(200).json(orders);
+        }
     } catch (error) {
         next(error);
     }
@@ -63,10 +67,13 @@ export const getOrdersAll = async (req, res, next) => {
 
 export const getOrders = async (req, res, next) => {
     try {
-        const orders = (await Order.find()).filter((data) => data.isActive);
-        if (!req.client.isAcmin) orders.filter(order => order.lastManipulatorId.match(req.client.id));
-        res.status(200).json(orders);
-
+        let orders = (await Order.find())
+        if (!req.client.isAdmin) {
+            orders = orders
+                .filter(order => order.isActive)
+                .filter(order => order.orderClientId.match(req.client.id));
+            res.status(200).json(orders);
+        }
     } catch (error) {
         next(error);
     }
@@ -75,7 +82,6 @@ export const getOrders = async (req, res, next) => {
 export const getOrder = async (req, res, next) => {
     try {
         const actualOrder = await Order.findById(req.params.id);
-    
         if (!req.client.isAdmin && !actualOrder.orderClientId.match(req.client.id)) {
             return next(createError(403, "Not allowed to access that client data!"))
         }

@@ -1,7 +1,7 @@
 import Allergen from '../models/Allergen.js'
 
 export const createAllergen = async (req, res, next) => {
-
+    req.body.lastManipulatorId = req.client.id;
     const newAllergen = new Allergen(req.body);
 
     try {

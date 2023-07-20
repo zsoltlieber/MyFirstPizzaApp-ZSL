@@ -7,7 +7,7 @@ const OrderSchema = new Schema({
         type: String,
         require: true
     },
-    orderedItems: [{
+    orderedItems: [[{
         pizzaId: {
             type: String,
             require: true
@@ -25,7 +25,7 @@ const OrderSchema = new Schema({
             type: Boolean,
             default: false
         }
-    }],
+    }]],
     isActive: {
         type: Boolean,
         default: true

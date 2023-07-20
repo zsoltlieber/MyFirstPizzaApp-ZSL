@@ -1,7 +1,7 @@
 import PizzaType from "../models/PizzaType.js";
 
 export const createPizzaType = async (req, res, next) => {
-
+    req.body.lastManipulatorId = req.client.id;
     const newPizzaType = new PizzaType(req.body);
 
     try {

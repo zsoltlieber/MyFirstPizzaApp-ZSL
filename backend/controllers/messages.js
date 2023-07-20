@@ -1,9 +1,10 @@
 import Message from "../models/Message.js";
 
 export const createMessage = async (req, res, next) => {
-
+    req.body.lastManipulatorId = req.client.id;
     const newMessage = new Message(req.body);
-
+console.log(newMessage)
+console.log(req.client.id)
     try {
         const savedMessage = await newMessage.save();
         res.status(200).json(savedMessage);

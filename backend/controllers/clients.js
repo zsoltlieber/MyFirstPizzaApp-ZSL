@@ -3,11 +3,10 @@ import bcrypt from 'bcryptjs';
 import createError from '../utils/error.js';
 
 export const registerClient = (async (req, res, next) => {
-
     try {
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-
+        
         const newClient = new Client(req.body);
         newClient.password = hashedPassword;
 
@@ -21,14 +20,12 @@ export const registerClient = (async (req, res, next) => {
 });
 
 export const updateClient = (async (req, res, next) => {
-
-    req.body.lastManipulatorId = req.client.id;
-
     try {
         if (!req.client.isAdmin && !req.params.id.match(req.client.id)) {
             return next(createError(403, "Not allowed to access that client data!"))
         }
         else {
+            req.body.lastManipulatorId = req.client.id;
             const updatedClient = await Client.findByIdAndUpdate(
                 req.params.id,
                 { $set: req.body },
@@ -76,7 +73,7 @@ export const getClients = (async (req, res, next) => {
 export const getClient = (async (req, res, next) => {
     try {
         const actualClient = await Client.findById(req.params.id);
- 
+
         if (!req.client.isAdmin && !actualClient._id.equals(req.client.id)) {
             return next(createError(403, "Not allowed to access that client data!"))
         }
