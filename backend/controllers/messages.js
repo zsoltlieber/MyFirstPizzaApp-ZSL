@@ -7,7 +7,8 @@ export const createMessage = async (req, res, next) => {
     try {
         const savedMessage = await newMessage.save();
         res.status(200).json(savedMessage);
-        console.log(`${savedMessage.clientName} - message has been saved!`);
+        console.log(`${savedMessage.clientName} - ${savedMessage._id} - message has been saved!`);
+
     }
     catch (error) {
         next(error);
@@ -15,8 +16,8 @@ export const createMessage = async (req, res, next) => {
 };
 
 export const updateMessage = async (req, res, next) => {
-    const actualClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
-    req.body = JSON.parse(`{"lastManipulatorId":"${actualClientId}",`.concat(JSON.stringify(req.body).slice(1)));
+
+    req.body["lastManipulatorId"] = req.client.id;
 
     try {
         const updatedMessage = await Message.findByIdAndUpdate(

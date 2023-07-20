@@ -15,8 +15,8 @@ export const createAllergen = async (req, res, next) => {
 };
 
 export const updateAllergen = async (req, res, next) => {
-    const actualClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
-    req.body = JSON.parse(`{"lastManipulatorId":"${actualClientId}",`.concat(JSON.stringify(req.body).slice(1)));
+    
+  req.body["lastManipulatorId"] = req.client.id;
 
     try {
         const updateAllergen = await Allergen.findByIdAndUpdate(
@@ -24,7 +24,7 @@ export const updateAllergen = async (req, res, next) => {
             { $set: req.body },
             { new: true });
         res.status(200).json(updateAllergen);
-        console.log(`${updateAllergen._id} - ${updateAllergen.allergenName} - has been updated!`);
+        console.log(`${updateAllergen.allergenName} - ${updateAllergen._id} - has been updated!`);
 
     } catch (error) {
         next(error);

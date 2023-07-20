@@ -7,7 +7,7 @@ export const createPizzaType = async (req, res, next) => {
     try {
         const savedPizzaType = await newPizzaType.save();
         res.status(200).json(savedPizzaType);
-        console.log(`${savedPizzaType.pizzaName} - pizza type has been saved!`);
+        console.log(`${savedPizzaType.pizzaName} - ${savedPizzaType._id} - pizza type has been saved!`);
 
     } catch (error) {
         next(error);
@@ -15,8 +15,8 @@ export const createPizzaType = async (req, res, next) => {
 };
 
 export const updatePizzaType = async (req, res, next) => {
-    const actualClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
-    req.body = JSON.parse(`{"lastManipulatorId":"${actualClientId}",`.concat(JSON.stringify(req.body).slice(1)));
+
+    req.body.lastManipulatorId = req.client.id;
 
     try {
         const updatePizzaType = await PizzaType.findByIdAndUpdate(
@@ -25,7 +25,7 @@ export const updatePizzaType = async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatePizzaType);
-        console.log(`${updatePizzaType._id} - ${updatePizzaType.pizzaName} - pizza type has been updated!`);
+        console.log(`${updatePizzaType.pizzaName} - ${updatePizzaType._id} - pizza type has been updated!`);
 
     } catch (error) {
         next(error);

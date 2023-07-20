@@ -8,7 +8,7 @@ export const login = async (req, res, next) => {
     try {
         const client = await Client.findOne({ clientName: req.body.clientName });
         if (!client) return next(createError(404, "Client not found!"));
-        
+
         const isPasswordCorrect = await bcrypt.compare(req.body.password, client.password);
         if (!isPasswordCorrect) return next(createError(400, "Wrong client name or password!"));
 
@@ -19,8 +19,9 @@ export const login = async (req, res, next) => {
                 httpOnly: true,
             })
             .status(200)
-            .json(`${client.clientName} - client loged in!`);
-        console.log(`${client.clientName} - client loged in!`);
+            .json(`$${client.clientName} - ${client._id} - client loged in!`);
+        console.log(`${client.clientName} - ${client._id} - client loged in!`);
+
 
     } catch (error) {
         next(error);
