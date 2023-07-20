@@ -9,7 +9,7 @@ export const login = async (req, res, next) => {
         const client = await Client.findOne({ clientName: req.body.clientName });
         if (!client) return next(createError(404, "Client not found!"));
 
-        const isPasswordCorrect = await bcrypt.compare(req.body.password, client.password);
+        const isPasswordCorrect = bcrypt.compare(req.body.password, client.password);
         if (!isPasswordCorrect) return next(createError(400, "Wrong client name or password!"));
 
         const jwtToken = jwt.sign({ id: client._id, isAdmin: client.isAdmin }, process.env.JWT);

@@ -18,7 +18,7 @@ ordersRouter.put("/:id", verifyClient, updateOrder);
 
 ordersRouter.delete("/:id", verifyAdmin, deleteOrder);
 
-ordersRouter.get("/all", verifyAdmin, getOrdersAll);
+ordersRouter.get("/all", verifyClient, getOrdersAll);
 
 ordersRouter.get("/", verifyClient, getOrders);
 

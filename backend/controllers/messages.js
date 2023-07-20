@@ -17,7 +17,7 @@ export const createMessage = async (req, res, next) => {
 
 export const updateMessage = async (req, res, next) => {
 
-    req.body["lastManipulatorId"] = req.client.id;
+    req.body.lastManipulatorId = req.client.id;
 
     try {
         const updatedMessage = await Message.findByIdAndUpdate(
