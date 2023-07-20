@@ -1,20 +1,27 @@
 import Client from '../models/Client.js';
+import bcrypt from 'bcryptjs';
 
-export const createClient = (async (req, res, next) => {
-
-    const newClient = new Client(req.body);
+export const registerClient = (async (req, res, next) => {
 
     try {
-        const savedClient = await newClient.save();
-        res.status(200).json(savedClient);
-        console.log(`${savedClient.clientId + " " + savedClient.firstName + " " + savedClient.lastName} client has been saved!`);
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+
+        const newClient = new Client(req.body);
+        newClient.password = hashedPassword;
+
+        await newClient.save();
+        res.status(200).json(newClient);
+        console.log(`${newClient.clientName} - ${newClient._id} - client was registered.`);
 
     } catch (error) {
-        next(error)
-    };
+        next(error);
+    }
 });
 
 export const updateClient = (async (req, res, next) => {
+    req.body["lastManipulatorId"] = req.client.id;
+
     try {
         const updatedClient = await Client.findByIdAndUpdate(
             req.params.id,
@@ -22,7 +29,7 @@ export const updateClient = (async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatedClient);
-        console.log(`${updatedClient.clientId + " " + updatedClient.firstName + " " + updatedClient.lastName} has been updated!`);
+        console.log(`${updatedClient.clientName} - ${updatedClient._id} - has been updated!`);
 
     } catch (error) {
         next(error)
@@ -32,8 +39,18 @@ export const updateClient = (async (req, res, next) => {
 export const deleteClient = (async (req, res, next) => {
     try {
         await Client.findByIdAndDelete(req.params.id);
-        res.status(200).json(`${req.params.id} client has been deleted!`);
-        console.log(`${req.params.id} client has been deleted!`);
+        res.status(200).json(`${req.params.id} - client has been deleted!`);
+        console.log(`${req.params.id} - client has been deleted!`);
+
+    } catch (error) {
+        next(error)
+    };
+});
+
+export const getClientsAll = (async (req, res, next) => {
+    try {
+        const clients = await Client.find();
+        res.status(200).json(clients);
 
     } catch (error) {
         next(error)
@@ -42,7 +59,7 @@ export const deleteClient = (async (req, res, next) => {
 
 export const getClients = (async (req, res, next) => {
     try {
-        const clients = await Client.find();
+        const clients = (await Client.find()).filter((data) => data.isActive);
         res.status(200).json(clients);
 
     } catch (error) {
@@ -61,9 +78,10 @@ export const getClient = (async (req, res, next) => {
 });
 
 export default {
-    createClient,
+    registerClient,
     updateClient,
     deleteClient,
+    getClientsAll,
     getClients,
     getClient
 }
