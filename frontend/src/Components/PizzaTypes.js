@@ -1,9 +1,10 @@
 import '../Styles/PizzaTypes.css'
 
-function PizzaTypes(params) {
+function PizzaTypes() {
     return (
-        <>
-        </>
+        <div id="PizzaType-container">
+            <h1>PizzaTypes</h1>
+        </div>
     )
 }
 

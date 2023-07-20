@@ -3,9 +3,7 @@ import Navbar from './Navbar';
 import Allergens from './Allergens';
 import Footer from './Footer';
 import PizzaTypes from './PizzaTypes';
-import Login from './Login';
-import Messages from './Messages';
-
+import RightContainer from './RightContainer';
 
 function App() {
   return (
@@ -14,8 +12,7 @@ function App() {
         <Navbar />
         <Allergens />
         <PizzaTypes />
-        <Login />
-        <Messages />
+        <RightContainer />
         <Footer />
       </div>
     </>

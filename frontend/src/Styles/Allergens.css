@@ -1,4 +1,8 @@
 
 #Allergens-container{
+position: relative;
 background-color: lightgray;
+top: -16px;
+width: 120px;
+height: 85%;
 }
