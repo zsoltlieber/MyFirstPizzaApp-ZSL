@@ -8,6 +8,7 @@ export const createMessage = async (req, res, next) => {
         const savedMessage = await newMessage.save();
         res.status(200).json(savedMessage);
         console.log(`${savedMessage.clientName} - ${savedMessage._id} - message has been saved!`);
+
     }
     catch (error) {
         next(error);
@@ -15,6 +16,7 @@ export const createMessage = async (req, res, next) => {
 };
 
 export const updateMessage = async (req, res, next) => {
+
     req.body["lastManipulatorId"] = req.client.id;
 
     try {

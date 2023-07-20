@@ -3,8 +3,6 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
-    orderId: Number,
-    clientId: Number,
     orderedItems: [{
         pizzaId: {
             type: String,
@@ -14,12 +12,29 @@ const OrderSchema = new Schema({
             type: Number,
             min: 1
         },
-        quantity: Number
+        quantity: Number,
+        isInProcess: {
+            type: Boolean,
+            default: false
+        },
+        isReady: {
+            type: Boolean,
+            default: false
+        }
     }],
+    isActive: {
+        type: Boolean,
+        default: true
+    }, 
+    lastManipulatorId: {                     //last modifier ID or initial ID
+        type: String,
+        require: true,
+        default: "initial"
+    }, 
     created: {
         type: Date,
         default: Date.now
     }
 });
 
-export default mongoose.model("orders", OrderSchema);
+export default mongoose.model("Orders", OrderSchema);

@@ -1,12 +1,13 @@
 import express from 'express';
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import authenticationRoute from './routes/authentication.js';
+import authRoute from './routes/auth.js';
 import clientsRoute from './routes/clients.js';
 import allergensRoute from './routes/allergens.js';
 import pizzaTypesRoute from './routes/pizzaTypes.js';
 import ordersRoute from './routes/orders.js';
 import messagesRoute from './routes/messages.js';
+import cookieParser from "cookie-parser";
 
 const PORT = 8080;
 const app = express();
@@ -30,9 +31,10 @@ mongoose.connection.on("connected", () => {
     console.log("MongoDB is connected!")
 });
 
+app.use(cookieParser());
 app.use(express.json());
 
-app.use("/api/authentication", authenticationRoute);
+app.use("/api/auth", authRoute);
 app.use("/api/allergens", allergensRoute);
 app.use("/api/pizzaTypes", pizzaTypesRoute);
 app.use("/api/clients", clientsRoute);

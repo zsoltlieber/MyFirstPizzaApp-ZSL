@@ -3,46 +3,41 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ClientSchema = new Schema({
-    clientId: Number,
-    firstName: {
+    clientName: {
         type: String,
-        required: true
+        require: true
     },
-    middleName: String,
-    lastName: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
+    email: String,
     password: {
         type: String,
-        required: true
+        require: true
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
     phoneNumber: [String],
     address: [
         {
-            postCode: {
-                type: String,
-                required: true
-            },
-            city: {
-                type: String,
-                required: true
-            },
-            streetAndNumber: {
-                type: String,
-                required: true
-            },
+            postCode: String,
+            city: String,
+            streetAndNumber: String,
             otherInfo: String
         },
     ],
+    isActive: {
+        type: Boolean,
+        default: true
+    },
+    lastManipulatorId: {                     //last modifier ID or initial ID
+        type: String,
+        require: true,
+        default: "initial"
+    }, 
     created: {
         type: Date,
         default: Date.now
     },
 });
 
-export default mongoose.model("clients", ClientSchema);
+export default mongoose.model("Clients", ClientSchema);

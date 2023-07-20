@@ -15,7 +15,8 @@ export const createAllergen = async (req, res, next) => {
 };
 
 export const updateAllergen = async (req, res, next) => {
-    req.body["lastManipulatorId"] = req.client.id;
+    
+  req.body["lastManipulatorId"] = req.client.id;
 
     try {
         const updateAllergen = await Allergen.findByIdAndUpdate(

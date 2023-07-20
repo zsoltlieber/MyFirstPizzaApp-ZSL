@@ -20,6 +20,7 @@ export const registerClient = (async (req, res, next) => {
 });
 
 export const updateClient = (async (req, res, next) => {
+
     req.body["lastManipulatorId"] = req.client.id;
 
     try {

@@ -1,36 +1,34 @@
-{
-    "allergens": [
-        {
-            "allergenId": 1,
-            "allergenName": "gluten"
-        },
-        {
-            "allergenId": 2,
-            "allergenName": "lactose"
-        },
-        {
-            "allergenId": 3,
-            "allergenName": "fish"
-        },
-        {
-            "allergenId": 4,
-            "allergenName": "crustesian"
-        },
-        {
-            "allergenId": 5,
-            "allergenName": "egg"
-        },
-        {
-            "allergenId": 6,
-            "allergenName": "soy"
-        },
-        {
-            "allergenId": 7,
-            "allergenName": "mustard"
-        },
-        {
-            "allergenId": 8,
-            "allergenName": "mushroom"
-        }
-    ]
-}
+[
+    {
+        "allergenId": 1,
+        "allergenName": "gluten"
+    },
+    {
+        "allergenId": 2,
+        "allergenName": "lactose"
+    },
+    {
+        "allergenId": 3,
+        "allergenName": "fish"
+    },
+    {
+        "allergenId": 4,
+        "allergenName": "crustesian"
+    },
+    {
+        "allergenId": 5,
+        "allergenName": "egg"
+    },
+    {
+        "allergenId": 6,
+        "allergenName": "soy"
+    },
+    {
+        "allergenId": 7,
+        "allergenName": "mustard"
+    },
+    {
+        "allergenId": 8,
+        "allergenName": "mushroom"
+    }
+]

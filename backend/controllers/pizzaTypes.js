@@ -15,6 +15,7 @@ export const createPizzaType = async (req, res, next) => {
 };
 
 export const updatePizzaType = async (req, res, next) => {
+
     req.body.lastManipulatorId = req.client.id;
 
     try {

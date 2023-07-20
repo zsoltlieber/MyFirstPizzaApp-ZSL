@@ -1,6 +1,7 @@
 import Order from "../models/Order.js";
 
 export const createOrder = async (req, res, next) => {
+  
     const newOrder = new Order(req.body);
     newOrder.lastManipulatorId = req.client.id;
 
@@ -15,6 +16,7 @@ export const createOrder = async (req, res, next) => {
 };
 
 export const updateOrder = async (req, res, next) => {
+
     req.body.lastManipulatorId = req.client.id;
 
     try {
@@ -25,6 +27,7 @@ export const updateOrder = async (req, res, next) => {
         );
         res.status(200).json(updatedOrder);
         console.log(`${updatedOrder._id} - order has been updated!`);
+
     } catch (error) {
         next(error);
     }
@@ -56,6 +59,16 @@ export const getOrders = async (req, res, next) => {
     try {
         const orders = (await Order.find()).filter((data) => data.isActive);
         if (!req.client.isAcmin) orders.filter(order => order.lastManipulatorId.match(req.client.id));
+        res.status(200).json(orders);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getOrders = async (req, res, next) => {
+    try {
+        const orders = (await Order.find()).filter((data) => data.isActive);
         res.status(200).json(orders);
 
     } catch (error) {

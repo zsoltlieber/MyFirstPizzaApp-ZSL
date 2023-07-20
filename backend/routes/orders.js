@@ -1,22 +1,27 @@
 import express from 'express';
+import { verifyClient, verifyAdmin } from '../utils/verifyToken.js';
+
 import {
     createOrder,
     updateOrder,
     deleteOrder,
+    getOrdersAll,
     getOrders,
     getOrder
 } from '../controllers/orders.js'
 
 const ordersRouter = express.Router();
 
-ordersRouter.post("/", createOrder);
+ordersRouter.post("/", verifyClient, createOrder);
 
-ordersRouter.put("/:id", updateOrder);
+ordersRouter.put("/:id", verifyClient, updateOrder);
 
-ordersRouter.delete("/:id", deleteOrder);
+ordersRouter.delete("/:id", verifyAdmin, deleteOrder);
 
-ordersRouter.get("/", getOrders);
+ordersRouter.get("/all", verifyAdmin, getOrdersAll);
 
-ordersRouter.get("/:id", getOrder);
+ordersRouter.get("/", verifyClient, getOrders);
+
+ordersRouter.get("/:id", verifyClient, getOrder);
 
 export default ordersRouter;
