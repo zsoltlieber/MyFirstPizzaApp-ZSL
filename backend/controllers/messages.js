@@ -1,4 +1,4 @@
-import Message from "../models/Messages.js";
+import Message from "../models/Message.js";
 
 export const createMessage = async (req, res, next) => {
 
@@ -7,14 +7,16 @@ export const createMessage = async (req, res, next) => {
     try {
         const savedMessage = await newMessage.save();
         res.status(200).json(savedMessage);
-        console.log(`${savedMessage.clientId + " - " + savedMessage.clientName} message has been saved!`);
+        console.log(`${savedMessage.clientName} - ${savedMessage._id} - message has been saved!`);
     }
     catch (error) {
         next(error);
     }
 };
 
-export const upgradeMessage = async (req, res, next) => {
+export const updateMessage = async (req, res, next) => {
+    req.body["lastManipulatorId"] = req.client.id;
+
     try {
         const updatedMessage = await Message.findByIdAndUpdate(
             req.params.id,
@@ -22,7 +24,7 @@ export const upgradeMessage = async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatedMessage);
-        console.log(`${updatedMessage.clientId + " - " + updatedMessage.clientName} message has been updated!`);
+        console.log(`${updatedMessage._id} - ${updatedMessage.clientName} - message has been updated!`);
 
     } catch (error) {
         next(error);
@@ -32,8 +34,18 @@ export const upgradeMessage = async (req, res, next) => {
 export const deleteMessage = async (req, res, next) => {
     try {
         await Message.findByIdAndDelete(req.params.id);
-        res.status(200).json(`${req.params.id} message has been deleted!`);
-        console.log(`${req.params.id} message has been deleted!`);
+        res.status(200).json(`${req.params.id} - message has been deleted!`);
+        console.log(`${req.params.id} - message has been deleted!`);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getMessagesAll = async (req, res, next) => {
+    try {
+        const messages = await Message.find();
+        res.status(200).json(messages);
 
     } catch (error) {
         next(error);
@@ -42,7 +54,7 @@ export const deleteMessage = async (req, res, next) => {
 
 export const getMessages = async (req, res, next) => {
     try {
-        const messages = await Message.find();
+        const messages = (await Message.find()).filter((data) => data.isActive);
         res.status(200).json(messages);
 
     } catch (error) {
@@ -62,8 +74,9 @@ export const getMessage = async (req, res, next) => {
 
 export default {
     createMessage,
-    upgradeMessage,
+    updateMessage,
     deleteMessage,
+    getMessagesAll,
     getMessages,
     getMessage,
 }
