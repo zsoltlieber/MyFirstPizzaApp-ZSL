@@ -14,14 +14,12 @@ export const login = async (req, res, next) => {
 
         const jwtToken = jwt.sign({ id: client._id, isAdmin: client.isAdmin }, process.env.JWT);
 
-        res
-            .cookie("access_token", jwtToken, {
-                httpOnly: true,
-            })
+        res.cookie("access_token", jwtToken, {
+            httpOnly: true,
+        })
             .status(200)
             .json(`$${client.clientName} - ${client._id} - client loged in!`);
         console.log(`${client.clientName} - ${client._id} - client loged in!`);
-
 
     } catch (error) {
         next(error);

@@ -1,6 +1,7 @@
 import Allergen from '../models/Allergen.js'
 
 export const createAllergen = async (req, res, next) => {
+
     req.body.lastManipulatorId = req.client.id;
     const newAllergen = new Allergen(req.body);
 
@@ -32,6 +33,7 @@ export const updateAllergen = async (req, res, next) => {
 };
 
 export const deleteAllergen = async (req, res, next) => {
+
     try {
         await Allergen.findByIdAndDelete(req.params.id);
         res.status(200).json(`${req.params.id} - allergen has been deleted!`);
@@ -43,6 +45,7 @@ export const deleteAllergen = async (req, res, next) => {
 };
 
 export const getAllergensAll = async (req, res, next) => {
+
     try {
         const allergens = await Allergen.find();
         res.status(200).json(allergens);
@@ -53,6 +56,7 @@ export const getAllergensAll = async (req, res, next) => {
 };
 
 export const getAllergens = async (req, res, next) => {
+
     try {
         const allergens = (await Allergen.find()).filter((data) => data.isActive);
         res.status(200).json(allergens);
@@ -63,6 +67,7 @@ export const getAllergens = async (req, res, next) => {
 };
 
 export const getAllergen = async (req, res, next) => {
+
     try {
         const currentAllergen = await Allergen.findById(req.params.id);
         res.status(200).json(currentAllergen);

@@ -1,6 +1,7 @@
 import PizzaType from "../models/PizzaType.js";
 
 export const createPizzaType = async (req, res, next) => {
+
     req.body.lastManipulatorId = req.client.id;
     const newPizzaType = new PizzaType(req.body);
 
@@ -33,6 +34,7 @@ export const updatePizzaType = async (req, res, next) => {
 };
 
 export const deletePizzaType = async (req, res, next) => {
+
     try {
         await PizzaType.findByIdAndDelete(req.params.id);
         res.status(200).json(`${req.params.id} - pizza type has been deleted!`);
@@ -44,6 +46,7 @@ export const deletePizzaType = async (req, res, next) => {
 };
 
 export const getPizzaTypesAll = async (req, res, next) => {
+
     try {
         const pizzaTypes = await PizzaType.find();
         res.status(200).json(pizzaTypes);
@@ -54,6 +57,7 @@ export const getPizzaTypesAll = async (req, res, next) => {
 };
 
 export const getPizzaTypes = async (req, res, next) => {
+
     try {
         const pizzaTypes = (await PizzaType.find()).filter((data) => data.isActive);
         res.status(200).json(pizzaTypes);
@@ -64,6 +68,7 @@ export const getPizzaTypes = async (req, res, next) => {
 };
 
 export const getPizzaType = async (req, res, next) => {
+
     try {
         const actualPizzaType = await PizzaType.findById(req.params.id);
         res.status(200).json(actualPizzaType);

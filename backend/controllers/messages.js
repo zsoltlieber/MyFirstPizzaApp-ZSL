@@ -1,10 +1,10 @@
 import Message from "../models/Message.js";
 
 export const createMessage = async (req, res, next) => {
+
     req.body.lastManipulatorId = req.client.id;
     const newMessage = new Message(req.body);
-console.log(newMessage)
-console.log(req.client.id)
+
     try {
         const savedMessage = await newMessage.save();
         res.status(200).json(savedMessage);
@@ -35,6 +35,7 @@ export const updateMessage = async (req, res, next) => {
 };
 
 export const deleteMessage = async (req, res, next) => {
+
     try {
         await Message.findByIdAndDelete(req.params.id);
         res.status(200).json(`${req.params.id} - message has been deleted!`);
@@ -46,6 +47,7 @@ export const deleteMessage = async (req, res, next) => {
 };
 
 export const getMessagesAll = async (req, res, next) => {
+
     try {
         const messages = await Message.find();
         res.status(200).json(messages);
@@ -56,6 +58,7 @@ export const getMessagesAll = async (req, res, next) => {
 };
 
 export const getMessages = async (req, res, next) => {
+
     try {
         const messages = (await Message.find()).filter((data) => data.isActive);
         res.status(200).json(messages);
@@ -66,6 +69,7 @@ export const getMessages = async (req, res, next) => {
 };
 
 export const getMessage = async (req, res, next) => {
+
     try {
         const actualMessage = await Message.findById(req.params.id);
         res.status(200).json(actualMessage);
