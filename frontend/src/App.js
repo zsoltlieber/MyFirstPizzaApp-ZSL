@@ -1,21 +1,15 @@
-import './App.css';
+import Header from './components/Header.js'
+import Footer from './components/Footer.js'
+import MainContainer from './components/MainContainer.js';
+import './App.css'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Pizza APP
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Header title="Fő oldal props" />
+      <MainContainer/>
+      <Footer/>
     </div>
   );
 }
