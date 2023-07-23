@@ -21,6 +21,7 @@ The App able to manage all relevant tasks (showing sellable products like menu, 
 ## How to run this APP
 
 ### 1. VS Code must be installed on your computer
+
 You can check it with this command:  code --version
 
 ### 2. Clone the aplication code from GitHub repository
