@@ -1,0 +1,154 @@
+[
+    {
+        "pizzaName": "Margherita",
+        "ingredients": [
+            "San Marzano tomato sauce",
+            "garlic",
+            "oregano",
+            "olive oil"
+        ],
+        "price": 3000,
+        "allergens": [
+            4
+        ],
+        "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_margarita_500x500.jpg"
+    },
+    {
+        "pizzaName": "Prosciutto",
+        "ingredients": [
+            "San Marzano tomato sauce",
+            "garlic",
+            "prosciutto ham",
+            "olive oil"
+        ],
+        "price": 4000,
+        "allergens": [
+            1
+        ],
+        "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2021_02_PH_mobilapp_termekkepek_500x500_capricciosa.jpg"
+    },
+    {
+        "pizzaName": "Salami",
+        "ingredients": [
+            "San Marzano tomato sauce",
+            "oregano",
+            "salami",
+            "cheese"
+        ],
+        "price": 3900,
+        "allergens": [
+            1,
+            2
+        ],
+        "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_olasz_500x500.jpg"
+    },
+    {
+        "pizzaName": "Hawaii",
+        "ingredients": [
+            "San Marzano tomato sauce",
+            "pineapple",
+            "ham",
+            "cheese"
+        ],
+        "price": 3900,
+        "allergens": [
+            1,
+            2
+        ],
+        "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_hawaii_500x500.jpg"
+    },
+    {
+        "pizzaName": "Tonno",
+        "ingredients": [
+            "San Marzano tomato sauce",
+            "garlic",
+            "oregano",
+            "olive oil",
+            "fresh tuna",
+            "olives",
+            "cheese"
+        ],
+        "price": 5000,
+        "allergens": [
+            1,
+            2,
+            3
+        ],
+        "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_szuperszuprem_500x500.jpg"
+    },
+    {
+        "pizzaName": "Frutti di mare",
+        "ingredients": [
+            "San Marzano tomato sauce",
+            "garlic",
+            "oregano",
+            "olive oil"
+        ],
+        "price": 6000,
+        "allergens": [
+            1,
+            3
+        ],
+        "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_husimado_500x500.jpg"
+    },
+    {
+        "pizzaName": "Funghi",
+        "ingredients": [
+            "San Marzano tomato sauce",
+            "garlic",
+            "oregano",
+            "olive oil"
+        ],
+        "price": 3500,
+        "allergens": [
+            1,
+            3,
+            8
+        ],
+        "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_dallas_500x500.jpg"
+    },
+    {
+        "pizzaName": "Gluten-Free Margherita",
+        "ingredients": [
+            "San Marzano tomato sauce",
+            "garlic",
+            "oregano",
+            "olive oil"
+        ],
+        "price": 4000,
+        "allergens": [
+            3,
+            8
+        ],
+        "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_margarita_500x500.jpg"
+    },
+    {
+        "pizzaName": "Gluten and Egg free Funghi",
+        "ingredients": [
+            "San Marzano tomato sauce",
+            "garlic",
+            "oregano",
+            "olive oil"
+        ],
+        "price": 4500,
+        "allergens": [
+            3
+        ],
+        "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2021_02_PH_mobilapp_termekkepek_500x500_farmer.jpg"
+    },
+    {
+        "pizzaName": "Gluten free quattro formaggi",
+        "ingredients": [
+            "San Marzano tomato sauce",
+            "garlic",
+            "oregano",
+            "olive oil"
+        ],
+        "price": 4500,
+        "allergens": [
+            3,
+            8
+        ],
+        "src": "https://amrestcdn.azureedge.net/ph-web-ordering/PH%20HU/Images/PH%20Product%20pictures_comp/2019_10_PH_mobilapp_kepek_margarita_500x500.jpg"
+    }
+]
