@@ -2,7 +2,10 @@ import React from 'react'
 
 const RightColumn = () => {
   return (
-    <div>RightColumn</div>
+    <div className='rightColumn'>
+      <div id="loginField">LOGIN</div>
+      <div id='orderlistField'>ORDERLIST</div>
+    </div>
   )
 }
 
