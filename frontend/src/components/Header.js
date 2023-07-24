@@ -2,16 +2,15 @@ import Button from "./Button"
 const Header = (props) => {
     return (
         <div className="navbar">
-            <div id="home" >HOME</div>
+            <a href="/home" id="home" >HOME</a>
             <div>
-                THE BEST PIZZA Co. {props.title}
+                THE BEST PIZZA Co.
             </div>
             <div>
                 <Button buttonText="LOG IN" buttonId="login" />
-                <button className="btn" id="order">ORDER</button>
-                <button className="btn" id="contact">CONTACT</button>
-                <button className="btn" id="about">ABOUT</button>
-            
+                <Button buttonText="ORDER" buttonId="order" />
+                <Button buttonText="CONTACT" buttonId="contact" />
+                <Button buttonText="ABOUT" buttonId="about" />
             </div>
         </div>
     )
