@@ -2,7 +2,7 @@ import React from 'react'
 
 const CenterColumn = () => {
   return (
-    <div>CenterColumn</div>
+    <div className='centerColumn'>CenterColumn</div>
   )
 }
 
