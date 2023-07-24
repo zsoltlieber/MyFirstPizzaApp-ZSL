@@ -9,6 +9,9 @@ import ordersRoute from './routes/orders.js';
 import messagesRoute from './routes/messages.js';
 import cookieParser from "cookie-parser";
 
+// Use the cors middleware
+import cors from 'cors';
+
 const PORT = 8080;
 const app = express();
 dotenv.config();
@@ -33,6 +36,8 @@ mongoose.connection.on("connected", () => {
 
 app.use(cookieParser());
 app.use(express.json());
+// Use the cors middleware
+app.use(cors());
 
 app.use("/api/auth", authRoute);
 app.use("/api/allergens", allergensRoute);
