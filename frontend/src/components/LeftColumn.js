@@ -2,7 +2,7 @@ import React from 'react'
 
 export const LeftColumn = () => {
   return (
-    <div>LeftColumn</div>
+    <div className='leftColumn'>ALLERGENS</div>
   )
 }
 
