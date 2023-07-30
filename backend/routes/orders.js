@@ -20,7 +20,8 @@ ordersRouter.delete("/:id", verifyAdmin, deleteOrder);
 
 ordersRouter.get("/all", verifyClient, getOrdersAll);
 
-ordersRouter.get("/", verifyClient, getOrders);
+//ordersRouter.get("/", verifyClient, getOrders);               --- must be set later TODO!!!
+ordersRouter.get("/", getOrders);
 
 ordersRouter.get("/:id", verifyClient, getOrder);
 
