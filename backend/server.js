@@ -16,6 +16,17 @@ const PORT = 8080;
 const app = express();
 dotenv.config();
 
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+
+app.use("/api/auth", authRoute);
+app.use("/api/allergens", allergensRoute);
+app.use("/api/pizzaTypes", pizzaTypesRoute);
+app.use("/api/clients", clientsRoute);
+app.use("/api/messages", messagesRoute);
+app.use("/api/orders", ordersRoute);
+
 const connect = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URL)
@@ -33,18 +44,6 @@ mongoose.connection.on("disconnected", () => {
 mongoose.connection.on("connected", () => {
     console.log("MongoDB is connected!")
 });
-
-app.use(cookieParser());
-app.use(express.json());
-// Use the cors middleware
-app.use(cors());
-
-app.use("/api/auth", authRoute);
-app.use("/api/allergens", allergensRoute);
-app.use("/api/pizzaTypes", pizzaTypesRoute);
-app.use("/api/clients", clientsRoute);
-app.use("/api/messages", messagesRoute);
-app.use("/api/orders", ordersRoute);
 
 app.listen(PORT, () => {
     console.log(`Backend server listen on: ${PORT} port!`)
