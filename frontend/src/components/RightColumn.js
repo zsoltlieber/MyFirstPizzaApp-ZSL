@@ -1,10 +1,13 @@
-import React from 'react'
+import Login from "./Login.js"
+import OrderList from "./OrderList.js"
 
 const RightColumn = () => {
+
+
   return (
     <div className='rightColumn'>
-      <div id="loginField">LOGIN</div>
-      <div id='orderlistField'>ORDERLIST</div>
+      <Login />
+      <OrderList />
     </div>
   )
 }

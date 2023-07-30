@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Button = ({ buttonText, buttonId, buttonColor }) => {
 
     function clickHandler(e) {
