@@ -14,7 +14,8 @@ const allergensRouter = express.Router();
 
 allergensRouter.post("/", verifyAdmin, createAllergen);
 
-allergensRouter.put("/:id", verifyAdmin, updateAllergen);
+//allergensRouter.put("/:id", verifyAdmin, updateAllergen);
+allergensRouter.put("/:id", updateAllergen);
 
 allergensRouter.delete("/:id", verifyAdmin, deleteAllergen);
 
