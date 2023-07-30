@@ -6,23 +6,20 @@
 
 /* For mobile 640 Resolution */
 @media only screen and (min-device-width: 360px) and (max-device-width: 640px) {
-  .footer{
-    color:aquamarine;
+  .footer {
+    color: aquamarine;
   }
   .btn {
     font-size: 7px;
     width: 23%;
   }
-  div.footer{
- font-size: 6px;
+  div.footer {
+    font-size: 6px;
   }
 }
 
 /* For laptop 1024 Resolution */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  div .btn {
-
-  }
 }
 
 .navbar {
@@ -38,7 +35,7 @@
   justify-content: space-between;
   padding-left: 10px;
   padding-inline-end: 30px;
- }
+}
 
 #home {
   text-decoration: none;
@@ -67,20 +64,112 @@
   border: 2px solid green;
   text-align: center;
   align-items: center;
-  font-size: 80%;
+  font-size: 2vmax;
 }
 
 .centerColumn {
+  background-image: url("../public/backGroundPizza.png");
   position: fixed;
   top: 11%;
   left: 10%;
   width: 60%;
   height: 80%;
   border: 2px solid green;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  font-size: 80%;
   border: 2px solid blue;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pizzaContainer {
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  height: auto;
+}
+
+.pizzaCard {
+  width: 20rem;
+  height: 30rem;
+  margin: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  overflow: visible;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  background: rgba(157, 27, 16, 0.7);
+  border-radius: 10px;
+
+  border: solid white 2px;
+}
+
+.pizzaCard div {
+  flex: 1;
+}
+
+.pizzaPicture {
+  margin-top: 5%;
+  border-radius: 10px;
+  max-height: 60%;
+  max-width: 60%;
+  height: auto;
+  width: auto;
+  border: solid purple 2px;
+}
+
+.pizzaName::first-line,
+.price::first-line,
+.ingredients::first-line {
+  text-decoration: underline;
+}
+.pizzaName,
+.price,
+.ingredients {
+  border: solid purple 2px;
+  width: 98%;
+  margin-top: 5px;
+  flex: 1;
+  text-align: center;
+}
+
+.ingredients {
+  width: 15rem;
+  border: solid purple 2px;
+  height: 60px;
+  margin: 5px;
+  flex: 1;
+  margin-top: 5px;
+}
+.allergenList::first-line {
+  text-decoration: underline;
+}
+.allergenList {
+  width: 15rem;
+  border: solid purple 2px;
+  height: 40px;
+  margin: 5px;
+  flex: 1;
+  margin-top: 5px;
+}
+.addToBasket {
+  padding: 0;
+  border: none;
+  background: none;
+  height: 40px;
+  color: rgb(157, 27, 16);
+  border: solid white;
+  border-radius: 5px;
+  background-color: white;
 }
 
 .rightColumn {
@@ -97,13 +186,18 @@
 }
 
 .btn {
-  padding: 10px;
+  width: max-content;
+  padding: 5px;
   border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 3px;
   color: blue;
-  margin-right: 2px;
+  margin-right: 3px;
+  text-align: justify;
 }
 .btn:hover {
   background-color: aquamarine;
   color: gray;
+}
+input {
+  margin-top: 15px;
 }

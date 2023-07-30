@@ -1,14 +1,14 @@
-import LeftColumn from './LeftColumn.js'
-import CenterColumn from './CenterColumn.js'
+import AllergenList from './AllergenList.js'
+import CenterColumn from './PizzaTypeColumn.js'
 import RighColumn from './RightColumn.js'
 
 export const MainContainer = () => {
   return (
-      <div className="main-container">
-          <LeftColumn />
-          <CenterColumn />
-          <RighColumn/>
-      </div>
+    <div className="main-container">
+      <AllergenList />
+      <CenterColumn />
+      <RighColumn />
+    </div>
   )
 }
 
