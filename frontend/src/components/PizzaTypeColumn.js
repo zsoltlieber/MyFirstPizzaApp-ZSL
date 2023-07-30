@@ -21,12 +21,12 @@ function PizzaTypeColumn() {
                 <img className="pizzaPicture" src={pizza.src} alt=''></img>
           
               <div>
-                <div class="pizzaName">NAME:<br /> {pizza.pizzaName}</div>
-                <div class="price">PRICE:<br />  {pizza.price} Ft</div>
-                <div class="ingredients">INGREDIENTS:<br />  {pizza.ingredients.join(", ")}</div>
-                <div class="allergenList">ALLERGENS:<br />  {pizza.allergens.join(", ")}</div>
+                <div className="pizzaName">NAME:<br /> {pizza.pizzaName}</div>
+                <div className="price">PRICE:<br />  {pizza.price} Ft</div>
+                <div className="ingredients">INGREDIENTS:<br />  {pizza.ingredients.join(", ")}</div>
+                <div className="allergenList">ALLERGENS:<br />  {pizza.allergens.join(", ")}</div>
                 <div>
-                  <button class="addToBasket" onClick={pizzaTypeHandler}>ADD TO BASKET</button>
+                  <button className="addToBasket" onClick={pizzaTypeHandler}>ADD TO BASKET</button>
                 </div>
               </div>
             </div >
