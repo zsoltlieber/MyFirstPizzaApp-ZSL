@@ -10,8 +10,6 @@ const Header = (props) => {
                 <a href="http://localhost:8080/api/login">
                     <Button buttonText="LOG_IN" buttonId="login" />
                 </a>
-                <Button buttonText="ORDER" buttonId="order" />
-                <Button buttonText="CONTACT" buttonId="contact" />
                 <Button buttonText="ABOUT" buttonId="about" />
             </div>
         </div>
