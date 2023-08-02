@@ -12,9 +12,15 @@ import cookieParser from "cookie-parser";
 // Use the cors middleware
 import cors from 'cors';
 
-const PORT = 8080;
-const app = express();
 dotenv.config();
+const { MONGO_URL, PORT = 8080 } = process.env;
+
+if (!MONGO_URL) {
+    console.error("Missing MONGO_URL environment variable");
+    process.exit(1);
+}
+
+const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -27,9 +33,16 @@ app.use("/api/clients", clientsRoute);
 app.use("/api/messages", messagesRoute);
 app.use("/api/orders", ordersRoute);
 
+/*
+//error handler middleware
+app.use((err, req, res, next) => {
+    return res.status(500).json("Own errorhandler midleware! :) ")
+})
+*/
+
 const connect = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URL)
+        await mongoose.connect(MONGO_URL)
         console.log("Database created!");
     }
     catch (error) {

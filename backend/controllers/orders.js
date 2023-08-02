@@ -22,7 +22,44 @@ export const createOrder = async (req, res, next) => {
     }
 };
 
-export const updateOrder = async (req, res, next) => {
+export const getOrders = async (req, res, next) => {
+    try {
+        let orders = await Order.find()
+        //for all active orders
+        if (req.client.isAdmin) {
+            orders = orders
+                .filter(order => order.isActive)
+            res.status(200).json(orders);
+        } else {
+            //filter for providing only active and own order except the client is admin
+            orders = orders
+                .filter(order => order.isActive)
+                .filter(order => order.orderClientId.match(req.params.clientId));
+            res.status(200).json(orders);
+        }
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getOrderById = async (req, res, next) => {
+
+    try {
+        const actualOrder = await Order.findById(req.params.id);
+        if (!req.client.isAdmin && !actualOrder.lastManipulatorId.match(req.client.id)) {
+            return next(createError(403, "Not allowed to access that client data!"))
+        }
+        else {
+            res.status(200).json(actualOrder);
+        }
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const updateOrderById = async (req, res, next) => {
 
     try {
         const actualOrder = await Order.findById(req.params.id);
@@ -45,7 +82,7 @@ export const updateOrder = async (req, res, next) => {
     }
 };
 
-export const deleteOrder = async (req, res, next) => {
+export const deleteOrderById = async (req, res, next) => {
 
     try {
         await Order.findByIdAndDelete(req.params.id);
@@ -57,56 +94,10 @@ export const deleteOrder = async (req, res, next) => {
     }
 };
 
-export const getOrdersAll = async (req, res, next) => {
-
-    try {
-        let orders = await Order.find()
-        if (!req.client.isAcmin) {
-            orders = orders.filter(order => order.orderClientId.match(req.client.id));
-            res.status(200).json(orders);
-        }
-
-    } catch (error) {
-        next(error);
-    }
-};
-
-export const getOrders = async (req, res, next) => {
-
-    try {
-        let orders = (await Order.find())
-        if (!req.client.isAdmin) {      //filter for providing only active and own order except the client is admin
-            orders = orders
-                .filter(order => order.isActive)
-                .filter(order => order.orderClientId.match(req.client.id));
-            res.status(200).json(orders);
-        }
-
-    } catch (error) {
-        next(error);
-    }
-};
-
-export const getOrder = async (req, res, next) => {
-    try {
-        const actualOrder = await Order.findById(req.params.id);
-        if (!req.client.isAdmin && !actualOrder.orderClientId.match(req.client.id)) {
-            return next(createError(403, "Not allowed to access that client data!"))
-        }
-        else {
-            res.status(200).json(actualOrder);
-        }
-
-    } catch (error) {
-        next(error);
-    }
-};
-
 export default {
     createOrder,
-    updateOrder,
-    deleteOrder,
-    getOrdersAll,
     getOrders,
-    getOrder
+    getOrderById,
+    updateOrderById,
+    deleteOrderById
 }

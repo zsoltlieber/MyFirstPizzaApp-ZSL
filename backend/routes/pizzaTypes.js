@@ -3,25 +3,22 @@ import { verifyAdmin } from '../utils/verifyToken.js';
 
 import {
     createPizzaType,
-    updatePizzaType,
-    deletePizzaType,
-    getPizzaTypesAll,
     getPizzaTypes,
-    getPizzaType
+    getPizzaTypeById,
+    updatePizzaTypeById,
+    deletePizzaTypeById
 } from '../controllers/pizzaTypes.js';
 
 const pizzaTypesRouter = express.Router();
 
 pizzaTypesRouter.post("/", verifyAdmin, createPizzaType);
 
-pizzaTypesRouter.put("/:id", verifyAdmin, updatePizzaType);
-
-pizzaTypesRouter.delete("/:id", verifyAdmin, deletePizzaType);
-
-pizzaTypesRouter.get("/all", verifyAdmin, getPizzaTypesAll);
-
 pizzaTypesRouter.get("/", getPizzaTypes);
 
-pizzaTypesRouter.get("/:id", getPizzaType);
+pizzaTypesRouter.get("/:id", getPizzaTypeById);
+
+pizzaTypesRouter.put("/:id", verifyAdmin, updatePizzaTypeById);
+
+pizzaTypesRouter.delete("/:id", verifyAdmin, deletePizzaTypeById);
 
 export default pizzaTypesRouter;
