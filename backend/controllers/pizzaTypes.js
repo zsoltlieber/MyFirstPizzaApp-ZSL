@@ -15,7 +15,29 @@ export const createPizzaType = async (req, res, next) => {
     }
 };
 
-export const updatePizzaType = async (req, res, next) => {
+export const getPizzaTypes = async (req, res, next) => {
+
+    try {
+        const pizzaTypes = (await PizzaType.find()).filter((data) => data.isActive);
+        res.status(200).json(pizzaTypes);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getPizzaTypeById = async (req, res, next) => {
+
+    try {
+        const actualPizzaType = await PizzaType.findById(req.params.id);
+        res.status(200).json(actualPizzaType);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const updatePizzaTypeById = async (req, res, next) => {
 
     req.body.lastManipulatorId = req.client.id;
 
@@ -33,7 +55,7 @@ export const updatePizzaType = async (req, res, next) => {
     }
 };
 
-export const deletePizzaType = async (req, res, next) => {
+export const deletePizzaTypeById = async (req, res, next) => {
 
     try {
         await PizzaType.findByIdAndDelete(req.params.id);
@@ -45,44 +67,10 @@ export const deletePizzaType = async (req, res, next) => {
     }
 };
 
-export const getPizzaTypesAll = async (req, res, next) => {
-
-    try {
-        const pizzaTypes = await PizzaType.find();
-        res.status(200).json(pizzaTypes);
-
-    } catch (error) {
-        next(error);
-    }
-};
-
-export const getPizzaTypes = async (req, res, next) => {
-
-    try {
-        const pizzaTypes = (await PizzaType.find()).filter((data) => data.isActive);
-        res.status(200).json(pizzaTypes);
-
-    } catch (error) {
-        next(error);
-    }
-};
-
-export const getPizzaType = async (req, res, next) => {
-
-    try {
-        const actualPizzaType = await PizzaType.findById(req.params.id);
-        res.status(200).json(actualPizzaType);
-
-    } catch (error) {
-        next(error);
-    }
-};
-
 export default {
     createPizzaType,
-    updatePizzaType,
-    deletePizzaType,
-    getPizzaTypesAll,
     getPizzaTypes,
-    getPizzaType
+    getPizzaTypeById,
+    updatePizzaTypeById,
+    deletePizzaTypeById
 }

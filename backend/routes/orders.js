@@ -3,26 +3,23 @@ import { verifyClient, verifyAdmin } from '../utils/verifyToken.js';
 
 import {
     createOrder,
-    updateOrder,
-    deleteOrder,
-    getOrdersAll,
     getOrders,
-    getOrder
+    getOrderById,
+    updateOrderById,
+    deleteOrderById
 } from '../controllers/orders.js'
 
 const ordersRouter = express.Router();
 
 ordersRouter.post("/", verifyClient, createOrder);
 
-ordersRouter.put("/:id", verifyClient, updateOrder);
+ordersRouter.get("/", verifyClient, getOrders);
 
-ordersRouter.delete("/:id", verifyAdmin, deleteOrder);
+ordersRouter.get("/:id", verifyClient, getOrderById);
 
-ordersRouter.get("/all", verifyClient, getOrdersAll);
+ordersRouter.put("/:id", verifyClient, updateOrderById);
 
-//ordersRouter.get("/", verifyClient, getOrders);               --- must be set later TODO!!!
-ordersRouter.get("/", getOrders);
+ordersRouter.delete("/:id", verifyAdmin, deleteOrderById);
 
-ordersRouter.get("/:id", verifyClient, getOrder);
 
 export default ordersRouter;

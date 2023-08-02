@@ -1,27 +1,24 @@
 import express from 'express';
-import { verifyToken, verifyClient, verifyAdmin } from '../utils/verifyToken.js';
+import { verifyAdmin, verifyClient } from '../utils/verifyToken.js';
 
 import {
     createMessage,
-    updateMessage,
-    deleteMessage,
-    getMessagesAll,
+    deleteMessageById,
+    getMessageById,
     getMessages,
-    getMessage
-} from '../controllers/messages.js'
+    updateMessageById
+} from '../controllers/messages.js';
 
 const messagesRouter = express.Router();
 
 messagesRouter.post("/", verifyClient, createMessage);
 
-messagesRouter.put("/:id", verifyClient, updateMessage);
-
-messagesRouter.delete("/:id", verifyAdmin, deleteMessage);
-
-messagesRouter.get("/all", verifyAdmin, getMessagesAll);
-
 messagesRouter.get("/", getMessages);
 
-messagesRouter.get("/:id", verifyClient, getMessage);
+messagesRouter.get("/:id", verifyClient, getMessageById);
+
+messagesRouter.put("/:id", verifyClient, updateMessageById);
+
+messagesRouter.delete("/:id", verifyAdmin, deleteMessageById);
 
 export default messagesRouter;

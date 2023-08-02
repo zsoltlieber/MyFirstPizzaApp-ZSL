@@ -15,7 +15,29 @@ export const createAllergen = async (req, res, next) => {
     }
 };
 
-export const updateAllergen = async (req, res, next) => {
+export const getAllergens = async (req, res, next) => {
+
+    try {
+        const allergens = (await Allergen.find()).filter((data) => data.isActive);
+        res.status(200).json(allergens);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getAllergenById = async (req, res, next) => {
+
+    try {
+        const currentAllergen = await Allergen.findById(req.params.id);
+        res.status(200).json(currentAllergen);
+
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const updateAllergenById = async (req, res, next) => {
 
     req.body.lastManipulatorId = req.client.id;
 
@@ -32,7 +54,7 @@ export const updateAllergen = async (req, res, next) => {
     }
 };
 
-export const deleteAllergen = async (req, res, next) => {
+export const deleteAllergenById = async (req, res, next) => {
 
     try {
         await Allergen.findByIdAndDelete(req.params.id);
@@ -44,44 +66,10 @@ export const deleteAllergen = async (req, res, next) => {
     }
 };
 
-export const getAllergensAll = async (req, res, next) => {
-
-    try {
-        const allergens = await Allergen.find();
-        res.status(200).json(allergens);
-
-    } catch (error) {
-        next(error);
-    }
-};
-
-export const getAllergens = async (req, res, next) => {
-
-    try {
-        const allergens = (await Allergen.find()).filter((data) => data.isActive);
-        res.status(200).json(allergens);
-
-    } catch (error) {
-        next(error);
-    }
-};
-
-export const getAllergen = async (req, res, next) => {
-
-    try {
-        const currentAllergen = await Allergen.findById(req.params.id);
-        res.status(200).json(currentAllergen);
-
-    } catch (error) {
-        next(error);
-    }
-};
-
 export default {
     createAllergen,
-    updateAllergen,
-    deleteAllergen,
-    getAllergensAll,
     getAllergens,
-    getAllergen
+    getAllergenById,
+    updateAllergenById,
+    deleteAllergenById,
 }

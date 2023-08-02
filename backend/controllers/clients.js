@@ -20,7 +20,35 @@ export const registerClient = async (req, res, next) => {
     }
 };
 
-export const updateClient = async (req, res, next) => {
+export const getClients = async (req, res, next) => {
+
+    try {
+        const clients = (await Client.find()).filter((data) => data.isActive);
+        res.status(200).json(clients);
+
+    } catch (error) {
+        next(error)
+    };
+};
+
+export const getClientById = async (req, res, next) => {
+
+    try {
+        const actualClient = await Client.findById(req.params.id);
+
+        if (!req.client.isAdmin && !actualClient._id.equals(req.client.id)) {
+            return next(createError(403, "Not allowed to access that client data!"))
+        }
+        else {
+            res.status(200).json(actualClient);
+        }
+
+    } catch (error) {
+        next(error)
+    };
+};
+
+export const updateClientById = async (req, res, next) => {
 
     try {
         if (!req.client.isAdmin && !req.params.id.match(req.client.id)) {
@@ -41,7 +69,7 @@ export const updateClient = async (req, res, next) => {
     };
 };
 
-export const deleteClient = async (req, res, next) => {
+export const deleteClientById = async (req, res, next) => {
 
     try {
         await Client.findByIdAndDelete(req.params.id);
@@ -53,50 +81,10 @@ export const deleteClient = async (req, res, next) => {
     };
 };
 
-export const getClientsAll = async (req, res, next) => {
-
-    try {
-        const clients = await Client.find();
-        res.status(200).json(clients);
-
-    } catch (error) {
-        next(error)
-    };
-};
-
-export const getClients = async (req, res, next) => {
-
-    try {
-        const clients = (await Client.find()).filter((data) => data.isActive);
-        res.status(200).json(clients);
-
-    } catch (error) {
-        next(error)
-    };
-};
-
-export const getClient = async (req, res, next) => {
-
-    try {
-        const actualClient = await Client.findById(req.params.id);
-
-        if (!req.client.isAdmin && !actualClient._id.equals(req.client.id)) {
-            return next(createError(403, "Not allowed to access that client data!"))
-        }
-        else {
-            res.status(200).json(actualClient);
-        }
-
-    } catch (error) {
-        next(error)
-    };
-};
-
 export default {
     registerClient,
-    updateClient,
-    deleteClient,
-    getClientsAll,
     getClients,
-    getClient
+    getClientById,
+    updateClientById,
+    deleteClientById
 }

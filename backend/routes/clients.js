@@ -3,17 +3,15 @@ import { verifyClient, verifyAdmin } from '../utils/verifyToken.js';
 
 import {
     registerClient,
-    updateClient,
-    deleteClient,
-    getClientsAll,
     getClients,
-    getClient
+    getClientById,
+    updateClientById,
+    deleteClientById
 } from '../controllers/clients.js';
 
 const clientsRouter = express.Router();
 
 /*
-
 //check Client status - not necessary in the future, only for studying purpose
 
 clientsRouter.get("/checkAuthentication", (req, res, next) => {
@@ -35,14 +33,12 @@ clientsRouter.get("/checkAdmin/:id", (req, res, next) => {
 
 clientsRouter.post("/register", registerClient);
 
-clientsRouter.put("/:id", verifyClient, updateClient);
-
-clientsRouter.delete("/:id", verifyAdmin, deleteClient);
-
-clientsRouter.get("/all", verifyAdmin, getClientsAll);
-
 clientsRouter.get("/", verifyAdmin, getClients);
 
-clientsRouter.get("/:id", verifyClient, getClient);
+clientsRouter.get("/:id", verifyClient, getClientById);
+
+clientsRouter.put("/:id", verifyClient, updateClientById);
+
+clientsRouter.delete("/:id", verifyAdmin, deleteClientById);
 
 export default clientsRouter;
