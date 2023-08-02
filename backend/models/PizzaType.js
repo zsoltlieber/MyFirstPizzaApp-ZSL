@@ -12,7 +12,7 @@ const PizzaTypeSchema = new Schema({
         type: Number,
         require: true
     },
-    allergens: [Number],
+    allergens: [String],
     src: {
         type: String,
         require: true

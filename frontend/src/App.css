@@ -1,25 +1,13 @@
+body {
+  background-image: url("../public/pizzeria.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .container {
   display: flex;
   height: 100%;
   flex-direction: column;
-}
-
-/* For mobile 640 Resolution */
-@media only screen and (min-device-width: 360px) and (max-device-width: 640px) {
-  .footer {
-    color: aquamarine;
-  }
-  .btn {
-    font-size: 7px;
-    width: 23%;
-  }
-  div.footer {
-    font-size: 6px;
-  }
-}
-
-/* For laptop 1024 Resolution */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 }
 
 .navbar {
@@ -56,15 +44,17 @@
 }
 
 .leftColumn {
+  color:white;
+  font-style: oblique;
   position: fixed;
   top: 11%;
   left: 0%;
   width: 10%;
   height: 80%;
-  border: 2px solid green;
+  border: 2px solid red;
   text-align: center;
   align-items: center;
-    overflow: scroll;
+  overflow: scroll;
 }
 
 input.allergen-checkbox {
@@ -73,7 +63,6 @@ input.allergen-checkbox {
 }
 
 .centerColumn {
-  background-image: url("../public/backGroundPizza.png");
   position: fixed;
   top: 11%;
   left: 10%;
@@ -104,7 +93,6 @@ input.allergen-checkbox {
   margin: 10px;
   margin-top: 20px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -115,11 +103,11 @@ input.allergen-checkbox {
   font-weight: 600;
   background: rgba(157, 27, 16, 0.7);
   border-radius: 10px;
-
   border: solid white 2px;
 }
 
 .pizzaCard div {
+  align-items: center;
   flex: 1;
 }
 
@@ -143,9 +131,8 @@ input.allergen-checkbox {
 .price,
 .ingredients,
 .allergenList {
-  border: solid purple 2px;
   width: 98%;
-  margin-top: 5px;
+  margin-top: 10px;
   flex: 1;
   text-align: center;
 }
@@ -164,6 +151,7 @@ input.allergen-checkbox {
 .addToBasket:hover {
   background-color: lightgreen;
   color: #000;
+  opacity: 1;
 }
 .rightColumn {
   position: fixed;
@@ -193,4 +181,48 @@ input.allergen-checkbox {
 }
 input {
   margin-top: 15px;
+}
+/* For mobile 640 Resolution */
+@media only screen and (min-device-width: 360px) and (max-device-width: 640px) {
+  body{
+    background-size: cover;
+    background-repeat: repeat;
+  }  
+
+  div.leftColumn {
+    font-size: 70%;
+  }
+  input.allergen-checkbox {
+    width: 30%;
+    height: 30%;
+  }
+  div.leftColumn::first-line{
+    font-style: normal;
+    font-size: 50%;
+  }
+  .pizzaCard {
+    width: 80%;
+    height: 95%;
+  }
+  .pizzaPicture {
+    max-height: 40%;
+    max-width: 40%;
+  }
+  .pizzaName,
+  .price,
+  .ingredients,
+  .allergenList {
+    border: solid purple 2px;
+    margin-top: 5px;
+    flex: 1;
+    text-align: center;
+  }
+  .addToBasket {
+    height: 20%;
+    font-size: 50%;
+  }
+
+  div.footer {
+    font-size: 6px;
+  }
 }
