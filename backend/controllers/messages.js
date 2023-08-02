@@ -1,4 +1,5 @@
 import Message from "../models/Message.js";
+import createError from "../utils/error.js";
 
 export const createMessage = async (req, res, next) => {
 
@@ -9,7 +10,7 @@ export const createMessage = async (req, res, next) => {
         const savedMessage = await newMessage.save();
         res.status(200).json(savedMessage);
         console.log(`${savedMessage.clientName} - ${savedMessage._id} - message has been saved!`);
-        
+
     }
     catch (error) {
         next(error);
@@ -39,18 +40,22 @@ export const getMessageById = async (req, res, next) => {
 };
 
 export const updateMessageById = async (req, res, next) => {
-
-    req.body.lastManipulatorId = req.client.id;
+    const actualMessage = await Message.findById(req.params.id)
 
     try {
-        const updatedMessage = await Message.findByIdAndUpdate(
-            req.params.id,
-            { $set: req.body },
-            { new: true }
-        );
-        res.status(200).json(updatedMessage);
-        console.log(`${updatedMessage._id} - ${updatedMessage.clientName} - message has been updated!`);
-
+        if (!req.client.isAdmin && !actualMessage.lastManipulatorId.match(req.client.id)) {
+            return next(createError(403, "Not allowed to access that client data!"))
+        }
+        else {
+            req.body.lastManipulatorId = req.client.id;
+            const updatedMessage = await Message.findByIdAndUpdate(
+                req.params.id,
+                { $set: req.body },
+                { new: true }
+            );
+            res.status(200).json(updatedMessage);
+            console.log(`${updatedMessage._id} - ${updatedMessage.clientName} - message has been updated!`);
+        }
     } catch (error) {
         next(error);
     }

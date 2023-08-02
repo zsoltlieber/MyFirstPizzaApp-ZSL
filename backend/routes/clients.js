@@ -35,7 +35,7 @@ clientsRouter.post("/register", registerClient);
 
 clientsRouter.get("/", verifyAdmin, getClients);
 
-clientsRouter.get("/:id", verifyClient,), getClientById;
+clientsRouter.get("/:id", verifyClient, getClientById);
 
 clientsRouter.put("/:id", verifyClient, updateClientById);
 

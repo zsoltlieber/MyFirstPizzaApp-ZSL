@@ -66,9 +66,17 @@ export const updateOrderById = async (req, res, next) => {
         if (!req.client.isAdmin && !actualOrder.lastManipulatorId.match(req.client.id)) {
             return next(createError(403, "Not allowed to access that client data!"))
         }
-        else {
-            req.body.lastManipulatorId = req.client.id;
+        else if (!req.client.isAdmin && actualOrder.lastManipulatorId.match(req.client.id)) {
+            actualOrder.console.log(req.body)
             const updatedOrder = await Order.findByIdAndUpdate(
+                req.params.id,
+                { $set: req.body },
+                { new: true }
+            );
+            res.status(200).json(updatedOrder);
+            console.log(`${updatedOrder._id} - order has been updated!`);
+        } else {
+               const updatedOrder = await Order.findByIdAndUpdate(
                 req.params.id,
                 { $set: req.body },
                 { new: true }
