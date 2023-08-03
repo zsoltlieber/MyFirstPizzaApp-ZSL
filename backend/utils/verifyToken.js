@@ -36,8 +36,19 @@ export const verifyAdmin = (req, res, next) => {
     });
 };
 
+export const verifyMainAdmin = (req, res, next) => {
+    verifyToken(req, res, () => {
+        if (req.client.isMainAdmin) {
+            next();
+        } else {
+            if (error) return next(createError(403, "You are not main admin!"));
+        }
+    });
+};
+
 export default {
     verifyToken,
     verifyClient,
-    verifyAdmin
+    verifyAdmin,
+    verifyMainAdmin
 }
