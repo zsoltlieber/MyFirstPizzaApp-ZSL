@@ -20,8 +20,9 @@ export const login = async (req, res, next) => {
             .status(200)
             .json(`${client.clientName} - ${client._id} - client loged in!`);
         console.log(`${client.clientName} - ${client._id} - client loged in!`);
+    }
 
-    } catch (error) {
+    catch (error) {
         next(error);
     }
 }
