@@ -4,10 +4,10 @@ import createError from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
 async function setLastManipulatorId  (client, req, res, next)  {
-    //set lastManupulatorId
-    client.lastManipulatorId = client._id;
-    await client.save();
-    
+    //set lastManupulatorId into client data
+    client.lastManipulatorId = client._id
+    const modifiedClient = new Client(client);
+    await modifiedClient.save(); 
 }
 
 export const login = async (req, res, next) => {

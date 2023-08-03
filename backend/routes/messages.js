@@ -15,7 +15,7 @@ messagesRouter.post("/", verifyClient, createMessage);
 
 messagesRouter.get("/", getMessages);
 
-messagesRouter.get("/:id", verifyClient, getMessageById);
+messagesRouter.get("/:id", getMessageById);
 
 messagesRouter.put("/:id", verifyClient, updateMessageById);
 
