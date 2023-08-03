@@ -19,7 +19,7 @@ const MessageSchema = new Schema({
         type: String,
         require: true,
         default: "initial"
-    }, 
+    },
     created: {
         type: Date,
         default: Date.now

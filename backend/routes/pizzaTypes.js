@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyAdmin } from '../utils/verifyToken.js';
+import { verifyAdmin, verifyMainAdmin } from '../utils/verifyToken.js';
 
 import {
     createPizzaType,
@@ -19,6 +19,6 @@ pizzaTypesRouter.get("/:id", getPizzaTypeById);
 
 pizzaTypesRouter.put("/:id", verifyAdmin, updatePizzaTypeById);
 
-pizzaTypesRouter.delete("/:id", verifyAdmin, deletePizzaTypeById);
+pizzaTypesRouter.delete("/:id", verifyMainAdmin, deletePizzaTypeById);
 
 export default pizzaTypesRouter;

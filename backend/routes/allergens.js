@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyAdmin } from '../utils/verifyToken.js';
+import { verifyAdmin, verifyMainAdmin } from '../utils/verifyToken.js';
 
 import {
     createAllergen,
@@ -17,8 +17,8 @@ allergensRouter.get("/", getAllergens);
 
 allergensRouter.get("/:id", getAllergenById);
 
-allergensRouter.delete("/:id", verifyAdmin, deleteAllergenById);
-
 allergensRouter.put("/:id", verifyAdmin, updateAllergenById);
+
+allergensRouter.delete("/:id", verifyMainAdmin, deleteAllergenById);
 
 export default allergensRouter;

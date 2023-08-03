@@ -5,17 +5,23 @@ import createError from '../utils/error.js';
 export const registerClient = async (req, res, next) => {
 
     try {
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+        if (req.body.clientName !== null && req.body.password !== null) {
 
-        const newClient = new Client(req.body);
-        newClient.password = hashedPassword;
+            const salt = bcrypt.genSaltSync(10);
+            const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-        await newClient.save();
-        res.status(200).json(newClient);
-        console.log(`${newClient.clientName} - ${newClient._id} - client was registered.`);
+            const newClient = new Client(req.body);
+            newClient.password = hashedPassword;
 
-    } catch (error) {
+            await newClient.save();
+            res.status(200).json(newClient);
+            console.log(`${newClient.clientName} - ${newClient._id} - client was registered.`);
+        } else {
+            return next(createError(403, "Wrong data (client name or pasword not correct!"))
+        }
+    }
+
+    catch (error) {
         next(error);
     }
 };
@@ -23,10 +29,22 @@ export const registerClient = async (req, res, next) => {
 export const getClients = async (req, res, next) => {
 
     try {
-        const clients = (await Client.find()).filter((data) => data.isActive);
-        res.status(200).json(clients);
+        let clients = null;
+        if (req.query.isActive === 'true') {
+            clients = (await Client.find()).filter((data) => data.isActive === true);
+        } else if (req.query.isActive === 'false') {
+            clients = (await Client.find()).filter((data) => data.isActive === false);
+        } else {
+            clients = await Client.find();
+        }
+        if (clients !== null) {
+            res.status(200).json(clients);
+        } else {
+            res.status(200).json("No clients in the database!");
+        }
+    }
 
-    } catch (error) {
+    catch (error) {
         next(error)
     };
 };
@@ -35,15 +53,18 @@ export const getClientById = async (req, res, next) => {
 
     try {
         const actualClient = await Client.findById(req.params.id);
-
-        if (!req.client.isAdmin && !actualClient._id.equals(req.client.id)) {
-            return next(createError(403, "Not allowed to access that client data!"))
-        }
-        else {
+        if (actualClient !== null) {
+            if (!req.client.isAdmin && !req.params.id.match(req.client.id)) {
+                return next(createError(403, "Not allowed to access that client data!"))
+            }
             res.status(200).json(actualClient);
         }
+        else {
+            res.status(200).json("No client the given ID!");
+        }
+    }
 
-    } catch (error) {
+    catch (error) {
         next(error)
     };
 };
@@ -51,20 +72,30 @@ export const getClientById = async (req, res, next) => {
 export const updateClientById = async (req, res, next) => {
 
     try {
-        if (!req.client.isAdmin && !req.params.id.match(req.client.id)) {
-            return next(createError(403, "Not allowed to access that client data!"))
+        const actualClient = await Client.findById(req.params.id);
+        if (actualClient !== null) {
+            if (req.body.clientName !== undefined || req.body.clientName !== "") {
+                if (!req.client.isAdmin && !req.params.id.match(req.client.id)) {
+                    return next(createError(403, "Not allowed to access that client data!"))
+                }
+                else {
+                    req.body.lastManipulatorId = req.client.id;
+                    req.body.clientName = actualClient.clientName;
+                    req.body.password = actualClient.password;
+                    const updatedClient = await Client.findByIdAndUpdate(
+                        req.params.id,
+                        { $set: req.body },
+                        { new: true }
+                    );
+                    res.status(200).json(updatedClient);
+                    console.log(`${updatedClient.clientName} - ${updatedClient._id} - has been updated!`);
+                }
+            }
+        } else {
+            res.status(200).json("No client the given ID!");
         }
-        else {
-            req.body.lastManipulatorId = req.client.id;
-            const updatedClient = await Client.findByIdAndUpdate(
-                req.params.id,
-                { $set: req.body },
-                { new: true }
-            );
-            res.status(200).json(updatedClient);
-            console.log(`${updatedClient.clientName} - ${updatedClient._id} - has been updated!`);
-        }
-    } catch (error) {
+    }
+    catch (error) {
         next(error)
     };
 };
@@ -72,11 +103,17 @@ export const updateClientById = async (req, res, next) => {
 export const deleteClientById = async (req, res, next) => {
 
     try {
-        await Client.findByIdAndDelete(req.params.id);
-        res.status(200).json(`${req.params.id} - client has been deleted!`);
-        console.log(`${req.params.id} - client has been deleted!`);
-
-    } catch (error) {
+        const actualClient = await Client.findById(req.params.id);
+        if (actualClient !== null) {
+            await Client.findByIdAndDelete(req.params.id);
+            res.status(200).json(`${req.params.id} - client has been deleted!`);
+            console.log(`${req.params.id} - client has been deleted!`);
+        }
+        else {
+            res.status(200).json("No client the given ID!");
+        }
+    }
+    catch (error) {
         next(error)
     };
 };

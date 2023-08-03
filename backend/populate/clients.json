@@ -55,9 +55,16 @@
         ]
     },
     {
+        "clientName": "Normal Admin",
+        "email": "NormalAdmin@mail.hu",
+        "password": "$2y$10$hpcDXXJe5JOofNel0Bvvlu1ZGNl79bLgNmkHWmlOi9vYNyD9g9ycW",
+        "isAdmin": true
+    },
+    {
         "clientName": "Main Admin",
         "email": "MainAdmin@mail.hu",
-        "password": "$2a$12$wly2Mw1FweKS4oTvh1thAeUVbLt.tEtmnhQUEE1q8FsQo0OsBsGPG",
-        "isAdmin": true
+        "password": "$2y$10$Uq8rgaPo0U5S6JraBPFzzeJemHDpx4pbhPorw3D.tSxTE6s6nfULW",
+        "isAdmin": true,
+        "isMainAdmin": true
     }
 ]

@@ -22,6 +22,7 @@ if (!MONGO_URL) {
 
 const app = express();
 
+//middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
@@ -33,12 +34,19 @@ app.use("/api/clients", clientsRoute);
 app.use("/api/messages", messagesRoute);
 app.use("/api/orders", ordersRoute);
 
-/*
+
 //error handler middleware
 app.use((err, req, res, next) => {
-    return res.status(500).json("Own errorhandler midleware! :) ")
+    const errorStatus = err.status || 500;
+    const errorMessage = err.message || "Something went wrong!"
+    return res.status(errorStatus).json({
+        success: false,
+        status: errorStatus,
+        message: errorMessage,
+      //  stack: err.stack,   //developer feature for detailed error information
+    });
+
 })
-*/
 
 const connect = async () => {
     try {

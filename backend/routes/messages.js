@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyAdmin, verifyClient } from '../utils/verifyToken.js';
+import { verifyAdmin, verifyClient, verifyMainAdmin } from '../utils/verifyToken.js';
 
 import {
     createMessage,
@@ -15,10 +15,10 @@ messagesRouter.post("/", verifyClient, createMessage);
 
 messagesRouter.get("/", getMessages);
 
-messagesRouter.get("/:id", verifyClient, getMessageById);
+messagesRouter.get("/:id", getMessageById);
 
 messagesRouter.put("/:id", verifyClient, updateMessageById);
 
-messagesRouter.delete("/:id", verifyAdmin, deleteMessageById);
+messagesRouter.delete("/:id", verifyMainAdmin, deleteMessageById);
 
 export default messagesRouter;

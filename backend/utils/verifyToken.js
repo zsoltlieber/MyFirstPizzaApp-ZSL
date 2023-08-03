@@ -26,6 +26,7 @@ export const verifyClient = (req, res, next) => {
     });
 };
 
+//client for staff
 export const verifyAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.client.isAdmin) {
@@ -36,8 +37,20 @@ export const verifyAdmin = (req, res, next) => {
     });
 };
 
+//client for manager
+export const verifyMainAdmin = (req, res, next) => {
+    verifyToken(req, res, () => {
+        if (req.client.isMainAdmin) {
+            next();
+        } else {
+            if (error) return next(createError(403, "You are not main admin!"));
+        }
+    });
+};
+
 export default {
     verifyToken,
     verifyClient,
-    verifyAdmin
+    verifyAdmin,
+    verifyMainAdmin,
 }

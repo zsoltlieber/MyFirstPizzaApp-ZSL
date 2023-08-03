@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyClient, verifyAdmin } from '../utils/verifyToken.js';
+import { verifyClient, verifyAdmin, verifyMainAdmin } from '../utils/verifyToken.js';
 
 import {
     registerClient,
@@ -39,6 +39,6 @@ clientsRouter.get("/:id", verifyClient, getClientById);
 
 clientsRouter.put("/:id", verifyClient, updateClientById);
 
-clientsRouter.delete("/:id", verifyAdmin, deleteClientById);
+clientsRouter.delete("/:id", verifyMainAdmin, deleteClientById);
 
 export default clientsRouter;

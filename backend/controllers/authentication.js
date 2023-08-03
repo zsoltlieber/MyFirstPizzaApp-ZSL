@@ -3,16 +3,24 @@ import bcrypt from 'bcryptjs';
 import createError from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
-export const login = async (req, res, next) => {
+async function setLastManipulatorId  (client, req, res, next)  {
+    //set lastManupulatorId into client data
+    client.lastManipulatorId = client._id
+    const modifiedClient = new Client(client);
+    await modifiedClient.save(); 
+}
 
+export const login = async (req, res, next) => {
+    
     try {
         const client = await Client.findOne({ clientName: req.body.clientName });
         if (!client) return next(createError(404, "Client not found!"));
 
         const isPasswordCorrect = bcrypt.compare(req.body.password, client.password);
         if (!isPasswordCorrect) return next(createError(400, "Wrong client name or password!"));
+        setLastManipulatorId(client)
 
-        const jwtToken = jwt.sign({ id: client._id, isAdmin: client.isAdmin }, process.env.JWT);
+        const jwtToken = jwt.sign({ id: client._id, isAdmin: client.isAdmin, isMainAdmin: client.isMainAdmin }, process.env.JWT);
 
         res.cookie("access_token", jwtToken, {
             httpOnly: true,
@@ -20,8 +28,9 @@ export const login = async (req, res, next) => {
             .status(200)
             .json(`${client.clientName} - ${client._id} - client loged in!`);
         console.log(`${client.clientName} - ${client._id} - client loged in!`);
+    }
 
-    } catch (error) {
+    catch (error) {
         next(error);
     }
 }

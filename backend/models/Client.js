@@ -12,10 +12,6 @@ const ClientSchema = new Schema({
         type: String,
         require: true
     },
-    isAdmin: {
-        type: Boolean,
-        default: false
-    },
     phoneNumber: [String],
     address: [
         {
@@ -28,6 +24,14 @@ const ClientSchema = new Schema({
     isActive: {
         type: Boolean,
         default: true
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    isMainAdmin: {
+        type: Boolean,
+        default: false
     },
     lastManipulatorId: {                     //last modifier ID or initial ID
         type: String,
