@@ -19,7 +19,21 @@ export const createPizzaType = async (req, res, next) => {
 export const getPizzaTypes = async (req, res, next) => {
 
     try {
-        const pizzaTypes = (await PizzaType.find()).filter((data) => data.isActive);
+        let pizzaTypes = null;
+        if (req.query.isActive === 'true') {
+            pizzaTypes = (await PizzaType.find()).filter((data) => data.isActive === true);
+        } else if (req.query.isActive === 'false') {
+            pizzaTypes = (await PizzaType.find()).filter((data) => data.isActive === false);
+        } else {
+            pizzaTypes = await PizzaType.find();
+        }
+        if (pizzaTypes !== null) {
+            res.status(200).json(pizzaTypes);
+        } else {
+            res.status(200).json("No pizza types in the database!");
+        }
+        
+        pizzaTypes = (await PizzaType.find()).filter((data) => data.isActive);
         res.status(200).json(pizzaTypes);
     }
     

@@ -29,7 +29,14 @@ export const registerClient = async (req, res, next) => {
 export const getClients = async (req, res, next) => {
 
     try {
-        const clients = (await Client.find()).filter((data) => data.isActive);
+        let clients = null;
+        if (req.query.isActive === 'true') {
+            clients = (await Client.find()).filter((data) => data.isActive === true);
+        } else if (req.query.isActive === 'false') {
+            clients = (await Client.find()).filter((data) => data.isActive === false);
+        } else {
+            clients = await Client.find();
+        }
         if (clients !== null) {
             res.status(200).json(clients);
         } else {
@@ -65,14 +72,16 @@ export const getClientById = async (req, res, next) => {
 export const updateClientById = async (req, res, next) => {
 
     try {
-        const actualClient = await Allergen.findById(req.params.id);
+        const actualClient = await Client.findById(req.params.id);
         if (actualClient !== null) {
-            if (req.body.clientName !== undefined && req.body.clientName !== "" || req.body.password !== undefined && req.body.password !== "") {
+            if (req.body.clientName !== undefined || req.body.clientName !== "") {
                 if (!req.client.isAdmin && !req.params.id.match(req.client.id)) {
                     return next(createError(403, "Not allowed to access that client data!"))
                 }
                 else {
                     req.body.lastManipulatorId = req.client.id;
+                    req.body.clientName = actualClient.clientName;
+                    req.body.password = actualClient.password;
                     const updatedClient = await Client.findByIdAndUpdate(
                         req.params.id,
                         { $set: req.body },
@@ -94,7 +103,7 @@ export const updateClientById = async (req, res, next) => {
 export const deleteClientById = async (req, res, next) => {
 
     try {
-        const actualClient = await Allergen.findById(req.params.id);
+        const actualClient = await Client.findById(req.params.id);
         if (actualClient !== null) {
             await Client.findByIdAndDelete(req.params.id);
             res.status(200).json(`${req.params.id} - client has been deleted!`);

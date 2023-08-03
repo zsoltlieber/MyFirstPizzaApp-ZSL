@@ -4,7 +4,7 @@ import createError from "../utils/error.js";
 export const createMessage = async (req, res, next) => {
 
     try {
-        if (req.body.messages != undefined && req.body.messages != "") {
+        if (req.body.message != undefined && req.body.message != "") {
             req.body.lastManipulatorId = req.client.id;
             const newMessage = new Message(req.body);
             const savedMessage = await newMessage.save();
@@ -23,7 +23,14 @@ export const createMessage = async (req, res, next) => {
 export const getMessages = async (req, res, next) => {
 
     try {
-        const messages = (await Message.find()).filter((data) => data.isActive);
+        let messages = null;
+        if (req.query.isActive === 'true') {
+            messages = (await Message.find()).filter((data) => data.isActive === true);
+        } else if (req.query.isActive === 'false') {
+            messages = (await Message.find()).filter((data) => data.isActive === false);
+        } else {
+            messages = await Message.find();
+        }
         if (messages !== null) {
             res.status(200).json(messages);
         } else {
@@ -60,14 +67,14 @@ export const updateMessageById = async (req, res, next) => {
             return next(createError(403, "Not allowed to access that client data!"))
         }
         else {
-            if (req.body.messages !== undefined || req.body.messages !== "") {
+            if (req.body.message !== undefined || req.body.message !== "") {
                 req.body.lastManipulatorId = req.client.id;
                 const updatedMessage = await Message.findByIdAndUpdate(
                     req.params.id,
                     { $set: req.body },
                     { new: true }
                 );
-                if (updateAllergen !== null) {
+                if (updatedMessage !== null) {
                     res.status(200).json(updatedMessage);
                     console.log(`${updatedMessage._id} - ${updatedMessage.clientName} - message has been updated!`);
                 } else {
