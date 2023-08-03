@@ -1,15 +1,18 @@
 import Order from "../models/Order.js";
+import Client from "../models/Client.js";
 import createError from "../utils/error.js";
 
 export const createOrder = async (req, res, next) => {
-
+    const actualClientId = atob(req.cookies.access_token.split('.')[1]).split(",")[0].slice(7, -1);
+    const checkClient = await Client.findById(actualClientId);
+    
     try {
-        if (!req.client.isAdmin && !req.body.orderClientId.match(req.client.id)) {
+        if (!req.client.isAdmin && checkClient === null) {
             return next(createError(403, "The login ClientID is not equals the given ClientID!"))
         }
         else {
-            req.body.lastManipulatorId = req.client.id;
-            req.body.orderClientId = req.client.id;
+            req.body.lastManipulatorId = actualClientId;
+            req.body.orderClientId = actualClientId;
             const newOrder = new Order(req.body);
 
             const savedOrder = await newOrder.save();
@@ -23,6 +26,9 @@ export const createOrder = async (req, res, next) => {
 };
 
 export const getOrders = async (req, res, next) => {
+    console.log(req.client.id);
+    console.log(req.params.clientId);
+    console.log(req.client.isAdmin);
     try {
         let orders = await Order.find()
         //for all active orders
@@ -34,7 +40,7 @@ export const getOrders = async (req, res, next) => {
             //filter for providing only active and own order except the client is admin
             orders = orders
                 .filter(order => order.isActive)
-                .filter(order => order.orderClientId.match(req.params.clientId));
+                .filter(order => order.orderClientId.match(req.client.id));
             res.status(200).json(orders);
         }
 
@@ -76,7 +82,7 @@ export const updateOrderById = async (req, res, next) => {
             res.status(200).json(updatedOrder);
             console.log(`${updatedOrder._id} - order has been updated!`);
         } else {
-               const updatedOrder = await Order.findByIdAndUpdate(
+            const updatedOrder = await Order.findByIdAndUpdate(
                 req.params.id,
                 { $set: req.body },
                 { new: true }
