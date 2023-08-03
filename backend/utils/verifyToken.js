@@ -26,6 +26,7 @@ export const verifyClient = (req, res, next) => {
     });
 };
 
+//client for staff
 export const verifyAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.client.isAdmin) {
@@ -36,6 +37,7 @@ export const verifyAdmin = (req, res, next) => {
     });
 };
 
+//client for manager
 export const verifyMainAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.client.isMainAdmin) {
@@ -50,5 +52,5 @@ export default {
     verifyToken,
     verifyClient,
     verifyAdmin,
-    verifyMainAdmin
+    verifyMainAdmin,
 }
