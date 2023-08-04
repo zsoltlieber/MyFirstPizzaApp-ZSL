@@ -1,68 +1,55 @@
 import { useState } from "react";
 
 export const Login = () => {
+  const [clientData, setClientData] = useState({});
 
-
-
-  const [client, setClient] = useState({
-    "clientName": "",
-    "password": ""
-  })
-  const [value, setValue] = useState(0);
-
-  function handleClientName(e) {
-    setClient
-      ({
-        ...client,
-        clientName: e.target.value
-      })
-  }
-  function handlePassword(e) {
-    setClient
-      ({
-        ...client,
-        password: e.target.value
-      })
+  const changeToRegister = (e) => {
+    console.log("register")
   }
 
-  function submitClientCheckerData(client) {
+  const handleSubmit = (event) => {
+    //Prevent page reload
+    event.preventDefault();
 
-    if (client["clientName"] !== "" && client["password"] !== "") {
+    console.log(clientData);
+    /*
+    fetch('http://localhost:8080/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ clientData })
 
-      const clientData = {
-        ...client,
-        clientName: client.clientName,
-        password: client.password
-      };
-      
-      console.log(clientData);
-      
-      fetch('http://localhost:8080/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(clientData)
-        
-      })
-        .then(res => res.json())
-        .then(res => setValue(res));
+    })
+      .then(res => res.json())
+      .then(res => console.log(res));
+      */
 
-      setClient
-        ({
-          "clientName": "",
-          "password": ""
-        });
-
-    }
   }
 
   return (
-    <div id="login-fields">
-      <input placeholder="clientName" type="text" value={client.clientName} onChange={handleClientName}></input>
-      <input placeholder="password" type="password" value={client.password} onChange={handlePassword}></input>
-      <button className="btn" onClick={() => { submitClientCheckerData(client); }}>Login</button>
-    </div>
+    <>
+      <div id="login-form">
+        <form onSubmit={handleSubmit}>
+          <div>
+            <p style={{color:"white", fontSize:"12px"}}>IF YOU WANT TO ORDER YOU MUST BE LOGED IN!</p>
+            <input type="text" id="clientName" placeholder="client name" required
+              onChange={(e) => { setClientData({ ...clientData, clientName: e.target.value }) }} />
+          </div>
+          <div>
+            <input type="password" id="password" placeholder="password" required
+              onChange={(e) => { setClientData({ ...clientData, password: e.target.value }) }} />
+          </div>
+          <div>
+            <button type="submit" className="btn">Login</button>
+          </div>
+          <div style={{ cursor:"grab" , backgroundColor: "white", color: "red", fontSize: "12px", marginTop: "50px" }}>
+            <label  type="text" onClick={changeToRegister} >If you are not registered, push this box!</label>
+          </div>
+        </form>
+      </div>
+    </>
   )
 }
+
 export default Login;

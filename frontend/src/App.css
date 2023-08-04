@@ -44,7 +44,7 @@ body {
 }
 
 .leftColumn {
-  color:white;
+  color: white;
   font-style: oblique;
   position: fixed;
   top: 11%;
@@ -153,7 +153,7 @@ input.allergen-checkbox {
   color: #000;
   opacity: 1;
 }
-.rightColumn  {
+.rightColumn {
   position: fixed;
   top: 11%;
   right: 0%;
@@ -184,23 +184,39 @@ input {
   margin-top: 15px;
 }
 
-#login-fields {
+#login-form {
   background: rgba(157, 27, 16, 0.7);
   width: 200px;
-  height: 180px;
+  height: 60%;
   border: solid 3px white;
   border-radius: 15px;
   padding: 10px;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 45px;
+  margin: 10px;
+}
+#login-form div {
+ font-size: 30px; 
+ margin-top: 10px;
 }
 
+#register-form, #orderList {
+  background: rgba(157, 27, 16, 0.7);
+  width: 85%;
+  height: 92%;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+}
+#register-form div {
+ font-size: 30px; 
+ margin-top: 10px;
+}
 /* For mobile 640 Resolution */
 @media only screen and (min-device-width: 360px) and (max-device-width: 640px) {
-  body{
+  body {
     background-size: cover;
     background-repeat: repeat;
-  }  
+  }
 
   div.leftColumn {
     font-size: 70%;
@@ -209,7 +225,7 @@ input {
     width: 30%;
     height: 30%;
   }
-  div.leftColumn::first-line{
+  div.leftColumn::first-line {
     font-style: normal;
     font-size: 50%;
   }
