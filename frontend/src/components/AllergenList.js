@@ -1,11 +1,26 @@
-import FetchData from './FetchData.js'
+import { useEffect, useState } from 'react';
 
 export const AllergenList = () => {
+
   const allergensUrl = "http://localhost:8080/api/allergens"
 
+  const [loading, setLoading] = useState(true);
+  const [allergens, setAllergens] = useState([]);
 
-  const { data } = FetchData(allergensUrl)
-  const allergens = data
+  const allergensFetch = async (url) => {
+    setLoading(true)
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data) setAllergens(data);
+    setLoading(false)
+  };
+
+  useEffect(() => {
+    allergensFetch(allergensUrl);
+  }, []);
+
+ // if (allergens.length > 0) console.log(allergens);
+
 
   function allergenHandler(e) {
     console.log(e.target);

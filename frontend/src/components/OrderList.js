@@ -1,30 +1,55 @@
-import FetchData from "./FetchData.js";
+import { useState, useEffect } from 'react';
 
 const OrderList = () => {
 
-  const orderUrl = "http://localhost:8080/api/orders"
-  const { orders } = FetchData(orderUrl)
+  const ordersUrl = "http://localhost:8080/api/orders"
   const pizzaTypesUrl = "http://localhost:8080/api/pizzaTypes"
-  const { pizzaTypes } = FetchData(pizzaTypesUrl)
 
-  if(orders!=null) console.log(orders);
-  if (pizzaTypes != null) console.log(pizzaTypes);
+  const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState([]);
+  const [pizzaTypes, setPizzaTypes] = useState([]);
+  const [showOrderlist, setShowOrderList] = useState(false);
+
+  const pizzaTypeFetch = async (url) => {
+    setLoading(true)
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data) setPizzaTypes(data);
+    setLoading(false)
+  };
+
+  const orderFetch = async (url) => {
+    setLoading(true)
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data) setOrders(data);
+    setLoading(false)
+  };
+
+  useEffect(() => {
+    orderFetch(ordersUrl);
+    pizzaTypeFetch(pizzaTypesUrl)
+  }, []);
+
+  //if (pizzaTypes.length > 0) console.log(pizzaTypes);
+  if (orders.length > 0) console.log(orders);
 
 
 
   return (
-    <div className='rightColumn'>
-      <h1>ORDERLIST</h1>
-    <div id="orderList">
-        {orders && orders != null
-          ? orders.map(order => (
-          <div key={order._id}>
-            {order.orderClientId}
-          </div>
-        ))
-        : <></>
-      }
-    </div>
+    <div >
+      {showOrderlist ?
+        <div id="orderList">
+          {orders !== undefined && orders !== null
+            ? orders.map(order => (
+              <div key={order._id}>
+                {order.orderClientId}
+              </div>
+            ))
+            : <></>
+          }
+        </div>
+        : <></>}
     </div>
   )
 }

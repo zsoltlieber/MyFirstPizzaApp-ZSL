@@ -153,7 +153,7 @@ input.allergen-checkbox {
   color: #000;
   opacity: 1;
 }
-.rightColumn {
+.rightColumn  {
   position: fixed;
   top: 11%;
   right: 0%;
@@ -167,13 +167,14 @@ input.allergen-checkbox {
 }
 
 .btn {
-  width: max-content;
+  width: 80px;
   padding: 5px;
   border: 1px solid black;
   border-radius: 3px;
   color: blue;
   margin-right: 3px;
-  text-align: justify;
+  align-items: center;
+  text-align: center;
 }
 .btn:hover {
   background-color: aquamarine;
@@ -182,6 +183,18 @@ input.allergen-checkbox {
 input {
   margin-top: 15px;
 }
+
+#login-fields {
+  background: rgba(157, 27, 16, 0.7);
+  width: 200px;
+  height: 180px;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 10px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 45px;
+}
+
 /* For mobile 640 Resolution */
 @media only screen and (min-device-width: 360px) and (max-device-width: 640px) {
   body{

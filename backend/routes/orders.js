@@ -13,7 +13,8 @@ const ordersRouter = express.Router();
 
 ordersRouter.post("/", verifyClient, createOrder);
 
-ordersRouter.get("/", verifyClient, getOrders);
+//ordersRouter.get("/", verifyClient, getOrders);
+ordersRouter.get("/",  getOrders);
 
 ordersRouter.get("/:id", verifyClient, getOrderById);
 

@@ -7,10 +7,10 @@ const Header = (props) => {
                 THE BEST PIZZA Co.
             </div>
             <div>
-                <a href="http://localhost:8080/api/login">
-                    <Button buttonText="LOG_IN" buttonId="login" />
-                </a>
-                <Button buttonText="ABOUT" buttonId="about" />
+
+                <Button buttonText="SIGN IN" buttonId="register-btn" />
+                <Button buttonText="LOG IN" buttonId="login-btn" />
+                <Button buttonText="ABOUT US" buttonId="about" />
             </div>
         </div>
     )
