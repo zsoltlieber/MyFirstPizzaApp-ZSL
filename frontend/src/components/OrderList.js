@@ -8,7 +8,6 @@ const OrderList = () => {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const [pizzaTypes, setPizzaTypes] = useState([]);
-  const [showOrderlist, setShowOrderList] = useState(false);
 
   const pizzaTypeFetch = async (url) => {
     setLoading(true)
@@ -34,22 +33,19 @@ const OrderList = () => {
   //if (pizzaTypes.length > 0) console.log(pizzaTypes);
   if (orders.length > 0) console.log(orders);
 
-
-
   return (
     <div >
-      {showOrderlist ?
-        <div id="orderList">
-          {orders !== undefined && orders !== null
-            ? orders.map(order => (
-              <div key={order._id}>
-                {order.orderClientId}
-              </div>
-            ))
-            : <></>
-          }
-        </div>
-        : <></>}
+      <div id="orderList" style={{ color: "white" }}>
+        RENDELÉSEK
+        {orders !== undefined && orders !== null
+          ? orders.map(order => (
+            <div key={order._id}>
+              {order.orderClientId}
+            </div>
+          ))
+          : <></>
+        }
+      </div>
     </div>
   )
 }

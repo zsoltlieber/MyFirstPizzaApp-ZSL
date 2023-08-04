@@ -1,15 +1,18 @@
 import Button from "./Button"
 const Header = (props) => {
+
+    function loginBoxShow(e) {
+        console.log(e.buttonId);
+    }
+
     return (
         <div className="navbar">
-            <a href="/home" id="home" >HOME</a>
+            <a href="/" id="home" >HOME</a>
             <div>
                 THE BEST PIZZA Co.
             </div>
             <div>
-
-                <Button buttonText="SIGN IN" buttonId="register-btn" />
-                <Button buttonText="LOG IN" buttonId="login-btn" />
+                <Button buttonText="LOG IN" buttonId="login-btn" onClick={loginBoxShow} />
                 <Button buttonText="ABOUT US" buttonId="about" />
             </div>
         </div>
