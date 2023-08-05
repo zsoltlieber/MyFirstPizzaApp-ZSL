@@ -1,5 +1,6 @@
-import Button from "./Button.js"
-const Header = () => {
+const Header = ({ setRightBlockForm }) => {
+
+
 
     return (
         <div className="navbar">
@@ -8,8 +9,9 @@ const Header = () => {
                 THE BEST PIZZA Co.
             </div>
             <div>
-                <Button buttonText="LOG IN" buttonValue="login" value="login" />
-                <Button buttonText="ABOUT US" buttonValue="about" value="about-us" />
+                <button className="btn" value="signin" onClick={(e) => setRightBlockForm(e.target.value)} >SIGN IN</button >
+                <button className="btn" value="login" onClick={(e) => setRightBlockForm(e.target.value)}>LOG IN</button >
+                <button className="btn" value="about" onClick={(e) => setRightBlockForm(e.target.value)} >ABOUT US</button >
             </div>
         </div>
     )
