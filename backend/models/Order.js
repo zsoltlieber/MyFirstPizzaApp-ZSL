@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
+    orderUuid: {
+        type: String,
+        require: true
+    },
     orderClientId: {
         type: String,
         require: true
@@ -29,12 +33,12 @@ const OrderSchema = new Schema({
     isActive: {
         type: Boolean,
         default: true
-    }, 
+    },
     lastManipulatorId: {                     //last modifier ID or initial ID
         type: String,
         require: true,
         default: "initial"
-    }, 
+    },
     created: {
         type: Date,
         default: Date.now
