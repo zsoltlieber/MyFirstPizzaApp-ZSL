@@ -4,26 +4,25 @@ export const AllergenList = () => {
 
   const allergensUrl = "http://localhost:8080/api/allergens"
 
-  const [loading, setLoading] = useState(true);
   const [allergens, setAllergens] = useState([]);
 
   const allergensFetch = async (url) => {
-    setLoading(true)
     const response = await fetch(url);
     const data = await response.json();
     if (data) setAllergens(data);
-    setLoading(false)
   };
 
   useEffect(() => {
     allergensFetch(allergensUrl);
-  }, []);
+  }, [allergens]);
 
- // if (allergens.length > 0) console.log(allergens);
-
-
-  function allergenHandler(e) {
-    console.log(e.target);
+  function allergenHandler() {
+    const checkBoxes = Object(document.querySelectorAll(".allergen-checkbox"));
+    let newList = [];
+    for (let i = 0; i < allergens.length; i++) {
+      newList.push(allergens[i].isChecked = checkBoxes[i].checked)
+    }
+    setAllergens(allergens)
   }
 
   return (
