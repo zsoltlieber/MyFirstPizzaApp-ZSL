@@ -194,23 +194,40 @@ input {
   margin: 10px;
 }
 #login-form div {
- font-size: 30px; 
- margin-top: 10px;
+  font-size: 30px;
+  margin-top: 10px;
 }
 
-#register-form, #orderList {
+#register-form,
+#orderList {
   background: rgba(157, 27, 16, 0.7);
   width: 85%;
   height: 92%;
   border: solid 3px white;
   border-radius: 15px;
+  border: solid 3px white;
   padding: 10px;
   margin: 10px;
 }
 #register-form div {
- font-size: 30px; 
- margin-top: 10px;
+  font-size: 30px;
+  margin-top: 10px;
 }
+
+#about-us {
+  background: rgba(157, 27, 16, 0.7);
+  border-radius: 15px;
+  width: 80%;
+  height: 90%;
+  border: solid 3px white;
+  color: white;
+  font-size: 15px;
+  text-align:justify;
+  overflow: scroll;
+  padding: 15px;
+  margin: 10px;
+}
+
 /* For mobile 640 Resolution */
 @media only screen and (min-device-width: 360px) and (max-device-width: 640px) {
   body {

@@ -1,9 +1,5 @@
-import Button from "./Button"
-const Header = (props) => {
-
-    function loginBoxShow(e) {
-        console.log(e.buttonId);
-    }
+import Button from "./Button.js"
+const Header = () => {
 
     return (
         <div className="navbar">
@@ -12,8 +8,8 @@ const Header = (props) => {
                 THE BEST PIZZA Co.
             </div>
             <div>
-                <Button buttonText="LOG IN" buttonId="login-btn" onClick={loginBoxShow} />
-                <Button buttonText="ABOUT US" buttonId="about" />
+                <Button buttonText="LOG IN" buttonValue="login" value="login" />
+                <Button buttonText="ABOUT US" buttonValue="about" value="about-us" />
             </div>
         </div>
     )

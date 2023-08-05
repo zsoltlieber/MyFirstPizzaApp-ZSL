@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-export function Register() {
+export function RegisterForm() {
+    const registerUrl = 'http://localhost:8080/api/clients/register'
     const [clientData, setClientData] = useState({});
 
     const handleSubmit = (event) => {
@@ -8,18 +9,19 @@ export function Register() {
         event.preventDefault();
 
         console.log(clientData);
-        /*
-        fetch('http://localhost:8080/api/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ clientData })
-  
-        })
-          .then(res => res.json())
-          .then(res => console.log(res));
-          */
+
+        const registerOnServer = async () => {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify( clientData )
+            };
+            const response = await fetch(registerUrl, requestOptions);
+            const data = await response.json();
+            console.log(data);
+        };
+
+        registerOnServer()
 
     }
 
@@ -68,4 +70,4 @@ export function Register() {
     )
 }
 
-export default Register;
+export default RegisterForm;

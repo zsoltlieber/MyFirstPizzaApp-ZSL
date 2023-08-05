@@ -1,12 +1,13 @@
-const Button = ({ buttonText, buttonId, buttonColor }) => {
+const Button = ({ buttonText, buttonValue, buttonColor, setRightBoxForm }) => {
 
-    function clickHandler(e) {
-        console.log(e.target)
+    function buttonEffect(e) {
+        console.log(e.target.value);
+        setRightBoxForm=e.target.value
     }
 
     return (
         <>
-            <button className="btn" id={buttonId} style={{ backgroundColor: buttonColor, cursor: "pointer" }} name={buttonId} onClick={clickHandler}> {buttonText}</button >
+            <button className="btn" style={{ backgroundColor: buttonColor, cursor: "pointer" }} onClick={buttonEffect} value={buttonValue}> {buttonText}</button >
         </ >
     )
 }
