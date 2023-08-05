@@ -1,26 +1,27 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import LoginForm from "./LoginForm.js"
 import ActiveOrdersList from "./ActiveOrdersList.js"
-import RegisterForm from "./RegisterForm.js"
+import SignInForm from "./RegistrationForm.js"
 import OrderForm from "./OrderForm.js"
 import AboutUs from "./AboutUs.js"
 
-const RightColumn = () => {
-
-  const [currentForm, setCurrentForm] = useState("login")
-  //const [currentForm, setCurrentForm] = useState("register")
-  //const [currentForm, setCurrentForm] = useState("active_orders")
-  //const [currentForm, setCurrentForm] = useState("about-us")
+const RightColumn = ({ rightBlock } ) => {
+ 
+  const [currentForm, setCurrentForm] = useState("")
+  
+  useEffect(() => {
+    setCurrentForm(rightBlock);
+  }, [rightBlock])
 
   return (
     <div className='rightColumn'>
       {currentForm === "login" ?
         <LoginForm />
-        : currentForm === "register" ?
-          <RegisterForm />
+        : currentForm === "signin" ?
+          <SignInForm />
           : currentForm === "active_orders" ?
             <ActiveOrdersList />
-            : currentForm === "about_us" ?
+            : currentForm === "about" ?
               <AboutUs />
               : currentForm === "order-form" ?
                 <OrderForm />
