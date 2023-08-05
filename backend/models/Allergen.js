@@ -15,6 +15,10 @@ const AllergenSchema = new Schema({
         type: Boolean,
         default: true
     },
+    isChecked: {
+        type: Boolean,
+        default: false
+    },
     lastManipulatorId: {                     //last modifier ID or initial ID
         type: String,
         require: true,

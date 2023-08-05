@@ -3,15 +3,15 @@ import bcrypt from 'bcryptjs';
 import createError from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
-async function setLastManipulatorId  (client, req, res, next)  {
+async function setLastManipulatorId(client, req, res, next) {
     //set lastManupulatorId into client data
     client.lastManipulatorId = client._id
     const modifiedClient = new Client(client);
-    await modifiedClient.save(); 
+    await modifiedClient.save();
 }
 
 export const login = async (req, res, next) => {
-    
+
     try {
         const client = await Client.findOne({ clientName: req.body.clientName });
         if (!client) return next(createError(404, "Client not found!"));
@@ -26,8 +26,8 @@ export const login = async (req, res, next) => {
             httpOnly: true,
         })
             .status(200)
-            .json(`${client.clientName} - ${client._id} - client loged in!`);
-        console.log(`${client.clientName} - ${client._id} - client loged in!`);
+            .json({ name: client.clientName, id: client._id });
+        console.log(`name:${client.clientName} - id:${client._id} - client loged in!`);
     }
 
     catch (error) {
