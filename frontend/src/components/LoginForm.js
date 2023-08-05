@@ -10,7 +10,6 @@ export const LoginForm = (props) => {
     if (rightBoxForm !== "register") {
       setRightBoxForm("register")
     }
-
   }
 
   const handleSubmit = (event) => {
@@ -24,11 +23,12 @@ export const LoginForm = (props) => {
       };
       const response = await fetch(loginUrl, requestOptions);
       const data = await response.json();
-      if (response.status !== 200) {
-        console.log(data.message);
+      if (response.status !== 200) { console.log(data.message) }
+      else { 
+        localStorage.setItem('userName_myapp', data.name);
+        localStorage.setItem('userId_myapp', data.id);
+        setClientData({});
       }
-      else { console.log(data) }
-      setClientData({})
     };
     loginToServer()
   }
@@ -48,9 +48,6 @@ export const LoginForm = (props) => {
           </div>
           <div>
             <button type="submit" className="btn">Login</button>
-          </div>
-          <div style={{ cursor: "grab", backgroundColor: "white", color: "red", fontSize: "12px", marginTop: "50px" }}>
-            <label type="text" onClick={backToRegister} >If you are not registered, push this box!</label>
           </div>
         </form>
       </div>
