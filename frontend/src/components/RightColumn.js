@@ -16,7 +16,7 @@ const RightColumn = ({ rightBlock } ) => {
   return (
     <div className='rightColumn'>
       {currentForm === "login" ?
-        <LoginForm />
+        <LoginForm setCurrentForm={setCurrentForm} />
         : currentForm === "signin" ?
           <SignInForm />
           : currentForm === "active_orders" ?

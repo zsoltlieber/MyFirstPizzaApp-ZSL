@@ -11,8 +11,8 @@ function App() {
   const [rightBlock, setRightBlock] = useState("about")
 
 
-  const setRightBlockForm = (childdata) => {
-    setRightBlock(childdata);
+  const setRightBlockForm = (formId) => {
+    setRightBlock(formId);
   }
 
   return (

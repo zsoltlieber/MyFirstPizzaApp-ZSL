@@ -201,6 +201,16 @@ input {
   margin-top: 10px;
 }
 
+#not-found {
+  width: 80%;
+  color: red;
+  background-color: white;
+  border-radius: 15px;
+  padding: 5px;
+  align-items: center;
+  margin-left: 5%;
+}
+
 #registration-form,
 #orderList {
   background: rgba(157, 27, 16, 0.7);

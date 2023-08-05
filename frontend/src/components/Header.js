@@ -1,7 +1,5 @@
 const Header = ({ setRightBlockForm }) => {
 
-
-
     return (
         <div className="navbar">
             <a href="/" id="home" >HOME</a>
