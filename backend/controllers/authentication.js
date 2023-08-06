@@ -26,8 +26,8 @@ export const login = async (req, res, next) => {
             httpOnly: true,
         })
             .status(200)
-            .json({ name: client.clientName, id: client._id });
-        console.log(`name:${client.clientName} - id:${client._id} - client loged in!`);
+            .json({ name: client.clientName, id: client._id, staff: client.isAdmin, boss: client.isMainAdmin });
+        console.log(`name:${client.clientName} - id:${client._id} - staff:${client.isAdmin} - boss:${client.isMainAdmin}- client loged in!`);
     }
 
     catch (error) {
