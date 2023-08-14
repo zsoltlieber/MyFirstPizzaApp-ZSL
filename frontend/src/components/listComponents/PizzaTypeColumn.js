@@ -1,21 +1,39 @@
+import { useState, useEffect } from 'react';
 
-import FetchData from './FetchData.js'
+function PizzaTypeColumn({ allergensSet  }) {
 
-function PizzaTypeColumn() {
+  const pizzaTypesUrl = 'http://localhost:8080/api/pizzaTypes';
 
-  const pizzaTypeUrl = 'http://localhost:8080/api/pizzaTypes'
-  const allergensUrl = "http://localhost:8080/api/allergens"
+  const [pizzaTypes, setPizzaTypes] = useState([]);
+  const [wrongAllergens, setWrongAllergens] = useState([]);
 
-  let { data } = FetchData(pizzaTypeUrl)
-  const pizzaTypes = data
+  const pizzaTypeFetch = async (url) => {
+
+    const response = await fetch(url);
+    const data = await response.json();
+    if (response.status === 200) {
+   //   data.filter(item=>!item.allergens.contain(activeAllergens))
+    }
+    console.log(data)
+    console.log(allergensSet)
+
+    if (data) setPizzaTypes(data);
+  };
+
+  useEffect(() => {
+    setWrongAllergens(allergensSet)
+  }, [allergensSet]);
+
+  useEffect(() => {
+    pizzaTypeFetch(pizzaTypesUrl)
+  }, [pizzaTypesUrl]);
+
+ // if (pizzaTypes.length > 0) console.log(pizzaTypes);
+ // if (allergens.length > 0) console.log(allergens);
 
   function pizzaTypeHandler(e) {
     console.log(e.target)
   }
- 
-  data = FetchData(allergensUrl)
-  const allergens=data
-  console.log(allergens);
 
 
   return (
@@ -29,7 +47,7 @@ function PizzaTypeColumn() {
 
               <div>
                 <div className="pizzaName">NAME:<br /> {pizza.pizzaName}</div>
-                <div className="price">PRICE:<br />  {pizza.price} Ft</div>
+                <div className="price">PRICE:<br />  {pizza.price.toLocaleString('en-US')}.- Ft</div>
                 <div className="ingredients">INGREDIENTS:<br />  {pizza.ingredients.join(", ")}</div>
                 <div className="allergenList">ALLERGENS:<br />  {pizza.allergens.join(", ")}</div>
                 <div>

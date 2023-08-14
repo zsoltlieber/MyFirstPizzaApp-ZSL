@@ -1,4 +1,5 @@
 export const Footer = () => {
+    
     return (
         <div className="footer">
             <p>@The Best Pizza Company</p>
@@ -9,4 +10,5 @@ export const Footer = () => {
         </div>
     )
 }
+
 export default Footer

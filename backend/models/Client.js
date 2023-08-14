@@ -3,6 +3,10 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ClientSchema = new Schema({
+    clientUuid: {
+        type: String,
+        require: true
+    },
     clientName: {
         type: String,
         require: true
@@ -37,7 +41,7 @@ const ClientSchema = new Schema({
         type: String,
         require: true,
         default: "initial"
-    }, 
+    },
     created: {
         type: Date,
         default: Date.now
