@@ -44,6 +44,7 @@ body {
 }
 
 .leftColumn {
+  background: rgba(157, 27, 16, 0.7);
   color: white;
   font-style: oblique;
   position: fixed;
@@ -68,12 +69,11 @@ input.allergen-checkbox {
   left: 10%;
   width: 60%;
   height: 80%;
-  border: 2px solid green;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   display: flex;
   flex-wrap: wrap;
   overflow: scroll;
@@ -141,7 +141,7 @@ input.allergen-checkbox {
   height: 40px;
   margin: 10px;
   color: rgb(157, 27, 16);
-  border: 2px solid blue;
+  /*   border: 2px solid blue; */
   border-radius: 15px;
   background-color: white;
   font-size: larger;
@@ -159,10 +159,10 @@ input.allergen-checkbox {
   right: 0%;
   width: 29%;
   height: 80%;
-  border: 2px solid green;
   text-align: center;
   align-items: center;
-  border: 2px solid yellow;
+  /*   border: 2px solid yellow;
+ */
   font-size: 80%;
 }
 
@@ -187,7 +187,7 @@ input {
 
 #login-form,
 #boss-page,
-#staff-page  {
+#staff-page {
   background: rgba(157, 27, 16, 0.7);
   width: 80%;
   height: 50%;
@@ -244,7 +244,7 @@ input {
 }
 
 #registration-form div,
- #message-form div{
+#message-form div {
   font-size: 30px;
   margin-top: 5px;
 }
@@ -264,7 +264,7 @@ input {
 }
 
 /* For mobile 640 Resolution */
-@media only screen and (min-device-width: 360px) and (max-device-width: 640px) {
+@media only screen and (max-width: 640px) {
   body {
     background-size: cover;
     background-repeat: repeat;

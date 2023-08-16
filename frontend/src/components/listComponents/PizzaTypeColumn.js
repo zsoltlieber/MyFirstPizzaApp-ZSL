@@ -1,45 +1,53 @@
 import { useState, useEffect } from 'react';
 
-function PizzaTypeColumn({ allergensSet  }) {
+function PizzaTypeColumn({ signedAllergens }) {
 
   const pizzaTypesUrl = 'http://localhost:8080/api/pizzaTypes';
 
-  const [pizzaTypes, setPizzaTypes] = useState([]);
+  const [actualPizzas, setActualPizzas] = useState([]);
   const [wrongAllergens, setWrongAllergens] = useState([]);
 
   const pizzaTypeFetch = async (url) => {
 
+    let newPizzaList = [];
+    let wrongPizza = 0;
     const response = await fetch(url);
     const data = await response.json();
     if (response.status === 200) {
-   //   data.filter(item=>!item.allergens.contain(activeAllergens))
-    }
-    console.log(data)
-    console.log(allergensSet)
 
-    if (data) setPizzaTypes(data);
-  };
-
-  useEffect(() => {
-    setWrongAllergens(allergensSet)
-  }, [allergensSet]);
-
+      for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < wrongAllergens.length; j++) {
+          if (data[i].allergens.includes(wrongAllergens[j].allergenName)) {
+            wrongPizza++;
+          }
+        }
+        if (wrongPizza < 1) {
+          newPizzaList.push(data[i])
+        }
+        wrongPizza = 0;
+      }
+      setActualPizzas(newPizzaList)
+    };
+  }
   useEffect(() => {
     pizzaTypeFetch(pizzaTypesUrl)
-  }, [pizzaTypesUrl]);
+  }, [wrongAllergens]);
 
- // if (pizzaTypes.length > 0) console.log(pizzaTypes);
- // if (allergens.length > 0) console.log(allergens);
+  useEffect(() => {
+    setWrongAllergens(signedAllergens)
+  }, [signedAllergens]);
 
-  function pizzaTypeHandler(e) {
-    console.log(e.target)
+
+  function addPizzaToOrder(pizzaId) {
+    console.log(pizzaId)
   }
 
+console.log(actualPizzas)
 
   return (
     <div className='centerColumn'>
-      {pizzaTypes
-        ? pizzaTypes.map(pizza => {
+      {actualPizzas.length > 0 && actualPizzas
+        ? actualPizzas.map(pizza => {
           return (
             <div key={pizza._id} className="pizzaCard" id={pizza.pizzaName} data-price={pizza.pizzaPrice}>
 
@@ -51,16 +59,17 @@ function PizzaTypeColumn({ allergensSet  }) {
                 <div className="ingredients">INGREDIENTS:<br />  {pizza.ingredients.join(", ")}</div>
                 <div className="allergenList">ALLERGENS:<br />  {pizza.allergens.join(", ")}</div>
                 <div>
-                  <button className="addToBasket" value={pizza._id} onClick={pizzaTypeHandler}>ADD TO BASKET</button>
+                  <button className="addToBasket" onClick={() => addPizzaToOrder(pizza._id)}>ADD TO BASKET</button>
                 </div>
               </div>
             </div >
           )
         })
-        : <></>
+        : <>No available pizza with the non-checked allergens</>
       }
     </div >
   )
+
 }
 
 export default PizzaTypeColumn

@@ -1,6 +1,6 @@
 import './App.css'
 import AllergensList from './components/listComponents/AllergensList.js'
-import CenterColumn from './components/listComponents/PizzaTypeColumn.js'
+import PizzaTypeColumn from './components/listComponents/PizzaTypeColumn.js'
 import RighColumn from './components/mainPageBoxComponents/RightColumn.js'
 import Header from './components/listComponents/Header.js'
 import Footer from './components/listComponents/Footer.js'
@@ -22,9 +22,11 @@ function App() {
   return (
     <div className="main-container">
       <Header setRightBlock={setRightBlockForm} />
-      <AllergensList rejectedAllergens={setAllergens} />
-      <CenterColumn allergensSet={rejectedAllergens} />
-      <RighColumn rightBlockSet={rightBlock} />
+      <AllergensList setRejectedAllergens={setAllergens} />
+      <div className='mobile-form-layout'>
+        <PizzaTypeColumn signedAllergens={rejectedAllergens} />
+        <RighColumn rightBlockSet={rightBlock} />
+      </div>
       <Footer />
     </div>
   );
