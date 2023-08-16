@@ -19,7 +19,7 @@ const Header = ({ setRightBlock }) => {
                 <button className="btn" value="login" onClick={(e) => setRightBlock(e.target.value)}>LOG IN</button >
                 <button className="btn" value="order" onClick={(e) => setRightBlock(e.target.value)}>ORDERS</button >
                 <button className="btn" value="message" onClick={(e) => setRightBlock(e.target.value)}>MESSAGE</button >
-                <button className="btn" value="about" onClick={(e) => setRightBlock(e.target.value)} >ABOUT US</button >
+                <button className="btn" value="about" onClick={(e) => setRightBlock(e.target.value)} >ABOUT</button >
                 {localStorage.getItem("userId_myapp") !== null
                     ?
                     <button className="btn" value="logout" onClick={() => {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 function PizzaTypeColumn({ signedAllergens }) {
 
-  const pizzaTypesUrl = 'http://localhost:8080/api/pizzaTypes';
+  const pizzaTypesUrl = '/api/pizzaTypes';
 
   const [actualPizzas, setActualPizzas] = useState([]);
   const [wrongAllergens, setWrongAllergens] = useState([]);
@@ -42,8 +42,6 @@ function PizzaTypeColumn({ signedAllergens }) {
     console.log(pizzaId)
   }
 
-console.log(actualPizzas)
-
   return (
     <div className='centerColumn'>
       {actualPizzas.length > 0 && actualPizzas
@@ -65,7 +63,7 @@ console.log(actualPizzas)
             </div >
           )
         })
-        : <>No available pizza with the non-checked allergens</>
+        : <h1 id="empty-pizzalist">No available pizza with the checked allergens ! </h1>
       }
     </div >
   )

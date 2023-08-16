@@ -153,6 +153,17 @@ input.allergen-checkbox {
   color: #000;
   opacity: 1;
 }
+
+#empty-pizzalist {
+color:white;
+background-color:red;
+padding:40px;
+border-radius:20px;
+margin-left:5%;
+text-align:center;
+}
+
+
 .rightColumn {
   position: fixed;
   top: 11%;
@@ -302,6 +313,19 @@ input {
     height: 20%;
     font-size: 50%;
   }
+
+  .btn {
+  width: 35.0px;
+  padding: 0.5px;
+  font-size: 0.4rem;
+  border: 1px solid black;
+  border-radius: 3px;
+  color: blue;
+  margin-right: 3px;
+  align-items: center;
+  text-align: center;
+  cursor: "pointer";
+}
 
   div.footer {
     font-size: 6px;
