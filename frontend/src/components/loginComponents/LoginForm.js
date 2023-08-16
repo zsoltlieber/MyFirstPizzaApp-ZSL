@@ -2,7 +2,8 @@ import { useState } from "react";
 
 export const LoginForm = ({ currentForm, setCurrentForm }) => {
 
-  const loginUrl = "http://localhost:8080/api/auth/login";
+  //const loginUrl = "http://localhost:8080/api/auth/login";
+  const loginUrl = "/api/auth/login";
 
   const [clientData, setClientData] = useState({});
   const [showBoxes, setShowBoxes] = useState(1);
@@ -13,6 +14,7 @@ export const LoginForm = ({ currentForm, setCurrentForm }) => {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+  
         body: JSON.stringify(clientData)
       };
       const response = await fetch(loginUrl, requestOptions);

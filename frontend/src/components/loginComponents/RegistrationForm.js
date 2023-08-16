@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export function RegistrationForm({ currentForm, setCurrentForm }) {
-    const registerUrl = 'http://localhost:8080/api/clients/register'
+    const registerUrl = '/api/clients/register'
  
     const [clientData, setClientData] = useState({});
     const [showGreetBox, setShowGreetBox] = useState(false)
@@ -17,6 +17,7 @@ export function RegistrationForm({ currentForm, setCurrentForm }) {
             };
             const response = await fetch(registerUrl, requestOptions);
             const data = await response.json();
+            
             setClientData(data);
             setShowGreetBox(true);
             setTimeout(() => {
@@ -75,8 +76,8 @@ export function RegistrationForm({ currentForm, setCurrentForm }) {
                     :
                     <div id="greeting">
                         <div style={{color:"white"}}>
-                            <h3>DEAR <br />{clientData.clientName} we are very happy to see you!!</h3>
-                            <h3>ORDER AND TASTE OUR PIZZAS :) !!</h3>
+                            <h4>DEAR <br />{clientData.clientName} we are very happy to see you!!</h4>
+                            <h4>ORDER AND TASTE OUR PIZZAS :) !!</h4>
                         </div>
                     </div>
                 }
