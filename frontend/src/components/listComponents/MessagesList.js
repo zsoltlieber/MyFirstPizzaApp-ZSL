@@ -20,8 +20,6 @@ export const MessagesList = ({ actualClientData, newMessageSet }) => {
         setMessages(newMessageSet)
     }, [newMessageSet]);
 
-    console.log(messages);
-
     const removeOrdeleteItem = (messageId) => {
         const actualEndPoint = messageUrl + "/" + messageId;
         const requestOptions = {
