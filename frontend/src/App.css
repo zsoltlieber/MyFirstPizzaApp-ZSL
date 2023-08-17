@@ -155,14 +155,13 @@ input.allergen-checkbox {
 }
 
 #empty-pizzalist {
-color:white;
-background-color:red;
-padding:40px;
-border-radius:20px;
-margin-left:5%;
-text-align:center;
+  color: white;
+  background-color: red;
+  padding: 40px;
+  border-radius: 20px;
+  margin-left: 5%;
+  text-align: center;
 }
-
 
 .rightColumn {
   position: fixed;
@@ -252,6 +251,12 @@ input {
   border-radius: 15px;
   padding: 10px;
   margin: 10px;
+  overflow: scroll;
+}
+
+#orderList ul {
+  list-style-type: none;
+  text-align: left;
 }
 
 #registration-form div,
@@ -315,19 +320,22 @@ input {
   }
 
   .btn {
-  width: 35.0px;
-  padding: 0.5px;
-  font-size: 0.4rem;
-  border: 1px solid black;
-  border-radius: 3px;
-  color: blue;
-  margin-right: 3px;
-  align-items: center;
-  text-align: center;
-  cursor: "pointer";
-}
+    width: 35px;
+    padding: 0.5px;
+    font-size: 0.4rem;
+    border: 1px solid black;
+    border-radius: 3px;
+    color: blue;
+    margin-right: 3px;
+    align-items: center;
+    text-align: center;
+    cursor: "pointer";
+  }
 
   div.footer {
     font-size: 6px;
+  }
+  #mobile-format {
+    flex-direction: column;
   }
 }

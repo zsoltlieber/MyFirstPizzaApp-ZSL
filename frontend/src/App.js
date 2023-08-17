@@ -29,8 +29,10 @@ function App() {
     <div className="main-container">
       <Header setRightBlock={setRightBlock} rightBlockSet={rightBlockData} setActualClientData={setActualClient} actualClientSet={actualClientData} />
       <AllergensList setRejectedAllergens={setAllergens} />
-      <PizzaTypeColumn rejectedAllergensSet={rejectedAllergens} />
-      <RighColumn setRightBlock={setRightBlock} rightBlockSet={rightBlockData} actualClientSet={actualClientData} setActualClientData={setActualClient} />
+      <div id='mobile-format'>
+        <PizzaTypeColumn rejectedAllergensSet={rejectedAllergens} />
+        <RighColumn setRightBlock={setRightBlock} rightBlockSet={rightBlockData} actualClientSet={actualClientData} setActualClientData={setActualClient} />
+      </div>
       <Footer />
     </div>
   );
