@@ -9,7 +9,12 @@ const MessageSchema = new Schema({
     },
     clientName: {
         type: String,
-        require: true
+        require: true,
+    },
+    clientId: {
+        type: String,
+        require: true,
+        default: "initial"
     },
     message: {
         type: String,

@@ -55,9 +55,9 @@
         ]
     },
     {
-        "clientName": "Normal Admin",
+        "clientName": "Staff Member Admin",
         "email": "NormalAdmin@mail.hu",
-        "password": "$2y$10$hpcDXXJe5JOofNel0Bvvlu1ZGNl79bLgNmkHWmlOi9vYNyD9g9ycW",
+        "password": "$2a$10$6bO.V95EOjQQtEWTy9Yvc.Tt.p2EvwUv96YQzFFDT28EAPrEQCxti",
         "isAdmin": true
     },
     {
