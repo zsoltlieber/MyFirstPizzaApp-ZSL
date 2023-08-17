@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export const AllergensList = ({ setRejectedAllergens }) => {
 
-  const allergensUrl = "/api/allergens/"
+  const allergensUrl = "/api/allergens"
 
   const [allergens, setAllergens] = useState([]);
 

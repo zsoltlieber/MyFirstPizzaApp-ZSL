@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function RegistrationForm({ currentForm, setCurrentForm }) {
+export function RegistrationForm({ currentFormSet, setCurrentForm }) {
     const registerUrl = '/api/clients/register'
  
     const [clientData, setClientData] = useState({});
@@ -21,7 +21,7 @@ export function RegistrationForm({ currentForm, setCurrentForm }) {
             setClientData(data);
             setShowGreetBox(true);
             setTimeout(() => {
-                if (currentForm === "signin") {
+                if (currentFormSet === "signin") {
                     setCurrentForm("login");
                 }
             }, 3000);

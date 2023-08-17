@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 
-function PizzaTypeColumn({ signedAllergens }) {
+function PizzaTypeColumn({ rejectedAllergensSet }) {
 
   const pizzaTypesUrl = '/api/pizzaTypes';
 
-  const [actualPizzas, setActualPizzas] = useState([]);
-  const [wrongAllergens, setWrongAllergens] = useState([]);
+  const [actualPizzas, setActualPizzas] = useState();
 
   const pizzaTypeFetch = async (url) => {
 
@@ -14,10 +13,9 @@ function PizzaTypeColumn({ signedAllergens }) {
     const response = await fetch(url);
     const data = await response.json();
     if (response.status === 200) {
-
       for (let i = 0; i < data.length; i++) {
-        for (let j = 0; j < wrongAllergens.length; j++) {
-          if (data[i].allergens.includes(wrongAllergens[j].allergenName)) {
+        for (let j = 0; j < rejectedAllergensSet.length; j++) {
+          if (data[i].allergens.includes(rejectedAllergensSet[j].allergenName)) {
             wrongPizza++;
           }
         }
@@ -26,16 +24,13 @@ function PizzaTypeColumn({ signedAllergens }) {
         }
         wrongPizza = 0;
       }
-      setActualPizzas(newPizzaList)
-    };
-  }
-  useEffect(() => {
-    pizzaTypeFetch(pizzaTypesUrl)
-  }, [wrongAllergens]);
+    }
+    setActualPizzas(newPizzaList)
+  };
 
   useEffect(() => {
-    setWrongAllergens(signedAllergens)
-  }, [signedAllergens]);
+    pizzaTypeFetch(pizzaTypesUrl)
+  }, [rejectedAllergensSet]);
 
 
   function addPizzaToOrder(pizzaId) {
@@ -44,7 +39,7 @@ function PizzaTypeColumn({ signedAllergens }) {
 
   return (
     <div className='centerColumn'>
-      {actualPizzas.length > 0 && actualPizzas
+      {actualPizzas && actualPizzas.length > 0
         ? actualPizzas.map(pizza => {
           return (
             <div key={pizza._id} className="pizzaCard" id={pizza.pizzaName} data-price={pizza.pizzaPrice}>

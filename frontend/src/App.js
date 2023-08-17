@@ -8,25 +8,29 @@ import { useState } from 'react'
 
 function App() {
 
-  const [rightBlock, setRightBlock] = useState("about");
+  const [rightBlockData, setRightBlockData] = useState("about");
   const [rejectedAllergens, setRejectedAllergens] = useState([]);
+  const [actualClientData, setActualClientData] = useState({ clientName: "", clientId: "", staffStatus: false, bossStatus: false });
 
-  const setRightBlockForm = (formId) => {
-    setRightBlock(formId);
+  const setActualClient = (clientData) => {
+    setActualClientData(clientData);
+  }
+
+  const setRightBlock = (formId) => {
+    setRightBlockData(formId);
   }
 
   const setAllergens = (allergens) => {
     setRejectedAllergens(allergens);
   }
 
+
   return (
     <div className="main-container">
-      <Header setRightBlock={setRightBlockForm} />
+      <Header setRightBlock={setRightBlock} rightBlockSet={rightBlockData} setActualClientData={setActualClient} actualClientSet={actualClientData} />
       <AllergensList setRejectedAllergens={setAllergens} />
-      <div className='mobile-form-layout'>
-        <PizzaTypeColumn signedAllergens={rejectedAllergens} />
-        <RighColumn rightBlockSet={rightBlock} />
-      </div>
+      <PizzaTypeColumn rejectedAllergensSet={rejectedAllergens} />
+      <RighColumn setRightBlock={setRightBlock} rightBlockSet={rightBlockData} actualClientSet={actualClientData} setActualClientData={setActualClient} />
       <Footer />
     </div>
   );

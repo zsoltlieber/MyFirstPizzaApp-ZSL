@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const LoginForm = ({ currentForm, setCurrentForm }) => {
+export const LoginForm = ({ setCurrentForm, setActualClientData }) => {
 
   //const loginUrl = "http://localhost:8080/api/auth/login";
   const loginUrl = "/api/auth/login";
@@ -14,7 +14,7 @@ export const LoginForm = ({ currentForm, setCurrentForm }) => {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-  
+
         body: JSON.stringify(clientData)
       };
       const response = await fetch(loginUrl, requestOptions);
@@ -24,14 +24,14 @@ export const LoginForm = ({ currentForm, setCurrentForm }) => {
       }
       else {
         setClientData(data);
-        localStorage.setItem('userName_myapp', data.name);
-        localStorage.setItem('userId_myapp', data.id);
-        localStorage.setItem('staff_myapp', data.staff);
-        localStorage.setItem('boss_myapp', data.boss);
+        const actualClient = { clientName: data.name, clientId: data.id, staffStatus: data.staff, bossStatus: data.boss }
+        setActualClientData(actualClient)
         setShowBoxes(3);
+     
         setTimeout(() => {
-          setCurrentForm("order")
+          setCurrentForm("")
         }, 2000);
+     
       }
     };
     loginToServer()
