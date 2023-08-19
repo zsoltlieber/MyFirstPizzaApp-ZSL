@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const MessageForm = ({ actualClientData }) => {
+export const MessageForm = ({ actualClientData, setCurrentForm }) => {
 
     const messageUrl = "/api/messages"
     const [newMessages, setNewMessages] = useState("");
@@ -25,6 +25,7 @@ export const MessageForm = ({ actualClientData }) => {
                 setTimeout(() => {
                     setShowBox(false);
                     setNewMessages("");
+                    setCurrentForm("order")
                 }, 2000);
             }
         }

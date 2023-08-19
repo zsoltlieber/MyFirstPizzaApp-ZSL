@@ -28,7 +28,7 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
         : <></>}
       {rightColumnTypeSet === "message" ?
         <>
-          <MessageForm actualClientData={actualClientSet}  />
+          <MessageForm actualClientData={actualClientSet} setCurrentForm={setRightColumnTypeData} />
           <MessagesList actualClientData={actualClientSet} newMessageData={newMessage} setNewMessageData={setNewMessage} />
         </>
         : <></>}
