@@ -25,7 +25,7 @@ export const MessageForm = ({ actualClientData, setCurrentForm }) => {
                 setTimeout(() => {
                     setShowBox(false);
                     setNewMessages("");
-                    setCurrentForm("order")
+                    setCurrentForm("order-form")
                 }, 2000);
             }
         }

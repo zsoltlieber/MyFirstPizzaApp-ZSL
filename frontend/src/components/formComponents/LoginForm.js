@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export const LoginForm = ({ setCurrentForm, setActualClient }) => {
-
+export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) => {
   const loginUrl = "/api/auth/login";
   const [loginData, setLoginData] = useState({})
   const [clientData, setClientData] = useState({});
   const [showBoxes, setShowBoxes] = useState(1);
+  const [loginErrorMessage, setLoginErrorMessage] = useState("")
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,6 +18,8 @@ export const LoginForm = ({ setCurrentForm, setActualClient }) => {
       const response = await fetch(loginUrl, requestOptions);
       const data = await response.json();
       if (response.status !== 200) {
+        setLoginErrorMessage(data.message)
+        console.log(data.message)
         setShowBoxes(2);
       }
       else {
@@ -30,11 +32,12 @@ export const LoginForm = ({ setCurrentForm, setActualClient }) => {
           bossStatus: data.boss
         }
         setActualClient(actualClient)
+        setClientLogout(false)
         setShowBoxes(3);
 
         setTimeout(() => {
           setCurrentForm("")
-        }, 2000);
+        }, 1000);
 
       }
     };
@@ -60,8 +63,13 @@ export const LoginForm = ({ setCurrentForm, setActualClient }) => {
         </form>
         : showBoxes === 2 ?
           <div id="messages">
-            <h2>CLIENT NOT FOUND!</h2>
-            <button value="signin" onClick={(e) => setCurrentForm(e.target.value)}>PLEASE DO SIGN IN!</button>
+            <h2>{loginErrorMessage}!</h2>
+            <button value="signin" onClick={(e) => setCurrentForm(e.target.value)}>
+              {loginErrorMessage.split(" ")[0] === "Wrong"
+                ? <p style={{ color: "red" }} >MODIFY EMAIL AND/OR PASSWORD!</p>
+                : <p style={{ color: "red"}} >PLEASE DO SIGN IN!</p>
+              }
+            </button>
           </div>
           : showBoxes === 3 ?
             < div id="messages">
