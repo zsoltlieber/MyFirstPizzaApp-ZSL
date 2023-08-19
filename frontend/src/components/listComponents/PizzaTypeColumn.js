@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function PizzaTypeColumn({ rejectedAllergensSet, setAllPizzaTypes, setActualPizzaIdToOrder }) {
+function PizzaTypeColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActualPizzaIdToOrder }) {
 
   const pizzaTypesUrl = '/api/pizzaTypes';
   const [actualPizzas, setActualPizzas] = useState();
@@ -12,7 +12,7 @@ function PizzaTypeColumn({ rejectedAllergensSet, setAllPizzaTypes, setActualPizz
     const response = await fetch(`${url}?isActive=true`);
     const data = await response.json();
     if (response.status === 200) {
-      setAllPizzaTypes(data)
+      setAllPizzaTypesData(data)
       for (let i = 0; i < data.length; i++) {
         for (let j = 0; j < rejectedAllergensSet.length; j++) {
           if (data[i].allergens.includes(rejectedAllergensSet[j].allergenName)) {

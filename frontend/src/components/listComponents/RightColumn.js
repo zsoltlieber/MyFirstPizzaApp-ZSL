@@ -10,7 +10,7 @@ import MessagesList from "./MessagesList.js"
 import StaffPage from "./StaffPage.js"
 
 const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientSet, setActualClientData,
-  pizzaTypesDataSet, actualOrderedPizzaId }) => {
+  setLogoutClientData ,pizzaTypesDataSet, actualOrderedPizzaIdDataSet }) => {
 
   const [newMessage, setNewMessage] = useState([]);
   const [listOfOrders, setListOfOrders] = useState({});
@@ -18,7 +18,7 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
   return (
     <div className='rightColumn'>
       {rightColumnTypeSet === "login" ?
-        <LoginForm setCurrentForm={setRightColumnTypeData} setActualClient={setActualClientData} />
+        <LoginForm setCurrentForm={setRightColumnTypeData} setActualClient={setActualClientData} setClientLogout={setLogoutClientData} />
         : <></>}
       {rightColumnTypeSet === "signin" ?
         <RegistrationForm currentFormSet={rightColumnTypeSet} setCurrentForm={setRightColumnTypeData} />
@@ -33,7 +33,7 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
         </>
         : <></>}
       {rightColumnTypeSet === "order-form" ?
-        <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaId} allPizzaTypesData={pizzaTypesDataSet}
+        <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} allPizzaTypesData={pizzaTypesDataSet}
           listOfOrdersSet={listOfOrders} setListOfOrdersData={setListOfOrders} currentFormSet={rightColumnTypeSet} setCurrentForm={setRightColumnTypeData} />
         : <></>}
       {rightColumnTypeSet === "order-list" ?

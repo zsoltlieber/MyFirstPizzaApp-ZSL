@@ -1,4 +1,4 @@
-const Header = ({ setRightColumnTypeData, setActualClientData, actualClientSet, showOrderListSet }) => {
+const Header = ({ setRightColumnTypeData, logoutClientSet, setClientLogout, actualClientSet, showOrderListSet }) => {
 
     return (
         <div className="navbar">
@@ -38,19 +38,14 @@ const Header = ({ setRightColumnTypeData, setActualClientData, actualClientSet, 
                     : <></>}
                 <button className="btn" value="message" onClick={(e) => setRightColumnTypeData(e.target.value)}>MESSAGE</button >
                 <button className="btn" value="about" onClick={(e) => setRightColumnTypeData(e.target.value)} >ABOUT</button >
-                {actualClientSet.clientName !== ""
+                {!logoutClientSet
                     ?
                     <button className="btn" value="logout" onClick={() => {
-                        const actualClient = {
-                            clientName: "",
-                            clientId: "",
-                            staffStatus: false,
-                            bossStatus: false
-                        }
+
                         setTimeout(() => {
                             setRightColumnTypeData("about")
-                        }, 2000);
-                        setActualClientData(actualClient)
+                            setClientLogout(true)
+                        }, 1000);
                     }} >LOG OUT</button >
                     : <></>}
             </div>
