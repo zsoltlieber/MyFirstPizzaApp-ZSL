@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-export const MessageForm = ({ actualClientData, setNewMessageData }) => {
+export const MessageForm = ({ actualClientData }) => {
 
-    const messageUrl = "/api/messages/"
+    const messageUrl = "/api/messages"
     const [newMessages, setNewMessages] = useState("");
     const [showBox, setShowBox] = useState(false);
 
@@ -31,18 +31,16 @@ export const MessageForm = ({ actualClientData, setNewMessageData }) => {
         loginToServer()
     }
 
-
     return (
         <div >
             <div>
                 {actualClientData.clientName !== ""
                     ?
-
                     <form id="message-form" onSubmit={handleSubmit}>
                         <p id="message-form">{actualClientData.clientName} NEW MESSAGE</p>
                         <div>
                             <input type="message" id="message" placeholder="message" name="inputbox" value={newMessages} required
-                                onChange={(e) => setNewMessageData(e.target.value)} />
+                                onChange={(e) => setNewMessages(e.target.value)} />
                         </div>
                         <div>
                             <button type="submit" className="btn" >Submit</button>
@@ -50,7 +48,6 @@ export const MessageForm = ({ actualClientData, setNewMessageData }) => {
                     </form>
                     : <h1 id="message-form" >ONLY REGISTERED CLIENT CAN SEND MESSAGE!</h1>}
             </div>
-
 
             {
                 showBox ?

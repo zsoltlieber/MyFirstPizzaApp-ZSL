@@ -45,7 +45,6 @@ app.use((err, req, res, next) => {
         message: errorMessage,
         stack: err.stack,   //developer feature for detailed error information
     });
-
 })
 
 const connect = async () => {

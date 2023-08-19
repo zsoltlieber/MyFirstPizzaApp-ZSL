@@ -51,7 +51,7 @@ export const LoginForm = ({ setCurrentForm, setActualClient }) => {
               onChange={(e) => { setLoginData({ ...loginData, email: e.target.value }) }} />
           </div>
           <div>
-            <input type="password" id="password" placeholder="password" value={loginData.password} required
+            <input type="current-password" id="current-password" placeholder="password" required value={loginData.password}
               onChange={(e) => { setLoginData({ ...loginData, password: e.target.value }) }} />
           </div>
           <div>

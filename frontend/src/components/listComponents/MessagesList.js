@@ -49,7 +49,8 @@ export const MessagesList = ({ actualClientData, newMessageData, setNewMessageDa
         <div >
             <div className='message-box'>
                 <h3 style={{ fontSize: "20px", color: "white", margin: "1px", textAlign: "center" }}>MESSAGES</h3>
-                {newMessageData ?
+                {newMessageData && newMessageData !== null
+                    ?
                     newMessageData.map((item, index) => {
                         return (
                             <div key={index}>
