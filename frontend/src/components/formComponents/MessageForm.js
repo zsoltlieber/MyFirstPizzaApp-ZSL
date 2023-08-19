@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const MessageForm = ({ actualClientData, setActualNewMessage }) => {
+export const MessageForm = ({ actualClientData, setNewMessageData }) => {
 
     const messageUrl = "/api/messages/"
     const [newMessages, setNewMessages] = useState("");
@@ -8,8 +8,7 @@ export const MessageForm = ({ actualClientData, setActualNewMessage }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const actualClientName = actualClientData.clientName
-        const actualMessage = { message: newMessages, clientName: actualClientName }
+        const actualMessage = { message: newMessages, clientName: actualClientData.clientName }
         const loginToServer = async () => {
             const requestOptions = {
                 method: 'POST',
@@ -31,9 +30,7 @@ export const MessageForm = ({ actualClientData, setActualNewMessage }) => {
         }
         loginToServer()
     }
-    function sendNewMessage() {
-        console.log(newMessages);
-    }
+
 
     return (
         <div >
@@ -42,23 +39,23 @@ export const MessageForm = ({ actualClientData, setActualNewMessage }) => {
                     ?
 
                     <form id="message-form" onSubmit={handleSubmit}>
-                        <p style={{ fontSize: "20px", color: "white", margin: "5px" }}>NEW MESSAGE</p>
+                        <p id="message-form">{actualClientData.clientName} NEW MESSAGE</p>
                         <div>
                             <input type="message" id="message" placeholder="message" name="inputbox" value={newMessages} required
-                                onChange={(e) => setNewMessages(e.target.value)} />
+                                onChange={(e) => setNewMessageData(e.target.value)} />
                         </div>
                         <div>
-                            <button type="submit" className="btn" onClick={sendNewMessage}>Login</button>
+                            <button type="submit" className="btn" >Submit</button>
                         </div>
                     </form>
-                    : <h1 id="message-form" style={{ fontSize: "20px", color: "white" }}>ONLY REGISTERED CLIENT CAN SEND MESSAGE!</h1>}
+                    : <h1 id="message-form" >ONLY REGISTERED CLIENT CAN SEND MESSAGE!</h1>}
             </div>
 
 
             {
                 showBox ?
                     <div>
-                        <h3 style={{ color: "white" }}>We appreciate if you send us about your feelings in connection with our pizzas!</h3>
+                        <h3 id="message-form">We appreciate if you send us about your feelings <br/>in connection with our pizzas!</h3>
                     </div>
                     : <></>
             }

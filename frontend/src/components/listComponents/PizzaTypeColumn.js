@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 
-function PizzaTypeColumn({ rejectedAllergensSet }) {
+function PizzaTypeColumn({ rejectedAllergensSet, setAllPizzaTypes, setActualPizzaIdToOrder }) {
 
   const pizzaTypesUrl = '/api/pizzaTypes';
-
   const [actualPizzas, setActualPizzas] = useState();
 
   const pizzaTypeFetch = async (url) => {
 
     let newPizzaList = [];
     let wrongPizza = 0;
-    const response = await fetch(url);
+    const response = await fetch(`${url}?isActive=true`);
     const data = await response.json();
     if (response.status === 200) {
+      setAllPizzaTypes(data)
       for (let i = 0; i < data.length; i++) {
         for (let j = 0; j < rejectedAllergensSet.length; j++) {
           if (data[i].allergens.includes(rejectedAllergensSet[j].allergenName)) {
@@ -33,8 +33,9 @@ function PizzaTypeColumn({ rejectedAllergensSet }) {
   }, [rejectedAllergensSet]);
 
 
-  function addPizzaToOrder(pizzaId) {
-    console.log(pizzaId)
+  function addPizzaIdToOrder(pizzaId) {
+    console.log(pizzaId);
+    setActualPizzaIdToOrder(pizzaId)
   }
 
   return (
@@ -52,7 +53,7 @@ function PizzaTypeColumn({ rejectedAllergensSet }) {
                 <div className="ingredients">INGREDIENTS:<br />  {pizza.ingredients.join(", ")}</div>
                 <div className="allergenList">ALLERGENS:<br />  {pizza.allergens.join(", ")}</div>
                 <div>
-                  <button className="addToBasket" onClick={() => addPizzaToOrder(pizza._id)}>ADD TO BASKET</button>
+                  <button className="addToBasket" onClick={() => addPizzaIdToOrder(pizza._id)}>ADD TO BASKET</button>
                 </div>
               </div>
             </div >

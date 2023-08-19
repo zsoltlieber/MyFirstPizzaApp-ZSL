@@ -171,8 +171,6 @@ input.allergen-checkbox {
   height: 80%;
   text-align: center;
   align-items: center;
-  /*   border: 2px solid yellow;
- */
   font-size: 80%;
 }
 
@@ -237,14 +235,9 @@ input {
   overflow: scroll;
 }
 
-.message-box::first-line {
-  color: red;
-}
-
 #registration-form,
-#orderList,
-#message-form {
-  background: rgba(157, 27, 16, 0.7);
+#orderList {
+  background-color: rgba(157, 27, 16, 0.7);
   width: 80%;
   height: 92%;
   border: solid 3px white;
@@ -252,6 +245,16 @@ input {
   padding: 10px;
   margin: 10px;
   overflow: scroll;
+}
+#message-form {
+  background-color: rgba(157, 27, 16, 0.7);
+  width: 80%;
+  color: white;
+  font-size: 20px;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
 }
 
 #orderList ul {
@@ -335,7 +338,12 @@ input {
   div.footer {
     font-size: 6px;
   }
+
+  /* TODO 
+  Tsak: mobile view set right column under the center one!
+  */
   #mobile-format {
+    display: flex;
     flex-direction: column;
   }
 }

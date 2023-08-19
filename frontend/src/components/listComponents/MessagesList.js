@@ -1,24 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-export const MessagesList = ({ actualClientData, newMessageSet }) => {
+export const MessagesList = ({ actualClientData, newMessageData, setNewMessageData }) => {
 
     const messageUrl = "/api/messages"
-
-    const [messages, setMessages] = useState([]);
 
     const messagesFetch = async (url) => {
         const response = await fetch(`${url}?isActive=true`);
         const data = await response.json();
-        if (data) setMessages(data);
+        if (data) setNewMessageData(data);
     };
 
     useEffect(() => {
         messagesFetch(messageUrl);
-    }, []);
-
-    useEffect(() => {
-        setMessages(newMessageSet)
-    }, [newMessageSet]);
+    }, [newMessageData]);
 
     const removeOrdeleteItem = (messageId) => {
         const actualEndPoint = messageUrl + "/" + messageId;
@@ -55,8 +49,8 @@ export const MessagesList = ({ actualClientData, newMessageSet }) => {
         <div >
             <div className='message-box'>
                 <h3 style={{ fontSize: "20px", color: "white", margin: "1px", textAlign: "center" }}>MESSAGES</h3>
-                {messages ?
-                    messages.map((item, index) => {
+                {newMessageData ?
+                    newMessageData.map((item, index) => {
                         return (
                             <div key={index}>
                                 <span className='message-item'>

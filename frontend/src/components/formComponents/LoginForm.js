@@ -1,10 +1,9 @@
 import { useState } from "react";
 
-export const LoginForm = ({ setCurrentForm, setActualClientData }) => {
+export const LoginForm = ({ setCurrentForm, setActualClient }) => {
 
-  //const loginUrl = "http://localhost:8080/api/auth/login";
   const loginUrl = "/api/auth/login";
-
+  const [loginData, setLoginData] = useState({})
   const [clientData, setClientData] = useState({});
   const [showBoxes, setShowBoxes] = useState(1);
 
@@ -14,8 +13,7 @@ export const LoginForm = ({ setCurrentForm, setActualClientData }) => {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-
-        body: JSON.stringify(clientData)
+        body: JSON.stringify(loginData)
       };
       const response = await fetch(loginUrl, requestOptions);
       const data = await response.json();
@@ -24,14 +22,20 @@ export const LoginForm = ({ setCurrentForm, setActualClientData }) => {
       }
       else {
         setClientData(data);
-        const actualClient = { clientName: data.name, clientId: data.id, staffStatus: data.staff, bossStatus: data.boss }
-        setActualClientData(actualClient)
+
+        const actualClient = {
+          clientName: data.name,
+          clientId: data.id,
+          staffStatus: data.staff,
+          bossStatus: data.boss
+        }
+        setActualClient(actualClient)
         setShowBoxes(3);
-     
+
         setTimeout(() => {
           setCurrentForm("")
         }, 2000);
-     
+
       }
     };
     loginToServer()
@@ -42,13 +46,13 @@ export const LoginForm = ({ setCurrentForm, setActualClientData }) => {
       {showBoxes === 1 ?
         <form id="login-form" onSubmit={handleSubmit}>
           <div>
-            <p style={{ color: "white", fontSize: "12px" }}>IF YOU WANT TO ORDER YOU MUST BE LOGED IN!</p>
-            <input type="text" id="clientName" placeholder="client name" value={clientData.clientName || ""} required
-              onChange={(e) => { setClientData({ ...clientData, clientName: e.target.value }) }} />
+            <p style={{ color: "white", fontSize: "12px" }}>IF YOU WANT TO ORDER <br /><br /> YOU MUST BE LOGED IN!</p>
+            <input type="text" id="email" placeholder="client email" value={loginData.email} required
+              onChange={(e) => { setLoginData({ ...loginData, email: e.target.value }) }} />
           </div>
           <div>
-            <input type="password" id="password" placeholder="password" value={clientData.password || ""} required
-              onChange={(e) => { setClientData({ ...clientData, password: e.target.value }) }} />
+            <input type="password" id="password" placeholder="password" value={loginData.password} required
+              onChange={(e) => { setLoginData({ ...loginData, password: e.target.value }) }} />
           </div>
           <div>
             <button type="submit" className="btn">Login</button>
@@ -61,7 +65,7 @@ export const LoginForm = ({ setCurrentForm, setActualClientData }) => {
           </div>
           : showBoxes === 3 ?
             < div id="messages">
-              <p>Dear <br />{clientData.name.toUpperCase()}<br /> we are very happy to see you!!</p>
+              <p>DEAR <br />{clientData.name.toUpperCase()}<br /> we are very happy to see you!!</p>
               <p>ORDER AND TASTE OUR PIZZAS :) !</p>
             </div >
             : <></>

@@ -57,14 +57,37 @@
     {
         "clientName": "Staff Member Admin",
         "email": "NormalAdmin@mail.hu",
-        "password": "$2a$10$6bO.V95EOjQQtEWTy9Yvc.Tt.p2EvwUv96YQzFFDT28EAPrEQCxti",
-        "isAdmin": true
+        "password": "$2a$10$UYyyuoowarT397dflnP8/ea59XoXQbzVPi5oXvnuN8G6oZYhSBsJq",
+        "isAdmin": true,
+        "isMainAdmin": false,
+        "phoneNumber": [
+            "+36-30-111-4567"
+        ],
+        "address": [
+            {
+                "postCode": "1121",
+                "city": "Budapest",
+                "streetAndNumber": "Nap tér 1.",
+                "otherInfo": "1.em. 2. Staff"
+            }
+        ]
     },
     {
         "clientName": "Main Admin",
         "email": "MainAdmin@mail.hu",
-        "password": "$2y$10$Uq8rgaPo0U5S6JraBPFzzeJemHDpx4pbhPorw3D.tSxTE6s6nfULW",
+        "password":"$2a$10$mdu3USJG7o9Iy5ERDPivo.OJGS.wPAPGK/E6Fx1bvOy6j3QGyUM4C",
         "isAdmin": true,
-        "isMainAdmin": true
+        "isMainAdmin": true,
+                "phoneNumber": [
+                    "+36-30-111-4444"
+                ],
+                "address": [
+                    {
+                        "postCode": "1100",
+                        "city": "Budapest",
+                        "streetAndNumber": "Nap utca 111.",
+                        "otherInfo": "1.em. 212. BOSS"
+                    }
+                ]
     }
 ]

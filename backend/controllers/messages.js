@@ -22,7 +22,6 @@ export const createMessage = async (req, res, next) => {
 };
 
 export const getMessages = async (req, res, next) => {
-console.log(req.body)
     try {
         let messages = null;
         if (req.query.isActive === 'true') {
