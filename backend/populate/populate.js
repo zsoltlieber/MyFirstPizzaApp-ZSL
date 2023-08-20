@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 import dotenv from "dotenv";
-import { v4 as uuidv4 } from 'uuid';
-
 
 import AllergenModel from '../models/Allergen.js';
 import PizzaTypeModel from '../models/PizzaType.js';
@@ -24,35 +22,30 @@ if (!mongoUrl) {
 }
 
 const populateAllergens = async () => {
-    allergens.map(item => item.allergenUuid = uuidv4());
     await AllergenModel.deleteMany({});
     await AllergenModel.create(...allergens);
     console.log("Allergens db created from json data");
 }
 
 const populatePizzaTypes = async () => {
-    pizzaTypes.map(item => item.pizzaTypeUuid = uuidv4());
     await PizzaTypeModel.deleteMany({});
     await PizzaTypeModel.create(...pizzaTypes);
     console.log("Pizzatypes db created from json data");
 }
 
 const populateClients = async () => {
-    clients.map(item => item.clientUuid = uuidv4());
     await ClientModel.deleteMany({});
     await ClientModel.create(...clients);
     console.log("Clients db created from json data");
 }
 
 const populateOrders = async () => {
-    orders.map(item => item.orderUuid = uuidv4());
     await OrderModel.deleteMany({});
     await OrderModel.create(...orders);
     console.log("Orders db created from json data");
 }
 
 const populateMessages = async () => {
-    messages.map(item => item.messageUuid = uuidv4());
     await MessageModel.deleteMany({});
     await MessageModel.create(...messages);
     console.log("Messages db created from json data");

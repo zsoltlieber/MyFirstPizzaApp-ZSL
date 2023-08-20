@@ -3,10 +3,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const AllergenSchema = new Schema({
-    allergenUuid: {
-        type: String,
-        require: true
-    },
     allergenName: {
         type: String,
         require: true
