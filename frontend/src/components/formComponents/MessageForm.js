@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-export const MessageForm = ({ actualClientData, setCurrentForm }) => {
+export const MessageForm = ({ actualClientData, messageListDataSet, setMessageList }) => {
 
     const messageUrl = "/api/messages"
-    const [newMessages, setNewMessages] = useState("");
+    const [newMessage, setNewMessage] = useState("");
     const [showBox, setShowBox] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const actualMessage = { message: newMessages, clientName: actualClientData.clientName }
+        const actualMessage = { message: newMessage, clientName: actualClientData.clientName }
         const loginToServer = async () => {
             const requestOptions = {
                 method: 'POST',
@@ -21,27 +21,35 @@ export const MessageForm = ({ actualClientData, setCurrentForm }) => {
                 console.log(data)
             }
             else {
+                console.log(data);
+                console.log("itt1");
+                console.log(messageListDataSet);
+                console.log("itt2");
+                const amendedMessageList = messageListDataSet.push(data)
+                console.log(amendedMessageList);
+                setMessageList(messageListDataSet)
+                console.log(messageListDataSet);
+                console.log("itt3");
                 setShowBox(true);
                 setTimeout(() => {
                     setShowBox(false);
-                    setNewMessages("");
-                    setCurrentForm("order-form")
+                    setNewMessage("");
                 }, 2000);
             }
         }
         loginToServer()
     }
-
+    console.log(messageListDataSet);
     return (
         <div >
             <div>
                 {actualClientData.clientName !== ""
                     ?
                     <form id="message-form" onSubmit={handleSubmit}>
-                        <p id="message-form">{actualClientData.clientName} NEW MESSAGE</p>
+                        <p id="message-form">NEW MESSAGE</p>
                         <div>
-                            <input type="message" id="message" placeholder="message" name="inputbox" value={newMessages} required
-                                onChange={(e) => setNewMessages(e.target.value)} />
+                            <input type="message" id="message" placeholder="message" name="inputbox" value={newMessage} required
+                                onChange={(e) => setNewMessage(e.target.value)} />
                         </div>
                         <div>
                             <button type="submit" className="btn" >Submit</button>
@@ -53,7 +61,7 @@ export const MessageForm = ({ actualClientData, setCurrentForm }) => {
             {
                 showBox ?
                     <div>
-                        <h3 id="message-form">We appreciate if you send us about your feelings <br/>in connection with our pizzas!</h3>
+                        <h3 id="message-form">We appreciate if you send us about your feelings <br />in connection with our pizzas!</h3>
                     </div>
                     : <></>
             }

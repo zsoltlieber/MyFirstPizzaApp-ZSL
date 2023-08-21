@@ -1,18 +1,18 @@
-import { useState } from "react"
-import LoginForm from "../formComponents/LoginForm.js"
-import MessageForm from "../formComponents/MessageForm.js"
-import OrderForm from "../formComponents/OrderForm.js"
-import RegistrationForm from "../formComponents/RegistrationForm.js"
-import AboutUs from "./AboutUs.js"
-import ActiveOrdersList from "./ActiveOrdersList.js"
-import BossPage from "./BossPage.js"
-import MessagesList from "./MessagesList.js"
-import StaffPage from "./StaffPage.js"
+import { useState } from "react";
+import LoginForm from "../formComponents/LoginForm.js";
+import MessageForm from "../formComponents/MessageForm.js";
+import OrderForm from "../formComponents/OrderForm.js";
+import ActiveOrdersList from "./ActiveOrdersList.js";
+import RegistrationForm from "../formComponents/RegistrationForm.js";
+import AboutUs from "./AboutUs.js";
+import BossPage from "./BossPage.js";
+import MessagesList from "./MessagesList.js";
+import StaffPage from "./StaffPage.js";
 
 const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientSet, setActualClientData,
   setLogoutClientData, pizzaTypesDataSet, actualOrderedPizzaIdDataSet }) => {
 
-  const [newMessage, setNewMessage] = useState([]);
+  const [messageList, setMessageList] = useState([]);
   const [listOfOrders, setListOfOrders] = useState({});
 
   return (
@@ -28,16 +28,16 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
         : <></>}
       {rightColumnTypeSet === "message" ?
         <>
-          <MessageForm actualClientData={actualClientSet} setCurrentForm={setRightColumnTypeData} />
-          <MessagesList actualClientData={actualClientSet} newMessageData={newMessage} setNewMessageData={setNewMessage} />
+          <MessageForm actualClientData={actualClientSet} messageListDataSet={messageList} setMessageList={setMessageList} />
+          <MessagesList actualClientData={actualClientSet} messageListData={messageList} setMessageListData={setMessageList} />
         </>
         : <></>}
       {rightColumnTypeSet === "order-form" ?
-        <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} allPizzaTypesData={pizzaTypesDataSet}
-          listOfOrdersSet={listOfOrders} setListOfOrdersData={setListOfOrders} currentFormSet={rightColumnTypeSet} setCurrentForm={setRightColumnTypeData} />
-        : <></>}
-      {rightColumnTypeSet === "order-list" ?
-        <ActiveOrdersList actualClientData={actualClientSet} listOfOrdersDataSet={listOfOrders} setListOfOrdersData={setListOfOrders} />
+        <>
+          <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} allPizzaTypesData={pizzaTypesDataSet}
+            listOfOrdersSet={listOfOrders} setListOfOrdersData={setListOfOrders} currentFormSet={rightColumnTypeSet} setCurrentForm={setRightColumnTypeData} />
+          < ActiveOrdersList actualClientDataSet={actualClientSet} listOfOrders={listOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} />
+        </>
         : <></>}
       {rightColumnTypeSet === "staff" ?
         <StaffPage actualClientData={actualClientSet} />

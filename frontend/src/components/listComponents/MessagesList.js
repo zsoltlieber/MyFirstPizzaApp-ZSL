@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
 
-export const MessagesList = ({ actualClientData, newMessageData, setNewMessageData }) => {
+export const MessagesList = ({ actualClientList, messageListData, setMessageListData }) => {
 
     const messageUrl = "/api/messages"
 
     const messagesFetch = async (url) => {
-        const response = await fetch(`${url}?isActive=true`); 
+        const response = await fetch(`${url}?isActive=true`);
         const data = await response.json();
-        if (data) setNewMessageData(data);
+        if (data) setMessageListData(data);
     };
 
     useEffect(() => {
         messagesFetch(messageUrl);
-    }, [newMessageData]);
+    }, [messageListData.size]);
 
     const removeOrdeleteItem = (messageId) => {
         const actualEndPoint = messageUrl + "/" + messageId;
@@ -21,8 +21,8 @@ export const MessagesList = ({ actualClientData, newMessageData, setNewMessageDa
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ isActive: false })
         };
-        if (actualClientData.clientName !== "") {
-            if (actualClientData.bossStatus !== true) {
+        if (actualClientList !== undefined && actualClientList.clientName !== "") {
+            if (actualClientList.bossStatus !== true) {
                 async function removeMessage() {
                     const response = await fetch(actualEndPoint, requestOptions);
                     if (response.status === 200) {
@@ -45,20 +45,22 @@ export const MessagesList = ({ actualClientData, newMessageData, setNewMessageDa
         console.log("coming soon this update functionality ")
     }
 
+
+    console.log(messageListData);
     return (
         <div >
             <div className='message-box'>
                 <h3 style={{ fontSize: "20px", color: "white", margin: "1px", textAlign: "center" }}>MESSAGES</h3>
-                {newMessageData && newMessageData !== null
+                {messageListData && messageListData !== null && messageListData !== undefined
                     ?
-                    newMessageData.map((item, index) => {
+                    messageListData.map((item, index) => {
                         return (
                             <div key={index}>
                                 <span className='message-item'>
                                     <div>
                                         <>
                                             <p style={{ marginBottom: "1px", textDecoration: "underline" }}>{item.clientName} :</p>
-                                            {actualClientData.staffStatus === true
+                                            {actualClientList!==undefined && actualClientList.staffStatus === true
                                                 ?
                                                 <div>
                                                     <button id="delete-btn" type='delete' value={item._id} onClick={(e) => removeOrdeleteItem(e.target.value)}>DELETE</button>
