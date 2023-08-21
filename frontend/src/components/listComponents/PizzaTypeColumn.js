@@ -32,9 +32,7 @@ function PizzaTypeColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActual
     pizzaTypeFetch(pizzaTypesUrl)
   }, [rejectedAllergensSet]);
 
-
   function addPizzaIdToOrder(pizzaId) {
-    console.log(pizzaId);
     setActualPizzaIdToOrder(pizzaId)
   }
 

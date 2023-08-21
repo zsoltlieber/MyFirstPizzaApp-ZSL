@@ -32,16 +32,14 @@ function App() {
 
   return (
     <div className="main-container">
-        < Header setRightColumnTypeData={setRightColumnType} logoutClientSet={logOutClient} setClientLogout={setLogoutClient}
-        actualClientSet={actualClientData} showOrderListSet={showOrderList} />
+      < Header setRightColumnTypeData={setRightColumnType} logoutClientSet={logOutClient}
+        setClientLogout={setLogoutClient} actualClientSet={actualClientData} showOrderListSet={showOrderList} />
       <AllergensList setRejectedAllergens={setRejectedAllergens} />
-      <div id='mobile-format'>
-        <PizzaTypeColumn rejectedAllergensSet={rejectedAllergens} setAllPizzaTypesData={setAllPizzaTypes} setActualPizzaIdToOrder={setPizzaIdToOrder} />
-
-
-        <RighColumn setRightColumnTypeData={setRightColumnType} rightColumnTypeSet={rightColumnContent} actualClientSet={actualClientData} setLogoutClientData={setLogoutClient}
-          setActualClientData={setActualClientData} pizzaTypesDataSet={allPizzaTypes} actualOrderedPizzaIdDataSet={pizzaIdToOrder} setShowOrderListData={setShowOrderList} />
-      </div>
+      <PizzaTypeColumn rejectedAllergensSet={rejectedAllergens} setAllPizzaTypesData={setAllPizzaTypes}
+        setActualPizzaIdToOrder={setPizzaIdToOrder} />
+      <RighColumn setRightColumnTypeData={setRightColumnType} rightColumnTypeSet={rightColumnContent}
+        actualClientSet={actualClientData} setLogoutClientData={setLogoutClient} setActualClientData={setActualClientData}
+        pizzaTypesDataSet={allPizzaTypes} actualOrderedPizzaIdDataSet={pizzaIdToOrder} setShowOrderListData={setShowOrderList} />
       <Footer />
     </div>
   );

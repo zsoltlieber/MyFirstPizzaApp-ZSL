@@ -24,7 +24,7 @@ const Header = ({ setRightColumnTypeData, logoutClientSet, setClientLogout, actu
                 {actualClientSet.clientName === ""
                     ?
                     <>
-                        <button className="btn" value="signin" onClick={(e) => setRightColumnTypeData(e.target.value)} >SIGN IN</button >
+                        <button className="btn" value="signin" onClick={(e) => setRightColumnTypeData(e.target.value)} >REGISTER</button >
                         <button className="btn" value="login" onClick={(e) => setRightColumnTypeData(e.target.value)}>LOG IN</button >
                     </>
                     : <></>}

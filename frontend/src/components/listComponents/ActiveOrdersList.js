@@ -4,14 +4,13 @@ const ActiveOrdersList = ({ actualClientData, listOfOrdersDataSet, setListOfOrde
 
   const ordersUrl = `/api/orders`
 
-
   let totalAmount = 0;
 
   const orderFetch = async (url) => {
     const response = await fetch(url);
     const data = await response.json();
     if (data.length > 0) {
-      data.map(order => console.log(order))
+   //   data.map(order => console.log(order))
       setListOfOrdersData(data);
     }
   };
@@ -55,14 +54,17 @@ const ActiveOrdersList = ({ actualClientData, listOfOrdersDataSet, setListOfOrde
     console.log("pizza id =  " + orderId)
   }
 
+
+  //console.log(listOfOrdersDataSet);
   return (
     <>
-      {actualClientData.clientName !== ""
+      {actualClientData.clientName !== "" && listOfOrdersDataSet != null
         ?
         < div id="orderList" >
           <div style={{ color: "white" }}>
             <p>DEAR {actualClientData.clientName} </p>
             <p style={{ textDecoration: "underline" }}>Current active orders:</p>
+            {/*
             {listOfOrdersDataSet && listOfOrdersDataSet !== null
               ? listOfOrdersDataSet.map(order => (
                 <div key={order._id}>
@@ -70,13 +72,13 @@ const ActiveOrdersList = ({ actualClientData, listOfOrdersDataSet, setListOfOrde
                   <ul>
                     {order.orderedItems !== undefined && order.orderedItems
                       ? order.orderedItems.map((orderItem, index) => {
-                        //actualPizzaData = pizzaTypesDataSet.find(pizza => pizza._id === orderItem._id)
-                        // actualPizzaData = pizzaTypesDataSet[index]
+                        //  actualPizzaData = pizzaTypesDataSet.find(pizza => pizza._id === orderItem._id)
+                        //  actualPizzaData = pizzaTypesDataSet[index]
                         totalAmount = totalAmount + (orderItem.quantity || 1) * //actualPizzaData.price
                           console.log(orderItem.quantity)
                         return (
                           <div key={index}>
-                            {/*
+
                             <span>
                               <li>=============================</li>
                               <li>Pizza type: {actualPizzaData.pizzaName}</li>
@@ -93,20 +95,22 @@ const ActiveOrdersList = ({ actualClientData, listOfOrdersDataSet, setListOfOrde
                               }
                             </span>
                             <li>=============================</li>
-                            */}
+
                           </div>
                         )
                       })
                       : <></>
                     }
-                  </ul>
+                  </ul >
                   <p>Total cost: {totalAmount.toLocaleString('en-US')}.- Ft</p>
                   {totalAmount = 0};
-                </div>
+                </div >
               ))
               : <></>
             }
-          </div>
+          */}
+
+          </div >
         </div >
         : <></>
       }

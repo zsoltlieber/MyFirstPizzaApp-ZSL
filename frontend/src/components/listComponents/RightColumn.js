@@ -10,7 +10,7 @@ import MessagesList from "./MessagesList.js"
 import StaffPage from "./StaffPage.js"
 
 const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientSet, setActualClientData,
-  setLogoutClientData ,pizzaTypesDataSet, actualOrderedPizzaIdDataSet }) => {
+  setLogoutClientData, pizzaTypesDataSet, actualOrderedPizzaIdDataSet }) => {
 
   const [newMessage, setNewMessage] = useState([]);
   const [listOfOrders, setListOfOrders] = useState({});

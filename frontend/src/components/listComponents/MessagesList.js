@@ -5,7 +5,7 @@ export const MessagesList = ({ actualClientData, newMessageData, setNewMessageDa
     const messageUrl = "/api/messages"
 
     const messagesFetch = async (url) => {
-        const response = await fetch(`${url}?isActive=true`);
+        const response = await fetch(`${url}?isActive=true`); 
         const data = await response.json();
         if (data) setNewMessageData(data);
     };

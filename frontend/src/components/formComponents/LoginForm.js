@@ -36,7 +36,7 @@ export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) 
         setShowBoxes(3);
 
         setTimeout(() => {
-          setCurrentForm("")
+          setCurrentForm("order-form")
         }, 1000);
 
       }
@@ -67,7 +67,7 @@ export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) 
             <button value="signin" onClick={(e) => setCurrentForm(e.target.value)}>
               {loginErrorMessage.split(" ")[0] === "Wrong"
                 ? <p style={{ color: "red" }} >MODIFY EMAIL AND/OR PASSWORD!</p>
-                : <p style={{ color: "red"}} >PLEASE DO SIGN IN!</p>
+                : <p style={{ color: "red"}} >PLEASE ENTER IN A REGISTER!</p>
               }
             </button>
           </div>
