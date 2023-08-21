@@ -265,6 +265,19 @@ input {
   margin: 20px;
 }
 
+#add-btn{
+  background-color: green;
+  color: white;
+  width: 40px;
+  margin-left: "20px"
+}
+#ordersaver-btn{
+  background-color: rgb(209, 211, 78);
+  color: green;
+  width: 120px;
+  margin-left: "20px"
+}
+
 #orderList ul {
   list-style-type: none;
   text-align: left;
@@ -337,7 +350,6 @@ input {
     border: 1px solid black;
     border-radius: 3px;
     color: blue;
-    margin-right: 3px;
     align-items: center;
     text-align: center;
     cursor: "pointer";

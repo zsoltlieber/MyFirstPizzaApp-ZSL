@@ -1,24 +1,16 @@
-import { useEffect } from 'react';
-
-const ActiveOrdersList = ({ actualClientData, listOfOrdersDataSet, setListOfOrdersData }) => {
+const ActiveOrdersList = ({ actualClientDataSet, listOfOrders, pizzaTypesDataSet }) => {
 
   const ordersUrl = `/api/orders`
 
   let totalAmount = 0;
-
-  const orderFetch = async (url) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    if (data.length > 0) {
-   //   data.map(order => console.log(order))
-      setListOfOrdersData(data);
-    }
-  };
-
-  useEffect(() => {
-    orderFetch(ordersUrl);
-  }, [ordersUrl]);
-
+  let actualPizzaData = undefined;
+  console.log("itt lista");
+  console.log("ez az " + listOfOrders);
+  if (listOfOrders.orderedItems !== undefined) {
+    console.log(listOfOrders.orderedItems);
+    console.log(listOfOrders.orderedItems[0]);
+    console.log(listOfOrders.orderedItems[1]);
+  }
 
   const removeOrdeleteOrder = (orderId) => {
     const actualEndPoint = ordersUrl + "/" + orderId;
@@ -27,8 +19,9 @@ const ActiveOrdersList = ({ actualClientData, listOfOrdersDataSet, setListOfOrde
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ isActive: false })
     };
-    if (actualClientData.clientName !== "") {
-      if (actualClientData.bossStatus !== true) {
+    if (actualClientDataSet.clientName !== "") {
+      if (actualClientDataSet.bossStatus !== true) {
+
         async function removeOrder() {
           const response = await fetch(actualEndPoint, requestOptions);
           if (response.status === 200) {
@@ -53,42 +46,56 @@ const ActiveOrdersList = ({ actualClientData, listOfOrdersDataSet, setListOfOrde
     console.log("coming soon this update functionality ")
     console.log("pizza id =  " + orderId)
   }
-
-
-  //console.log(listOfOrdersDataSet);
+  console.log("itt");
+  console.log(listOfOrders);
+  console.log(listOfOrders !== undefined);
   return (
     <>
-      {actualClientData.clientName !== "" && listOfOrdersDataSet != null
+      {actualClientDataSet !== undefined && actualClientDataSet.clientName !== "" && listOfOrders !== undefined && listOfOrders.orderClientId !== undefined
         ?
         < div id="orderList" >
           <div style={{ color: "white" }}>
-            <p>DEAR {actualClientData.clientName} </p>
-            <p style={{ textDecoration: "underline" }}>Current active orders:</p>
-            {/*
-            {listOfOrdersDataSet && listOfOrdersDataSet !== null
-              ? listOfOrdersDataSet.map(order => (
+            <h2 style={{ textDecoration: "underline" }}>Current active orders:</h2>
+            <p style={{ backgroundColor: "blue" }}>{actualClientDataSet.clientId === listOfOrders.orderClientId ? actualClientDataSet.clientName.toUpperCase() : actualClientDataSet.clientName}</p>
+
+            {listOfOrders.orderedItems && listOfOrders.orderedItems !== undefined
+              ? listOfOrders.orderedItems.map(order => (
                 <div key={order._id}>
-                  <p style={{ backgroundColor: "blue" }}>{order.orderClientId.toUpperCase()}</p>
                   <ul>
                     {order.orderedItems !== undefined && order.orderedItems
                       ? order.orderedItems.map((orderItem, index) => {
-                        //  actualPizzaData = pizzaTypesDataSet.find(pizza => pizza._id === orderItem._id)
-                        //  actualPizzaData = pizzaTypesDataSet[index]
-                        totalAmount = totalAmount + (orderItem.quantity || 1) * //actualPizzaData.price
-                          console.log(orderItem.quantity)
+                        actualPizzaData = pizzaTypesDataSet.find(pizza => pizza._id === orderItem._id)
+                        actualPizzaData = pizzaTypesDataSet[index]
+                        totalAmount = totalAmount + (orderItem.quantity) * actualPizzaData.price
+                        console.log(orderItem.quantity)
                         return (
                           <div key={index}>
-
                             <span>
                               <li>=============================</li>
-                              <li>Pizza type: {actualPizzaData.pizzaName}</li>
-                              <li>Price: {actualPizzaData.price.toLocaleString('en-US')}.- Ft</li>
-                              <li>Quantity: {orderItem.quantity}</li>
-                              {actualClientData.staffStatus === true
+                              <li>
+                                name{actualPizzaData.pizzaName}
+                                {actualPizzaData.price.toLocaleString('en-US')}.- Ft
+                                {orderItem.quantity} db
+                                <button style={{ backgroundColor: "red", color: "white", marginLeft: "10px", width: "40px" }} type="button"
+                                  id="delete-btn" className="btn" onClick={(e) => removeOrdeleteOrder(actualPizzaData._id)}>
+                                  DEL
+                                </button>
+                                <button id="update-btn" type='button' value={actualPizzaData._id} onClick={(e) => updateOrder(e.target.value)}>UPDATE</button>
+                              </li>
+                              {actualClientDataSet.staffStatus === true
                                 ?
                                 <div>
+                                  {/* 
                                   <button id="delete-btn" type='delete' value={actualPizzaData._id} onClick={(e) => removeOrdeleteOrder(e.target.value)}>DELETE</button>
-                                  <button id="update-btn" type='update' value={actualPizzaData._id} onClick={(e) => updateOrder(e.target.value)}>UPDATE</button>
+
+    const deleteItem = (deletedOrderItemId) => {
+                                    console.log(deletedOrderItemId)
+                                    //        const modifiedActualOrderItems = actualOrderItems.filter(item => item.pizzaId !== deletedOrderItemId)
+                                    //      console.log(modifiedActualOrderItems);
+                                    //  setActualOrderItems(modifiedActualOrderItems)
+                                  }
+ */}
+
                                 </div>
                                 :
                                 <></>
@@ -108,8 +115,6 @@ const ActiveOrdersList = ({ actualClientData, listOfOrdersDataSet, setListOfOrde
               ))
               : <></>
             }
-          */}
-
           </div >
         </div >
         : <></>
