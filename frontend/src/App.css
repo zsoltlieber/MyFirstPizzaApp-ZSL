@@ -55,7 +55,7 @@ body {
   border: 2px solid red;
   text-align: center;
   align-items: center;
-  overflow: scroll;
+  overflow: auto;
 }
 
 input.allergen-checkbox {
@@ -74,7 +74,7 @@ input.allergen-checkbox {
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .pizzaContainer {
@@ -83,6 +83,7 @@ input.allergen-checkbox {
   align-content: center;
   width: 100%;
   height: auto;
+ 
 }
 
 .pizzaCard {
@@ -94,7 +95,7 @@ input.allergen-checkbox {
   justify-content: center;
   align-items: center;
   align-content: center;
-  overflow: visible;
+  overflow: auto;
   flex-direction: column;
   text-align: center;
   color: white;
@@ -154,9 +155,12 @@ input.allergen-checkbox {
 #empty-pizzalist {
   color: white;
   background-color: red;
-  padding: 40px;
+  padding: 20px;
+  font-size: 45px;
   border-radius: 20px;
+  margin-top: 5%;
   margin-left: 5%;
+  max-height:15%;
   text-align: center;
 }
 
@@ -229,7 +233,7 @@ input {
   border: solid 3px white;
   border-radius: 15px;
   margin: 10px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 #registration-form,
@@ -241,7 +245,7 @@ input {
   border-radius: 15px;
   padding: 10px;
   margin: 10px;
-  overflow: scroll;
+  overflow: auto;
 }
 #message-form {
   background-color: rgba(157, 27, 16, 0.7);
@@ -298,7 +302,7 @@ input {
   color: white;
   font-size: 15px;
   text-align: justify;
-  overflow: scroll;
+  overflow: auto;
   padding: 15px;
   margin: 15px;
 }

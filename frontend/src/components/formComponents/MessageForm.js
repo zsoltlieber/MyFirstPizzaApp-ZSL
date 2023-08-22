@@ -21,15 +21,8 @@ export const MessageForm = ({ actualClientData, messageListDataSet, setMessageLi
                 console.log(data)
             }
             else {
-                console.log(data);
-                console.log("itt1");
-                console.log(messageListDataSet);
-                console.log("itt2");
-                const amendedMessageList = messageListDataSet.push(data)
-                console.log(amendedMessageList);
-                setMessageList(messageListDataSet)
-                console.log(messageListDataSet);
-                console.log("itt3");
+                const amendedMessageList = [...messageListDataSet, data];
+                setMessageList(amendedMessageList)
                 setShowBox(true);
                 setTimeout(() => {
                     setShowBox(false);
@@ -39,7 +32,7 @@ export const MessageForm = ({ actualClientData, messageListDataSet, setMessageLi
         }
         loginToServer()
     }
-    console.log(messageListDataSet);
+
     return (
         <div >
             <div>

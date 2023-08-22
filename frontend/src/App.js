@@ -13,7 +13,7 @@ function App() {
   const [showOrderList, setShowOrderList] = useState(false);
   const [rejectedAllergens, setRejectedAllergens] = useState([]);
   const [allPizzaTypes, setAllPizzaTypes] = useState({});
-  const [pizzaIdToOrder, setPizzaIdToOrder] = useState()
+  const [pizzaIdToOrder, setPizzaIdToOrder] = useState("")
 
   const emptyClient = {
     clientName: "",
@@ -39,7 +39,7 @@ function App() {
         setActualPizzaIdToOrder={setPizzaIdToOrder} />
       <RighColumn setRightColumnTypeData={setRightColumnType} rightColumnTypeSet={rightColumnContent}
         actualClientSet={actualClientData} setLogoutClientData={setLogoutClient} setActualClientData={setActualClientData}
-        pizzaTypesDataSet={allPizzaTypes} actualOrderedPizzaIdDataSet={pizzaIdToOrder} setShowOrderListData={setShowOrderList} />
+        pizzaTypesDataSet={allPizzaTypes} actualOrderedPizzaIdDataSet={pizzaIdToOrder} setActualPizzaIdEmpty={setPizzaIdToOrder} setShowOrderListData={setShowOrderList} />
       <Footer />
     </div>
   );

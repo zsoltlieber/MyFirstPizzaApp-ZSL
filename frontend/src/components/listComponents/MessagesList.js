@@ -12,7 +12,7 @@ export const MessagesList = ({ actualClientList, messageListData, setMessageList
 
     useEffect(() => {
         messagesFetch(messageUrl);
-    }, [messageListData.size]);
+    }, [messageUrl]);
 
     const removeOrdeleteItem = (messageId) => {
         const actualEndPoint = messageUrl + "/" + messageId;
@@ -44,9 +44,7 @@ export const MessagesList = ({ actualClientList, messageListData, setMessageList
     const updateItem = (messageId) => {
         console.log("coming soon this update functionality ")
     }
-
-
-    console.log(messageListData);
+console.log(messageListData);
     return (
         <div >
             <div className='message-box'>
