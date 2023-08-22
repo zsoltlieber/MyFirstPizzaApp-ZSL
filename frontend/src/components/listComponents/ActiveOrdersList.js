@@ -3,14 +3,9 @@ const ActiveOrdersList = ({ actualClientDataSet, listOfOrders, pizzaTypesDataSet
   const ordersUrl = `/api/orders`
 
   let totalAmount = 0;
-  let actualPizzaData = undefined;
-  console.log("itt lista");
-  console.log("ez az " + listOfOrders);
-  if (listOfOrders.orderedItems !== undefined) {
-    console.log(listOfOrders.orderedItems);
-    console.log(listOfOrders.orderedItems[0]);
-    console.log(listOfOrders.orderedItems[1]);
-  }
+  
+
+  console.log(listOfOrders);
 
   const removeOrdeleteOrder = (orderId) => {
     const actualEndPoint = ordersUrl + "/" + orderId;
@@ -46,75 +41,50 @@ const ActiveOrdersList = ({ actualClientDataSet, listOfOrders, pizzaTypesDataSet
     console.log("coming soon this update functionality ")
     console.log("pizza id =  " + orderId)
   }
-  console.log("itt");
-  console.log(listOfOrders);
-  console.log(listOfOrders !== undefined);
+
+
+  function deleteOrderRow(orderId) {
+    console.log("coming soon this delete functionality ")
+    console.log("pizza id =  " + orderId)
+  }
+
   return (
     <>
-      {actualClientDataSet !== undefined && actualClientDataSet.clientName !== "" && listOfOrders !== undefined && listOfOrders.orderClientId !== undefined
+      {listOfOrders.orderedItems && listOfOrders.orderedItems !== undefined
         ?
         < div id="orderList" >
           <div style={{ color: "white" }}>
-            <h2 style={{ textDecoration: "underline" }}>Current active orders:</h2>
+            <h2 style={{ textDecoration: "underline" }}>Current active orders list</h2>
             <p style={{ backgroundColor: "blue" }}>{actualClientDataSet.clientId === listOfOrders.orderClientId ? actualClientDataSet.clientName.toUpperCase() : actualClientDataSet.clientName}</p>
 
-            {listOfOrders.orderedItems && listOfOrders.orderedItems !== undefined
-              ? listOfOrders.orderedItems.map(order => (
-                <div key={order._id}>
-                  <ul>
-                    {order.orderedItems !== undefined && order.orderedItems
-                      ? order.orderedItems.map((orderItem, index) => {
-                        actualPizzaData = pizzaTypesDataSet.find(pizza => pizza._id === orderItem._id)
-                        actualPizzaData = pizzaTypesDataSet[index]
-                        totalAmount = totalAmount + (orderItem.quantity) * actualPizzaData.price
-                        console.log(orderItem.quantity)
-                        return (
-                          <div key={index}>
-                            <span>
-                              <li>=============================</li>
-                              <li>
-                                name{actualPizzaData.pizzaName}
-                                {actualPizzaData.price.toLocaleString('en-US')}.- Ft
-                                {orderItem.quantity} db
-                                <button style={{ backgroundColor: "red", color: "white", marginLeft: "10px", width: "40px" }} type="button"
-                                  id="delete-btn" className="btn" onClick={(e) => removeOrdeleteOrder(actualPizzaData._id)}>
-                                  DEL
-                                </button>
-                                <button id="update-btn" type='button' value={actualPizzaData._id} onClick={(e) => updateOrder(e.target.value)}>UPDATE</button>
-                              </li>
-                              {actualClientDataSet.staffStatus === true
-                                ?
-                                <div>
-                                  {/* 
-                                  <button id="delete-btn" type='delete' value={actualPizzaData._id} onClick={(e) => removeOrdeleteOrder(e.target.value)}>DELETE</button>
-
-    const deleteItem = (deletedOrderItemId) => {
-                                    console.log(deletedOrderItemId)
-                                    //        const modifiedActualOrderItems = actualOrderItems.filter(item => item.pizzaId !== deletedOrderItemId)
-                                    //      console.log(modifiedActualOrderItems);
-                                    //  setActualOrderItems(modifiedActualOrderItems)
-                                  }
- */}
-
-                                </div>
-                                :
-                                <></>
-                              }
-                            </span>
-                            <li>=============================</li>
-
-                          </div>
-                        )
-                      })
-                      : <></>
-                    }
-                  </ul >
-                  <p>Total cost: {totalAmount.toLocaleString('en-US')}.- Ft</p>
-                  {totalAmount = 0};
-                </div >
-              ))
-              : <></>
-            }
+            <table style={{ listStyleType: "none", fontSize: "15px" }}>
+              <tr>
+                <th>Pizza name</th>
+                <th>Quantity</th>
+                <th>Price each</th>
+                <th>Price each</th>
+              </tr>
+              {listOfOrders.orderedItems.map(order => {
+                return (
+                  <div key={order.pizzaId}>
+                    <tr>
+                      <td style={{ marginLeft: "-3rem" }} className='orderElement'>
+                        {order.pizzaId}
+                      </td>
+                      <td>{order.quantity}</td>
+                      <td>{order.pricePerEach}</td>
+                      <td>
+                        <button style={{ backgroundColor: "red", color: "white", marginLeft: "10px", width: "40px" }} type="button"
+                          id="delete-btn" className="btn" onClick={(e) => deleteOrderRow(order.pizzaId)}>
+                          DEL
+                        </button>
+                      </td>
+                    </tr>
+                  </div>
+                )
+              })}
+            </table>
+            Total cost: {0}
           </div >
         </div >
         : <></>
