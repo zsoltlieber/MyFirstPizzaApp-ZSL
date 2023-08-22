@@ -10,10 +10,11 @@ import MessagesList from "./MessagesList.js";
 import StaffPage from "./StaffPage.js";
 
 const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientSet, setActualClientData,
-  setLogoutClientData, pizzaTypesDataSet, actualOrderedPizzaIdDataSet, setActualPizzaIdEmpty}) => {
+  setLogoutClientData, pizzaTypesDataSet, actualOrderedPizzaIdDataSet, setActualPizzaIdEmpty }) => {
 
   const [messageList, setMessageList] = useState([]);
   const [listOfOrders, setListOfOrders] = useState({});
+  const [showMessageList, setShowMessageListhowBox] = useState(false);
 
   return (
     <div className='rightColumn'>
@@ -28,13 +29,13 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
         : <></>}
       {rightColumnTypeSet === "message" ?
         <>
-          <MessageForm actualClientData={actualClientSet} messageListDataSet={messageList} setMessageList={setMessageList} />
-          <MessagesList actualClientData={actualClientSet} messageListData={messageList} setMessageListData={setMessageList} />
+          <MessageForm actualClientData={actualClientSet} messageListDataSet={messageList} setMessageList={setMessageList} showMessegesSet={showMessageList} setShowMessageList={setShowMessageListhowBox} />
+          <MessagesList actualClientData={actualClientSet} messageListData={messageList} setMessageListData={setMessageList} showMessegesSet={showMessageList} />
         </>
         : <></>}
       {rightColumnTypeSet === "order-form" ?
         <>
-          <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} setActualPizzaIdEmpty={setActualPizzaIdEmpty }  allPizzaTypesData={pizzaTypesDataSet}
+          <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} setActualPizzaIdEmpty={setActualPizzaIdEmpty} allPizzaTypesData={pizzaTypesDataSet}
             listOfOrdersSet={listOfOrders} setListOfOrdersData={setListOfOrders} currentFormSet={rightColumnTypeSet} setCurrentForm={setRightColumnTypeData} />
           < ActiveOrdersList actualClientDataSet={actualClientSet} listOfOrders={listOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} />
         </>

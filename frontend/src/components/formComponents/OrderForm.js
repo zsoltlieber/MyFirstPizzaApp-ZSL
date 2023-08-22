@@ -1,34 +1,42 @@
 import { useEffect, useState } from 'react';
 
-export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, allPizzaTypesData, listOfOrdersSet, setListOfOrdersData, currentFormSet, setCurrentForm }) {
+export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActualPizzaIdEmpty, allPizzaTypesData, setListOfOrdersData }) {
 
     const registerUrl = '/api/orders'
     const [value, setValue] = useState();
     const [actualPizzaData, setActualPizzaData] = useState()
     const [actualOrderItems, setActualOrderItems] = useState([])
+    const [showTopMessageBox, setShowTopMessageBox] = useState(true)
     const [showMessageBox, setShowMessageBox] = useState(false)
+    const [showOrderListData, setshowOrderListData] = useState(true)
     if (actualOrderItems === null) actualOrderedPizzaIdSet = undefined;
 
     const saveOrder = () => {
-        console.log(actualOrderItems.length > 0);
+        const orderedItems = actualOrderItems
         if (actualOrderItems.length > 0) {
             const addOrderToOrderList = async () => {
                 const requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ "orderedItems": actualOrderItems })
+                    body: JSON.stringify({ orderedItems })
                 };
                 const response = await fetch(registerUrl, requestOptions);
                 const data = await response.json();
                 setListOfOrdersData(data);
+                setActualOrderItems([])
                 setShowMessageBox(true);
+                setshowOrderListData(false);
+
+                setTimeout(() => {
+                    setShowMessageBox(false)
+                    setShowTopMessageBox(true)
+                }, 1000);
+
             };
             addOrderToOrderList()
         }
     }
     const addActualOrderdItemToList = () => {
-        console.log('log');
-        console.log(actualPizzaData)
         const orderLine = {
             "pizzaId": actualPizzaData._id,
             "pizzaName": actualPizzaData.pizzaName,
@@ -36,10 +44,14 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, allPizzaT
             "quantity": value !== undefined ? parseInt(value) : 1
         }
         if (actualOrderItems.length === 0) {
-            setActualOrderItems([orderLine]);
+            setActualOrderItems({ orderedItems: [orderLine] });
         } else {
+            const amendedActualOrderList = [...actualOrderItems.orderedItems, orderLine]
+            setActualOrderItems({ orderedItems: amendedActualOrderList });
+
             actualOrderItems.push(orderLine)
         }
+        setActualPizzaIdEmpty("")
         setActualPizzaData(undefined)
         setValue(1)
     }
@@ -51,50 +63,83 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, allPizzaT
         }
     }, [actualOrderedPizzaIdSet]);
 
-    console.log("az" + actualOrderItems);
-    console.log(actualOrderItems);
-
     return (
         <>
             {actualClientData.clientName !== ""
                 ?
-                <div id="order-form">
-                    <form >
-                        {actualOrderItems === undefined ?
-                            <h3 style={{ color: "white" }}>ORDER FORM</h3>
-                            : <></>}
-                        {actualPizzaData !== undefined
-                            ?
-                            < ul style={{ listStyleType: "none" }}>
-                                <li style={{ marginLeft: "-3rem" }} className='orderElement'>
-
-                                    {actualPizzaData.pizzaName} {actualPizzaData.price.toLocaleString('en-US')}.- Ft
-                                    <input style={{ marginLeft: "10px" }} type="number" id="quantity" size="4" min={1}
-                                        max={5} value={value !== undefined ? value : 1}
-                                        onChange={(event) => setValue(event.target.value)}
-                                    />
-                                    <button type="button" className="btn" id="add-btn" onClick={addActualOrderdItemToList}>
-                                        ADD
-                                    </button>
-                                </li>
-
-                            </ul>
-                            :
-                            <div >
+                <div>
+                    {showTopMessageBox
+                        ?
+                        <div id="order-form">
+                            <form >
                                 {actualOrderItems === undefined ?
-                                    <>
-                                        <h4>DEAR <br />{actualClientData.clientName}</h4>
-                                        <h5>YOU DO NOT HAVE ACTIVE ORDER !!</h5>
-                                    </>
+                                    <h3 style={{ color: "white" }}>ORDER FORM</h3>
                                     : <></>}
-                                <h6>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</h6>
-                                <button type="button" className="btn" id="ordersaver-btn" onClick={saveOrder}>
-                                    SEND ORDER
-                                </button>
-                            </div>
-                        }
-                    </form >
-                </div >
+                                {actualPizzaData !== undefined
+                                    ?
+                                    < ul style={{ listStyleType: "none" }}>
+                                        <li style={{ marginLeft: "-3rem" }} className='orderElement'>
+
+                                            {actualPizzaData.pizzaName} {actualPizzaData.price.toLocaleString('en-US')}.- Ft
+                                            <input style={{ marginLeft: "10px" }} type="number" id="quantity" size="4" min={1}
+                                                max={5} value={value !== undefined ? value : 1}
+                                                onChange={(event) => setValue(event.target.value)}
+                                            />
+                                            <button type="button" className="btn" id="add-btn" onClick={addActualOrderdItemToList}>
+                                                ADD
+                                            </button>
+                                        </li>
+                                    </ul>
+                                    :
+                                    <>
+                                        <div >
+                                            {actualOrderItems === undefined ?
+                                                <>
+                                                    <h4>DEAR <br />{actualClientData.clientName}</h4>
+                                                    <h5>YOU DO NOT HAVE ACTIVE ORDER !!</h5>
+                                                </>
+                                                : <></>
+                                            }
+                                            <h6>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</h6>
+                                            {actualOrderItems.length > 0
+                                                ?
+                                                <button type="button" className="btn" id="ordersaver-btn" onClick={saveOrder}>
+                                                    SEND ORDER
+                                                </button>
+                                                : <></>}
+                                        </div>
+                                        {showOrderListData && actualOrderItems.length > 0
+                                            ?
+                                            <div id="orderList">
+                                                <p>Order list</p>
+                                                <table style={{ listStyleType: "none", fontSize: "15px" }}>
+                                                    <tr>
+                                                        <th>Pizza name</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price each</th>
+                                                    </tr>
+                                                    {actualOrderItems.map((item, index) => {
+                                                        return (
+                                                            <tr>
+                                                                <td key={index} style={{ marginLeft: "-3rem" }} className='orderElement'>
+                                                                    {item.pizzaName}
+                                                                </td>
+                                                                <td>{item.quantity}</td>
+                                                                <td>{item.pricePerEach}</td>
+                                                            </tr>
+                                                        )
+                                                    })}
+                                                </table>
+                                                Total cost: {0}
+                                            </div>
+                                            : <></>}
+                                    </>
+                                }
+                            </form >
+                        </div >
+                        : <></>
+                    }
+                </div>
                 :
                 <h1 id="message-form" >
                     ONLY REGISTERED CLIENT CAN ORDER ANY PIZZAS!
@@ -102,14 +147,13 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, allPizzaT
                     Please sign in!
                 </h1>
             }
-            {
-                showMessageBox
-                    ?
-                    <div id="message-box">
-                        <h4>DEAR <br />{actualClientData.clientName} thanks for your order!!</h4>
-                        <h4>WE WELL DELIVER YOUR PIZZA SOON :) !!</h4>
-                    </div>
-                    : <></>
+            {showMessageBox
+                ?
+                <div id="message-form">
+                    <h4>DEAR <br />{actualClientData.clientName} thanks for your order!!</h4>
+                    <h4>WE WELL DELIVER YOUR PIZZA SOON :) !!</h4>
+                </div>
+                : <></>
             }
         </>
     )

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export const MessagesList = ({ actualClientList, messageListData, setMessageListData }) => {
+export const MessagesList = ({ actualClientList, messageListData, setMessageListData, showMessegesSet }) => {
 
     const messageUrl = "/api/messages"
 
@@ -47,11 +47,11 @@ export const MessagesList = ({ actualClientList, messageListData, setMessageList
 
     return (
         <div >
-            <div className='message-box'>
-                <h3 style={{ fontSize: "20px", color: "white", margin: "1px", textAlign: "center" }}>MESSAGES</h3>
-                {messageListData && messageListData !== null && messageListData !== undefined
-                    ?
-                    messageListData.map((item, index) => {
+            {messageListData && messageListData !== null && messageListData !== undefined && !showMessegesSet
+                ?
+                < div className='message-list'>
+                    <h3 style={{ fontSize: "20px", color: "white", margin: "1px", textAlign: "center" }}>MESSAGES</h3>
+                    {messageListData.map((item, index) => {
                         return (
                             <div key={index}>
                                 <span className='message-item'>
@@ -73,11 +73,10 @@ export const MessagesList = ({ actualClientList, messageListData, setMessageList
                                 </span>
                             </div>
                         )
-                    })
-                    : <></>}
-            </div>
-
-        </div>
+                    })}
+                </div>
+                : <></>}
+        </div >
     )
 }
 

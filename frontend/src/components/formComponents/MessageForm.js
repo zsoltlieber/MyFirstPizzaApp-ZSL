@@ -1,10 +1,9 @@
 import { useState } from 'react';
 
-export const MessageForm = ({ actualClientData, messageListDataSet, setMessageList }) => {
+export const MessageForm = ({ actualClientData, messageListDataSet, setMessageList, showMessegesSet, setShowMessageList }) => {
 
     const messageUrl = "/api/messages"
     const [newMessage, setNewMessage] = useState("");
-    const [showBox, setShowBox] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -23,9 +22,9 @@ export const MessageForm = ({ actualClientData, messageListDataSet, setMessageLi
             else {
                 const amendedMessageList = [...messageListDataSet, data];
                 setMessageList(amendedMessageList)
-                setShowBox(true);
+                setShowMessageList(true);
                 setTimeout(() => {
-                    setShowBox(false);
+                    setShowMessageList(false);
                     setNewMessage("");
                 }, 2000);
             }
@@ -52,9 +51,9 @@ export const MessageForm = ({ actualClientData, messageListDataSet, setMessageLi
             </div>
 
             {
-                showBox ?
+                showMessegesSet ?
                     <div>
-                        <h3 id="message-form">We appreciate if you send us about your feelings <br />in connection with our pizzas!</h3>
+                        <h3 id="message-form">We appreciate if you sent us about your feelings <br />in connection with our pizzas!</h3>
                     </div>
                     : <></>
             }
