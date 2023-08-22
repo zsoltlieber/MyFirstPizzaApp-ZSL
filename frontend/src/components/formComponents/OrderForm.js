@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActualPizzaIdEmpty, allPizzaTypesData, setListOfOrdersData }) {
+export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActualPizzaIdEmpty, allPizzaTypesData, listOfOrdersSet, setListOfOrdersData }) {
 
-    const registerUrl = '/api/orders'
+    const ordersUrl = `/api/orders`
     const [value, setValue] = useState();
     const [actualPizzaData, setActualPizzaData] = useState()
     const [actualOrderItems, setActualOrderItems] = useState([])
@@ -19,19 +19,18 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
         totalCost = actualOrderItems.orderedItems.reduce((accu, items) => accu + (items.pricePerEach * items.quantity), 0)
     }
 
-    const sendPreOrder = () => {
-        const orderedItems = actualOrderItems
+    const sendOrder = () => {
         if (actualOrderItems.orderedItems.length > 0) {
             const addOrderToOrderList = async () => {
                 const requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ orderedItems })
+                    body: JSON.stringify(actualOrderItems)
                 };
-                const response = await fetch(registerUrl, requestOptions);
+                const response = await fetch(ordersUrl, requestOptions);
                 const data = await response.json();
                 setListOfOrdersData(data);
-                setActualOrderItems([])
+
                 setShowMessageBox(true);
                 setshowOrderListData(false);
 
@@ -61,12 +60,17 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
         setValue(1)
     }
 
-        useEffect(() => {
+    useEffect(() => {
         if (actualOrderedPizzaIdSet !== undefined) {
             const actualPizza = allPizzaTypesData.filter(pizza => pizza._id === actualOrderedPizzaIdSet);
             setActualPizzaData(actualPizza[0]);
         }
     }, [actualOrderedPizzaIdSet]);
+
+    const deleteOrderRow = (orderId) => {
+        const modifiedOrdersList = actualOrderItems.orderedItems.filter(orderItemId => orderItemId.pizzaId !== orderId)
+        setActualOrderItems({ orderedItems: modifiedOrdersList });
+    }
 
     return (
         <>
@@ -98,20 +102,17 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                                     :
                                     <>
                                         <div >
-                                            {actualOrderItems.orderedItems === undefined
-                                                ?
-                                                <>
-                                                    <h4>DEAR <br />{actualClientData.clientName}</h4>
-                                                    <h5>YOU DO NOT HAVE ACTIVE ORDER !!</h5>
-                                                </>
-                                                : <></>
+                                            {actualOrderItems !== undefined
+                                                ? <></>
+                                                : 
+                                                <h5>YOU DO NOT HAVE ACT IVE ORDER !!</h5>
                                             }
                                             <h6>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</h6>
                                         </div>
                                         {showOrderListData && actualOrderItems.orderedItems
                                             ?
-                                            <div id="order-list">
-                                                <p>Order pre-list not compulsory!!</p>
+                                            <div id="pre-order-list">
+                                                <p>Order list</p>
                                                 <table style={{ listStyleType: "none", fontSize: "15px" }}>
                                                     <tr>
                                                         <th>Pizza name</th>
@@ -126,14 +127,20 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                                                                 </td>
                                                                 <td>{order.quantity}</td>
                                                                 <td>{order.pricePerEach.toLocaleString('en-US')}.- Ft</td>
+                                                                <td>
+                                                                    <button style={{ backgroundColor: "red", color: "white", marginLeft: "10px", width: "40px" }} type="button"
+                                                                        id="delete-btn" className="btn" onClick={(e) => deleteOrderRow(order.pizzaId)}>
+                                                                        DEL
+                                                                    </button>
+                                                                </td>
                                                             </tr>
                                                         )
                                                     })}
                                                 </table>
-                                                <p style={{ backgroundColor:"yellow", color: "red", textAlign:"center" }}>
+                                                <p style={{ backgroundColor: "yellow", color: "red", textAlign: "center" }}>
                                                     Total cost: {totalCost.toLocaleString('en-US')}.- Ft
                                                 </p>
-                                                <button type="button" className="btn" id="ordersender-btn" onClick={sendPreOrder}>
+                                                <button type="button" className="btn" id="ordersender-btn" onClick={sendOrder}>
                                                     SEND ORDER
                                                 </button>
                                             </div>

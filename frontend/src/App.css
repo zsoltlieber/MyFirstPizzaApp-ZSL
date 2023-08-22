@@ -249,11 +249,23 @@ input {
 #order-container {
   overflow: auto;
 }
+
+#pre-order-list {
+  background-color: rgba(157, 27, 16, 0.7);
+  text-align: left;
+  width: 90%;
+  height: 300px;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 5px;
+  margin: 5px;
+  overflow: auto;
+}
 #order-list {
   background-color: rgba(157, 27, 16, 0.7);
   text-align: left;
   width: 90%;
-  height: 92%;
+  height: 300px;
   border: solid 3px white;
   border-radius: 15px;
   padding: 5px;
