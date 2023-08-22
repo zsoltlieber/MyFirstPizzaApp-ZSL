@@ -44,7 +44,7 @@ export const MessagesList = ({ actualClientList, messageListData, setMessageList
     const updateItem = (messageId) => {
         console.log("coming soon this update functionality ")
     }
-console.log(messageListData);
+
     return (
         <div >
             <div className='message-box'>
@@ -58,7 +58,7 @@ console.log(messageListData);
                                     <div>
                                         <>
                                             <p style={{ marginBottom: "1px", textDecoration: "underline" }}>{item.clientName} :</p>
-                                            {actualClientList!==undefined && actualClientList.staffStatus === true
+                                            {actualClientList !== undefined && actualClientList.staffStatus === true
                                                 ?
                                                 <div>
                                                     <button id="delete-btn" type='delete' value={item._id} onClick={(e) => removeOrdeleteItem(e.target.value)}>DELETE</button>

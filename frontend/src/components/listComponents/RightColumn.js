@@ -10,7 +10,7 @@ import MessagesList from "./MessagesList.js";
 import StaffPage from "./StaffPage.js";
 
 const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientSet, setActualClientData,
-  setLogoutClientData, pizzaTypesDataSet, actualOrderedPizzaIdDataSet }) => {
+  setLogoutClientData, pizzaTypesDataSet, actualOrderedPizzaIdDataSet, setActualPizzaIdEmpty}) => {
 
   const [messageList, setMessageList] = useState([]);
   const [listOfOrders, setListOfOrders] = useState({});
@@ -34,7 +34,7 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
         : <></>}
       {rightColumnTypeSet === "order-form" ?
         <>
-          <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} allPizzaTypesData={pizzaTypesDataSet}
+          <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} setActualPizzaIdEmpty={setActualPizzaIdEmpty }  allPizzaTypesData={pizzaTypesDataSet}
             listOfOrdersSet={listOfOrders} setListOfOrdersData={setListOfOrders} currentFormSet={rightColumnTypeSet} setCurrentForm={setRightColumnTypeData} />
           < ActiveOrdersList actualClientDataSet={actualClientSet} listOfOrders={listOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} />
         </>

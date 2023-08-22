@@ -57,7 +57,7 @@ function PizzaTypeColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActual
             </div >
           )
         })
-        : <h1 id="empty-pizzalist">No available pizza with the checked allergens ! </h1>
+        : <div id="empty-pizzalist">No available pizza with the checked allergens ! </div>
       }
     </div >
   )
