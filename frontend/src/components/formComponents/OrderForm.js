@@ -16,13 +16,12 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
 
     let totalCost = 0;
     if (actualOrderItems.orderedItems !== undefined) {
-        console.log(actualOrderItems.orderedItems);
         totalCost = actualOrderItems.orderedItems.reduce((accu, items) => accu + (items.pricePerEach * items.quantity), 0)
     }
 
-    const saveOrder = () => {
+    const sendPreOrder = () => {
         const orderedItems = actualOrderItems
-        if (actualOrderItems.length > 0) {
+        if (actualOrderItems.orderedItems.length > 0) {
             const addOrderToOrderList = async () => {
                 const requestOptions = {
                     method: 'POST',
@@ -40,7 +39,6 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                     setShowMessageBox(false)
                     setShowTopMessageBox(true)
                 }, 1000);
-
             };
             addOrderToOrderList()
         }
@@ -62,19 +60,13 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
         setActualPizzaData(undefined)
         setValue(1)
     }
-    //******************************************** 
-    console.log(actualOrderItems.orderedItems);
-    console.log(showOrderListData);
-    //******************************************** 
-    useEffect(() => {
+
+        useEffect(() => {
         if (actualOrderedPizzaIdSet !== undefined) {
             const actualPizza = allPizzaTypesData.filter(pizza => pizza._id === actualOrderedPizzaIdSet);
             setActualPizzaData(actualPizza[0]);
         }
     }, [actualOrderedPizzaIdSet]);
-
-
-
 
     return (
         <>
@@ -116,11 +108,10 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                                             }
                                             <h6>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</h6>
                                         </div>
-                                        {/******************************************** */}
                                         {showOrderListData && actualOrderItems.orderedItems
                                             ?
                                             <div id="order-list">
-                                                <p style={{ textAlign: "left" }}>Order pre-list not compulsory!!</p>
+                                                <p>Order pre-list not compulsory!!</p>
                                                 <table style={{ listStyleType: "none", fontSize: "15px" }}>
                                                     <tr>
                                                         <th>Pizza name</th>
@@ -134,15 +125,15 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                                                                     {order.pizzaName}
                                                                 </td>
                                                                 <td>{order.quantity}</td>
-                                                                <td>{order.pricePerEach.toLocaleString('en-US')}</td>
+                                                                <td>{order.pricePerEach.toLocaleString('en-US')}.- Ft</td>
                                                             </tr>
                                                         )
                                                     })}
                                                 </table>
-                                                <p>
+                                                <p style={{ backgroundColor:"yellow", color: "red", textAlign:"center" }}>
                                                     Total cost: {totalCost.toLocaleString('en-US')}.- Ft
                                                 </p>
-                                                <button type="button" className="btn" id="ordersaver-btn" onClick={saveOrder}>
+                                                <button type="button" className="btn" id="ordersender-btn" onClick={sendPreOrder}>
                                                     SEND ORDER
                                                 </button>
                                             </div>

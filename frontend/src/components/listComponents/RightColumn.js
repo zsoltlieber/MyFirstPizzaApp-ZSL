@@ -37,7 +37,7 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
         <>
           <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} setActualPizzaIdEmpty={setActualPizzaIdEmpty} allPizzaTypesData={pizzaTypesDataSet}
             listOfOrdersSet={listOfOrders} setListOfOrdersData={setListOfOrders} currentFormSet={rightColumnTypeSet} setCurrentForm={setRightColumnTypeData} />
-          < ActiveOrdersList actualClientDataSet={actualClientSet} listOfOrders={listOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} />
+          < ActiveOrdersList actualClientDataSet={actualClientSet} listOfOrdersSet={listOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} />
         </>
         : <></>}
       {rightColumnTypeSet === "staff" ?

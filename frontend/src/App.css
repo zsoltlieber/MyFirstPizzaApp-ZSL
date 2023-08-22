@@ -251,6 +251,7 @@ input {
 }
 #order-list {
   background-color: rgba(157, 27, 16, 0.7);
+  text-align: left;
   width: 90%;
   height: 92%;
   border: solid 3px white;
@@ -288,10 +289,10 @@ input {
   width: 40px;
   margin-left: "20px"
 }
-#ordersaver-btn{
+#ordersender-btn{
   background-color: rgb(209, 211, 78);
   color: green;
-  width: 120px;
+  width: 220px;
   margin-left: "20px"
 }
 
