@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActualPizzaIdEmpty, allPizzaTypesData, listOfOrdersSet, setListOfOrdersData }) {
 
     const ordersUrl = `/api/orders`
-    const [value, setValue] = useState();
-    const [actualPizzaData, setActualPizzaData] = useState()
+    const [value, setValue] = useState(1);
+    const [actualPizzaData, setActualPizzaData] = useState({})
     const [actualOrderItems, setActualOrderItems] = useState([])
     const [showTopMessageBox, setShowTopMessageBox] = useState(true)
     const [showMessageBox, setShowMessageBox] = useState(false)
@@ -88,7 +88,6 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                                     ?
                                     < ul style={{ listStyleType: "none" }}>
                                         <li style={{ marginLeft: "-3rem" }} className='orderElement'>
-
                                             {actualPizzaData.pizzaName} {actualPizzaData.price.toLocaleString('en-US')}.- Ft
                                             <input style={{ marginLeft: "10px" }} type="number" id="quantity" size="4" min={1}
                                                 max={5} value={value !== undefined ? value : 1}

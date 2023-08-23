@@ -3,7 +3,7 @@ import { useState } from 'react';
 export const MessageForm = ({ actualClientData, messageListDataSet, setMessageList, showMessegesSet, setShowMessageList }) => {
 
     const messageUrl = "/api/messages"
-    const [newMessage, setNewMessage] = useState("");
+    const [newMessage, setNewMessage] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();

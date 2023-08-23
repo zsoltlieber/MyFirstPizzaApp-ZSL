@@ -64,7 +64,7 @@ export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) 
         : showBoxes === 2 ?
           <div id="messages">
             <h2>{loginErrorMessage}!</h2>
-            <button value="signin" onClick={(e) => setCurrentForm(e.target.value)}>
+            <button value="signin" onClick={(event) => setCurrentForm(event.target.value)}>
               {loginErrorMessage.split(" ")[0] === "Wrong"
                 ? <p style={{ color: "red" }} >MODIFY EMAIL AND/OR PASSWORD!</p>
                 : <p style={{ color: "red"}} >PLEASE ENTER IN A REGISTER!</p>

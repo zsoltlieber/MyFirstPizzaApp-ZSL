@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-function PizzaTypeColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActualPizzaIdToOrder }) {
+function CenterColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActualPizzaIdToOrder }) {
 
   const pizzaTypesUrl = '/api/pizzaTypes';
-  const [actualPizzas, setActualPizzas] = useState();
+  const [actualPizzas, setActualPizzas] = useState({});
 
   const pizzaTypeFetch = async (url) => {
 
@@ -64,4 +64,4 @@ function PizzaTypeColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActual
 
 }
 
-export default PizzaTypeColumn
+export default CenterColumn
