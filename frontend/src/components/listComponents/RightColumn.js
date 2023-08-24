@@ -19,7 +19,7 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
   const [showMessageList, setShowMessageListhowBox] = useState(false);
 
   return (
-    <div className='rightColumn'>
+    <div className='right-column'>
       {rightColumnTypeSet === "login" ?
         <LoginForm setCurrentForm={setRightColumnTypeData} setActualClient={setActualClientData} setClientLogout={setLogoutClientData} />
         : <></>}

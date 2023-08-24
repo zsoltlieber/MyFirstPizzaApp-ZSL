@@ -36,7 +36,7 @@ export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) 
         setShowBoxes(3);
 
         setTimeout(() => {
-          setCurrentForm("order-form")
+          setCurrentForm("about")
         }, 1000);
 
       }
@@ -49,7 +49,7 @@ export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) 
       {showBoxes === 1 ?
         <form id="login-form" onSubmit={handleSubmit}>
           <div>
-            <p style={{ color: "white", fontSize: "12px" }}>IF YOU WANT TO ORDER <br /><br /> YOU MUST BE LOGED IN!</p>
+            <p style={{ fontSize: "12px" }}>IF YOU WANT TO ORDER <br /><br /> YOU MUST BE LOGED IN!</p>
             <input type="text" id="email" placeholder="client email" value={loginData.email} required
               onChange={(e) => { setLoginData({ ...loginData, email: e.target.value }) }} />
           </div>

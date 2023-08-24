@@ -37,27 +37,27 @@ function CenterColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActualPiz
   }
 
   return (
-    <div className='centerColumn'>
+    <div className='center-column'>
       {actualPizzas && actualPizzas.length > 0
-        ? actualPizzas.map(pizza => {
+        ? actualPizzas.map((pizza,index) => {
           return (
-            <div key={pizza._id} className="pizzaCard" id={pizza.pizzaName} data-price={pizza.pizzaPrice}>
+            <div key={index} className="pizza-card" id={pizza.pizzaName} data-price={pizza.pizzaPrice}>
 
-              <img className="pizzaPicture" src={pizza.src} alt=''></img>
+              <img className="pizza-picture" src={pizza.src} alt=''></img>
 
               <div>
-                <div className="pizzaName">NAME:<br /> {pizza.pizzaName}</div>
+                <div className="pizza-name">NAME:<br /> {pizza.pizzaName}</div>
                 <div className="price">PRICE:<br />  {pizza.price.toLocaleString('en-US')}.- Ft</div>
                 <div className="ingredients">INGREDIENTS:<br />  {pizza.ingredients.join(", ")}</div>
-                <div className="allergenList">ALLERGENS:<br />  {pizza.allergens.join(", ")}</div>
+                <div className="allergen-list">ALLERGENS:<br />  {pizza.allergens.join(", ")}</div>
                 <div>
-                  <button className="addToBasket" onClick={() => addPizzaIdToOrder(pizza._id)}>ADD TO BASKET</button>
+                  <button className="add-to-basket" onClick={() => addPizzaIdToOrder(pizza._id)}>ADD TO BASKET</button>
                 </div>
               </div>
             </div >
           )
         })
-        : <div id="empty-pizzalist">No available pizza with the checked allergens ! </div>
+        : <div id="empty-pizza-list">No available pizza with the checked allergens ! </div>
       }
     </div >
   )

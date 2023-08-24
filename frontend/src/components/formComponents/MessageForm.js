@@ -38,7 +38,7 @@ export const MessageForm = ({ actualClientData, messageListDataSet, setMessageLi
                 {actualClientData.clientName !== ""
                     ?
                     <form id="message-form" onSubmit={handleSubmit}>
-                        <p id="message-form">NEW MESSAGE</p>
+                        <p style={{ fontSize: "20px", margin:"0" }} >NEW MESSAGE</p>
                         <div>
                             <input type="message" id="message" placeholder="message" name="inputbox" value={newMessage} required
                                 onChange={(e) => setNewMessage(e.target.value)} />
@@ -47,7 +47,7 @@ export const MessageForm = ({ actualClientData, messageListDataSet, setMessageLi
                             <button type="submit" className="btn" >Submit</button>
                         </div>
                     </form>
-                    : <h1 id="message-form" >ONLY REGISTERED CLIENT CAN SEND MESSAGE!</h1>}
+                    : <h1 id="message-form" >ONLY REGISTERED CLIENT<br /> CAN SEND MESSAGE!</h1>}
             </div>
 
             {

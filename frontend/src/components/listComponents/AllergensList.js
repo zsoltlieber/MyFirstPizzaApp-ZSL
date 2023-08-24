@@ -24,8 +24,7 @@ export const AllergensList = ({ setRejectedAllergens }) => {
   }, []);
 
   return (
-    <div className='leftColumn'>
-      ALLERGENS
+    <div className='left-column' style={{ fontSize: "80%" }} >ALLERGENS
       {allergens
         ? allergens.map((allergen, index) => {
           return (

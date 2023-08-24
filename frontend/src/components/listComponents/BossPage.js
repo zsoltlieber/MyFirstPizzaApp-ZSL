@@ -1,7 +1,7 @@
 export const BossPage = ({ actualClientData }) => {
 
     return (
-        <div id="boss-page" style={{ color: "white" }}>
+        <div id="boss-page" >
             <h2 >---  BOSS PAGE ---<br /> {actualClientData.clientName} coming soon ! :)</h2>
 
             <h2>Client data handler</h2>

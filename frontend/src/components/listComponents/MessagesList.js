@@ -46,28 +46,26 @@ export const MessagesList = ({ actualClientList, messageListData, setMessageList
     }
 
     return (
-        <div >
+        <>
             {messageListData && messageListData !== null && messageListData !== undefined && !showMessegesSet
                 ?
-                < div className='message-list'>
-                    <h3 style={{ fontSize: "20px", color: "white", margin: "1px", textAlign: "center" }}>MESSAGES</h3>
+                < div id='message-list' >
+                    <p style={{ textAlign: "center", fontSize: "20px", margin: "0" }} >MESSAGE LIST</p>
                     {messageListData.map((item, index) => {
                         return (
                             <div key={index}>
                                 <span className='message-item'>
                                     <div>
-                                        <>
-                                            <p style={{ marginBottom: "1px", textDecoration: "underline" }}>{item.clientName} :</p>
-                                            {actualClientList !== undefined && actualClientList.staffStatus === true
-                                                ?
-                                                <div>
-                                                    <button id="delete-btn" type='delete' value={item._id} onClick={(e) => removeOrdeleteItem(e.target.value)}>DELETE</button>
-                                                    <button id="update-btn" type='update' value={item._id} onClick={(e) => updateItem(e.target.value)}>UPDATE</button>
-                                                </div>
-                                                :
-                                                <></>
-                                            }
-                                        </>
+                                        <p style={{ marginBottom: "1px", textDecoration: "underline" }}>{item.clientName} :</p>
+                                        {actualClientList !== undefined && actualClientList.staffStatus === true
+                                            ?
+                                            <div>
+                                                <button id="delete-btn" type='delete' value={item._id} onClick={(e) => removeOrdeleteItem(e.target.value)}>DELETE</button>
+                                                <button id="update-btn" type='update' value={item._id} onClick={(e) => updateItem(e.target.value)}>UPDATE</button>
+                                            </div>
+                                            :
+                                            <></>
+                                        }
                                         <p style={{ marginTop: "0px" }}>{item.message}</p>
                                     </div>
                                 </span>
@@ -76,7 +74,7 @@ export const MessagesList = ({ actualClientList, messageListData, setMessageList
                     })}
                 </div>
                 : <></>}
-        </div >
+        </ >
     )
 }
 
