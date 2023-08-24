@@ -36,7 +36,7 @@ export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) 
         setShowBoxes(3);
 
         setTimeout(() => {
-          setCurrentForm("about")
+          setCurrentForm("order-form")
         }, 1000);
 
       }

@@ -12,7 +12,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
 
 
     if (actualOrderItems === null) {
-        actualOrderedPizzaIdSet = undefined
+        actualOrderedPizzaIdSet(undefined)
     }
 
     let totalCost = 0;
@@ -46,6 +46,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
         }
     }
     const addActualOrderdItemToList = () => {
+        setShowPreOrderListData(true);
         const orderLine = {
             "pizzaId": actualPizzaData._id,
             "pizzaName": actualPizzaData.pizzaName,
@@ -59,7 +60,6 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
             const amendedActualOrderList = [...actualOrderItems.orderedItems, orderLine]
             setActualOrderItems({ orderedItems: amendedActualOrderList });
         }
-        setShowPreOrderListData(true);
         setActualPizzaIdEmpty("")
         setActualPizzaData(undefined)
         setValue(1)

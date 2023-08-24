@@ -254,6 +254,7 @@ input {
 
 #order-list {
   background-color: rgba(157, 27, 16, 0.7);
+  color:white;
   text-align: left;
   width: 90%;
   height: 300px;
@@ -288,13 +289,13 @@ td {
 
 #order-form {
   background-color: rgba(157, 27, 16, 0.7);
-  width: 75%;
+  width: 90%;
   color: white;
   font-size: x-large;
   border: solid 3px white;
   border-radius: 15px;
   padding: 1%;
-  margin: 20px;
+  margin: 2%;
   overflow: auto;
 }
 
