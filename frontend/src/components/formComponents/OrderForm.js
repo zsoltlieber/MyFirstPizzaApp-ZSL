@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
-export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActualPizzaIdEmpty, allPizzaTypesData, listOfOrdersSet, setListOfOrdersData }) {
+export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActualPizzaIdEmpty, allPizzaTypesData,
+    setListOfOrdersData, showOrderListSet, setShowOrderList }) {
 
     const ordersUrl = `/api/orders`
     const [value, setValue] = useState(1);
@@ -8,7 +9,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
     const [actualOrderItems, setActualOrderItems] = useState([])
     const [showTopMessageBox, setShowTopMessageBox] = useState(true)
     const [showMessageBox, setShowMessageBox] = useState(false)
-    const [showOrderListData, setshowOrderListData] = useState(true)
+
 
     if (actualOrderItems === null) {
         actualOrderedPizzaIdSet = undefined
@@ -32,7 +33,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                 setListOfOrdersData(data);
 
                 setShowMessageBox(true);
-                setshowOrderListData(false);
+                setShowOrderList(false);
 
                 setTimeout(() => {
                     setShowMessageBox(false)
@@ -55,6 +56,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
             const amendedActualOrderList = [...actualOrderItems.orderedItems, orderLine]
             setActualOrderItems({ orderedItems: amendedActualOrderList });
         }
+        setShowOrderList(true);
         setActualPizzaIdEmpty("")
         setActualPizzaData(undefined)
         setValue(1)
@@ -63,6 +65,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
     useEffect(() => {
         if (actualOrderedPizzaIdSet !== undefined) {
             const actualPizza = allPizzaTypesData.filter(pizza => pizza._id === actualOrderedPizzaIdSet);
+            setShowOrderList(true);
             setActualPizzaData(actualPizza[0]);
         }
     }, [actualOrderedPizzaIdSet]);
@@ -81,9 +84,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                         ?
                         <div id="order-form">
                             <form >
-                                {actualOrderItems === undefined ?
-                                    <h3 style={{ color: "white" }}>ORDER FORM</h3>
-                                    : <></>}
+                                <h4 style={{ color: "white" }}>ORDER FORM</h4>
                                 {actualPizzaData !== undefined
                                     ?
                                     < ul style={{ listStyleType: "none" }}>
@@ -103,19 +104,19 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                                         <div >
                                             {actualOrderItems !== undefined
                                                 ? <></>
-                                                : 
+                                                :
                                                 <h5>YOU DO NOT HAVE ACT IVE ORDER !!</h5>
                                             }
                                             <h6>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</h6>
                                         </div>
-                                        {showOrderListData && actualOrderItems.orderedItems && totalCost>0
+                                        {showOrderListSet && actualOrderItems.orderedItems && totalCost > 0
                                             ?
                                             <div id="pre-order-list">
                                                 <p>Order list</p>
-                                                <table style={{ listStyleType: "none", fontSize: "15px" }}>
+                                                <table id="order-prelist-table" style={{ listStyleType: "none", fontSize: "15px" }}>
                                                     <tr>
                                                         <th>Pizza name</th>
-                                                        <th>Quantity</th>
+                                                        <th>Piece</th>
                                                         <th>Price each</th>
                                                     </tr>
                                                     {actualOrderItems.orderedItems.map((order, index) => {
@@ -124,32 +125,30 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                                                                 <td key={index} style={{ marginLeft: "-3rem" }} className='orderElement'>
                                                                     {order.pizzaName}
                                                                 </td>
-                                                                <td>{order.quantity}</td>
+                                                                <td style={{ textAlign: "center" }} >{order.quantity}</td>
                                                                 <td>{order.pricePerEach.toLocaleString('en-US')}.- Ft</td>
                                                                 <td>
-                                                                    <button style={{ backgroundColor: "red", color: "white", marginLeft: "10px", width: "40px" }} type="button"
-                                                                        id="delete-btn" className="btn" onClick={(e) => deleteOrderRow(order.pizzaId)}>
+                                                                    <button style={{ backgroundColor: "red", color: "white", marginLeft: "5px", width: "30px" }} type="button"
+                                                                        id="delete-btn" onClick={(e) => deleteOrderRow(order.pizzaId)}>
                                                                         DEL
                                                                     </button>
                                                                 </td>
                                                             </tr>
                                                         )
-                                                    })}
+                                                    }
+                                                    )}
+                                                    < tr>
+                                                        <td colSpan={3} align="left">Total cost: {totalCost.toLocaleString('en-US')}.-Ft</td>
+                                                    </tr >
                                                 </table>
-                                                <p style={{ backgroundColor: "yellow", color: "red", textAlign: "center" }}>
-                                                    Total cost: {totalCost.toLocaleString('en-US')}.- Ft
-                                                </p>
-                                                <button type="button" className="btn" id="ordersender-btn" onClick={sendOrder}>
+                                                <button style={{ width: "100%" }} type="button" className="btn" id="ordersender-btn" onClick={sendOrder}>
                                                     SEND ORDER
                                                 </button>
                                             </div>
                                             : <></>}
-
-
                                     </>
                                 }
                             </form >
-
                         </div >
                         : <></>
                     }

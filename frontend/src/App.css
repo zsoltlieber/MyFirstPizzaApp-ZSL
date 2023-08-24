@@ -273,6 +273,27 @@ input {
   overflow: auto;
 }
 
+ 
+#order-list-table {
+    border: 2px solid forestgreen;
+    width: 95%;
+    height: 70%;
+    margin-left: 2%;
+}
+ 
+#order-prelist-table {
+    border: 2px solid forestgreen;
+    width: 98%;
+    height: fit-content;
+    margin-left: 1%;
+}
+th {
+    border-bottom: 1px solid black;
+}
+td {
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+
 #message-form {
   background-color: rgba(157, 27, 16, 0.7);
   width: 80%;

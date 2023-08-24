@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 
-const ActiveOrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList, pizzaTypesDataSet }) => {
-
+const ActiveOrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList, pizzaTypesDataSet, showOrderListSet }) => {
+  
   const ordersUrl = `/api/orders`
+  let totalCost = 0;
+  let grandTotalCost = 0;
 
   const orderFetch = async (url) => {
     const response = await fetch(`${url}?isActive=true`);
@@ -14,48 +16,48 @@ const ActiveOrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList,
     orderFetch(ordersUrl);
   }, []);
 
-    console.log(pizzaTypesDataSet);
-    console.log(listOfOrdersSet);
-
-
   return (
     <div>
-      {listOfOrdersSet && listOfOrdersSet.length !== undefined && listOfOrdersSet.length >0 && actualClientDataSet.clientName !== ""
+      {listOfOrdersSet && listOfOrdersSet.length > 0 && actualClientDataSet.clientName !== "" && !showOrderListSet
         ?
         < div id="order-list" >
           <div style={{ color: "white" }}>
             <h2 style={{ textDecoration: "underline" }}>Current active orders list</h2>
             <p style={{ backgroundColor: "blue" }}>{actualClientDataSet.clientId === listOfOrdersSet.orderClientId ? actualClientDataSet.clientName.toUpperCase() : actualClientDataSet.clientName}</p>
 
-            <table style={{ listStyleType: "none", fontSize: "15px" }}>
+            <table id="order-list-table" style={{ listStyleType: "none", fontSize: "15px" }}>
               <tr>
                 <th>Pizza name</th>
-                <th>Quantity</th>
+                <th>Piece</th>
                 <th>Price each</th>
               </tr>
               {listOfOrdersSet.map((order, index1) => {
                 return (
-                  <div key={index1}>
-                    <tr>
-                      <td>{order.created.substring(0, 16).replace('T', '=')}</td>
-                      <td></td>
-                      <td></td>
+                  <>
+                    <tr key={index1}>
+                      <td colSpan={3} align="left" >{order.created.substring(0, 16).replace("T", " ")}</td>
                     </tr>
+
                     {
                       order.orderedItems.map((orderItem, index) => {
+                        const actualPizzaName = pizzaTypesDataSet.find(pizza => pizza._id === orderItem.pizzaId).pizzaName
+                        totalCost = 0;
+                        totalCost = totalCost + orderItem.quantity * orderItem.pricePerEach;
+                        grandTotalCost = grandTotalCost + totalCost
                         return (
-                          <div key={index}>
-                            <tr>
-                              <td>
-                              </td>
-                              <td>{pizzaTypesDataSet[0].pizzaName}{orderItem.pizzaId}{orderItem.quantity}</td>
-                              <td>{orderItem.pricePerEach}</td>
-                            </tr>
-                          </div>
+                          <tr key={index}>
+                            <td>{actualPizzaName}</td>
+                            <td>{orderItem.quantity} db</td>
+                            <td>{orderItem.pricePerEach.toLocaleString('en-US')}.-Ft</td>
+                          </tr>
                         )
+                        
                       })
                     }
-                  </div>
+                    < tr>
+                      <td colSpan={3}align="left">Payable: {grandTotalCost.toLocaleString('en-US')}.-Ft</td>
+                    </tr >
+                  </>
                 )
               })}
             </table>
@@ -63,7 +65,7 @@ const ActiveOrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList,
         </div >
         : <></>
       }
-    </div>
+    </div >
   )
 }
 
