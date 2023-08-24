@@ -20,7 +20,7 @@ const ActiveOrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList,
 
   return (
     <div>
-      {listOfOrdersSet && listOfOrdersSet.length !== undefined && actualClientDataSet.clientName !== ""
+      {listOfOrdersSet && listOfOrdersSet.length !== undefined && listOfOrdersSet.length >0 && actualClientDataSet.clientName !== ""
         ?
         < div id="order-list" >
           <div style={{ color: "white" }}>

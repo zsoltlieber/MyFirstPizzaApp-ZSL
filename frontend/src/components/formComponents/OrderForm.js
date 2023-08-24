@@ -4,7 +4,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
 
     const ordersUrl = `/api/orders`
     const [value, setValue] = useState(1);
-    const [actualPizzaData, setActualPizzaData] = useState({})
+    const [actualPizzaData, setActualPizzaData] = useState()
     const [actualOrderItems, setActualOrderItems] = useState([])
     const [showTopMessageBox, setShowTopMessageBox] = useState(true)
     const [showMessageBox, setShowMessageBox] = useState(false)
@@ -108,7 +108,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                                             }
                                             <h6>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</h6>
                                         </div>
-                                        {showOrderListData && actualOrderItems.orderedItems
+                                        {showOrderListData && actualOrderItems.orderedItems && totalCost>0
                                             ?
                                             <div id="pre-order-list">
                                                 <p>Order list</p>

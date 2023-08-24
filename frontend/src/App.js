@@ -32,7 +32,6 @@ function App() {
   }, [logOutClient])
 
   function setRightColumnTypeText(nextPage) {
-    console.log(nextPage);
     setRightColumnType(nextPage)
   }
 
@@ -44,7 +43,6 @@ function App() {
   function setSearchChange(event) {
     setSearchField(event.target.value)
   }
-  if (searchField !== "") console.log(searchField)
 
   return (
     <div className="main-container">
