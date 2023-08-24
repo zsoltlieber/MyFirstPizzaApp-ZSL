@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
 export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActualPizzaIdEmpty, allPizzaTypesData,
-    setListOfOrdersData, showOrderListSet, setShowOrderList }) {
+    setListOfOrdersData, showPreOrderListSet, setShowPreOrderListData }) {
 
     const ordersUrl = `/api/orders`
     const [value, setValue] = useState(1);
     const [actualPizzaData, setActualPizzaData] = useState()
     const [actualOrderItems, setActualOrderItems] = useState([])
     const [showTopMessageBox, setShowTopMessageBox] = useState(true)
-    const [showMessageBox, setShowMessageBox] = useState(false)
+    const [showThanksMessageBox, setShowThanksMessageBox] = useState(false)
 
 
     if (actualOrderItems === null) {
@@ -32,13 +32,15 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                 const data = await response.json();
                 setListOfOrdersData(data);
 
-                setShowMessageBox(true);
-                setShowOrderList(false);
+                setShowTopMessageBox(false);
+                setShowPreOrderListData(false);
+                setShowThanksMessageBox(true);
+                setActualOrderItems([]);
 
                 setTimeout(() => {
-                    setShowMessageBox(false)
-                    setShowTopMessageBox(true)
-                }, 1000);
+                    setShowThanksMessageBox(false);
+                    setShowTopMessageBox(true);
+                }, 3000);
             };
             addOrderToOrderList()
         }
@@ -53,10 +55,11 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
         if (actualOrderItems.length === 0) {
             setActualOrderItems({ orderedItems: [orderLine] });
         } else {
+
             const amendedActualOrderList = [...actualOrderItems.orderedItems, orderLine]
             setActualOrderItems({ orderedItems: amendedActualOrderList });
         }
-        setShowOrderList(true);
+        setShowPreOrderListData(true);
         setActualPizzaIdEmpty("")
         setActualPizzaData(undefined)
         setValue(1)
@@ -65,7 +68,6 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
     useEffect(() => {
         if (actualOrderedPizzaIdSet !== undefined) {
             const actualPizza = allPizzaTypesData.filter(pizza => pizza._id === actualOrderedPizzaIdSet);
-            setShowOrderList(true);
             setActualPizzaData(actualPizza[0]);
         }
     }, [actualOrderedPizzaIdSet]);
@@ -84,11 +86,11 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                         ?
                         <div id="order-form">
                             <form >
-                                <h4 style={{ color: "white" }}>ORDER FORM</h4>
+                                <h4 style={{ textAlign: "center", margin: "2% 0% 2% 0%" }}>ORDER FORM</h4>
                                 {actualPizzaData !== undefined
                                     ?
                                     < ul style={{ listStyleType: "none" }}>
-                                        <li style={{ marginLeft: "-3rem" }} className='orderElement'>
+                                        <li style={{ marginLeft: "-3rem" }} className='order-element'>
                                             {actualPizzaData.pizzaName} {actualPizzaData.price.toLocaleString('en-US')}.- Ft
                                             <input style={{ marginLeft: "10px" }} type="number" id="quantity" size="4" min={1}
                                                 max={5} value={value !== undefined ? value : 1}
@@ -105,43 +107,47 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                                             {actualOrderItems !== undefined
                                                 ? <></>
                                                 :
-                                                <h5>YOU DO NOT HAVE ACT IVE ORDER !!</h5>
+                                                <h5>YOU DO NOT HAVE ACTIVE ORDER !!</h5>
                                             }
                                             <h6>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</h6>
                                         </div>
-                                        {showOrderListSet && actualOrderItems.orderedItems && totalCost > 0
+                                        {showPreOrderListSet && actualOrderItems.orderedItems && totalCost > 0
                                             ?
-                                            <div id="pre-order-list">
-                                                <p>Order list</p>
+                                            <div id="preorder-list">
+                                                <h4 style={{ textAlign: "center", margin: "2% 0% 2% 0%" }}>Order list</h4>
                                                 <table id="order-prelist-table" style={{ listStyleType: "none", fontSize: "15px" }}>
-                                                    <tr>
-                                                        <th>Pizza name</th>
-                                                        <th>Piece</th>
-                                                        <th>Price each</th>
-                                                    </tr>
-                                                    {actualOrderItems.orderedItems.map((order, index) => {
-                                                        return (
-                                                            <tr>
-                                                                <td key={index} style={{ marginLeft: "-3rem" }} className='orderElement'>
-                                                                    {order.pizzaName}
-                                                                </td>
-                                                                <td style={{ textAlign: "center" }} >{order.quantity}</td>
-                                                                <td>{order.pricePerEach.toLocaleString('en-US')}.- Ft</td>
-                                                                <td>
-                                                                    <button style={{ backgroundColor: "red", color: "white", marginLeft: "5px", width: "30px" }} type="button"
-                                                                        id="delete-btn" onClick={(e) => deleteOrderRow(order.pizzaId)}>
-                                                                        DEL
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        )
-                                                    }
-                                                    )}
-                                                    < tr>
-                                                        <td colSpan={3} align="left">Total cost: {totalCost.toLocaleString('en-US')}.-Ft</td>
-                                                    </tr >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Pizza name</th>
+                                                            <th>Piece</th>
+                                                            <th>Price each</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        {actualOrderItems.orderedItems.map((order, index) => {
+                                                            return (
+                                                                <tr>
+                                                                    <td key={index} style={{ marginLeft: "-3rem" }} className='order-element'>
+                                                                        {order.pizzaName}
+                                                                    </td>
+                                                                    <td style={{ textAlign: "center" }} >{order.quantity}</td>
+                                                                    <td>{order.pricePerEach.toLocaleString('en-US')}.- Ft</td>
+                                                                    <td>
+                                                                        <button type="button" id="delete-btn" onClick={(e) => deleteOrderRow(order.pizzaId)}>DEL </button>
+                                                                    </td>
+                                                                </tr>
+                                                            )
+                                                        }
+                                                        )}
+                                                    </tbody>
+                                                    <tfoot>
+                                                        < tr>
+                                                            <td colSpan={3} align="left">Total cost: {totalCost.toLocaleString('en-US')}.-Ft</td>
+                                                        </tr >
+                                                    </tfoot>
                                                 </table>
-                                                <button style={{ width: "100%" }} type="button" className="btn" id="ordersender-btn" onClick={sendOrder}>
+                                                <button style={{ width: "100%" }} type="button" className="btn" id="order-sender-btn" onClick={sendOrder}>
                                                     SEND ORDER
                                                 </button>
                                             </div>
@@ -160,14 +166,13 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                     Please sign in!
                 </h1>
             }
-            {
-                showMessageBox
-                    ?
-                    <div id="message-form">
-                        <h4>DEAR <br />{actualClientData.clientName} thanks for your order!!</h4>
-                        <h4>WE WELL DELIVER YOUR PIZZA SOON :) !!</h4>
-                    </div>
-                    : <></>
+            {showThanksMessageBox
+                ?
+                <div id="order-form">
+                    <h4>DEAR <br />{actualClientData.clientName} thanks for your order!!</h4>
+                    <h4>WE WELL DELIVER YOUR PIZZA SOON :) !!</h4>
+                </div>
+                : <></>
             }
         </>
     )

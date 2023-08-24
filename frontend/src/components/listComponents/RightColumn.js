@@ -13,8 +13,8 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
   setLogoutClientData, pizzaTypesDataSet, actualOrderedPizzaIdDataSet, setActualPizzaIdEmpty,
   setSearchFieldChange }) => {
 
-  const [listOfOrders, setListOfOrders] = useState([]);
-  const [showOrderListData, setShowOrderListData] = useState(false)
+  const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
+  const [showPreOrderList, setShowPreOrderList] = useState(false) // show/or not show total list of orders
   const [messageList, setMessageList] = useState([]);
   const [showMessageList, setShowMessageListhowBox] = useState(false);
 
@@ -38,8 +38,8 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
       {rightColumnTypeSet === "order-form" ?
         <>
           <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} setActualPizzaIdEmpty={setActualPizzaIdEmpty} allPizzaTypesData={pizzaTypesDataSet}
-            setListOfOrdersData={setListOfOrders} showOrderListSet={showOrderListData} setShowOrderList={setShowOrderListData } />
-          < ActiveOrdersList actualClientDataSet={actualClientSet} listOfOrdersSet={listOfOrders} setOrdersList={setListOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} showOrderListSet={showOrderListData} />
+            setListOfOrdersData={setListOfOrders} showPreOrderListSet={showPreOrderList} setShowPreOrderListData={setShowPreOrderList } />
+          < ActiveOrdersList actualClientDataSet={actualClientSet} listOfOrdersSet={listOfOrders} setOrdersList={setListOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} showPreOrderListSet={showPreOrderList} />
         </>
         : <></>}
       {rightColumnTypeSet === "staff" ?
