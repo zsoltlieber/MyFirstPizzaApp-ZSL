@@ -9,7 +9,7 @@ import MessageModel from '../models/Message.js';
 import allergens from './allergens.json' assert {type: 'json'};
 import pizzaTypes from './pizzaTypes.json' assert {type: 'json'};
 import clients from './clients.json' assert {type: 'json'};
-import orders from './orders.json' assert {type: 'json'};
+//import orders from './orders.json' assert {type: 'json'};  //Solution for import earlier orders from  !
 import messages from './messages.json' assert {type: 'json'};
 
 dotenv.config();
@@ -41,7 +41,8 @@ const populateClients = async () => {
 
 const populateOrders = async () => {
     await OrderModel.deleteMany({});
-    await OrderModel.create(...orders);
+    await OrderModel.create();              //Empty collection create
+    //await OrderModel.create(...orders);   //Connection the earlier orders !
     console.log("Orders db created from json data");
 }
 
