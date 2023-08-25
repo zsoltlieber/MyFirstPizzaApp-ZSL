@@ -1,4 +1,4 @@
-# MY FIRST PIZZA APP for pizza bakers and sellers --- PETPROJECT --- Made for finising of junior fullstack develper course ---
+# MY FIRST PIZZA APP for pizza bakers and sellers --- PETPROJECT --- Made for finising of my junior fullstack develper course ---
 
 ## This aplication was built for managers who want to administrate all of a Pizza Buffet work. 
 The App able to manage all relevant tasks (showing sellable products like menu, client authorization, ordering, payment, message sending).
