@@ -22,21 +22,45 @@ The App able to manage all relevant tasks (showing sellable products like menu, 
 
 ### 1. VS Code must be installed on your computer
 
-You can check it with this command:  code --version
+#### You can check it with this command:  
+```
+code--version
+```
+If you do not have VS Code on your PC chose one depending on your OS!
 
-### 2. Clone the aplication code from GitHub repository
+#### In case of LINUX:
+```
+https://code.visualstudio.com/docs/setup/linux
+```
+
+#### In case of WINDOWS:
+```
+https://code.visualstudio.com/docs/setup/windows
+```
+
+### 2. You must create .env file in backend directory for MongoDb connection
+
+Please create .env file with MongoDb connection information!
+
+Appropriate path: MyFirstPizzaApp-ZSL/bankend/.env
+
+```
+MONGO_URL=mongodb+srv://<username>:<password>@cluster0.bjwcssz.mongodb.net/<databasename>
+```
+
+### 3. Clone the aplication from GitHub repository
 ```
     git clone https://github.com/zsoltlieber/MyFirstPizzaApp-ZSL.git
 ```
 
-### 3. Chose backend directory as active one and run 
+### 4. Chose backend directory as active one and run 
 ```
     cd backend
     npm install
     npm run populate
     npm run dev
 ```
-### 4. Chose frontend directory as active one and run
+### 5. Chose frontend directory as active one and run
 ```
     cd frontend
     npm start
