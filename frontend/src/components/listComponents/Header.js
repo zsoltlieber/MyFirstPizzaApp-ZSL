@@ -1,4 +1,4 @@
-const Header = ({ setRightBlock }) => {
+const Header = ({ setRightColumnTypeData, logoutClientSet, setClientLogout, actualClientSet, showOrderListSet }) => {
 
     return (
         <div className="navbar">
@@ -7,26 +7,45 @@ const Header = ({ setRightBlock }) => {
                 THE BEST PIZZA Co.
             </div>
             <div>
-                {localStorage.getItem("boss_myapp") === true
+                {actualClientSet.clientName !== ""
+                    ? <h4>DEAR {actualClientSet.clientName} !</h4>
+                    : <></>
+                }
+            </div>
+            <div>
+                {actualClientSet.bossStatus === true
                     ?
-                    <button className="btn" value="boss" onClick={(e) => setRightBlock(e.target.value)} >BOSS</button >
+                    <button className="btn" value="boss" onClick={(e) => setRightColumnTypeData(e.target.value)} >BOSS</button >
                     : <></>}
-                {localStorage.getItem("staff_myapp") === true
+                {actualClientSet.bossStatus !== true && actualClientSet.staffStatus === true
                     ?
-                    <button className="btn" value="staff" onClick={(e) => setRightBlock(e.target.value)} >STAFF</button >
+                    <button className="btn" value="staff" onClick={(e) => setRightColumnTypeData(e.target.value)} >STAFF</button >
                     : <></>}
-                <button className="btn" value="signin" onClick={(e) => setRightBlock(e.target.value)} >SIGN IN</button >
-                <button className="btn" value="login" onClick={(e) => setRightBlock(e.target.value)}>LOG IN</button >
-                <button className="btn" value="order" onClick={(e) => setRightBlock(e.target.value)}>ORDERS</button >
-                <button className="btn" value="message" onClick={(e) => setRightBlock(e.target.value)}>MESSAGE</button >
-                <button className="btn" value="about" onClick={(e) => setRightBlock(e.target.value)} >ABOUT US</button >
-                {localStorage.getItem("userId_myapp") !== null
+                {actualClientSet.clientName === ""
+                    ?
+                    <>
+                        <button className="btn" value="signin" onClick={(e) => setRightColumnTypeData(e.target.value)} >REGISTER</button >
+                        <button className="btn" value="login" onClick={(e) => setRightColumnTypeData(e.target.value)}>LOG IN</button >
+                    </>
+                    : <></>}
+                {actualClientSet.clientName !== ""
+                    ?
+                    <button className="btn" value="order-form" onClick={(e) => setRightColumnTypeData(e.target.value)}>ORDERING</button >
+                    : <></>}
+                {showOrderListSet
+                    ?
+                    <button className="btn" value="order-list" onClick={(e) => setRightColumnTypeData(e.target.value)}>ORDERS</button >
+                    : <></>}
+                <button className="btn" value="message" onClick={(e) => setRightColumnTypeData(e.target.value)}>MESSAGE</button >
+                <button className="btn" value="about" onClick={(e) => setRightColumnTypeData(e.target.value)} >ABOUT</button >
+                {!logoutClientSet
                     ?
                     <button className="btn" value="logout" onClick={() => {
-                        localStorage.removeItem("userName_myapp")
-                        localStorage.removeItem("userId_myapp")
-                        localStorage.removeItem("staff_myapp")
-                        localStorage.removeItem("boss_myapp")
+
+                        setTimeout(() => {
+                            setRightColumnTypeData("about")
+                            setClientLogout(true)
+                        }, 1000);
                     }} >LOG OUT</button >
                     : <></>}
             </div>

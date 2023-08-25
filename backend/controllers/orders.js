@@ -6,6 +6,7 @@ export const createOrder = async (req, res, next) => {
 
     try {
         const checkClient = await Client.findById(req.client.id);
+
         if (!req.client.isAdmin && !checkClient.isActive) {
             return next(createError(403, "The client must be registered for ordering!"))
         } else {
@@ -13,9 +14,13 @@ export const createOrder = async (req, res, next) => {
             req.body.orderClientId = req.client.id;
             const newOrder = new Order(req.body);
 
-            const savedOrder = await newOrder.save();
-            res.status(200).json(savedOrder);
-            console.log(`${savedOrder._id} - order has been saved!`)
+            if (newOrder.orderedItems.length < 1) {
+                return next(createError(400, "The order does not have items!"))
+            } else {
+                const savedOrder = await newOrder.save();
+                res.status(200).json(savedOrder);
+                console.log(`${savedOrder._id} - order has been saved!`)
+            }
         }
     }
 
@@ -28,7 +33,12 @@ export const getOrders = async (req, res, next) => {
 
     try {
         let orders = null;
+        if (!req.client.isAdmin) {
+            orders = (await Order.find()).filter((data) => {
+                data.isActive === true && data.orderClientId === req.client.id
+            });
 
+        }
         if (req.query.isActive === 'true') {
             orders = (await Order.find()).filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {

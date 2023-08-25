@@ -6,10 +6,11 @@ export const createMessage = async (req, res, next) => {
     try {
         if (req.body.message != undefined && req.body.message != "") {
             req.body.lastManipulatorId = req.client.id;
+            req.body.clientId = req.client.id;
             const newMessage = new Message(req.body);
             const savedMessage = await newMessage.save();
             res.status(200).json(savedMessage);
-            console.log(`${savedMessage.clientName} - ${savedMessage._id} - message has been saved!`);
+            console.log(`clientId: ${savedMessage.clientId} - messageId: ${savedMessage._id} - message has been saved!`);
         } else {
             return next(createError(403, "Message is missing!"))
         }
@@ -21,7 +22,6 @@ export const createMessage = async (req, res, next) => {
 };
 
 export const getMessages = async (req, res, next) => {
-
     try {
         let messages = null;
         if (req.query.isActive === 'true') {

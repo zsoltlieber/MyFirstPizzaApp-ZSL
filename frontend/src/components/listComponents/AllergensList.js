@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 
-export const AllergensList = ({ sendRejectedAllergens }) => {
+export const AllergensList = ({ setRejectedAllergens }) => {
 
-  const allergensUrl = "http://localhost:8080/api/allergens"
+  const allergensUrl = "/api/allergens"
 
   const [allergens, setAllergens] = useState([]);
-  const [rejectedAllergens, setRejectedAllergens] = useState([]);
 
   const allergensFetch = async (url) => {
     const response = await fetch(url);
@@ -13,26 +12,25 @@ export const AllergensList = ({ sendRejectedAllergens }) => {
     if (data) setAllergens(data);
   };
 
+  function allergenStatusHandler(allergenId, checkboxStatus) {
+    const modifiedAllergen = allergens.find(allergen => allergen._id === allergenId)
+    modifiedAllergen.isChecked = checkboxStatus
+    const signAllergens = allergens.filter(allergen => allergen.isChecked)
+    setRejectedAllergens(signAllergens)
+  }
+
   useEffect(() => {
     allergensFetch(allergensUrl);
   }, []);
 
-  function allergenHandler() {
-    setRejectedAllergens(...allergens)
-    const checkBoxes = Object(document.querySelectorAll(".allergen-checkbox"));
-    rejectedAllergens.map((item, index) => item.isChecked = checkBoxes[index].checked)
-    rejectedAllergens.filter(item => item.isChecked === true)
-  }
-  //sendRejectedAllergens(rejectedAllergens);
-
   return (
-    <div className='leftColumn'>
+    <div className='left-column' style={{ fontSize: "80%" }} >ALLERGENS
       {allergens
         ? allergens.map((allergen, index) => {
           return (
             <div key={index}>
-              <input className="allergen-checkbox" id={allergen._id} value={allergen.allergenName} type='checkbox'
-                onChange={allergenHandler} />
+              <input className="allergen-checkbox" type='checkbox'
+                onChange={(e) => allergenStatusHandler(allergen._id, e.target.checked)} />
               <div>{allergen.allergenName}</div>
             </div>
           )

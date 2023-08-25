@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export function RegistrationForm({ currentForm, setCurrentForm }) {
-    const registerUrl = 'http://localhost:8080/api/clients/register'
+export function RegistrationForm({ currentFormSet, setCurrentForm }) {
+    const registerUrl = '/api/clients/register'
  
     const [clientData, setClientData] = useState({});
     const [showGreetBox, setShowGreetBox] = useState(false)
@@ -17,10 +17,11 @@ export function RegistrationForm({ currentForm, setCurrentForm }) {
             };
             const response = await fetch(registerUrl, requestOptions);
             const data = await response.json();
+            
             setClientData(data);
             setShowGreetBox(true);
             setTimeout(() => {
-                if (currentForm === "signin") {
+                if (currentFormSet === "signin") {
                     setCurrentForm("login");
                 }
             }, 3000);
@@ -35,9 +36,9 @@ export function RegistrationForm({ currentForm, setCurrentForm }) {
             <div id="registration-form">
                 {!showGreetBox ?
                     <form onSubmit={handleSubmit}>
-                        <h3 style={{ color: "white" }}>REGISTRATION FORM</h3>
+                        <h3>REGISTRATION FORM</h3>
                         <div>
-                            <input type="text" id="clientName" placeholder="client name" required
+                            <input type="text" id="client-name" placeholder="client name" required
                                 onChange={(e) => { setClientData({ ...clientData, clientName: e.target.value }) }} />
                         </div>
                         <div>
@@ -49,11 +50,11 @@ export function RegistrationForm({ currentForm, setCurrentForm }) {
                                 onChange={(e) => { setClientData({ ...clientData, email: e.target.value }) }} />
                         </div>
                         <div>
-                            <input type="text" id="phoneNumber" placeholder="phoneNumber" required
+                            <input type="text" id="phone-number" placeholder="phoneNumber" required
                                 onChange={(e) => { setClientData({ ...clientData, phoneNumber: e.target.value }) }} />
                         </div>
                         <div>
-                            <input type="text" id="postCode" placeholder="postCode" required
+                            <input type="text" id="post-code" placeholder="postCode" required
                                 onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, postCode: e.target.value } }) }} />
                         </div>
                         <div>
@@ -61,22 +62,22 @@ export function RegistrationForm({ currentForm, setCurrentForm }) {
                                 onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, city: e.target.value } }) }} />
                         </div>
                         <div>
-                            <input type="text" id="streatAndNumber" placeholder="streatAndNumber" required
+                            <input type="text" id="streat-and-number" placeholder="streatAndNumber" required
                                 onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, streatAndNumber: e.target.value } }) }} />
                         </div>
                         <div>
-                            <input type="text" id="otherInfo" placeholder="otherInfo" required
+                            <input type="text" id="other-info" placeholder="otherInfo" required
                                 onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, otherInfo: e.target.value } }) }} />
                         </div>
                         <div>
-                            <button type="submit" className="btn">Login</button>
+                            <button style={{ marginTop: "15px" }} type="submit" className="btn">Login</button>
                         </div>
                     </form>
                     :
                     <div id="greeting">
-                        <div style={{color:"white"}}>
-                            <h3>DEAR <br />{clientData.clientName} we are very happy to see you!!</h3>
-                            <h3>ORDER AND TASTE OUR PIZZAS :) !!</h3>
+                        <div>
+                            <h4>DEAR <br />{clientData.clientName} we are very happy to see you!!</h4>
+                            <h4>ORDER AND TASTE OUR PIZZAS :) !!</h4>
                         </div>
                     </div>
                 }
