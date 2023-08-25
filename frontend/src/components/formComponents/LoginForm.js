@@ -2,10 +2,10 @@ import { useState } from "react";
 
 export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) => {
   const loginUrl = "/api/auth/login";
-  const [loginData, setLoginData] = useState({})
+  const [loginData, setLoginData] = useState({});
   const [clientData, setClientData] = useState({});
   const [showBoxes, setShowBoxes] = useState(1);
-  const [loginErrorMessage, setLoginErrorMessage] = useState("")
+  const [loginErrorMessage, setLoginErrorMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,8 +18,8 @@ export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) 
       const response = await fetch(loginUrl, requestOptions);
       const data = await response.json();
       if (response.status !== 200) {
-        setLoginErrorMessage(data.message)
-        console.log(data.message)
+        setLoginErrorMessage(data.message);
+        console.log(data.message);
         setShowBoxes(2);
       }
       else {
@@ -31,17 +31,17 @@ export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) 
           staffStatus: data.staff,
           bossStatus: data.boss
         }
-        setActualClient(actualClient)
-        setClientLogout(false)
+        setActualClient(actualClient);
+        setClientLogout(false);
         setShowBoxes(3);
 
         setTimeout(() => {
-          setCurrentForm("order-form")
+          setCurrentForm("order-form");
         }, 1000);
 
       }
     };
-    loginToServer()
+    loginToServer();
   }
 
   return (

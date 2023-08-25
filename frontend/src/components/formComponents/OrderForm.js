@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActualPizzaIdEmpty, allPizzaTypesData,
     setListOfOrdersData, showPreOrderListSet, setShowPreOrderListData }) {
 
-    const ordersUrl = `/api/orders`
+    const ordersUrl = '/api/orders';
     const [value, setValue] = useState(1);
-    const [actualPizzaData, setActualPizzaData] = useState()
-    const [actualOrderItems, setActualOrderItems] = useState([])
-    const [showTopMessageBox, setShowTopMessageBox] = useState(true)
-    const [showThanksMessageBox, setShowThanksMessageBox] = useState(false)
-
+    const [actualPizzaData, setActualPizzaData] = useState([]);
+    const [actualOrderItems, setActualOrderItems] = useState([]);
+    const [showTopMessageBox, setShowTopMessageBox] = useState(true);
+    const [showThanksMessageBox, setShowThanksMessageBox] = useState(false);
 
     if (actualOrderItems === null) {
         actualOrderedPizzaIdSet(undefined)
@@ -58,6 +57,12 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
         } else {
 
             const amendedActualOrderList = [...actualOrderItems.orderedItems, orderLine]
+            
+            /*
+            console.log(amendedActualOrderList);
+            amendedActualOrderList.find(order => order.pizzaId === orderLine.pizzaId).quantity += orderLine.quantity
+            console.log(amendedActualOrderList);
+            */
             setActualOrderItems({ orderedItems: amendedActualOrderList });
         }
         setActualPizzaIdEmpty("")
@@ -77,6 +82,10 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
         setActualOrderItems({ orderedItems: modifiedOrdersList });
     }
 
+    console.log(actualOrderedPizzaIdSet);
+    console.log(showPreOrderListSet);
+    console.log();
+
     return (
         <>
             {actualClientData.clientName !== ""
@@ -87,7 +96,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                         <div id="order-form">
                             <form >
                                 <h4 style={{ textAlign: "center", margin: "2% 0% 2% 0%" }}>ORDER FORM</h4>
-                                {actualPizzaData !== undefined
+                                {actualPizzaData !== undefined && actualPizzaData.length > 0
                                     ?
                                     < ul style={{ listStyleType: "none" }}>
                                         <li style={{ marginLeft: "-3rem" }} className='order-element'>
