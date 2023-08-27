@@ -91,10 +91,26 @@ export const deleteAllergenById = async (req, res, next) => {
     try {
         const actualAllergen = await Allergen.findById(req.params.id);
         if (actualAllergen !== null) {
-            const deletedAllergen = await Allergen.findByIdAndDelete(req.params.id);
-            res.status(200).json(`${deletedAllergen._id} - allergen has been deleted!`);
-            console.log(`${deletedAllergen._id} - allergen has been deleted!`);
-        } else {
+            if (req.client.isMainAdmin) {
+                const deletedAllergen = await Allergen.findByIdAndDelete(req.params.id);
+                res.status(200).json(`${deletedAllergen._id} - allergen has been deleted!`);
+                console.log(`${deletedAllergen._id} - allergen has been deleted!`);
+            }
+            else {
+                req.body = actualAllergen;
+                req.body.lastManipulatorId = req.client.id;
+                req.body.isActive = false;
+
+                const updateAllergen = await Allergen.findByIdAndUpdate(
+                    req.params.id,
+                    { $set: req.body },
+                    { new: true });
+
+                res.status(200).json(updateAllergen);
+                console.log(`${updateAllergen.allergenName} - ${updateAllergen._id} - has been updated!`);
+            }
+        }
+        else {
             res.status(200).json("No allergen the given ID!");
         }
     }

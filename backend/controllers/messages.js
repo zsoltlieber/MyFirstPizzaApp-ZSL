@@ -59,7 +59,7 @@ export const getMessageById = async (req, res, next) => {
     }
 };
 
-export const updateMessageById = async (req, res, next) => {
+export const updateMessageById = async (req, res, next) => {                            //TODO
 
     try {
         const actualMessage = await Message.findById(req.params.id)
@@ -94,11 +94,28 @@ export const updateMessageById = async (req, res, next) => {
 export const deleteMessageById = async (req, res, next) => {
 
     try {
-        const actualMessage = await Message.findById(req.params.id);
+        const actualMessage = await Message.findById(req.params.id)
         if (actualMessage !== null) {
-            const deletedMessage = await Message.findByIdAndDelete(req.params.id);
-            res.status(200).json(`${req.params.id} - message has been deleted!`);
-            console.log(`${req.params.id} - message has been deleted!`);
+            if (req.client.isAdmin) {
+                const actualMessage = await Message.findById(req.params.id);
+                await Message.findByIdAndDelete(req.params.id);
+                res.status(200).json(`${req.params.id} - message has been deleted!`);
+            }
+            else if (req.client.isAdmin || !req.client.isAdmin && actualMessage.lastManipulatorId.match(req.client.id)) {
+                req.body = actualMessage;
+                req.body.lastManipulatorId = req.client.id;
+                req.body.isActive = false;
+                const updatedMessage = await Message.findByIdAndUpdate(
+                    req.params.id,
+                    { $set: req.body },
+                    { new: true }
+                );
+                if (updatedMessage !== null) {
+                    res.status(200).json(updatedMessage);
+                    console.log(`${updatedMessage._id} - ${updatedMessage.clientName} - message has been updated!`);
+                }
+            }
+            else { return next(createError(403, "Not allowed to access that client data!")) }
         } else {
             res.status(200).json("No message the given ID!");
         }

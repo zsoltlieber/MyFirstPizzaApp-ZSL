@@ -19,6 +19,6 @@ allergensRouter.get("/:id", getAllergenById);
 
 allergensRouter.put("/:id", verifyAdmin, updateAllergenById);
 
-allergensRouter.delete("/:id", verifyMainAdmin, deleteAllergenById);
+allergensRouter.delete("/:id", verifyAdmin, deleteAllergenById);
 
 export default allergensRouter;

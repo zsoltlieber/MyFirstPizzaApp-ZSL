@@ -19,6 +19,6 @@ messagesRouter.get("/:id", getMessageById);
 
 messagesRouter.put("/:id", verifyClient, updateMessageById);
 
-messagesRouter.delete("/:id", verifyMainAdmin, deleteMessageById);
+messagesRouter.delete("/:id", verifyClient, deleteMessageById);
 
 export default messagesRouter;

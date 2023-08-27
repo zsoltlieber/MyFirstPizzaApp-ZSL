@@ -38,8 +38,8 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
       {rightColumnTypeSet === "order-form" ?
         <>
           <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} setActualPizzaIdEmpty={setActualPizzaIdEmpty} allPizzaTypesData={pizzaTypesDataSet}
-            setListOfOrdersData={setListOfOrders} showPreOrderListSet={showPreOrderList} setShowPreOrderListData={setShowPreOrderList } />
-          < OrderList actualClientDataSet={actualClientSet} listOfOrdersSet={listOfOrders} setOrdersList={setListOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} showPreOrderListSet={showPreOrderList} />
+            setListOfOrdersData={setListOfOrders} showPreOrderListSet={showPreOrderList} setShowPreOrderListData={setShowPreOrderList} />
+          <OrderList actualClientDataSet={actualClientSet} listOfOrdersSet={listOfOrders} setOrdersList={setListOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} showPreOrderListSet={showPreOrderList} />
         </>
         : <></>}
       {rightColumnTypeSet === "staff" ?

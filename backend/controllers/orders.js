@@ -110,9 +110,30 @@ export const updateOrderById = async (req, res, next) => {
 export const deleteOrderById = async (req, res, next) => {
 
     try {
-        await Order.findByIdAndDelete(req.params.id);
-        res.status(200).json(`${req.params.id} - client has been deleted!`);
-        console.log(`${req.params.id} - client has been deleted!`);
+        const actualOrder = await Order.findById(req.params.id);
+        if (actualOrder !== null) {
+            if (req.client.isMainAdmin) {
+                await Order.findByIdAndDelete(req.params.id);
+                res.status(200).json(`${req.params.id} - client has been deleted!`);
+                console.log(`${req.params.id} - client has been deleted!`);
+            }
+            else if (req.client.isAdmin || !req.client.isAdmin && actualOrder.orderClientId.match(req.client.id)) {
+                req.body = actualOrder;
+                req.body.lastManipulatorId = req.client.id;
+                req.body.isActive = false;
+                const updatedOrder = await Order.findByIdAndUpdate(
+                    req.params.id,
+                    { $set: req.body },
+                    { new: true }
+                );
+                res.status(200).json(updatedOrder);
+                console.log(`${updatedOrder._id} - order has been updated!`);
+            }
+            else { return next(createError(403, "Not allowed to access that client data!")) }
+        }
+        else {
+            res.status(200).json("No order the given ID!");
+        }
     }
 
     catch (error) {

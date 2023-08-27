@@ -39,6 +39,6 @@ clientsRouter.get("/:id", verifyClient, getClientById);
 
 clientsRouter.put("/:id", verifyClient, updateClientById);
 
-clientsRouter.delete("/:id", verifyMainAdmin, deleteClientById);
+clientsRouter.delete("/:id", verifyClient, deleteClientById);
 
 export default clientsRouter;

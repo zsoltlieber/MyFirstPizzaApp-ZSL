@@ -19,6 +19,6 @@ pizzaTypesRouter.get("/:id", getPizzaTypeById);
 
 pizzaTypesRouter.put("/:id", verifyAdmin, updatePizzaTypeById);
 
-pizzaTypesRouter.delete("/:id", verifyMainAdmin, deletePizzaTypeById);
+pizzaTypesRouter.delete("/:id", verifyAdmin, deletePizzaTypeById);
 
 export default pizzaTypesRouter;
