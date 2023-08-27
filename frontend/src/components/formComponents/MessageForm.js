@@ -2,12 +2,12 @@ import { useState } from 'react';
 
 export const MessageForm = ({ actualClientData, messageListDataSet, setMessageList, showMessegesSet, setShowMessageList }) => {
 
-    const messageUrl = "/api/messages"
+    const messageUrl = "/api/messages";
     const [newMessage, setNewMessage] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const actualMessage = { message: newMessage, clientName: actualClientData.clientName }
+        const actualMessage = { message: newMessage, clientName: actualClientData.clientName };
         const loginToServer = async () => {
             const requestOptions = {
                 method: 'POST',
@@ -17,11 +17,11 @@ export const MessageForm = ({ actualClientData, messageListDataSet, setMessageLi
             const response = await fetch(messageUrl, requestOptions);
             const data = await response.json();
             if (response.status !== 200) {
-                console.log(data)
+                console.log(data);
             }
             else {
                 const amendedMessageList = [...messageListDataSet, data];
-                setMessageList(amendedMessageList)
+                setMessageList(amendedMessageList);
                 setShowMessageList(true);
                 setTimeout(() => {
                     setShowMessageList(false);
@@ -29,7 +29,7 @@ export const MessageForm = ({ actualClientData, messageListDataSet, setMessageLi
                 }, 2000);
             }
         }
-        loginToServer()
+        loginToServer();
     }
 
     return (
@@ -38,7 +38,7 @@ export const MessageForm = ({ actualClientData, messageListDataSet, setMessageLi
                 {actualClientData.clientName !== ""
                     ?
                     <form id="message-form" onSubmit={handleSubmit}>
-                        <p style={{ fontSize: "20px", margin:"0" }} >NEW MESSAGE</p>
+                        <p style={{ fontSize: "20px", margin: "0" }} >NEW MESSAGE</p>
                         <div>
                             <input type="message" id="message" placeholder="message" name="inputbox" value={newMessage} required
                                 onChange={(e) => setNewMessage(e.target.value)} />
@@ -61,4 +61,4 @@ export const MessageForm = ({ actualClientData, messageListDataSet, setMessageLi
     )
 }
 
-export default MessageForm
+export default MessageForm;
