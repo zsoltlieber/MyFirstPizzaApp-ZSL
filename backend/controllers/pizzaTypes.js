@@ -34,7 +34,7 @@ export const getPizzaTypes = async (req, res, next) => {
         }
         
         pizzaTypes = (await PizzaType.find()).filter((data) => data.isActive);
-        res.status(200).json(pizzaTypes);
+       // res.status(200).json(pizzaTypes);   //must be check--cause problem...
     }
     
     catch (error) {

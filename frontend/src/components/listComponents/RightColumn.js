@@ -2,7 +2,7 @@ import { useState } from "react";
 import LoginForm from "../formComponents/LoginForm.js";
 import MessageForm from "../formComponents/MessageForm.js";
 import OrderForm from "../formComponents/OrderForm.js";
-import ActiveOrdersList from "./ActiveOrdersList.js";
+import OrderList from "./OrderList.js";
 import RegistrationForm from "../formComponents/RegistrationForm.js";
 import AboutUs from "./AboutUs.js";
 import BossPage from "./BossPage.js";
@@ -39,7 +39,7 @@ const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientS
         <>
           <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} setActualPizzaIdEmpty={setActualPizzaIdEmpty} allPizzaTypesData={pizzaTypesDataSet}
             setListOfOrdersData={setListOfOrders} showPreOrderListSet={showPreOrderList} setShowPreOrderListData={setShowPreOrderList } />
-          < ActiveOrdersList actualClientDataSet={actualClientSet} listOfOrdersSet={listOfOrders} setOrdersList={setListOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} showPreOrderListSet={showPreOrderList} />
+          < OrderList actualClientDataSet={actualClientSet} listOfOrdersSet={listOfOrders} setOrdersList={setListOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} showPreOrderListSet={showPreOrderList} />
         </>
         : <></>}
       {rightColumnTypeSet === "staff" ?

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const ActiveOrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList, pizzaTypesDataSet, showPreOrderListSet }) => {
+const OrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList, pizzaTypesDataSet, showPreOrderListSet }) => {
 
   const ordersUrl = `/api/orders`
   let totalCost = 0;
@@ -56,9 +56,6 @@ const ActiveOrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList,
                         )
                       })
                     }
-                    <tr >
-                      <td colSpan={3} align="left">Order payable: {totalCost.toLocaleString('en-US')}.-Ft</td>
-                    </tr>
                   </tbody >
                 )
               })}
@@ -76,4 +73,4 @@ const ActiveOrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList,
   )
 }
 
-export default ActiveOrdersList
+export default OrdersList
