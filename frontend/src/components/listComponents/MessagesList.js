@@ -5,7 +5,7 @@ import { MainContext } from "./../../mainContext.js"
 export const MessagesList = () => {
 
     const { actualClientData } = useContext(MainContext);
-    const { messageList, setMessageList, updatableMessageId, setUpdatableMessageId, showMessageThanks } = useContext(Context);
+    const { messageList, setMessageList, setNewMessage, updatableMessageId, setUpdatableMessageId, showMessageThanks } = useContext(Context);
 
     let messageUrl = "/api/messages"
 
@@ -17,7 +17,7 @@ export const MessagesList = () => {
 
     useEffect(() => {
         messagesFetch(messageUrl);
-    }, [messageUrl]);
+    }, [messageList]);
 
     function deleteMessageFetch(actualEndPoint, messageId) {
         const requestOptions = {
@@ -68,13 +68,9 @@ export const MessagesList = () => {
     };
 
     const updateItem = (messageId) => {
+        setUpdatableMessageId(messageId);
         const actualMessage = messageList.find(message => message._id === messageId);
-        console.log(actualMessage);
-        if (actualMessage.clientId === actualClientData.clientId) {
-            setUpdatableMessageId(messageId);
-        } else {
-            setUpdatableMessageId("");
-        }
+        setNewMessage(actualMessage.message)
     };
 
     return (
@@ -84,7 +80,7 @@ export const MessagesList = () => {
                 < div id='message-list' >
                     <p style={{ textAlign: "center", fontSize: "20px", margin: "0" }} >MESSAGE LIST</p>
 
-                    <table id="message-list-table" style={{ listStyleType: "none", fontSize: "15px" }}>
+                    <table id="message-list-table">
                         <thead>
                             <tr>
                                 <th>Client name</th>
@@ -95,7 +91,7 @@ export const MessagesList = () => {
                         {messageList.map((message, index) => {
                             return (
                                 <tbody key={index}>
-                                    <tr style={{ alignItems: "center", textAlign: "center" }}>
+                                    <tr>
                                         <td><p>{message.clientName}</p></td>
                                         <td><p style={{ marginTop: "0px", maxWidth: "95%" }}>{message.message}</p></td>
                                         {actualClientData !== undefined && actualClientData.clientName !== ""

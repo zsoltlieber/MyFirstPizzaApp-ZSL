@@ -1,20 +1,18 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from "react";
 import { Context } from "./../../context.js"
 import { MainContext } from "./../../mainContext.js"
 
 export const MessageForm = () => {
     const { actualClientData } = useContext(MainContext);
-    const { messageList, setMessageList, updatableMessageId, setUpdatableMessageId,
-        showMessageThanks, setShowMessageThanks } = useContext(Context);
+    const { messageList, updatableMessageId, setUpdatableMessageId, showMessageThanks,
+        setShowMessageThanks, newMessage, setNewMessage } = useContext(Context);
 
     const messageUrl = "/api/messages"
-    const [newMessage, setNewMessage] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const actualMessage = { message: newMessage, clientName: actualClientData.clientName }
         if (updatableMessageId === "") {
-
             const loginToServer = async () => {
                 const requestOptions = {
                     method: 'POST',
@@ -27,46 +25,47 @@ export const MessageForm = () => {
                     console.log(data)
                 }
                 else {
-                    const amendedMessageList = [...messageList, data];
-                    setMessageList(amendedMessageList)
                     setShowMessageThanks(true);
                     setTimeout(() => {
                         setShowMessageThanks(false);
-                        setNewMessage("");
                     }, 2000);
                 }
+                setNewMessage("");
+                setUpdatableMessageId("");
             }
             loginToServer()
         }
         else {
             const updateOnServer = async () => {
+                const updatableMessageUrl = messageUrl + "/" + updatableMessageId;
+
                 const requestOptions = {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(actualMessage)
                 };
-                const response = await fetch(messageUrl, requestOptions);
+                const response = await fetch(updatableMessageUrl, requestOptions);
                 const data = await response.json();
                 if (response.status !== 200) {
                     console.log(data)
                 }
                 else {
-                    const amendedMessageList = messageList.filter(message => message._id !== updatableMessageId).push(data);
-                    setMessageList(amendedMessageList)
                     setShowMessageThanks(true);
                     setTimeout(() => {
                         setShowMessageThanks(false);
-                        setNewMessage("");
                     }, 2000);
                 }
+                setNewMessage("");
+                setUpdatableMessageId("");
             }
-            setUpdatableMessageId("")
             updateOnServer()
         }
     }
     useEffect(() => {
         if (updatableMessageId !== "" && messageList !== undefined) {
-            setNewMessage(messageList.find(message => message._id === updatableMessageId).message)
+            const actualMessage = messageList.find(message =>
+                message._id === updatableMessageId).message;
+            setNewMessage(actualMessage)
         }
     }, []);
 
@@ -76,13 +75,21 @@ export const MessageForm = () => {
                 {actualClientData !== undefined && actualClientData.clientName !== ""
                     ?
                     <form id="message-form" onSubmit={handleSubmit}>
-                        <p style={{ fontSize: "20px", margin: "0" }} >NEW MESSAGE</p>
+                        <p style={{ fontSize: "20px", margin: "0" }} >
+                            {updatableMessageId === ""
+                                ?
+                                "NEW MESSAGE"
+                                :
+                                "Update message"}
+                        </p>
                         <div>
-                            <input type="message" id="message" placeholder="message" name="inputbox" value={newMessage}
-                                required onChange={(e) => setNewMessage(e.target.value)} />
+
+                            <input type="message" id="message" placeholder="message"
+                                name="inputbox" value={newMessage} required
+                                onChange={(e) => setNewMessage(e.target.value)} />
                         </div>
                         <div>
-                            <button type="submit" className="btn" >
+                            <button type="submit" id="submit-btn" className="btn" >
                                 {updatableMessageId === ""
                                     ?
                                     "Submit"

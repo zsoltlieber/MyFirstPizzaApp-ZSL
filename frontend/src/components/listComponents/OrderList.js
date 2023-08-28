@@ -4,7 +4,7 @@ import { Context } from "./../../context.js"
 
 const OrdersList = () => {
 
-  const { actualClientData, allPizzaTypes } = useContext(MainContext);
+  const { actualClientData, allPizzaTypes, pizzaIdToOrder } = useContext(MainContext);
   const { listOfOrders, setListOfOrders, showPreOrderList } = useContext(Context);
 
   const ordersUrl = `/api/orders`
@@ -38,11 +38,13 @@ const OrdersList = () => {
     //setOrdersList([...originalOrders, modifyOrder])
 
   }
-
-
+  console.log(listOfOrders && listOfOrders.length > 0 && !showPreOrderList);
+  console.log(listOfOrders );
+  console.log(listOfOrders.length > 0);
+  console.log(!showPreOrderList);
   return (
     <div>
-      {listOfOrders && listOfOrders.length > 0 && actualClientData.clientName !== "" && !showPreOrderList
+      {listOfOrders && listOfOrders.length > 0 && !showPreOrderList
         ?
         < div id="order-list" >
           <div >
@@ -99,10 +101,17 @@ const OrdersList = () => {
           </div >
         </div >
         :
-        <div id="order-form">
-          <h5>YOU DO NOT HAVE ACTIVE ORDER !!</h5>
-          <h6>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</h6>
-        </div>
+        <>
+          {pizzaIdToOrder === "" && listOfOrders.length < 1
+            ?
+            <div id="order-form">
+              <>
+                <h5>YOU DO NOT HAVE <br />ACTIVE ORDER !!</h5>
+                <h6>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</h6>
+              </>
+            </div>
+            : <></>}
+        </>
       }
     </div >
   )

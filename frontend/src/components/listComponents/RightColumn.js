@@ -1,13 +1,18 @@
 import { useState, useContext } from "react";
 import LoginForm from "../formComponents/LoginForm.js";
-import MessageForm from "../formComponents/MessageForm.js";
+import RegistrationForm from "../formComponents/RegistrationForm.js";
 import OrderForm from "../formComponents/OrderForm.js";
 import OrderList from "./OrderList.js";
-import RegistrationForm from "../formComponents/RegistrationForm.js";
+import MessageForm from "../formComponents/MessageForm.js";
+import MessagesList from "./MessagesList.js";
 import AboutUs from "./AboutUs.js";
 import BossPage from "./BossPage.js";
-import MessagesList from "./MessagesList.js";
 import StaffPage from "./StaffPage.js";
+import ClientListHandler from "./ClientListHandler.js";
+import AllergenForm from "../formComponents/AllergenForm.js";
+import AllergenListHandler from "./AllergenListHandler.js";
+import PizzaTypeForm from "../formComponents/PizzaTypeForm.js";
+import PizzaTypeListHandler from "./PizzaTypeListHandler.js";
 import { MainContext } from "../../mainContext.js";
 import { Context } from "../../context.js";
 
@@ -18,20 +23,35 @@ const RightColumn = ({ setSearchFieldChange }) => {
 
   const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
   const [showPreOrderList, setShowPreOrderList] = useState(false) // show or not show total pre-list of orders
+  const [showTopMessageBox, setShowTopMessageBox] = useState(true);
+  const [actualOrderItems, setActualOrderItems] = useState([]);
+  const [showOrderThanks, setShowOrderThanks] = useState(false)
   const [messageList, setMessageList] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
   const [showMessageThanks, setShowMessageThanks] = useState(false);
   const [updatableMessageId, setUpdatableMessageId] = useState("");
+  const [updatablePizzaTypeId, setUpdatablePizzaTypeId] = useState("");
+  const [newPizzaType, setNewPizzaType] = useState([]);
+  const [updatableAllegenId, setUpdatableAllergenId] = useState("");
+  const [newAllergen, setNewAllergen] = useState([]);
+  const [updatableClientId, setUpdatableClientId] = useState("");
+  const [newClient, setNewClient] = useState([]);
 
   return (
     <MainContext.Provider value={{
       actualClientData, setActualClientData, rightColumnType, setRightColumnType, allPizzaTypes,
-      rejectedAllergens, setRejectedAllergens, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder
+      rejectedAllergens, setRejectedAllergens, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
+      actualOrderItems, setActualOrderItems, showTopMessageBox, setShowTopMessageBox, showOrderThanks, setShowOrderThanks
     }}>
 
       <Context.Provider value={{
+        updatableClientId, setUpdatableClientId,
+        updatableAllegenId, setUpdatableAllergenId, updatablePizzaTypeId, setUpdatablePizzaTypeId,
         messageList, setMessageList, updatableMessageId, setUpdatableMessageId,
-        showPreOrderList, setShowPreOrderList, listOfOrders, setListOfOrders,
-        showMessageThanks, setShowMessageThanks
+        newMessage, setNewMessage, newPizzaType, setNewPizzaType,
+        newAllergen, setNewAllergen, newClient, setNewClient,
+        showPreOrderList, setShowPreOrderList,
+        listOfOrders, setListOfOrders, showMessageThanks, setShowMessageThanks
       }}>
         <div className='right-column'>
           {rightColumnType === "login" ?
@@ -60,6 +80,22 @@ const RightColumn = ({ setSearchFieldChange }) => {
             : <></>}
           {rightColumnType === "boss" ?
             <BossPage />
+            : <></>}
+          {rightColumnType === "client-data-handler"
+            ?
+            <ClientListHandler />
+            : <></>}
+          {rightColumnType === "allergens-data-handler" ?
+            <>
+              <AllergenForm />
+              <AllergenListHandler />
+            </>
+            : <></>}
+          {rightColumnType === "pizza-type-data-handler" ?
+            <>
+              <PizzaTypeForm />
+              <PizzaTypeListHandler />
+            </>
             : <></>
           }
         </div>
