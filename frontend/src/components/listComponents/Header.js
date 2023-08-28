@@ -1,4 +1,8 @@
-const Header = ({ setRightColumnTypeData, logoutClientSet, setClientLogout, actualClientSet, showOrderListSet }) => {
+import { useContext } from 'react'
+import { MainContext } from './../../mainContext.js'
+
+const Header = () => {
+    const { actualClientData, setActualClientData, setRightColumnType } = useContext(MainContext);
 
     return (
         <div className="navbar">
@@ -7,44 +11,47 @@ const Header = ({ setRightColumnTypeData, logoutClientSet, setClientLogout, actu
                 THE BEST PIZZA Co.
             </div>
             <div>
-                {actualClientSet.clientName !== ""
-                    ? <h4>DEAR {actualClientSet.clientName} !</h4>
-                    : <></>
-                }
+                {actualClientData !== undefined && actualClientData.clientName !== ""
+                    ?
+                    <span>HELLO {actualClientData.clientName}</span>
+                    : <></>}
             </div>
             <div>
-                {actualClientSet.bossStatus === true
+                {actualClientData.bossStatus === true
                     ?
-                    <button className="btn" value="boss" onClick={(e) => setRightColumnTypeData(e.target.value)} >BOSS</button >
+                    <button className="btn" value="boss" onClick={(e) => setRightColumnType(e.target.value)} >BOSS</button >
                     : <></>}
-                {actualClientSet.bossStatus !== true && actualClientSet.staffStatus === true
+                {actualClientData.bossStatus !== true && actualClientData.staffStatus === true
                     ?
-                    <button className="btn" value="staff" onClick={(e) => setRightColumnTypeData(e.target.value)} >STAFF</button >
+                    <button className="btn" value="staff" onClick={(e) => setRightColumnType(e.target.value)} >STAFF</button >
                     : <></>}
-                {actualClientSet.clientName === ""
+                {actualClientData.clientName === ""
                     ?
                     <>
-                        <button className="btn" value="signin" onClick={(e) => setRightColumnTypeData(e.target.value)} >REGISTER</button >
-                        <button className="btn" value="login" onClick={(e) => setRightColumnTypeData(e.target.value)}>LOG IN</button >
+                        <button className="btn" value="signin" onClick={(e) => setRightColumnType(e.target.value)} >REGISTER</button >
+                        <button className="btn" value="login" onClick={(e) => setRightColumnType(e.target.value)}>LOG IN</button >
                     </>
                     : <></>}
-                {actualClientSet.clientName !== ""
+                {actualClientData.clientName !== ""
                     ?
-                    <button className="btn" value="order-form" onClick={(e) => setRightColumnTypeData(e.target.value)}>ORDERING</button >
+                    <button className="btn" value="order-form" onClick={(e) => setRightColumnType(e.target.value)}>ORDERING</button >
                     : <></>}
-                {showOrderListSet
-                    ?
-                    <button className="btn" value="order-list" onClick={(e) => setRightColumnTypeData(e.target.value)}>ORDERS</button >
-                    : <></>}
-                <button className="btn" value="message" onClick={(e) => setRightColumnTypeData(e.target.value)}>MESSAGE</button >
-                <button className="btn" value="about" onClick={(e) => setRightColumnTypeData(e.target.value)} >ABOUT</button >
-                {!logoutClientSet
+                <button className="btn" value="message" onClick={(e) => setRightColumnType(e.target.value)}>MESSAGE</button >
+                <button className="btn" value="about" onClick={(e) => setRightColumnType(e.target.value)} >ABOUT</button >
+                {actualClientData.clientName !== ""
                     ?
                     <button className="btn" value="logout" onClick={() => {
 
+                        const emptyClient = {
+                            clientName: "",
+                            clientId: "",
+                            staffStatus: false,
+                            bossStatus: false
+                        }
+
                         setTimeout(() => {
-                            setRightColumnTypeData("about")
-                            setClientLogout(true)
+                            setRightColumnType("about")
+                            setActualClientData(emptyClient)
                         }, 1000);
                     }} >LOG OUT</button >
                     : <></>}

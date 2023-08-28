@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { MainContext } from './../../mainContext.js'
+function CenterColumn() {
 
-function CenterColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActualPizzaIdToOrder }) {
+  const { rejectedAllergens, setPizzaIdToOrder, setAllPizzaTypes } = useContext(MainContext);
 
   const pizzaTypesUrl = '/api/pizzaTypes';
   const [actualPizzas, setActualPizzas] = useState({});
@@ -12,10 +14,10 @@ function CenterColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActualPiz
     const response = await fetch(`${url}?isActive=true`);
     const data = await response.json();
     if (response.status === 200) {
-      setAllPizzaTypesData(data)
+      setAllPizzaTypes(data)
       for (let i = 0; i < data.length; i++) {
-        for (let j = 0; j < rejectedAllergensSet.length; j++) {
-          if (data[i].allergens.includes(rejectedAllergensSet[j].allergenName)) {
+        for (let j = 0; j < rejectedAllergens.length; j++) {
+          if (data[i].allergens.includes(rejectedAllergens[j].allergenName)) {
             wrongPizza++;
           }
         }
@@ -30,16 +32,16 @@ function CenterColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActualPiz
 
   useEffect(() => {
     pizzaTypeFetch(pizzaTypesUrl)
-  }, [rejectedAllergensSet]);
+  }, [rejectedAllergens]);
 
   function addPizzaIdToOrder(pizzaId) {
-    setActualPizzaIdToOrder(pizzaId)
+    setPizzaIdToOrder(pizzaId)
   }
 
   return (
     <div className='center-column'>
       {actualPizzas && actualPizzas.length > 0
-        ? actualPizzas.map((pizza,index) => {
+        ? actualPizzas.map((pizza, index) => {
           return (
             <div key={index} className="pizza-card" id={pizza.pizzaName} data-price={pizza.pizzaPrice}>
 
@@ -61,7 +63,6 @@ function CenterColumn({ rejectedAllergensSet, setAllPizzaTypesData, setActualPiz
       }
     </div >
   )
-
 }
 
 export default CenterColumn

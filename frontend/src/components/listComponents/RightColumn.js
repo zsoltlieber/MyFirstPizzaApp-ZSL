@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import LoginForm from "../formComponents/LoginForm.js";
 import MessageForm from "../formComponents/MessageForm.js";
 import OrderForm from "../formComponents/OrderForm.js";
@@ -8,48 +8,63 @@ import AboutUs from "./AboutUs.js";
 import BossPage from "./BossPage.js";
 import MessagesList from "./MessagesList.js";
 import StaffPage from "./StaffPage.js";
+import { MainContext } from "../../mainContext.js";
+import { Context } from "../../context.js";
 
-const RightColumn = ({ setRightColumnTypeData, rightColumnTypeSet, actualClientSet, setActualClientData,
-  setLogoutClientData, pizzaTypesDataSet, actualOrderedPizzaIdDataSet, setActualPizzaIdEmpty,
-  setSearchFieldChange }) => {
+const RightColumn = ({ setSearchFieldChange }) => {
+
+  const { actualClientData, setActualClientData, rightColumnType, setRightColumnType, allPizzaTypes,
+    rejectedAllergens, setRejectedAllergens, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder } = useContext(MainContext);
 
   const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
-  const [showPreOrderList, setShowPreOrderList] = useState(false) // show/or not show total list of orders
+  const [showPreOrderList, setShowPreOrderList] = useState(false) // show or not show total pre-list of orders
   const [messageList, setMessageList] = useState([]);
-  const [showMessageList, setShowMessageListhowBox] = useState(false);
+  const [showMessageThanks, setShowMessageThanks] = useState(false);
+  const [updatableMessageId, setUpdatableMessageId] = useState("");
 
   return (
-    <div className='right-column'>
-      {rightColumnTypeSet === "login" ?
-        <LoginForm setCurrentForm={setRightColumnTypeData} setActualClient={setActualClientData} setClientLogout={setLogoutClientData} />
-        : <></>}
-      {rightColumnTypeSet === "signin" ?
-        <RegistrationForm currentFormSet={rightColumnTypeSet} setCurrentForm={setRightColumnTypeData} />
-        : <></>}
-      {rightColumnTypeSet === "about" ?
-        <AboutUs setSearchText={setSearchFieldChange} />
-        : <></>}
-      {rightColumnTypeSet === "message" ?
-        <>
-          <MessageForm actualClientData={actualClientSet} messageListDataSet={messageList} setMessageList={setMessageList} showMessegesSet={showMessageList} setShowMessageList={setShowMessageListhowBox} />
-          <MessagesList actualClientData={actualClientSet} messageListData={messageList} setMessageListData={setMessageList} showMessegesSet={showMessageList} />
-        </>
-        : <></>}
-      {rightColumnTypeSet === "order-form" ?
-        <>
-          <OrderForm actualClientData={actualClientSet} actualOrderedPizzaIdSet={actualOrderedPizzaIdDataSet} setActualPizzaIdEmpty={setActualPizzaIdEmpty} allPizzaTypesData={pizzaTypesDataSet}
-            setListOfOrdersData={setListOfOrders} showPreOrderListSet={showPreOrderList} setShowPreOrderListData={setShowPreOrderList} />
-          <OrderList actualClientDataSet={actualClientSet} listOfOrdersSet={listOfOrders} setOrdersList={setListOfOrders} pizzaTypesDataSet={pizzaTypesDataSet} showPreOrderListSet={showPreOrderList} />
-        </>
-        : <></>}
-      {rightColumnTypeSet === "staff" ?
-        <StaffPage actualClientData={actualClientSet} />
-        : <></>}
-      {rightColumnTypeSet === "boss" ?
-        <BossPage actualClientData={actualClientSet} />
-        : <></>
-      }
-    </div>
+    <MainContext.Provider value={{
+      actualClientData, setActualClientData, rightColumnType, setRightColumnType, allPizzaTypes,
+      rejectedAllergens, setRejectedAllergens, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder
+    }}>
+
+      <Context.Provider value={{
+        messageList, setMessageList, updatableMessageId, setUpdatableMessageId,
+        showPreOrderList, setShowPreOrderList, listOfOrders, setListOfOrders,
+        showMessageThanks, setShowMessageThanks
+      }}>
+        <div className='right-column'>
+          {rightColumnType === "login" ?
+            <LoginForm />
+            : <></>}
+          {rightColumnType === "signin" ?
+            <RegistrationForm />
+            : <></>}
+          {rightColumnType === "about" ?
+            <AboutUs setSearchText={setSearchFieldChange} />
+            : <></>}
+          {rightColumnType === "message" ?
+            <>
+              <MessageForm />
+              <MessagesList />
+            </>
+            : <></>}
+          {rightColumnType === "order-form" ?
+            <>
+              <OrderForm />
+              <OrderList />
+            </>
+            : <></>}
+          {rightColumnType === "staff" ?
+            <StaffPage />
+            : <></>}
+          {rightColumnType === "boss" ?
+            <BossPage />
+            : <></>
+          }
+        </div>
+      </Context.Provider>
+    </MainContext.Provider>
   )
 }
 

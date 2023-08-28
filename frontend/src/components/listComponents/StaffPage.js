@@ -1,4 +1,9 @@
-export const StaffPage = ({ actualClientData }) => {
+import { useContext } from "react";
+import { MainContext } from "../../mainContext.js";
+
+export const StaffPage = () => {
+
+    const { actualClientData } = useContext(MainContext);
 
     return (
         <div id="staff-page" >

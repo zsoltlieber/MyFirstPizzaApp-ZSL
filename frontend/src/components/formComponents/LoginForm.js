@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from 'react';
+import { MainContext } from './../../mainContext.js'
 
-export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) => {
+export const LoginForm = () => {
+  const { setActualClientData, setRightColumnType } = useContext(MainContext);
+
   const loginUrl = "/api/auth/login";
   const [loginData, setLoginData] = useState({})
   const [clientData, setClientData] = useState({});
@@ -31,12 +34,11 @@ export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) 
           staffStatus: data.staff,
           bossStatus: data.boss
         }
-        setActualClient(actualClient)
-        setClientLogout(false)
+        setActualClientData(actualClient)
         setShowBoxes(3);
 
         setTimeout(() => {
-          setCurrentForm("order-form")
+          setRightColumnType("order-form")
         }, 1000);
 
       }
@@ -64,10 +66,10 @@ export const LoginForm = ({ setCurrentForm, setActualClient, setClientLogout }) 
         : showBoxes === 2 ?
           <div id="messages">
             <h2>{loginErrorMessage}!</h2>
-            <button value="signin" onClick={(event) => setCurrentForm(event.target.value)}>
+            <button value="signin" onClick={(event) => setRightColumnType(event.target.value)}>
               {loginErrorMessage.split(" ")[0] === "Wrong"
                 ? <p style={{ color: "red" }} >MODIFY EMAIL AND/OR PASSWORD!</p>
-                : <p style={{ color: "red"}} >PLEASE ENTER IN A REGISTER!</p>
+                : <p style={{ color: "red" }} >PLEASE ENTER IN A REGISTER!</p>
               }
             </button>
           </div>

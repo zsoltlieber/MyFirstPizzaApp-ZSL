@@ -1,6 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { MainContext } from "../../mainContext.js";
+import { Context } from "./../../context.js"
 
-const OrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList, pizzaTypesDataSet, showPreOrderListSet }) => {
+const OrdersList = () => {
+
+  const { actualClientData, allPizzaTypes } = useContext(MainContext);
+  const { listOfOrders, setListOfOrders, showPreOrderList } = useContext(Context);
 
   const ordersUrl = `/api/orders`
   let grandTotalCost = 0;
@@ -9,7 +14,7 @@ const OrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList, pizza
   const orderFetch = async (url) => {
     const response = await fetch(`${url}?isActive=true`);
     const data = await response.json();
-    if (data) setOrdersList(data);
+    if (data) setListOfOrders(data);
   };
 
   useEffect(() => {
@@ -18,11 +23,11 @@ const OrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList, pizza
 
   const deleteOrderRow = (orderId, orderItemId) => {
 
-    console.log(listOfOrdersSet);
+    console.log(listOfOrders);
     console.log(orderId)
     console.log(orderItemId)
-    let originalOrders = listOfOrdersSet.filter(orderItemId => orderItemId._id !== orderId)
-    const modifyOrder = listOfOrdersSet.filter(orderItemId => orderItemId._id === orderId)
+    let originalOrders = listOfOrders.filter(orderItemId => orderItemId._id !== orderId)
+    const modifyOrder = listOfOrders.filter(orderItemId => orderItemId._id === orderId)
     const modifyOrderItems = modifyOrder[0].orderedItems.filter(orderItemId => orderItemId._id !== orderItemId)
     console.log(modifyOrderItems);
     modifyOrder.orderedItems = modifyOrderItems;
@@ -37,12 +42,15 @@ const OrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList, pizza
 
   return (
     <div>
-      {listOfOrdersSet && listOfOrdersSet.length > 0 && actualClientDataSet.clientName !== "" && !showPreOrderListSet
+      {listOfOrders && listOfOrders.length > 0 && actualClientData.clientName !== "" && !showPreOrderList
         ?
         < div id="order-list" >
           <div >
             <h2 style={{ textDecoration: "underline" }}>Current active orders list</h2>
-            <p style={{ backgroundColor: "blue", width: "fit-content" }}>{actualClientDataSet.clientId === listOfOrdersSet.orderClientId ? actualClientDataSet.clientName.toUpperCase() : actualClientDataSet.clientName}</p>
+            <p style={{ backgroundColor: "blue", width: "fit-content" }}>
+              {actualClientData.clientId === listOfOrders.orderClientId
+                ? actualClientData.clientName.toUpperCase()
+                : actualClientData.clientName}</p>
 
             <table id="order-list-table" style={{ listStyleType: "none", fontSize: "15px" }}>
               <thead>
@@ -53,7 +61,7 @@ const OrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList, pizza
                   <th></th>
                 </tr>
               </thead>
-              {listOfOrdersSet.map((order, index1) => {
+              {listOfOrders.map((order, index1) => {
                 return (
                   <tbody key={index1}>
                     <tr >
@@ -61,7 +69,7 @@ const OrdersList = ({ actualClientDataSet, listOfOrdersSet, setOrdersList, pizza
                     </tr>
                     {
                       order.orderedItems.map((orderItem, index) => {
-                        actualPizzaName = pizzaTypesDataSet.find(pizza => pizza._id === orderItem.pizzaId)
+                        actualPizzaName = allPizzaTypes.find(pizza => pizza._id === orderItem.pizzaId)
                         if (actualPizzaName !== undefined) actualPizzaName = actualPizzaName.pizzaName;
 
                         grandTotalCost = grandTotalCost + orderItem.quantity * orderItem.pricePerEach;

@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { Context } from "../../context.js";
 
-export function RegistrationForm({ currentFormSet, setCurrentForm }) {
+export function RegistrationForm() {
+
+    const { rightColumnType, setRightColumnType } = useContext(Context);
+
     const registerUrl = '/api/clients/register'
  
     const [clientData, setClientData] = useState({});
@@ -21,8 +25,8 @@ export function RegistrationForm({ currentFormSet, setCurrentForm }) {
             setClientData(data);
             setShowGreetBox(true);
             setTimeout(() => {
-                if (currentFormSet === "signin") {
-                    setCurrentForm("login");
+                if (rightColumnType === "signin") {
+                    setRightColumnType("login");
                 }
             }, 3000);
         };

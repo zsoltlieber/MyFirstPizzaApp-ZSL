@@ -1,7 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { MainContext } from "../../mainContext.js";
+import { Context } from './../../context.js'
 
-export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActualPizzaIdEmpty, allPizzaTypesData,
-    setListOfOrdersData, showPreOrderListSet, setShowPreOrderListData }) {
+export function OrderForm() {
+
+    const { actualClientData, pizzaIdToOrder, setPizzaIdToOrder, allPizzaTypes } = useContext(MainContext);
+    const { setListOfOrders, setShowPreOrderList } = useContext(Context);
 
     const ordersUrl = `/api/orders`
     const [value, setValue] = useState(1);
@@ -10,9 +14,10 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
     const [showTopMessageBox, setShowTopMessageBox] = useState(true)
     const [showThanksMessageBox, setShowThanksMessageBox] = useState(false)
 
+    console.log(actualClientData);
 
     if (actualOrderItems === null) {
-        actualOrderedPizzaIdSet(undefined)
+        pizzaIdToOrder(undefined)
     }
 
     let totalCost = 0;
@@ -30,10 +35,10 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                 };
                 const response = await fetch(ordersUrl, requestOptions);
                 const data = await response.json();
-                setListOfOrdersData(data);
+                setListOfOrders(data);
 
                 setShowTopMessageBox(false);
-                setShowPreOrderListData(false);
+                setShowPreOrderList(false);
                 setShowThanksMessageBox(true);
                 setActualOrderItems([]);
 
@@ -46,7 +51,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
         }
     }
     const addActualOrderdItemToList = () => {
-        setShowPreOrderListData(true)
+        setShowPreOrderList(true)
         const orderLine = {
             "pizzaId": actualPizzaData._id,
             "pizzaName": actualPizzaData.pizzaName,
@@ -60,17 +65,17 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
             const amendedActualOrderList = [...actualOrderItems.orderedItems, orderLine]
             setActualOrderItems({ orderedItems: amendedActualOrderList });
         }
-        setActualPizzaIdEmpty("")
+        setPizzaIdToOrder("")
         setActualPizzaData(undefined)
         setValue(1)
     }
 
     useEffect(() => {
-        if (actualOrderedPizzaIdSet !== undefined) {
-            const actualPizza = allPizzaTypesData.filter(pizza => pizza._id === actualOrderedPizzaIdSet);
+        if (pizzaIdToOrder !== undefined) {
+            const actualPizza = allPizzaTypes.filter(pizza => pizza._id === pizzaIdToOrder);
             setActualPizzaData(actualPizza[0]);
         }
-    }, [actualOrderedPizzaIdSet]);
+    }, [pizzaIdToOrder]);
 
     const deleteOrderRow = (orderId) => {
         totalCost = actualOrderItems.orderedItems.reduce((accu, items) => accu + (items.pricePerEach * items.quantity), 0)
@@ -83,7 +88,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
             {actualClientData.clientName !== ""
                 ?
                 <div id="order-container">
-                    {actualOrderedPizzaIdSet !== ""
+                    {pizzaIdToOrder !== ""
                         ?
                         <div id="order-form">
                             <form >
@@ -150,7 +155,7 @@ export function OrderForm({ actualClientData, actualOrderedPizzaIdSet, setActual
                                                 : <></>}
                                         </div>
                                     </>
-                                    :<></>
+                                    : <></>
 
                                 }
                             </form >

@@ -1,81 +1,120 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
+import { Context } from "./../../context.js"
+import { MainContext } from "./../../mainContext.js"
 
-export const MessagesList = ({ actualClientList, messageListData, setMessageListData, showMessegesSet }) => {
+export const MessagesList = () => {
 
-    const messageUrl = "/api/messages"
+    const { actualClientData } = useContext(MainContext);
+    const { messageList, setMessageList, updatableMessageId, setUpdatableMessageId, showMessageThanks } = useContext(Context);
+
+    let messageUrl = "/api/messages"
 
     const messagesFetch = async (url) => {
         const response = await fetch(`${url}?isActive=true`);
         const data = await response.json();
-        if (data) setMessageListData(data);
+        if (data) setMessageList(data);
     };
 
     useEffect(() => {
         messagesFetch(messageUrl);
     }, [messageUrl]);
 
-    const removeOrdeleteItem = (messageId) => {
-        const actualEndPoint = messageUrl + "/" + messageId;
+    function deleteMessageFetch(actualEndPoint, messageId) {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        async function deleteMessage() {
+            const response = await fetch(actualEndPoint, requestOptions);
+            if (response.status === 200) {
+                const newMessageList = messageList.filter(message => message._id !== messageId);
+                setMessageList(newMessageList)
+                console.log('Delete successful');
+            } else {
+                console.log("Problem with message delete!")
+            }
+        }
+        deleteMessage();
+    };
+
+    function removeMessageFetch(actualEndPoint, messageId) {
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ isActive: false })
         };
-        if (actualClientList !== undefined && actualClientList.clientName !== "") {
-            if (actualClientList.bossStatus !== true) {
-                async function removeMessage() {
-                    const response = await fetch(actualEndPoint, requestOptions);
-                    if (response.status === 200) {
-                        console.log('Remove successful');
-                    } else {
-                        console.log("Do not want to modify other's messages!")
-                    }
-                }
-                removeMessage();
+        async function removeMessage() {
+            const response = await fetch(actualEndPoint, requestOptions);
+            if (response.status === 200) {
+                const newMessageList = messageList.filter(message => message._id !== messageId);
+                setMessageList(newMessageList)
+                console.log('Remove successful');
             } else {
-                async function deleteMessage() {
-                    await fetch(actualEndPoint, { method: 'DELETE' });
-                    console.log('Delete successful');
-                }
-                deleteMessage();
+                console.log("Do not want to modify other's messages!")
             }
         }
-    }
+        removeMessage();
+    };
+
+    const deleteOrderRow = (messageId) => {
+        const actualEndPoint = messageUrl + "/" + messageId;
+
+        if (actualClientData.bossStatus === true) {
+            deleteMessageFetch(actualEndPoint, messageId);
+        }
+        else if (actualClientData !== undefined && actualClientData.clientName !== "") {
+            removeMessageFetch(actualEndPoint, messageId);
+        }
+    };
+
     const updateItem = (messageId) => {
-        console.log("coming soon this update functionality ")
-    }
+        const actualMessage = messageList.find(message => message._id === messageId);
+        console.log(actualMessage);
+        if (actualMessage.clientId === actualClientData.clientId) {
+            setUpdatableMessageId(messageId);
+        } else {
+            setUpdatableMessageId("");
+        }
+    };
 
     return (
         <>
-            {messageListData && messageListData !== null && messageListData !== undefined && !showMessegesSet
+            {messageList && messageList !== null && !updatableMessageId && messageList.length > 0 && !showMessageThanks
                 ?
                 < div id='message-list' >
                     <p style={{ textAlign: "center", fontSize: "20px", margin: "0" }} >MESSAGE LIST</p>
-                    {messageListData.map((item, index) => {
-                        return (
-                            <div key={index}>
-                                <span className='message-item'>
-                                    <div>
-                                        <p style={{ marginBottom: "1px", textDecoration: "underline" }}>{item.clientName} :</p>
-                                        {actualClientList !== undefined && actualClientList.staffStatus === true
+
+                    <table id="message-list-table" style={{ listStyleType: "none", fontSize: "15px" }}>
+                        <thead>
+                            <tr>
+                                <th>Client name</th>
+                                <th>Message</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        {messageList.map((message, index) => {
+                            return (
+                                <tbody key={index}>
+                                    <tr style={{ alignItems: "center", textAlign: "center" }}>
+                                        <td><p>{message.clientName}</p></td>
+                                        <td><p style={{ marginTop: "0px", maxWidth: "95%" }}>{message.message}</p></td>
+                                        {actualClientData !== undefined && actualClientData.clientName !== ""
                                             ?
-                                            <div>
-                                                <button id="delete-btn" type='delete' value={item._id} onClick={(e) => removeOrdeleteItem(e.target.value)}>DELETE</button>
-                                                <button id="update-btn" type='update' value={item._id} onClick={(e) => updateItem(e.target.value)}>UPDATE</button>
-                                            </div>
-                                            :
-                                            <></>
-                                        }
-                                        <p style={{ marginTop: "0px" }}>{item.message}</p>
-                                    </div>
-                                </span>
-                            </div>
-                        )
-                    })}
+                                            <td >
+                                                <button type="button" id="delete-btn" value={message._id} onClick={(e) => deleteOrderRow(e.target.value)}>DEL </button>
+                                                <button type='button' id="update-btn" value={message._id} onClick={(e) => updateItem(e.target.value)}>UPD</button>
+                                            </td>
+                                            : <></>}
+                                    </tr>
+                                </tbody>
+                            )
+                        })}
+                    </table >
                 </div>
                 : <></>}
         </ >
     )
 }
+
 
 export default MessagesList

@@ -312,6 +312,15 @@ td {
   color: white;
   border-radius: 2%;
   width: 100%;
+  max-width: fit-content;
+}
+#update-btn {
+  padding: 2%;
+  background-color: lightblue;
+  color: white;
+  border-radius: 2%;
+  width: 100%;
+  max-width: fit-content;
 }
 
 #order-sender-btn {
