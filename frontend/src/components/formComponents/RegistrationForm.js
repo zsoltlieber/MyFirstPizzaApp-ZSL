@@ -3,10 +3,10 @@ import { Context } from "../../context.js";
 
 export function RegistrationForm() {
 
-    const { rightColumnType, setRightColumnType } = useContext(Context);
+    const { setRightColumnType } = useContext(Context);
 
     const registerUrl = '/api/clients/register'
- 
+
     const [clientData, setClientData] = useState({});
     const [showGreetBox, setShowGreetBox] = useState(false)
 
@@ -21,13 +21,12 @@ export function RegistrationForm() {
             };
             const response = await fetch(registerUrl, requestOptions);
             const data = await response.json();
-            
+
             setClientData(data);
             setShowGreetBox(true);
             setTimeout(() => {
-                if (rightColumnType === "signin") {
-                    setRightColumnType("login");
-                }
+                setRightColumnType("login");
+                setShowGreetBox(false);
             }, 3000);
         };
 
@@ -37,8 +36,8 @@ export function RegistrationForm() {
 
     return (
         <>
-            <div id="registration-form">
-                {!showGreetBox ?
+            {!showGreetBox ?
+                <div id="registration-form">
                     <form onSubmit={handleSubmit}>
                         <h3>REGISTRATION FORM</h3>
                         <div>
@@ -77,15 +76,15 @@ export function RegistrationForm() {
                             <button style={{ marginTop: "15px" }} type="submit" className="btn">Login</button>
                         </div>
                     </form>
-                    :
-                    <div id="greeting">
-                        <div>
-                            <h4>DEAR <br />{clientData.clientName} we are very happy to see you!!</h4>
-                            <h4>ORDER AND TASTE OUR PIZZAS :) !!</h4>
-                        </div>
+                </div>
+                :
+                <div id="message-form">
+                    <div>
+                        <h4>DEAR <br />{clientData.clientName} we are very happy to see you!!</h4>
+                        <h4>ORDER AND TASTE OUR PIZZAS :) !!</h4>
                     </div>
-                }
-            </div>
+                </div>
+            }
         </>
     )
 }

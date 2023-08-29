@@ -5,13 +5,13 @@ import { MainContext } from "./../../mainContext.js"
 export const MessageForm = () => {
     const { actualClientData } = useContext(MainContext);
     const { messageList, updatableMessageId, setUpdatableMessageId, showMessageThanks,
-        setShowMessageThanks, newMessage, setNewMessage } = useContext(Context);
+        setShowMessageThanks, newOrModifiedMessage, setNewOrModifiedMessage } = useContext(Context);
 
     const messageUrl = "/api/messages"
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const actualMessage = { message: newMessage, clientName: actualClientData.clientName }
+        const actualMessage = { message: newOrModifiedMessage, clientName: actualClientData.clientName }
         if (updatableMessageId === "") {
             const loginToServer = async () => {
                 const requestOptions = {
@@ -30,7 +30,7 @@ export const MessageForm = () => {
                         setShowMessageThanks(false);
                     }, 2000);
                 }
-                setNewMessage("");
+                setNewOrModifiedMessage("");
                 setUpdatableMessageId("");
             }
             loginToServer()
@@ -55,7 +55,7 @@ export const MessageForm = () => {
                         setShowMessageThanks(false);
                     }, 5000);
                 }
-                setNewMessage("");
+                setNewOrModifiedMessage("");
                 setUpdatableMessageId("");
             }
             updateOnServer()
@@ -65,7 +65,7 @@ export const MessageForm = () => {
         if (updatableMessageId !== "" && messageList !== undefined) {
             const actualMessage = messageList.find(message =>
                 message._id === updatableMessageId).message;
-            setNewMessage(actualMessage)
+            setNewOrModifiedMessage(actualMessage)
         }
     }, []);
 
@@ -85,8 +85,8 @@ export const MessageForm = () => {
                         <div>
 
                             <input type="message" id="message" placeholder="message"
-                                name="inputbox" value={newMessage} required
-                                onChange={(e) => setNewMessage(e.target.value)} />
+                                name="inputbox" value={newOrModifiedMessage} required
+                                onChange={(e) => setNewOrModifiedMessage(e.target.value)} />
                         </div>
                         <div>
                             <button type="submit" id="submit-btn" className="btn" >

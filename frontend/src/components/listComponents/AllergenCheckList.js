@@ -1,7 +1,7 @@
 import { useEffect, useContext } from 'react';
-import { MainContext } from './../../mainContext.js'
+import { MainContext } from '../../mainContext.js'
 
-export const AllergensList = () => {
+export const AllergenCheckList = () => {
 
   const { allAllergens, setAllAllergens, setRejectedAllergens } = useContext(MainContext);
 
@@ -25,7 +25,7 @@ export const AllergensList = () => {
   }, []);
 
   return (
-    <div className='left-column' style={{ fontSize: "80%" }} >ALLERGENS
+    <div className='left-column' >ALLERGENS
       {allAllergens
         ? allAllergens.map((allergen, index) => {
           return (
@@ -42,4 +42,4 @@ export const AllergensList = () => {
   )
 }
 
-export default AllergensList
+export default AllergenCheckList

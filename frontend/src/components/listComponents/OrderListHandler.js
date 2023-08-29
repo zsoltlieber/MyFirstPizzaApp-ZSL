@@ -1,8 +1,8 @@
 import { useEffect, useContext } from "react";
 import { MainContext } from "../../mainContext.js";
-import { Context } from "./../../context.js"
+import { Context } from "../../context.js"
 
-const OrdersList = () => {
+const OrderListHandler = () => {
 
   const { actualClientData, allPizzaTypes, pizzaIdToOrder } = useContext(MainContext);
   const { listOfOrders, setListOfOrders, showPreOrderList } = useContext(Context);
@@ -116,4 +116,4 @@ const OrdersList = () => {
   )
 }
 
-export default OrdersList
+export default OrderListHandler

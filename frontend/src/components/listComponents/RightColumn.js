@@ -2,9 +2,9 @@ import { useState, useContext } from "react";
 import LoginForm from "../formComponents/LoginForm.js";
 import RegistrationForm from "../formComponents/RegistrationForm.js";
 import OrderForm from "../formComponents/OrderForm.js";
-import OrderList from "./OrderList.js";
+import OrderListHandler from "./OrderListHandler.js";
 import MessageForm from "../formComponents/MessageForm.js";
-import MessagesList from "./MessagesList.js";
+import MessageListHandler from "./MessageListHandler.js";
 import AboutUs from "./AboutUs.js";
 import BossPage from "./BossPage.js";
 import StaffPage from "./StaffPage.js";
@@ -21,7 +21,7 @@ const RightColumn = ({ setSearchFieldChange }) => {
 
   const {
     actualClientData, setActualClientData, allClientData, setAllClientData,
-    allergens, setAllergens, rejectedAllergens, setRejectedAllergens,
+    allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
     allPizzaTypes, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
     rightColumnType, setRightColumnType
   } = useContext(MainContext);
@@ -32,21 +32,22 @@ const RightColumn = ({ setSearchFieldChange }) => {
   const [updatableAllegenId, setUpdatableAllergenId] = useState("");
   const [newOrModifiedPizzaType, setNewOrModifiedPizzaType] = useState([]);//for new and updatable pizzaType
   const [updatablePizzaTypeId, setUpdatablePizzaTypeId] = useState("");
+  const [actualOrderItems, setActualOrderItems] = useState([]);
   const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
   const [showPreOrderList, setShowPreOrderList] = useState(false) // show or not show total pre-list of orders
-  const [actualOrderItems, setActualOrderItems] = useState([]);
-  const [showOrderThanks, setShowOrderThanks] = useState(false)
   const [messageList, setMessageList] = useState([]);
   const [newOrModifiedMessage, setNewOrModifiedMessage] = useState('');
-  const [showTopMessageBox, setShowTopMessageBox] = useState(true);
-  const [showMessageThanks, setShowMessageThanks] = useState(false);
   const [updatableMessageId, setUpdatableMessageId] = useState("");
+  const [showOrderThanks, setShowOrderThanks] = useState(false)
+  const [showMessageThanks, setShowMessageThanks] = useState(false);
+  const [showTopMessageBox, setShowTopMessageBox] = useState(true);
 
   return (
     <MainContext.Provider value={{
       actualClientData, setActualClientData, allClientData, setAllClientData,
-      allergens, setAllergens, rejectedAllergens, setRejectedAllergens, allPizzaTypes, setAllPizzaTypes,
-      pizzaIdToOrder, setPizzaIdToOrder, rightColumnType, setRightColumnType
+      allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
+      allPizzaTypes, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
+      rightColumnType, setRightColumnType
     }}>
       <Context.Provider value={{
         newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
@@ -69,13 +70,13 @@ const RightColumn = ({ setSearchFieldChange }) => {
           {rightColumnType === "message" ?
             <>
               <MessageForm />
-              <MessagesList />
+              <MessageListHandler />
             </>
             : <></>}
           {rightColumnType === "order-form" ?
             <>
               <OrderForm />
-              <OrderList />
+              <OrderListHandler />
             </>
             : <></>}
           {rightColumnType === "staff" ?
@@ -90,7 +91,7 @@ const RightColumn = ({ setSearchFieldChange }) => {
               <ClientListHandler />
             </>
             : <></>}
-          {rightColumnType === "allergens-handler" ?
+          {rightColumnType === "allergen-handler" ?
             <>
               <AllergenForm />
               <AllergenListHandler />

@@ -41,7 +41,7 @@ body {
   height: 9%;
   background-color: red;
   color: white;
-  font-size: 12px;
+  font-size: 120%;
 }
 
 .left-column {
@@ -51,11 +51,11 @@ body {
   top: 11%;
   left: 0%;
   width: 10%;
-  height: 77%;
-  border: 2px solid red;
+  height: 73%;
   padding: 2% 2% 2% 2%;
   text-align: center;
   align-items: center;
+  font-size: 120%;
   overflow: auto;
 }
 
@@ -222,7 +222,7 @@ input {
   padding: 10px;
   margin-top: 2%;
 }
-.handler-btn{
+.handler-btn {
   margin: 15px;
 }
 
@@ -257,9 +257,12 @@ input {
 }
 
 #allergen-list {
+  position: absolute;
+  top: 0;
+  left: -110%;
   margin-left: 20%;
-  max-width: fit-content;
-  max-height: 60%;
+  max-width: 50%;
+  max-height: 80%;
   padding: 20px;
   text-align: left;
   align-items: center;
@@ -270,6 +273,7 @@ input {
   margin-top: 5px;
   overflow: auto;
 }
+
 #pizza-type-list,
 #client-list {
   position: absolute;
@@ -288,7 +292,7 @@ input {
   overflow: auto;
 }
 
-#messages{
+#messages {
   background: rgba(157, 27, 16, 0.7);
   color: white;
   width: 80%;
@@ -491,7 +495,7 @@ td {
   }
 
   div.footer {
-    font-size: 10%;
+    font-size: 50%;
   }
 
   /* TODO 

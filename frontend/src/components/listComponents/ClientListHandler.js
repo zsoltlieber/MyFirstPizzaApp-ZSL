@@ -4,8 +4,8 @@ import { MainContext } from "./../../mainContext.js"
 
 function ClientListHandler() {
 
-  const { actualClientData, setActualClientData, allClientData, setAllClientData } = useContext(MainContext);
-  const {  setUpdatableClientId } = useContext(Context);
+  const { actualClientData, allClientData, setAllClientData } = useContext(MainContext);
+  const { setUpdatableClientId, setNewOrModifiedClient } = useContext(Context);
 
   const clientUrl = "/api/clients"
 
@@ -17,9 +17,10 @@ function ClientListHandler() {
 
   useEffect(() => {
     clientFetch(clientUrl);
-  }, []);
+  }, [setUpdatableClientId]);
 
-  function deleteClientFetch(actualEndPoint, clientId) {
+  function deleteClientFetch(actualEndPoint, newClientList) {
+
     const requestOptions = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
@@ -27,17 +28,18 @@ function ClientListHandler() {
     async function deleteClient() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
-        const newClientList = actualClientData.filter(client => client._id !== clientId);
-        setActualClientData(newClientList)
+        setAllClientData(newClientList)
         console.log('Delete successful');
       } else {
         console.log("Problem with client delete!")
       }
     }
     deleteClient();
+
   };
 
-  function removeClientFetch(actualEndPoint, clientId) {
+  function removeClientFetch(actualEndPoint, newClientList) {
+
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -46,8 +48,9 @@ function ClientListHandler() {
     async function removeClient() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
-        const newClientList = allClientData.filter(client => client._id !== clientId);
-        setActualClientData(newClientList)
+        setAllClientData(newClientList)
+        setUpdatableClientId("");
+        setNewOrModifiedClient(null);
         console.log('Remove successful');
       } else {
         console.log("Do not want to modify other's messages!")
@@ -58,24 +61,25 @@ function ClientListHandler() {
 
   const deleteClientRow = (clientId) => {
     const actualEndPoint = clientUrl + "/" + clientId;
+    const newClientList = allClientData.filter(client => client._id !== clientId);
 
-    if (actualClientData.bossStatus === true) {
-      deleteClientFetch(actualEndPoint, clientId);
+    if (actualClientData.bossStatus === true && allClientData.length > 2) {
+      deleteClientFetch(actualEndPoint, newClientList);
     }
-    else if (actualClientData !== undefined && actualClientData.clientName !== "") {
-      removeClientFetch(actualEndPoint, clientId);
+    else if (actualClientData.bossStatus !== true && allClientData.length > 2) {
+      removeClientFetch(actualEndPoint, newClientList);
     }
   };
 
   const updateItem = (clientId) => {
     setUpdatableClientId(clientId);
     const actualClient = allClientData.find(client => client._id === clientId);
-    setActualClientData(actualClient)
+    setNewOrModifiedClient(actualClient)
   };
-  console.log(allClientData);
+
   return (
     <>
-      {allClientData && allClientData !== null &&  allClientData.length > 0
+      {allClientData && allClientData !== null && allClientData.length > 0
         ?
         < div id='client-list' >
           <p style={{ textAlign: "center", fontSize: "20px", margin: "0" }} >CLIENT LIST</p>
@@ -87,7 +91,7 @@ function ClientListHandler() {
                 <th>Email</th>
                 <th>Phone number</th>
                 <th>Address</th>
-                <th>Actív-e</th>
+                <th>Actív?</th>
                 <th>Staff?</th>
                 <th>Boss?</th>
                 <th></th>
@@ -101,12 +105,10 @@ function ClientListHandler() {
                     <td><p>{client.clientName}</p></td>
                     <td><p>{client.email}</p></td>
                     <td><p>{client.phoneNumber}</p></td>
-                    <td><p>{client.isActive}</p></td>
-                    <td><p>{client.isAdmin}</p></td>
-                    <td><p>{client.isMainAdmin}</p></td>
-
-                    {/*                     
-                    <td><p>{client.address}</p></td> */}
+                    <td><p>{client.address[0].city}</p></td>
+                    <td><p style={{ textAlign: "center" }}>{client.isActive ? "X" : "-"}</p></td>
+                    <td><p style={{ textAlign: "center" }}>{client.isAdmin ? "X" : "-"}</p></td>
+                    <td><p style={{ textAlign: "center" }}>{client.isMainAdmin ? "X" : "-"}</p></td>
 
                     <td >
                       <button type="button" id="delete-btn" value={client._id} onClick={(e) => deleteClientRow(e.target.value)}>DEL </button>

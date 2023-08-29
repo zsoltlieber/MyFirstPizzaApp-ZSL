@@ -1,8 +1,8 @@
 import { useEffect, useContext } from 'react';
-import { Context } from "./../../context.js"
-import { MainContext } from "./../../mainContext.js"
+import { Context } from "../../context.js"
+import { MainContext } from "../../mainContext.js"
 
-export const MessagesList = () => {
+export const MessageListHandler = () => {
 
     const { actualClientData } = useContext(MainContext);
     const { messageList, setMessageList, setNewOrModifiedMessage,
@@ -114,4 +114,4 @@ export const MessagesList = () => {
 }
 
 
-export default MessagesList
+export default MessageListHandler

@@ -4,8 +4,8 @@ import { MainContext } from "./../../mainContext.js"
 
 function AllergenListHandler() {
 
-  const { actualClientData, allergens, setAllergens } = useContext(MainContext);
-  const { setUpdatableAllergenId, setNewAllergen } = useContext(Context);
+  const { actualClientData, allAllergens, setAllAllergens } = useContext(MainContext);
+  const { setUpdatableAllergenId, setNewOrModifiedAllergen } = useContext(Context);
 
   const allergenUrl = "/api/allergens"
 
@@ -17,8 +17,8 @@ function AllergenListHandler() {
     async function deleteAllergen() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
-        const newAllergenList = allergens.filter(allergen => allergen._id !== allergenId);
-        setAllergens(newAllergenList)
+        const newAllergenList = allAllergens.filter(allergen => allergen._id !== allergenId);
+        setAllAllergens(newAllergenList)
         console.log('Delete successful');
       } else {
         console.log("Problem with allergen delete!")
@@ -36,8 +36,8 @@ function AllergenListHandler() {
     async function removeAllergen() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
-        const newAllergenList = allergens.filter(allergen => allergen._id !== allergenId);
-        setAllergens(newAllergenList)
+        const newAllergenList = allAllergens.filter(allergen => allergen._id !== allergenId);
+        setAllAllergens(newAllergenList)
         console.log('Remove successful');
       } else {
         console.log("Do not want to modify other's allergens!")
@@ -52,21 +52,20 @@ function AllergenListHandler() {
     if (actualClientData.bossStatus === true) {
       deleteAllergenFetch(actualEndPoint, allergenId);
     }
-    else if (actualClientData !== undefined && actualClientData.clientName !== "") {
+    else {
       removeAllergenFetch(actualEndPoint, allergenId);
     }
   };
 
   const updateItem = (allergenId) => {
     setUpdatableAllergenId(allergenId);
-    const actualAllergen = allergens.find(allergen => allergen._id === allergenId);
-    setNewAllergen(actualAllergen)
+    const actualAllergen = allAllergens.find(allergen => allergen._id === allergenId);
+    setNewOrModifiedAllergen(actualAllergen)
   };
 
-  console.log(allergens);
   return (
     <>
-      {allergens && allergens !== undefined && allergens.length > 0
+      {allAllergens && allAllergens !== undefined && allAllergens.length > 0
         ?
         < div id='allergen-list' >
           <p style={{ textAlign: "center", fontSize: "20px", margin: "0" }} >ALLERGEN LIST</p>
@@ -78,7 +77,7 @@ function AllergenListHandler() {
                 <th></th>
               </tr>
             </thead>
-            {allergens.map((allergen, index) => {
+            {allAllergens.map((allergen, index) => {
               return (
                 <tbody key={index}>
                   <tr>

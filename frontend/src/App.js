@@ -1,5 +1,5 @@
 import './App.css'
-import AllergensList from './components/listComponents/AllergensList.js'
+import AllergenCheckList from './components/listComponents/AllergenCheckList.js'
 import CenterColumn from './components/listComponents/CenterColumn.js'
 import RighColumn from './components/listComponents/RightColumn.js'
 import Header from './components/listComponents/Header.js'
@@ -16,16 +16,17 @@ function App() {
     bossStatus: false
   }
 
-  const [allClientData, setAllClientData] = useState([]);
   const [actualClientData, setActualClientData] = useState(emptyClient);
-  const [rightColumnType, setRightColumnType] = useState("about");
+  const [allClientData, setAllClientData] = useState([]);
   const [allAllergens, setAllAllergens] = useState([]);
   const [rejectedAllergens, setRejectedAllergens] = useState([]);
   const [allPizzaTypes, setAllPizzaTypes] = useState([]);
   const [pizzaIdToOrder, setPizzaIdToOrder] = useState('');
-  const [searchField, setSearchField] = useState('');
+  const [rightColumnType, setRightColumnType] = useState("about");
 
   //searchfield test
+  const [searchField, setSearchField] = useState('');
+
   function setSearchChange(event) {
     setSearchField(event.target.value);
     console.log(event.target.value);
@@ -35,13 +36,14 @@ function App() {
   return (
     <div className="main-container">
       <MainContext.Provider value={{
-        actualClientData, setActualClientData, rightColumnType, setRightColumnType,
+        actualClientData, setActualClientData, allClientData, setAllClientData,
         allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
         allPizzaTypes, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
-        allClientData, setAllClientData
+        rightColumnType, setRightColumnType,
+
       }}>
         <Header />
-        <AllergensList />
+        <AllergenCheckList />
         <CenterColumn />
         <RighColumn setSearchFieldChange={setSearchChange} />
       </MainContext.Provider>

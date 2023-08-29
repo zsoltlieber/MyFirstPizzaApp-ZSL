@@ -1,25 +1,24 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { Context } from "./../../context.js"
 
 function PizzaTypeForm() {
 
-  const { updatablePizzaTypeId, setUpdatablePizzaTypeId } = useContext(Context);
+  const { updatablePizzaTypeId, setUpdatablePizzaTypeId, newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(Context);
 
   const pizzaTypeUrl = "/api/pizzaTypes"
-  const [actualPizzaType, setActualPizzaType] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (actualPizzaType.pizzaName !== "" && actualPizzaType.ingredients !== "" &&
-      actualPizzaType.price !== "" && actualPizzaType.allergens !== "" &&
-      actualPizzaType.src !== "" && updatablePizzaTypeId === "") {
+    if (newOrModifiedPizzaType.pizzaName !== "" && newOrModifiedPizzaType.ingredients !== "" &&
+      newOrModifiedPizzaType.price !== "" && newOrModifiedPizzaType.allergens !== "" &&
+      newOrModifiedPizzaType.src !== "" && updatablePizzaTypeId === "") {
 
       const saveOnServer = async () => {
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(actualPizzaType)
+          body: JSON.stringify(newOrModifiedPizzaType)
         };
         const response = await fetch(pizzaTypeUrl, requestOptions);
         const data = await response.json();
@@ -32,10 +31,9 @@ function PizzaTypeForm() {
       }
       saveOnServer()
     }
-    else if (actualPizzaType.pizzaName !== "" && actualPizzaType.ingredients !== "" &&
-      actualPizzaType.price !== "" && actualPizzaType.allergens !== "" &&
-      actualPizzaType.src !== "" && updatablePizzaTypeId !== "") {
-      
+    else if (newOrModifiedPizzaType.pizzaName !== "" && newOrModifiedPizzaType.ingredients !== "" &&
+      newOrModifiedPizzaType.price !== "" && newOrModifiedPizzaType.allergens !== "" &&
+      newOrModifiedPizzaType.src !== "" && updatablePizzaTypeId !== "") {
 
       const updateOnServer = async () => {
         const updatablePizzaTypeUrl = pizzaTypeUrl + "/" + updatablePizzaTypeId;
@@ -43,7 +41,7 @@ function PizzaTypeForm() {
         const requestOptions = {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(actualPizzaType)
+          body: JSON.stringify(newOrModifiedPizzaType)
         };
         const response = await fetch(updatablePizzaTypeUrl, requestOptions);
         const data = await response.json();
@@ -54,10 +52,15 @@ function PizzaTypeForm() {
           console.log("New pizza type was saved!")
         }
         setUpdatablePizzaTypeId("");
+        setNewOrModifiedPizzaType({ pizzaName: "" });
       }
       updateOnServer()
     }
     else console.log("Wrong data - no modification!")
+  }
+  function cancelButton() {
+    setUpdatablePizzaTypeId("");
+    setNewOrModifiedPizzaType({ pizzaName: "" })
   }
 
   return (
@@ -71,34 +74,35 @@ function PizzaTypeForm() {
       </p>
       <div>
         <div>
-          <input type="text" id="pizzaName" placeholder="pizzaName" value={actualPizzaType.pizzaName || ""} required
-            onChange={(e) => { setActualPizzaType({ ...actualPizzaType, pizzaName: e.target.value }) }} />
+          <input type="text" id="pizzaName" placeholder="pizzaName" value={newOrModifiedPizzaType.pizzaName || ""} required
+            onChange={(e) => { setNewOrModifiedPizzaType({ ...newOrModifiedPizzaType, pizzaName: e.target.value }) }} />
         </div>
         <div>
-          <input type="text" id="ingredients" placeholder="ingredients separated comma" value={actualPizzaType.ingredients || ""} required
-            onChange={(e) => { setActualPizzaType({ ...actualPizzaType, ingredients: e.target.value }) }} />
+          <input type="text" id="ingredients" placeholder="ingredients separated comma" value={newOrModifiedPizzaType.ingredients || ""} required
+            onChange={(e) => { setNewOrModifiedPizzaType({ ...newOrModifiedPizzaType, ingredients: e.target.value }) }} />
         </div>
         <div>
-          <input type="text" id="price" placeholder="price" value={actualPizzaType.price || ""} required
-            onChange={(e) => { setActualPizzaType({ ...actualPizzaType, price: [e.target.value] }) }} />
+          <input type="text" id="price" placeholder="price" value={newOrModifiedPizzaType.price || ""} required
+            onChange={(e) => { setNewOrModifiedPizzaType({ ...newOrModifiedPizzaType, price: parseInt(e.target.value) }) }} />
         </div>
         <div>
-          <input type="text" id="allergens" placeholder="allergens separated comma" value={actualPizzaType.allergens || ""} required
-            onChange={(e) => { setActualPizzaType({ ...actualPizzaType, allergens: [e.target.value] }) }} />
+          <input type="text" id="allergens" placeholder="allergens separated comma" value={newOrModifiedPizzaType.allergens || ""} required
+            onChange={(e) => { setNewOrModifiedPizzaType({ ...newOrModifiedPizzaType, allergens: [e.target.value] }) }} />
         </div>
         <div>
-          <input type="text" id="picture" placeholder="picture src" value={actualPizzaType.src || ""} required
-            onChange={(e) => { setActualPizzaType({ ...actualPizzaType, src: e.target.value }) }} />
+          <input type="text" id="picture" placeholder="picture src" value={newOrModifiedPizzaType.src || ""} required
+            onChange={(e) => { setNewOrModifiedPizzaType({ ...newOrModifiedPizzaType, src: e.target.value }) }} />
         </div>
 
         <div>
-          <button type="submit" id="submit-btn" className="btn" >
+          <button type="submit" id="submit-btn" className="btn"  >
             {updatablePizzaTypeId === ""
               ?
               "Submit"
               :
               "Update"}
           </button>
+          <button type="button" id="submit-btn" className="btn" onClick={cancelButton}>Cancel</button>
         </div>
       </div>
     </form>

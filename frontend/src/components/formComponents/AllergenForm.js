@@ -1,23 +1,22 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { Context } from "./../../context.js"
 
 function AllergenForm() {
 
-  const { updatableAllergenId, setUpdatableAllergenId } = useContext(Context);
+  const { updatableAllergenId, setUpdatableAllergenId, newOrModifedAllergen, setNewOrModifiedAllergen } = useContext(Context);
 
   const allergensUrl = "/api/allergens"
-  const [actualAllergen, setActualAllergen] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (actualAllergen.allergenName !== ""  && updatableAllergenId === "") {
+    if (newOrModifedAllergen.allergenName !== "" && updatableAllergenId === "") {
 
       const saveOnServer = async () => {
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(actualAllergen)
+          body: JSON.stringify(newOrModifedAllergen)
         };
         const response = await fetch(allergensUrl, requestOptions);
         const data = await response.json();
@@ -30,16 +29,16 @@ function AllergenForm() {
       }
       saveOnServer()
     }
-    else if (actualAllergen.allergenName !== ""  && updatableAllergenId !== "") {
+    else if (newOrModifedAllergen.allergenName !== "" && updatableAllergenId !== "") {
 
 
       const updateOnServer = async () => {
         const updatableAllergenUrl = allergensUrl + "/" + updatableAllergenId;
-
+        console.log(updatableAllergenUrl);
         const requestOptions = {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(actualAllergen)
+          body: JSON.stringify(newOrModifedAllergen)
         };
         const response = await fetch(updatableAllergenUrl, requestOptions);
         const data = await response.json();
@@ -47,19 +46,24 @@ function AllergenForm() {
           console.log(data)
         }
         else {
-          console.log("New allergen type was saved!")
+          console.log("Modified allergen was saved!")
         }
         setUpdatableAllergenId("");
+        setNewOrModifiedAllergen({ allergenName: "" });
       }
       updateOnServer()
     }
     else console.log("Wrong data - no modification!")
   }
-
+  function cancelButton() {
+    setUpdatableAllergenId("");
+    setNewOrModifiedAllergen({ allergenName: "" })
+  }
+console.log(newOrModifedAllergen)
   return (
     <form id="allergen-form" onSubmit={handleSubmit}>
       <p style={{ fontSize: "20px", margin: "0" }} >
-        {updatableAllergenId === ""
+        {updatableAllergenId === "" || updatableAllergenId === undefined
           ?
           "ALLERGEN FORM"
           :
@@ -67,17 +71,18 @@ function AllergenForm() {
       </p>
       <div>
         <div>
-          <input type="text" id="allergenName" placeholder="allergenName" value={actualAllergen.allergenName || ""} required
-            onChange={(e) => { setActualAllergen({ ...actualAllergen, allergenName: e.target.value }) }} />
+          <input type="text" id="allergenName" placeholder="allergenName" value={newOrModifedAllergen.allergenName || ""} required
+            onChange={(e) => { setNewOrModifiedAllergen({ ...newOrModifedAllergen, allergenName: e.target.value }) }} />
         </div>
         <div>
           <button type="submit" id="submit-btn" className="btn" >
-            {updatableAllergenId === ""
+            {updatableAllergenId === "" || updatableAllergenId === undefined
               ?
               "Submit"
               :
               "Update"}
           </button>
+          <button type="button" id="submit-btn" className="btn" onClick={cancelButton}>Cancel</button>
         </div>
       </div>
     </form>

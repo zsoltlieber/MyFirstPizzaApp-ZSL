@@ -5,7 +5,7 @@ import { MainContext } from "./../../mainContext.js"
 function PizzaTypeListHandler() {
 
   const { actualClientData, allPizzaTypes, setAllPizzaTypes } = useContext(MainContext);
-  const { setUpdatablePizzaTypeId, setNewPizzaType } = useContext(Context);
+  const { setUpdatablePizzaTypeId, setNewOrModifiedPizzaType } = useContext(Context);
 
   const pizzaTypeUrl = "/api/pizzaTypes"
 
@@ -38,6 +38,8 @@ function PizzaTypeListHandler() {
       if (response.status === 200) {
         const newPizzaTypeList = allPizzaTypes.filter(pizzaType => pizzaType._id !== pizzaTypeId);
         setAllPizzaTypes(newPizzaTypeList)
+        setUpdatablePizzaTypeId("");
+        setNewOrModifiedPizzaType(null);
         console.log('Remove successful');
       } else {
         console.log("Do not want to modify other's messages!")
@@ -46,21 +48,21 @@ function PizzaTypeListHandler() {
     removePizzaType();
   };
 
-  const deletePizzaTypeRow = (messageId) => {
-    const actualEndPoint = pizzaTypeUrl + "/" + messageId;
+  const deletePizzaTypeRow = (pizzaTypeId) => {
+    const actualEndPoint = pizzaTypeUrl + "/" + pizzaTypeId;
 
     if (actualClientData.bossStatus === true) {
-      deletePizzaTypeFetch(actualEndPoint, messageId);
+      deletePizzaTypeFetch(actualEndPoint, pizzaTypeId);
     }
-    else if (actualClientData !== undefined && actualClientData.clientName !== "") {
-      removePizzaTypeFetch(actualEndPoint, messageId);
+    else {
+      removePizzaTypeFetch(actualEndPoint, pizzaTypeId);
     }
   };
 
-  const updateItem = (messageId) => {
-    setUpdatablePizzaTypeId(messageId);
-    const actualPizzaType = allPizzaTypes.find(message => message._id === messageId);
-    setNewPizzaType(actualPizzaType)
+  const updateItem = (pizzaTypeId) => {
+    setUpdatablePizzaTypeId(pizzaTypeId);
+    const actualPizzaType = allPizzaTypes.find(pizzaType => pizzaType._id === pizzaTypeId);
+    setNewOrModifiedPizzaType(actualPizzaType)
   };
 
 

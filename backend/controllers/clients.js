@@ -3,9 +3,19 @@ import bcrypt from 'bcryptjs';
 import createError from '../utils/error.js';
 
 export const registerClient = async (req, res, next) => {
+    const clientEmail = req.body.email;
 
     try {
-        if (req.body.clientName !== null && req.body.password !== null) {
+        getClientEmailList()
+
+        if (
+            req.body.clientName !== null &&
+            req.body.password !== null &&
+            req.body.email !== null &&
+            req.body.phoneNumber !== null &&
+            req.body.postCode !== null &&
+            req.body.city !== null &&
+            req.body.streatAndNumber !== null) {
 
             const salt = bcrypt.genSaltSync(10);
             const hashedPassword = bcrypt.hashSync(req.body.password, salt);
@@ -16,8 +26,20 @@ export const registerClient = async (req, res, next) => {
             await newClient.save();
             res.status(200).json(newClient);
             console.log(`${newClient.clientName} - ${newClient._id} - client was registered.`);
+
         } else {
             return next(createError(403, "Wrong data (client name or pasword not correct!"))
+        }
+
+        const getClientEmailList = async (req, res, next) => {
+            const clients = await Client.find()
+            checker(clients.map(client => client.email))
+        }
+        function checker(clientsEmailList) {
+            if (clientsEmailList.includes(clientEmail)) {
+                console.log("van már ilyen");
+                return next(createError(401, "There is another registered client on the given email!"))
+            }
         }
     }
 

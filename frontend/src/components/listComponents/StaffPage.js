@@ -12,7 +12,7 @@ export const StaffPage = () => {
                 <button className='handler-btn' onClick={() => setRightColumnType("client-handler")}>Client data handler</button>
             </div>
             <div>
-                <button className='handler-btn' onClick={() => setRightColumnType("allergens-handler")}>Allergens data handler</button>
+                <button className='handler-btn' onClick={() => setRightColumnType("allergen-handler")}>Allergens data handler</button>
             </div>
             <div>
                 <button className='handler-btn' onClick={() => setRightColumnType("pizza-type-handler")}>Pizza type data handler</button>
