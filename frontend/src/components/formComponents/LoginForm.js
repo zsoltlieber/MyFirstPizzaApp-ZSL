@@ -51,7 +51,7 @@ export const LoginForm = () => {
       {showBoxes === 1 ?
         <form id="login-form" onSubmit={handleSubmit}>
           <div>
-            <p style={{ fontSize: "12px" }}>IF YOU WANT TO ORDER <br /><br /> YOU MUST BE LOGED IN!</p>
+            <p>IF YOU WANT TO ORDER <br /><br /> YOU MUST BE LOGED IN!</p>
             <input type="text" id="email" placeholder="client email" value={loginData.email} required
               onChange={(e) => { setLoginData({ ...loginData, email: e.target.value }) }} />
           </div>

@@ -33,15 +33,14 @@ const OrdersList = () => {
     modifyOrder.orderedItems = modifyOrderItems;
     console.log(modifyOrder[0]);
     originalOrders.push(modifyOrder)
-    //}
-
     //setOrdersList([...originalOrders, modifyOrder])
-
   }
+/*
   console.log(listOfOrders && listOfOrders.length > 0 && !showPreOrderList);
   console.log(listOfOrders );
   console.log(listOfOrders.length > 0);
   console.log(!showPreOrderList);
+*/
   return (
     <div>
       {listOfOrders && listOfOrders.length > 0 && !showPreOrderList

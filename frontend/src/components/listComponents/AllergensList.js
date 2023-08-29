@@ -1,13 +1,11 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { MainContext } from './../../mainContext.js'
 
 export const AllergensList = () => {
 
-  const { setRejectedAllergens } = useContext(MainContext);
+  const { allergens, setAllergens, setRejectedAllergens } = useContext(MainContext);
 
   const allergensUrl = "/api/allergens"
-
-  const [allergens, setAllergens] = useState([]);
 
   const allergensFetch = async (url) => {
     const response = await fetch(url);

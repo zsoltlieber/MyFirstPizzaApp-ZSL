@@ -196,42 +196,91 @@ input {
 }
 
 #login-form,
-#boss-page,
-#staff-page,
 #registration-form,
 #message-form,
 #about-us {
   background: rgba(157, 27, 16, 0.7);
   color: white;
   width: 85%;
-  font-size: medium;
   height: 90%;
   max-height: max-content;
   border: solid 3px white;
   border-radius: 15px;
   padding: 10px;
-  margin-top: 5%;
+  margin-top: 2%;
   overflow: auto;
 }
 
 #boss-page,
-#staff-page,
+#staff-page {
+  background: rgba(157, 27, 16, 0.7);
+  color: white;
+  width: 85%;
+  max-height: max-content;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 2%;
+}
+.handler-btn{
+  margin: 15px;
+}
+
+.handler-btn :hover {
+  padding: 10px;
+  background-color: lightseagreen;
+}
+
+#login-form div {
+  margin-top: 15px;
+}
+
+#login-form p {
+  font-size: 150%;
+}
+
+#allergen-form,
+#pizza-type-form,
+#client-form {
+  background: rgba(157, 27, 16, 0.7);
+  color: white;
+  font-size: medium;
+  max-height: max-content;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 2%;
+}
+
 #about-us {
   text-align: justify;
 }
 
-#login-form div {
-  font-size: 30px;
-  margin-top: 15px;
-}
-
-#pizza-type-list {
-  margin-left: -200%;
-  width: 250%;
-  max-height: 38%;
+#allergen-list {
+  margin-left: 20%;
+  max-width: fit-content;
+  max-height: 60%;
   padding: 20px;
   text-align: left;
-  background: rgba(157, 27, 16, 0.7);
+  align-items: center;
+  background: rgba(157, 27, 16, 1.7);
+  color: white;
+  border: solid 3px white;
+  border-radius: 15px;
+  margin-top: 5px;
+  overflow: auto;
+}
+#pizza-type-list,
+#client-list {
+  position: absolute;
+  top: 0;
+  left: -240%;
+  margin-top: -20px;
+  width: 220%;
+  max-height: 90%;
+  padding: 20px;
+  text-align: left;
+  background: rgba(157, 27, 16, 1);
   color: white;
   border: solid 3px white;
   border-radius: 15px;
@@ -251,7 +300,7 @@ input {
 }
 
 #message-list {
-  width: 79%;
+  width: 80%;
   max-height: 68%;
   padding: 20px 20px;
   text-align: left;
@@ -412,10 +461,7 @@ td {
   }
 
   #login-form,
-  #boss-page,
-  #staff-page,
   #message-form,
-  #message-list,
   #registration-form,
   #order-form,
   #about-us {
@@ -427,12 +473,6 @@ td {
     height: 90%;
     max-height: min-content;
     overflow: auto;
-  }
-
-  #boss-page,
-  #staff-page {
-    border-radius: 10px;
-    font-size: 120%;
   }
 
   #message-list {

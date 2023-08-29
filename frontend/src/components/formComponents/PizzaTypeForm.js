@@ -61,7 +61,7 @@ function PizzaTypeForm() {
   }
 
   return (
-    <form id="pizzaType-form" onSubmit={handleSubmit}>
+    <form id="pizza-type-form" onSubmit={handleSubmit}>
       <p style={{ fontSize: "20px", margin: "0" }} >
         {updatablePizzaTypeId === ""
           ?

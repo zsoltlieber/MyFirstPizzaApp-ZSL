@@ -11,9 +11,7 @@ function AllergenForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (actualAllergen.pizzaName !== "" && actualAllergen.ingredients !== "" &&
-      actualAllergen.price !== "" && actualAllergen.allergens !== "" &&
-      actualAllergen.src !== "" && updatableAllergenId === "") {
+    if (actualAllergen.allergenName !== ""  && updatableAllergenId === "") {
 
       const saveOnServer = async () => {
         const requestOptions = {
@@ -27,14 +25,12 @@ function AllergenForm() {
           console.log(data)
         }
         else {
-          console.log("New pizza type was saved!")
+          console.log("New allergen was saved!")
         }
       }
       saveOnServer()
     }
-    else if (actualAllergen.pizzaName !== "" && actualAllergen.ingredients !== "" &&
-      actualAllergen.price !== "" && actualAllergen.allergens !== "" &&
-      actualAllergen.src !== "" && updatableAllergenId !== "") {
+    else if (actualAllergen.allergenName !== ""  && updatableAllergenId !== "") {
 
 
       const updateOnServer = async () => {
@@ -51,7 +47,7 @@ function AllergenForm() {
           console.log(data)
         }
         else {
-          console.log("New pizza type was saved!")
+          console.log("New allergen type was saved!")
         }
         setUpdatableAllergenId("");
       }
@@ -61,21 +57,18 @@ function AllergenForm() {
   }
 
   return (
-    <form id="pizzaType-form" onSubmit={handleSubmit}>
+    <form id="allergen-form" onSubmit={handleSubmit}>
       <p style={{ fontSize: "20px", margin: "0" }} >
         {updatableAllergenId === ""
           ?
-          "NEW PIZZA TYPE FORM"
+          "ALLERGEN FORM"
           :
-          "Update pizza type"}
+          "Update allergen"}
       </p>
       <div>
         <div>
-          <input type="text" id="allergenName" placeholder="allergenName" value={actualAllergen.pizzaName || ""} required
+          <input type="text" id="allergenName" placeholder="allergenName" value={actualAllergen.allergenName || ""} required
             onChange={(e) => { setActualAllergen({ ...actualAllergen, allergenName: e.target.value }) }} />
-        </div>
-        <div>
-          <button style={{ marginTop: "15px" }} type="submit" className="btn">Login</button>
         </div>
         <div>
           <button type="submit" id="submit-btn" className="btn" >

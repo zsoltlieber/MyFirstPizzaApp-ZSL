@@ -8,6 +8,7 @@ import MessagesList from "./MessagesList.js";
 import AboutUs from "./AboutUs.js";
 import BossPage from "./BossPage.js";
 import StaffPage from "./StaffPage.js";
+import ClientForm from "../formComponents/ClientForm.js";
 import ClientListHandler from "./ClientListHandler.js";
 import AllergenForm from "../formComponents/AllergenForm.js";
 import AllergenListHandler from "./AllergenListHandler.js";
@@ -18,40 +19,44 @@ import { Context } from "../../context.js";
 
 const RightColumn = ({ setSearchFieldChange }) => {
 
-  const { actualClientData, setActualClientData, rightColumnType, setRightColumnType, allPizzaTypes,
-    rejectedAllergens, setRejectedAllergens, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder } = useContext(MainContext);
+  const {
+    actualClientData, setActualClientData, allClientData, setAllClientData,
+    allergens, setAllergens, rejectedAllergens, setRejectedAllergens,
+    allPizzaTypes, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
+    rightColumnType, setRightColumnType
+  } = useContext(MainContext);
 
+  const [newOrModifiedClient, setNewOrModifiedClient] = useState([]); //for new and updatable client
+  const [updatableClientId, setUpdatableClientId] = useState("");
+  const [newAllergen, setNewAllergen] = useState([]);//for new and updatable allergen
+  const [updatableAllegenId, setUpdatableAllergenId] = useState("");
+  const [newPizzaType, setNewPizzaType] = useState([]);//for new and updatable pizzaType
+  const [updatablePizzaTypeId, setUpdatablePizzaTypeId] = useState("");
   const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
   const [showPreOrderList, setShowPreOrderList] = useState(false) // show or not show total pre-list of orders
-  const [showTopMessageBox, setShowTopMessageBox] = useState(true);
   const [actualOrderItems, setActualOrderItems] = useState([]);
   const [showOrderThanks, setShowOrderThanks] = useState(false)
   const [messageList, setMessageList] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [showTopMessageBox, setShowTopMessageBox] = useState(true);
   const [showMessageThanks, setShowMessageThanks] = useState(false);
   const [updatableMessageId, setUpdatableMessageId] = useState("");
-  const [updatablePizzaTypeId, setUpdatablePizzaTypeId] = useState("");
-  const [newPizzaType, setNewPizzaType] = useState([]);
-  const [updatableAllegenId, setUpdatableAllergenId] = useState("");
-  const [newAllergen, setNewAllergen] = useState([]);
-  const [updatableClientId, setUpdatableClientId] = useState("");
-  const [newClient, setNewClient] = useState([]);
 
   return (
     <MainContext.Provider value={{
-      actualClientData, setActualClientData, rightColumnType, setRightColumnType, allPizzaTypes,
-      rejectedAllergens, setRejectedAllergens, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
-      actualOrderItems, setActualOrderItems, showTopMessageBox, setShowTopMessageBox, showOrderThanks, setShowOrderThanks
+      actualClientData, setActualClientData, allClientData, setAllClientData,
+      allergens, setAllergens, rejectedAllergens, setRejectedAllergens, allPizzaTypes, setAllPizzaTypes,
+      pizzaIdToOrder, setPizzaIdToOrder, actualOrderItems, setActualOrderItems,
+      showTopMessageBox, setShowTopMessageBox, showOrderThanks, setShowOrderThanks,
+      rightColumnType, setRightColumnType,
     }}>
-
       <Context.Provider value={{
-        updatableClientId, setUpdatableClientId,
-        updatableAllegenId, setUpdatableAllergenId, updatablePizzaTypeId, setUpdatablePizzaTypeId,
-        messageList, setMessageList, updatableMessageId, setUpdatableMessageId,
-        newMessage, setNewMessage, newPizzaType, setNewPizzaType,
-        newAllergen, setNewAllergen, newClient, setNewClient,
-        showPreOrderList, setShowPreOrderList,
-        listOfOrders, setListOfOrders, showMessageThanks, setShowMessageThanks
+        newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
+        newAllergen, setNewAllergen, updatableAllegenId, setUpdatableAllergenId,
+        newPizzaType, setNewPizzaType, updatablePizzaTypeId, setUpdatablePizzaTypeId,
+        listOfOrders, setListOfOrders, showPreOrderList, setShowPreOrderList,
+        messageList, setMessageList, newMessage, setNewMessage, updatableMessageId, setUpdatableMessageId,
+        showMessageThanks, setShowMessageThanks
       }}>
         <div className='right-column'>
           {rightColumnType === "login" ?
@@ -81,17 +86,19 @@ const RightColumn = ({ setSearchFieldChange }) => {
           {rightColumnType === "boss" ?
             <BossPage />
             : <></>}
-          {rightColumnType === "client-data-handler"
-            ?
-            <ClientListHandler />
+          {rightColumnType === "client-handler" ?
+            <>
+              <ClientForm />
+              <ClientListHandler />
+            </>
             : <></>}
-          {rightColumnType === "allergens-data-handler" ?
+          {rightColumnType === "allergens-handler" ?
             <>
               <AllergenForm />
               <AllergenListHandler />
             </>
             : <></>}
-          {rightColumnType === "pizza-type-data-handler" ?
+          {rightColumnType === "pizza-type-handler" ?
             <>
               <PizzaTypeForm />
               <PizzaTypeListHandler />

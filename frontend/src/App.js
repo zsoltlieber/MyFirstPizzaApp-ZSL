@@ -16,8 +16,10 @@ function App() {
     bossStatus: false
   }
 
+  const [allClientData, setAllClientData] = useState([]);
   const [actualClientData, setActualClientData] = useState(emptyClient);
   const [rightColumnType, setRightColumnType] = useState("about");
+  const [allergens, setAllergens] = useState([]);
   const [rejectedAllergens, setRejectedAllergens] = useState([]);
   const [allPizzaTypes, setAllPizzaTypes] = useState([]);
   const [pizzaIdToOrder, setPizzaIdToOrder] = useState('');
@@ -34,8 +36,9 @@ function App() {
     <div className="main-container">
       <MainContext.Provider value={{
         actualClientData, setActualClientData, rightColumnType, setRightColumnType,
-        rejectedAllergens, setRejectedAllergens, allPizzaTypes, setAllPizzaTypes,
-        pizzaIdToOrder, setPizzaIdToOrder
+        allergens, setAllergens, rejectedAllergens, setRejectedAllergens,
+        allPizzaTypes, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
+        allClientData, setAllClientData
       }}>
         < Header />
         <AllergensList />

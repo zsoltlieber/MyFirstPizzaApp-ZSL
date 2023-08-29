@@ -53,7 +53,7 @@ export const MessageForm = () => {
                     setShowMessageThanks(true);
                     setTimeout(() => {
                         setShowMessageThanks(false);
-                    }, 2000);
+                    }, 5000);
                 }
                 setNewMessage("");
                 setUpdatableMessageId("");
@@ -104,7 +104,7 @@ export const MessageForm = () => {
             {
                 showMessageThanks ?
                     <div>
-                        <h3 id="message-form">We appreciate if you sent us about your feelings <br />in connection with our pizzas!</h3>
+                        <h1 id="message-form">We appreciate <br /> if you sent your opinion <br /> about our pizzas!</h1>
                     </div>
                     : <></>
             }
