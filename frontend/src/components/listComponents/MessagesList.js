@@ -5,7 +5,8 @@ import { MainContext } from "./../../mainContext.js"
 export const MessagesList = () => {
 
     const { actualClientData } = useContext(MainContext);
-    const { messageList, setMessageList, setNewMessage, updatableMessageId, setUpdatableMessageId, showMessageThanks } = useContext(Context);
+    const { messageList, setMessageList, setNewOrModifiedMessage,
+        updatableMessageId, setUpdatableMessageId, showMessageThanks } = useContext(Context);
 
     let messageUrl = "/api/messages"
 
@@ -70,7 +71,7 @@ export const MessagesList = () => {
     const updateItem = (messageId) => {
         setUpdatableMessageId(messageId);
         const actualMessage = messageList.find(message => message._id === messageId);
-        setNewMessage(actualMessage.message)
+        setNewOrModifiedMessage(actualMessage.message)
     };
 
     return (

@@ -28,16 +28,16 @@ const RightColumn = ({ setSearchFieldChange }) => {
 
   const [newOrModifiedClient, setNewOrModifiedClient] = useState([]); //for new and updatable client
   const [updatableClientId, setUpdatableClientId] = useState("");
-  const [newAllergen, setNewAllergen] = useState([]);//for new and updatable allergen
+  const [newOrModifedAllergen, setNewOrModifiedAllergen] = useState([]);//for new and updatable allergen
   const [updatableAllegenId, setUpdatableAllergenId] = useState("");
-  const [newPizzaType, setNewPizzaType] = useState([]);//for new and updatable pizzaType
+  const [newOrModifiedPizzaType, setNewOrModifiedPizzaType] = useState([]);//for new and updatable pizzaType
   const [updatablePizzaTypeId, setUpdatablePizzaTypeId] = useState("");
   const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
   const [showPreOrderList, setShowPreOrderList] = useState(false) // show or not show total pre-list of orders
   const [actualOrderItems, setActualOrderItems] = useState([]);
   const [showOrderThanks, setShowOrderThanks] = useState(false)
   const [messageList, setMessageList] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
+  const [newOrModifiedMessage, setNewOrModifiedMessage] = useState('');
   const [showTopMessageBox, setShowTopMessageBox] = useState(true);
   const [showMessageThanks, setShowMessageThanks] = useState(false);
   const [updatableMessageId, setUpdatableMessageId] = useState("");
@@ -46,17 +46,15 @@ const RightColumn = ({ setSearchFieldChange }) => {
     <MainContext.Provider value={{
       actualClientData, setActualClientData, allClientData, setAllClientData,
       allergens, setAllergens, rejectedAllergens, setRejectedAllergens, allPizzaTypes, setAllPizzaTypes,
-      pizzaIdToOrder, setPizzaIdToOrder, actualOrderItems, setActualOrderItems,
-      showTopMessageBox, setShowTopMessageBox, showOrderThanks, setShowOrderThanks,
-      rightColumnType, setRightColumnType,
+      pizzaIdToOrder, setPizzaIdToOrder, rightColumnType, setRightColumnType
     }}>
       <Context.Provider value={{
         newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
-        newAllergen, setNewAllergen, updatableAllegenId, setUpdatableAllergenId,
-        newPizzaType, setNewPizzaType, updatablePizzaTypeId, setUpdatablePizzaTypeId,
-        listOfOrders, setListOfOrders, showPreOrderList, setShowPreOrderList,
-        messageList, setMessageList, newMessage, setNewMessage, updatableMessageId, setUpdatableMessageId,
-        showMessageThanks, setShowMessageThanks
+        newOrModifedAllergen, setNewOrModifiedAllergen, updatableAllegenId, setUpdatableAllergenId,
+        newOrModifiedPizzaType, setNewOrModifiedPizzaType, updatablePizzaTypeId, setUpdatablePizzaTypeId,
+        actualOrderItems, setActualOrderItems, listOfOrders, setListOfOrders, showPreOrderList, setShowPreOrderList,
+        messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, updatableMessageId, setUpdatableMessageId,
+        showOrderThanks, setShowOrderThanks, showMessageThanks, setShowMessageThanks, showTopMessageBox, setShowTopMessageBox
       }}>
         <div className='right-column'>
           {rightColumnType === "login" ?

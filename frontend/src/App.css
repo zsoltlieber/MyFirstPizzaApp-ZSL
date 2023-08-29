@@ -191,7 +191,7 @@ input.allergen-checkbox {
 }
 input {
   height: 25px;
-  width: 80%;
+  width: 70%;
   margin-top: 15px;
 }
 
@@ -288,7 +288,7 @@ input {
   overflow: auto;
 }
 
-#messages {
+#messages{
   background: rgba(157, 27, 16, 0.7);
   color: white;
   width: 80%;

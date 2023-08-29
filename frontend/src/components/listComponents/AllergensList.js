@@ -3,20 +3,20 @@ import { MainContext } from './../../mainContext.js'
 
 export const AllergensList = () => {
 
-  const { allergens, setAllergens, setRejectedAllergens } = useContext(MainContext);
+  const { allAllergens, setAllAllergens, setRejectedAllergens } = useContext(MainContext);
 
   const allergensUrl = "/api/allergens"
 
   const allergensFetch = async (url) => {
     const response = await fetch(url);
     const data = await response.json();
-    if (data) setAllergens(data);
+    if (data) setAllAllergens(data);
   };
 
   function allergenStatusHandler(allergenId, checkboxStatus) {
-    const modifiedAllergen = allergens.find(allergen => allergen._id === allergenId)
+    const modifiedAllergen = allAllergens.find(allergen => allergen._id === allergenId)
     modifiedAllergen.isChecked = checkboxStatus
-    const signAllergens = allergens.filter(allergen => allergen.isChecked)
+    const signAllergens = allAllergens.filter(allergen => allergen.isChecked)
     setRejectedAllergens(signAllergens)
   }
 
@@ -26,8 +26,8 @@ export const AllergensList = () => {
 
   return (
     <div className='left-column' style={{ fontSize: "80%" }} >ALLERGENS
-      {allergens
-        ? allergens.map((allergen, index) => {
+      {allAllergens
+        ? allAllergens.map((allergen, index) => {
           return (
             <div key={index}>
               <input className="allergen-checkbox" type='checkbox'
