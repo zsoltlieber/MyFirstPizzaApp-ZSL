@@ -25,7 +25,10 @@ export const AllergenCheckList = () => {
   }, []);
 
   return (
-    <div className='left-column' >ALLERGENS
+    <div id='allergen-checker' >
+      <div>
+      <h4>CLICK YOUR ALLERGENS</h4>
+      </div>
       {allAllergens
         ? allAllergens.map((allergen, index) => {
           return (

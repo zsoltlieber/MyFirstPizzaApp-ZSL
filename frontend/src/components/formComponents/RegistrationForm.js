@@ -29,9 +29,7 @@ export function RegistrationForm() {
                 setShowGreetBox(false);
             }, 3000);
         };
-
         registerOnServer()
-
     }
 
     return (
@@ -39,7 +37,7 @@ export function RegistrationForm() {
             {!showGreetBox ?
                 <div id="registration-form">
                     <form onSubmit={handleSubmit}>
-                        <h3>REGISTRATION FORM</h3>
+                        <h2>REGISTRATION FORM</h2>
                         <div>
                             <input type="text" id="client-name" placeholder="client name" required
                                 onChange={(e) => { setClientData({ ...clientData, clientName: e.target.value }) }} />
@@ -73,7 +71,7 @@ export function RegistrationForm() {
                                 onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, otherInfo: e.target.value } }) }} />
                         </div>
                         <div>
-                            <button style={{ marginTop: "15px" }} type="submit" className="btn">Login</button>
+                            <button type="submit" className="btn">LOGIN</button>
                         </div>
                     </form>
                 </div>

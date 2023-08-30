@@ -5,11 +5,11 @@ import { MainContext } from "../../mainContext.js"
 export const MessageListHandler = () => {
 
     const { actualClientData } = useContext(MainContext);
-    const { messageList, setMessageList, setNewOrModifiedMessage,
+    const { messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
         updatableMessageId, setUpdatableMessageId, showMessageThanks } = useContext(Context);
 
     let messageUrl = "/api/messages"
-
+   
     const messagesFetch = async (url) => {
         const response = await fetch(`${url}?isActive=true`);
         const data = await response.json();
@@ -18,9 +18,10 @@ export const MessageListHandler = () => {
 
     useEffect(() => {
         messagesFetch(messageUrl);
-    }, [messageList]);
+    }, [newOrModifiedMessage]);
 
     function deleteMessageFetch(actualEndPoint, messageId) {
+
         const requestOptions = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' }
@@ -30,7 +31,7 @@ export const MessageListHandler = () => {
             if (response.status === 200) {
                 const newMessageList = messageList.filter(message => message._id !== messageId);
                 setMessageList(newMessageList)
-                console.log('Delete successful');
+                console.log('Message delete was successful');
             } else {
                 console.log("Problem with message delete!")
             }
@@ -49,7 +50,7 @@ export const MessageListHandler = () => {
             if (response.status === 200) {
                 const newMessageList = messageList.filter(message => message._id !== messageId);
                 setMessageList(newMessageList)
-                console.log('Remove successful');
+                console.log('Message remove was successful');
             } else {
                 console.log("Do not want to modify other's messages!")
             }

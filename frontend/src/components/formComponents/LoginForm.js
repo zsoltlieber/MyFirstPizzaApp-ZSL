@@ -38,10 +38,9 @@ export const LoginForm = () => {
         setShowBoxes(3);
 
         setTimeout(() => {
-          setRightColumnType("order-form")
+          setRightColumnType("about")
         }, 1000);
-
-      }
+          }
     };
     loginToServer()
   }
@@ -51,7 +50,7 @@ export const LoginForm = () => {
       {showBoxes === 1 ?
         <form id="login-form" onSubmit={handleSubmit}>
           <div>
-            <p>IF YOU WANT TO ORDER <br /><br /> YOU MUST BE LOGED IN!</p>
+            <h2>LOGIN FORM</h2>
             <input type="text" id="email" placeholder="client email" value={loginData.email} required
               onChange={(e) => { setLoginData({ ...loginData, email: e.target.value }) }} />
           </div>
@@ -60,7 +59,7 @@ export const LoginForm = () => {
               onChange={(e) => { setLoginData({ ...loginData, password: e.target.value }) }} />
           </div>
           <div>
-            <button type="submit" className="btn">Login</button>
+            <button type="submit" className="btn" id='login-btn'>LOGIN</button>
           </div>
         </form>
         : showBoxes === 2 ?

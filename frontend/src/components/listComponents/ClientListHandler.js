@@ -5,7 +5,7 @@ import { MainContext } from "./../../mainContext.js"
 function ClientListHandler() {
 
   const { actualClientData, allClientData, setAllClientData } = useContext(MainContext);
-  const { setUpdatableClientId, setNewOrModifiedClient } = useContext(Context);
+  const { updatableClientId, setUpdatableClientId, newOrModifiedClient, setNewOrModifiedClient } = useContext(Context);
 
   const clientUrl = "/api/clients"
 
@@ -17,9 +17,9 @@ function ClientListHandler() {
 
   useEffect(() => {
     clientFetch(clientUrl);
-  }, [setUpdatableClientId]);
+  }, [newOrModifiedClient]);
 
-  function deleteClientFetch(actualEndPoint, newClientList) {
+  function deleteClientFetch(actualEndPoint, clientId) {
 
     const requestOptions = {
       method: 'DELETE',
@@ -28,8 +28,9 @@ function ClientListHandler() {
     async function deleteClient() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
+        const newClientList = allClientData.filter(client => client._id !== clientId);
         setAllClientData(newClientList)
-        console.log('Delete successful');
+        console.log('Client delete was successful');
       } else {
         console.log("Problem with client delete!")
       }
@@ -38,7 +39,7 @@ function ClientListHandler() {
 
   };
 
-  function removeClientFetch(actualEndPoint, newClientList) {
+  function removeClientFetch(actualEndPoint, clientId) {
 
     const requestOptions = {
       method: 'PUT',
@@ -48,12 +49,11 @@ function ClientListHandler() {
     async function removeClient() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
+        const newClientList = allClientData.filter(client => client._id !== clientId);
         setAllClientData(newClientList)
-        setUpdatableClientId("");
-        setNewOrModifiedClient(null);
-        console.log('Remove successful');
+        console.log('Client remove was successful');
       } else {
-        console.log("Do not want to modify other's messages!")
+        console.log("Problem with client remove!")
       }
     }
     removeClient();
@@ -61,13 +61,12 @@ function ClientListHandler() {
 
   const deleteClientRow = (clientId) => {
     const actualEndPoint = clientUrl + "/" + clientId;
-    const newClientList = allClientData.filter(client => client._id !== clientId);
 
     if (actualClientData.bossStatus === true && allClientData.length > 2) {
-      deleteClientFetch(actualEndPoint, newClientList);
+      deleteClientFetch(actualEndPoint, clientId);
     }
     else if (actualClientData.bossStatus !== true && allClientData.length > 2) {
-      removeClientFetch(actualEndPoint, newClientList);
+      removeClientFetch(actualEndPoint, clientId);
     }
   };
 
@@ -104,8 +103,8 @@ function ClientListHandler() {
                   <tr>
                     <td><p>{client.clientName}</p></td>
                     <td><p>{client.email}</p></td>
-                    <td><p>{client.phoneNumber}</p></td>
-                    <td><p>{client.address[0].city}</p></td>
+                    <td><p>-</p></td>
+                    <td><p>-</p></td>
                     <td><p style={{ textAlign: "center" }}>{client.isActive ? "X" : "-"}</p></td>
                     <td><p style={{ textAlign: "center" }}>{client.isAdmin ? "X" : "-"}</p></td>
                     <td><p style={{ textAlign: "center" }}>{client.isMainAdmin ? "X" : "-"}</p></td>

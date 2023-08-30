@@ -5,7 +5,7 @@ export const AboutUs = ({ setSearchText }) => {
     return (
         <div id="about-us">
             <SearchBar setSearchTextChange={setSearchText} />  
-            <h3 style={{ textAlign: "center" }}>About us </h3>
+            <h2 style={{ textAlign: "center" }}>ABOUT US</h2>
             <h3>Family, Fresh, Fast</h3>
             <p>
                 Your top destination for great flavor and great food since 1990, MY BEST PIZZA Co. has embodied the vision

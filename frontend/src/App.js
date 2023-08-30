@@ -34,21 +34,26 @@ function App() {
   if (searchField !== undefined && searchField !== "") console.log(searchField);
 
   return (
-    <div className="main-container">
+    <>
       <MainContext.Provider value={{
         actualClientData, setActualClientData, allClientData, setAllClientData,
         allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
         allPizzaTypes, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
         rightColumnType, setRightColumnType,
-
       }}>
-        <Header />
-        <AllergenCheckList />
-        <CenterColumn />
-        <RighColumn setSearchFieldChange={setSearchChange} />
+        <div id="header-container" >
+          <Header />
+        </div>
+        <div id="main-container">
+          <AllergenCheckList />
+          <CenterColumn />
+          <RighColumn setSearchFieldChange={setSearchChange} />
+        </div>
       </MainContext.Provider>
-      <Footer />
-    </div>
+      <div id="footer-container">
+      <Footer  />
+      </div>
+    </>
   );
 }
 

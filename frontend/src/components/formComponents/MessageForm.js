@@ -4,16 +4,20 @@ import { MainContext } from "./../../mainContext.js"
 
 export const MessageForm = () => {
     const { actualClientData } = useContext(MainContext);
-    const { messageList, updatableMessageId, setUpdatableMessageId, showMessageThanks,
-        setShowMessageThanks, newOrModifiedMessage, setNewOrModifiedMessage } = useContext(Context);
+    const { messageList, newOrModifiedMessage, setNewOrModifiedMessage,
+        updatableMessageId, setUpdatableMessageId, showMessageThanks, setShowMessageThanks, } = useContext(Context);
 
     const messageUrl = "/api/messages"
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const actualMessage = { message: newOrModifiedMessage, clientName: actualClientData.clientName }
-        if (updatableMessageId === "") {
-            const loginToServer = async () => {
+        const actualMessage = {
+            clientName : actualClientData.clientName,
+            message: newOrModifiedMessage
+        }
+
+        if (newOrModifiedMessage !== "" && updatableMessageId === "") {
+            const saveOnServer = async () => {
                 const requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -25,17 +29,18 @@ export const MessageForm = () => {
                     console.log(data)
                 }
                 else {
-                    setShowMessageThanks(true);
-                    setTimeout(() => {
-                        setShowMessageThanks(false);
-                    }, 2000);
+                    if (actualClientData.isAdmin === false) {
+                        setShowMessageThanks(true);
+                        setTimeout(() => {
+                            setShowMessageThanks(false);
+                        }, 2000);
+                    }
+                    console.log("New message was saved!")
                 }
-                setNewOrModifiedMessage("");
-                setUpdatableMessageId("");
             }
-            loginToServer()
+            saveOnServer()
         }
-        else {
+        else if (newOrModifiedMessage !== "" && updatableMessageId !== "") {
             const updateOnServer = async () => {
                 const updatableMessageUrl = messageUrl + "/" + updatableMessageId;
 
@@ -50,17 +55,22 @@ export const MessageForm = () => {
                     console.log(data)
                 }
                 else {
-                    setShowMessageThanks(true);
-                    setTimeout(() => {
-                        setShowMessageThanks(false);
-                    }, 5000);
+                    if (actualClientData.isAdmin === false) {
+                        setShowMessageThanks(true);
+                        setTimeout(() => {
+                            setShowMessageThanks(false);
+                        }, 5000);
+                    }
+                    console.log("Modified message was saved!")
                 }
-                setNewOrModifiedMessage("");
-                setUpdatableMessageId("");
             }
             updateOnServer()
         }
+        else console.log("Wrong message - no modification!")
+        setNewOrModifiedMessage("");
+        setUpdatableMessageId("");
     }
+
     useEffect(() => {
         if (updatableMessageId !== "" && messageList !== undefined) {
             const actualMessage = messageList.find(message =>
@@ -68,6 +78,11 @@ export const MessageForm = () => {
             setNewOrModifiedMessage(actualMessage)
         }
     }, []);
+
+    function cancelButton() {
+        setNewOrModifiedMessage("");
+        setUpdatableMessageId("");
+    }
 
     return (
         <div >
@@ -96,9 +111,10 @@ export const MessageForm = () => {
                                     :
                                     "Update"}
                             </button>
+                            <button type="button" id="submit-btn" className="btn" onClick={cancelButton}>Cancel</button>
                         </div>
                     </form>
-                    : <h1 id="message-form" >ONLY REGISTERED CLIENT<br /> CAN SEND MESSAGE!</h1>}
+                    : <h3 id="message-form" >ONLY REGISTERED CLIENT<br /> CAN SEND MESSAGE!</h3>}
             </div>
 
             {

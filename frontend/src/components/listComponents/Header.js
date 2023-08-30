@@ -5,26 +5,33 @@ const Header = () => {
     const { actualClientData, setActualClientData, setRightColumnType } = useContext(MainContext);
 
     return (
-        <div className="navbar">
-            <a href="/" id="home" >HOME</a>
+        <>
             <div>
-                THE BEST PIZZA Co.
+                <h1> <a href="/" id="home" >HOME</a> </h1>
             </div>
+
+            <h1>THE BEST PIZZA Co.</h1>
+
             <div>
                 {actualClientData !== undefined && actualClientData.clientName !== ""
                     ?
-                    <span>HELLO {actualClientData.clientName}</span>
-                    : <></>}
+                    <h2>HELLO {actualClientData.clientName}</h2>
+                    :
+                    <h3>IF YOU WANT TO ORDER<br /> YOU MUST BE LOGED IN!</h3>}
             </div>
-            <div>
-                {actualClientData.bossStatus === true
-                    ?
-                    <button className="btn" value="boss" onClick={(e) => setRightColumnType(e.target.value)} >BOSS</button >
-                    : <></>}
-                {actualClientData.bossStatus !== true && actualClientData.staffStatus === true
-                    ?
-                    <button className="btn" value="staff" onClick={(e) => setRightColumnType(e.target.value)} >STAFF</button >
-                    : <></>}
+            <div id='header-btn-box'>
+                <div>
+
+                    {actualClientData.bossStatus === true
+                        ?
+                        <button className="btn" value="boss" onClick={(e) => setRightColumnType(e.target.value)} >BOSS</button >
+                        : <></>}
+                    {actualClientData.bossStatus !== true && actualClientData.staffStatus === true
+                        ?
+                        <button className="btn" value="staff" onClick={(e) => setRightColumnType(e.target.value)} >STAFF</button >
+                        : <></>}
+
+                </div>
                 {actualClientData.clientName === ""
                     ?
                     <>
@@ -34,7 +41,7 @@ const Header = () => {
                     : <></>}
                 {actualClientData.clientName !== ""
                     ?
-                    <button className="btn" value="order-form" onClick={(e) => setRightColumnType(e.target.value)}>ORDERING</button >
+                    <button className="btn" value="order-form" onClick={(e) => setRightColumnType(e.target.value)}>ORDER</button >
                     : <></>}
                 <button className="btn" value="message" onClick={(e) => setRightColumnType(e.target.value)}>MESSAGE</button >
                 <button className="btn" value="about" onClick={(e) => setRightColumnType(e.target.value)} >ABOUT</button >
@@ -56,7 +63,7 @@ const Header = () => {
                     }} >LOG OUT</button >
                     : <></>}
             </div>
-        </div >
+        </ >
     )
 }
 

@@ -6,7 +6,7 @@ function SearchBar({ setSearchTextChange }) {
       <input
         className='serchbar'
         type='search'
-        placeholder='search...'
+        placeholder='searchbar... - only for test -'
         onChange={setSearchTextChange}
       />
     </div>

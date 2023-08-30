@@ -39,7 +39,7 @@ function CenterColumn() {
   }
 
   return (
-    <div className='center-column'>
+    <div id='center-column'>
       {actualPizzas && actualPizzas.length > 0
         ? actualPizzas.map((pizza, index) => {
           return (
@@ -59,7 +59,7 @@ function CenterColumn() {
             </div >
           )
         })
-        : <div id="empty-pizza-list">No available pizza with the checked allergens ! </div>
+        : <div id="empty-pizza-list-message">No available pizza without the checked allergens ! </div>
       }
     </div >
   )

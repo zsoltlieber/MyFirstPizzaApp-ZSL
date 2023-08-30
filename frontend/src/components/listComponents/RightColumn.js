@@ -57,7 +57,7 @@ const RightColumn = ({ setSearchFieldChange }) => {
         messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, updatableMessageId, setUpdatableMessageId,
         showOrderThanks, setShowOrderThanks, showMessageThanks, setShowMessageThanks, showTopMessageBox, setShowTopMessageBox
       }}>
-        <div className='right-column'>
+        <div id='right-column'>
           {rightColumnType === "login" ?
             <LoginForm />
             : <></>}

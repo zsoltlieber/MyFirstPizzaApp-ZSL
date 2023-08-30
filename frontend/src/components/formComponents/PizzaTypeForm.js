@@ -3,9 +3,12 @@ import { Context } from "./../../context.js"
 
 function PizzaTypeForm() {
 
-  const { updatablePizzaTypeId, setUpdatablePizzaTypeId, newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(Context);
+  const { allPizzaTypes, setAllPizzaTypes, updatablePizzaTypeId, setUpdatablePizzaTypeId,
+    newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(Context);
 
   const pizzaTypeUrl = "/api/pizzaTypes"
+
+  if(allPizzaTypes!==undefined)console.log(allPizzaTypes);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,7 +29,9 @@ function PizzaTypeForm() {
           console.log(data)
         }
         else {
-          console.log("New pizza type was saved!")
+          setNewOrModifiedPizzaType({ pizzaName: "" })
+          setUpdatablePizzaTypeId("");
+          console.log("New pizza type was saved!");
         }
       }
       saveOnServer()
@@ -49,7 +54,7 @@ function PizzaTypeForm() {
           console.log(data)
         }
         else {
-          console.log("New pizza type was saved!")
+          console.log("Modified pizza type was updated!")
         }
         setUpdatablePizzaTypeId("");
         setNewOrModifiedPizzaType({ pizzaName: "" });
@@ -58,11 +63,12 @@ function PizzaTypeForm() {
     }
     else console.log("Wrong data - no modification!")
   }
+
   function cancelButton() {
     setUpdatablePizzaTypeId("");
     setNewOrModifiedPizzaType({ pizzaName: "" })
   }
-
+console.log(allPizzaTypes);
   return (
     <form id="pizza-type-form" onSubmit={handleSubmit}>
       <p style={{ fontSize: "20px", margin: "0" }} >

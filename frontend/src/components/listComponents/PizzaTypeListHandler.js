@@ -1,13 +1,23 @@
-import { useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { Context } from "./../../context.js"
 import { MainContext } from "./../../mainContext.js"
 
 function PizzaTypeListHandler() {
 
   const { actualClientData, allPizzaTypes, setAllPizzaTypes } = useContext(MainContext);
-  const { setUpdatablePizzaTypeId, setNewOrModifiedPizzaType } = useContext(Context);
+  const { setUpdatablePizzaTypeId, newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(Context);
 
   const pizzaTypeUrl = "/api/pizzaTypes"
+
+  const pizzaTypeFetch = async (url) => {
+    const response = await fetch(`${url}?isActive=true`);
+    const data = await response.json();
+    if (data) setAllPizzaTypes(data);
+  };
+
+  useEffect(() => {
+    pizzaTypeFetch(pizzaTypeUrl);
+  }, [newOrModifiedPizzaType]);
 
   function deletePizzaTypeFetch(actualEndPoint, pizzaTypeId) {
     const requestOptions = {
@@ -17,8 +27,8 @@ function PizzaTypeListHandler() {
     async function deletePizzaType() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
-        const newPizzaTypeList = allPizzaTypes.filter(pizzaType => pizzaType._id !== pizzaTypeId);
-        setAllPizzaTypes(newPizzaTypeList)
+        const newPizzaList = allPizzaTypes.filter(pizza => pizza._id !== pizzaTypeId);
+        setAllPizzaTypes(newPizzaList)
         console.log('Delete successful');
       } else {
         console.log("Problem with message delete!")
@@ -36,10 +46,8 @@ function PizzaTypeListHandler() {
     async function removePizzaType() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
-        const newPizzaTypeList = allPizzaTypes.filter(pizzaType => pizzaType._id !== pizzaTypeId);
-        setAllPizzaTypes(newPizzaTypeList)
-        setUpdatablePizzaTypeId("");
-        setNewOrModifiedPizzaType(null);
+        const newPizzaList = allPizzaTypes.filter(pizza => pizza._id !== pizzaTypeId);
+        setAllPizzaTypes(newPizzaList)
         console.log('Remove successful');
       } else {
         console.log("Do not want to modify other's messages!")
@@ -54,7 +62,7 @@ function PizzaTypeListHandler() {
     if (actualClientData.bossStatus === true) {
       deletePizzaTypeFetch(actualEndPoint, pizzaTypeId);
     }
-    else {
+    else if (actualClientData !== undefined && actualClientData.clientName !== "") {
       removePizzaTypeFetch(actualEndPoint, pizzaTypeId);
     }
   };
