@@ -18,6 +18,7 @@ body {
   color: white;
   display: flex;
   align-items: center;
+  text-align: center;
   justify-content: space-between;
 }
 
@@ -67,6 +68,11 @@ body {
   background-color: red;
   color: white;
   font-size: 120%;
+}
+
+#footer-container h4{
+  padding: 1%;
+  text-align: center;
 }
 
 #home {
@@ -239,25 +245,21 @@ input {
   background: rgba(157, 27, 16, 0.7);
   color: white;
   font-size: medium;
-  max-height: max-content;
+  max-height: 90%;
   border: solid 3px white;
   border-radius: 15px;
   padding: 10px;
   margin-top: 2%;
   align-items: left;
+  overflow: auto;
 }
 
 #allergen-list {
-  position: absolute;
-  top: 0;
-  left: -110%;
-  margin-left: 20%;
-  max-width: 50%;
-  max-height: 80%;
-  padding: 20px;
-  text-align: left;
-  align-items: center;
   background: rgba(157, 27, 16, 1.7);
+  width: 80%;
+  max-height: 65%;
+  padding: 10%;
+  text-align: left;
   color: white;
   border: solid 3px white;
   border-radius: 15px;
@@ -453,6 +455,9 @@ td {
     text-align: center;
   }
 
+  #message-list {
+    width: 80%;
+  }
   #message-list-table {
     font-size: small;
   }

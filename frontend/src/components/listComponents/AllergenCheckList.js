@@ -14,7 +14,7 @@ export const AllergenCheckList = () => {
   };
 
   function allergenStatusHandler(allergenId, checkboxStatus) {
-    const modifiedAllergen = allAllergens.find(allergen => allergen._id === allergenId)
+    const modifiedAllergen = allAllergens.filter(allergen => allergen._id === allergenId)
     modifiedAllergen.isChecked = checkboxStatus
     const signAllergens = allAllergens.filter(allergen => allergen.isChecked)
     setRejectedAllergens(signAllergens)

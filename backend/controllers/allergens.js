@@ -25,9 +25,9 @@ export const getAllergens = async (req, res, next) => {
     try {
         let allergens = null;
         if (req.query.isActive === 'true') {
-            allergens = await Allergen.find().filter((data) => data.isActive === true);
+            allergens = (await Allergen.find()).filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {
-            allergens = await Allergen.find().filter((data) => data.isActive === false);
+            allergens = (await Allergen.find()).filter((data) => data.isActive === false);
         } else {
             allergens = await Allergen.find();
         }

@@ -17,6 +17,7 @@ export const MessageForm = () => {
         }
 
         if (newOrModifiedMessage !== "" && updatableMessageId === "") {
+
             const saveOnServer = async () => {
                 const requestOptions = {
                     method: 'POST',
@@ -35,12 +36,15 @@ export const MessageForm = () => {
                             setShowMessageThanks(false);
                         }, 2000);
                     }
+                    setNewOrModifiedMessage("");
+                    setUpdatableMessageId("");
                     console.log("New message was saved!")
                 }
             }
             saveOnServer()
         }
         else if (newOrModifiedMessage !== "" && updatableMessageId !== "") {
+
             const updateOnServer = async () => {
                 const updatableMessageUrl = messageUrl + "/" + updatableMessageId;
 
@@ -61,14 +65,14 @@ export const MessageForm = () => {
                             setShowMessageThanks(false);
                         }, 5000);
                     }
+                    setNewOrModifiedMessage("");
+                    setUpdatableMessageId("");
                     console.log("Modified message was saved!")
                 }
             }
             updateOnServer()
         }
         else console.log("Wrong message - no modification!")
-        setNewOrModifiedMessage("");
-        setUpdatableMessageId("");
     }
 
     useEffect(() => {

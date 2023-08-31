@@ -1,15 +1,26 @@
-import { useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { Context } from "./../../context.js"
 import { MainContext } from "./../../mainContext.js"
 
 function AllergenListHandler() {
 
   const { actualClientData, allAllergens, setAllAllergens } = useContext(MainContext);
-  const { setUpdatableAllergenId, setNewOrModifiedAllergen } = useContext(Context);
+  const { setUpdatableAllergenId, newOrModifiedAllergen, setNewOrModifiedAllergen } = useContext(Context);
 
   const allergenUrl = "/api/allergens"
 
+  const allergensFetch = async (url) => {
+    const response = await fetch(`${url}?isActive=true`);
+    const data = await response.json();
+    if (data) setAllAllergens(data);
+  };
+
+  useEffect(() => {
+    allergensFetch(allergenUrl);
+  }, [newOrModifiedAllergen]);
+
   function deleteAllergenFetch(actualEndPoint, allergenId) {
+
     const requestOptions = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
@@ -28,6 +39,7 @@ function AllergenListHandler() {
   };
 
   function removeAllergenFetch(actualEndPoint, allergenId) {
+
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -52,7 +64,7 @@ function AllergenListHandler() {
     if (actualClientData.bossStatus === true) {
       deleteAllergenFetch(actualEndPoint, allergenId);
     }
-    else {
+    else if (actualClientData !== undefined && actualClientData.clientName !== "") {
       removeAllergenFetch(actualEndPoint, allergenId);
     }
   };
@@ -62,10 +74,10 @@ function AllergenListHandler() {
     const actualAllergen = allAllergens.find(allergen => allergen._id === allergenId);
     setNewOrModifiedAllergen(actualAllergen)
   };
-
+  
   return (
     <>
-      {allAllergens && allAllergens !== undefined && allAllergens.length > 0
+      {allAllergens && allAllergens !== undefined && allAllergens !== null && allAllergens.length > 0
         ?
         < div id='allergen-list' >
           <p style={{ textAlign: "center", fontSize: "20px", margin: "0" }} >ALLERGEN LIST</p>

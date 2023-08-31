@@ -28,15 +28,15 @@ const RightColumn = ({ setSearchFieldChange }) => {
 
   const [newOrModifiedClient, setNewOrModifiedClient] = useState([]); //for new and updatable client
   const [updatableClientId, setUpdatableClientId] = useState("");
-  const [newOrModifedAllergen, setNewOrModifiedAllergen] = useState([]);//for new and updatable allergen
-  const [updatableAllegenId, setUpdatableAllergenId] = useState("");
+  const [newOrModifiedAllergen, setNewOrModifiedAllergen] = useState("");//for new and updatable allergen
+  const [updatableAllergenId, setUpdatableAllergenId] = useState("");
   const [newOrModifiedPizzaType, setNewOrModifiedPizzaType] = useState([]);//for new and updatable pizzaType
   const [updatablePizzaTypeId, setUpdatablePizzaTypeId] = useState("");
   const [actualOrderItems, setActualOrderItems] = useState([]);
   const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
   const [showPreOrderList, setShowPreOrderList] = useState(false) // show or not show total pre-list of orders
   const [messageList, setMessageList] = useState([]);
-  const [newOrModifiedMessage, setNewOrModifiedMessage] = useState('');
+  const [newOrModifiedMessage, setNewOrModifiedMessage] = useState("");
   const [updatableMessageId, setUpdatableMessageId] = useState("");
   const [showOrderThanks, setShowOrderThanks] = useState(false)
   const [showMessageThanks, setShowMessageThanks] = useState(false);
@@ -51,7 +51,7 @@ const RightColumn = ({ setSearchFieldChange }) => {
     }}>
       <Context.Provider value={{
         newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
-        newOrModifedAllergen, setNewOrModifiedAllergen, updatableAllegenId, setUpdatableAllergenId,
+        newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
         newOrModifiedPizzaType, setNewOrModifiedPizzaType, updatablePizzaTypeId, setUpdatablePizzaTypeId,
         actualOrderItems, setActualOrderItems, listOfOrders, setListOfOrders, showPreOrderList, setShowPreOrderList,
         messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, updatableMessageId, setUpdatableMessageId,

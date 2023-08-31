@@ -5,7 +5,7 @@ import { MainContext } from "./../../mainContext.js"
 function ClientListHandler() {
 
   const { actualClientData, allClientData, setAllClientData } = useContext(MainContext);
-  const { updatableClientId, setUpdatableClientId, newOrModifiedClient, setNewOrModifiedClient } = useContext(Context);
+  const { setUpdatableClientId, newOrModifiedClient, setNewOrModifiedClient } = useContext(Context);
 
   const clientUrl = "/api/clients"
 

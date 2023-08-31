@@ -7,7 +7,10 @@ const ClientSchema = new Schema({
         type: String,
         require: true
     },
-    email: String,
+    email: {
+        type: String,
+        requre: true
+    },
     password: {
         type: String,
         require: true
