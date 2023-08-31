@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { MainContext } from './../../mainContext.js'
+
 function CenterColumn() {
 
   const { rejectedAllergens, setPizzaIdToOrder, setAllPizzaTypes } = useContext(MainContext);
