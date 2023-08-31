@@ -11,7 +11,7 @@ function AllergenForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (newOrModifiedAllergen !== "" && updatableAllergenId === "" &&
+    if (newOrModifiedAllergen !== "" && updatableAllergenId === "" && allAllergens !== undefined &&
       allAllergens.includes(newOrModifiedAllergen)) {
 
       const saveOnServer = async () => {

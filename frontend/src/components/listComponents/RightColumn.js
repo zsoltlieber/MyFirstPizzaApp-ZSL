@@ -32,7 +32,7 @@ const RightColumn = ({ setSearchFieldChange }) => {
   const [updatableAllergenId, setUpdatableAllergenId] = useState("");
   const [newOrModifiedPizzaType, setNewOrModifiedPizzaType] = useState([]);//for new and updatable pizzaType
   const [updatablePizzaTypeId, setUpdatablePizzaTypeId] = useState("");
-  const [actualOrderItems, setActualOrderItems] = useState([]);
+  const [preOrderList, setPreOrderList] = useState([]);
   const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
   const [showPreOrderList, setShowPreOrderList] = useState(false) // show or not show total pre-list of orders
   const [messageList, setMessageList] = useState([]);
@@ -53,7 +53,7 @@ const RightColumn = ({ setSearchFieldChange }) => {
         newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
         newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
         newOrModifiedPizzaType, setNewOrModifiedPizzaType, updatablePizzaTypeId, setUpdatablePizzaTypeId,
-        actualOrderItems, setActualOrderItems, listOfOrders, setListOfOrders, showPreOrderList, setShowPreOrderList,
+        preOrderList, setPreOrderList, listOfOrders, setListOfOrders, showPreOrderList, setShowPreOrderList,
         messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, updatableMessageId, setUpdatableMessageId,
         showOrderThanks, setShowOrderThanks, showMessageThanks, setShowMessageThanks, showTopMessageBox, setShowTopMessageBox
       }}>

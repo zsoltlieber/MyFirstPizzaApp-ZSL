@@ -183,7 +183,7 @@ input#allergen-checkbox {
   width: max-content;
   color: white;
   margin: 2%;
-  padding: 10%;
+  padding: 5% 10% 5% 10%;
   border-radius: 20px;
   background-color: red;
   font-size: xx-large;

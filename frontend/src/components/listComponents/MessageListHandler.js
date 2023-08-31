@@ -58,7 +58,7 @@ export const MessageListHandler = () => {
         removeMessage();
     };
 
-    const deleteOrderRow = (messageId) => {
+    const deleteMessageRow = (messageId) => {
         const actualEndPoint = messageUrl + "/" + messageId;
 
         if (actualClientData.bossStatus === true) {
@@ -99,7 +99,7 @@ export const MessageListHandler = () => {
                                         {actualClientData !== undefined && actualClientData.clientName !== ""
                                             ?
                                             <td >
-                                                <button type="button" id="delete-btn" value={message._id} onClick={(e) => deleteOrderRow(e.target.value)}>DEL </button>
+                                                <button type="button" id="delete-btn" value={message._id} onClick={(e) => deleteMessageRow(e.target.value)}>DEL </button>
                                                 <button type='button' id="update-btn" value={message._id} onClick={(e) => updateItem(e.target.value)}>UPD</button>
                                             </td>
                                             : <></>}
