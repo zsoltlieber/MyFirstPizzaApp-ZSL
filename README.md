@@ -1,4 +1,4 @@
-# MY FIRST PIZZA APP for pizza bakers and sellers 
+# MY FIRST PIZZA APP for pizza bakers and sellers and hungry pizza eaters :)
 ###  -- PETPROJECT! --
 ##### Purpose: showing that as a junior developer how I can solve a difficult MERN stack task
 
