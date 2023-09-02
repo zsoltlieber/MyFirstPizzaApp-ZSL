@@ -44,8 +44,7 @@ Without MongoDb account you have to start with MongoDb registration and create a
 ```
 https://account.mongodb.com/account/register
 ```
-With MongoDb account please copy the embedded 'template_env_file' as .env file on the backend (location: MyFirstPizzaApp-ZSL/bankend/)
-for your mongodb connection. Use the the given template below (mongodb url and JWT declaration is a must).
+With MongoDb account please copy the embedded 'template_env_file' as .env file on the backend for your mongodb connection. Use the the given template below (mongodb url and JWT declaration is a must).
 ```
 MONGO_URL=mongodb+srv://<username>:<password>@cluster0.bjwcssz.mongodb.net/<databasename>
 JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicGl6emFBcHAiLCJwYXNzd29yZCI6InBhc3N3b3JkIn0.GEMK9chTUlL_FlKM9GeKEwF6NnYJKUgNd3KGJDES33A
