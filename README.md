@@ -1,17 +1,15 @@
 # MY FIRST PIZZA APP for pizza bakers and sellers 
 ###  -- PETPROJECT! --
-##### It was made for showing my level of javascript knowledge after last exam
+##### Purpose: showing that as a junior developer how I can solve a difficult MERN stack task
 
-## Purpose
-##### This aplication was built for managers who want to administrate all of a Pizza Buffet work. 
 ##### The APP is able to manage all relevant tasks
-(showing sellable products as a menu, client authorization, ordering, payment (future plan), message collecting from customers etc.).
+(showing sellable products as a menu, client authorization, ordering, payment (future plan), message collecting from customers, manage admin tasks etc.).
 
 ## Features
-1. **Client registration & Login**: It is needed to be registered and loged in if you want to order via this APP.
+1. **Client registration & Login**: It is needed to be registered and loged in if you want to order, or send message via this APP.
 3. **Populate basic data**: The backend ensure basic data with running 'npm run populate' order.
-4. **Admin user(client)**: Only the admin user can delete anything, the normal user can only set inactive status of the items (order, client registration, meessage etc.)
-5. **Data access rights**: The access is checked on the backend side.
+4. **Admin user(client)**: Only the admin user can delete anything, the normal user can only set inactive status of the items depends on its rights (order, client registration, meessage etc.)
+5. **Data access rights**: The access rights are checked on the backend side.
 
 ## Technological background:
 | Function | Solution |
@@ -25,7 +23,7 @@
 
 ### 1. VS Code must be installed on your computer
 
-#### You can check if you have VS Code on your PC with this command below:
+#### You can check that wheter you have VS Code on your PC with this command below:
 ```
 code--version
 ```
@@ -46,7 +44,8 @@ Without MongoDb account you have to start with MongoDb registration and create a
 ```
 https://account.mongodb.com/account/register
 ```
-With MongoDb account please create a .env file from embedded 'template_env_file' file on this the backend (location: MyFirstPizzaApp-ZSL/bankend/)
+With MongoDb account please copy the embedded 'template_env_file' as .env file on the backend (location: MyFirstPizzaApp-ZSL/bankend/)
+for your mongodb connection. Use the the given template below (mongodb url and JWT declaration is a must).
 ```
 MONGO_URL=mongodb+srv://<username>:<password>@cluster0.bjwcssz.mongodb.net/<databasename>
 JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicGl6emFBcHAiLCJwYXNzd29yZCI6InBhc3N3b3JkIn0.GEMK9chTUlL_FlKM9GeKEwF6NnYJKUgNd3KGJDES33A
