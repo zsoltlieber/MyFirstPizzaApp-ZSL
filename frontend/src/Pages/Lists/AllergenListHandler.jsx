@@ -8,7 +8,7 @@ function AllergenListHandler() {
   const { setUpdatableAllergenId, newOrModifiedAllergen, setNewOrModifiedAllergen } = useContext(Context);
 
   const allergenUrl = "/api/allergens"
-  
+
   const allergensFetch = async (url) => {
     const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
 
@@ -27,6 +27,7 @@ function AllergenListHandler() {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     };
+    
     async function deleteAllergen() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
@@ -47,6 +48,7 @@ function AllergenListHandler() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ isActive: false })
     };
+
     async function removeAllergen() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {

@@ -70,7 +70,7 @@ function PizzaTypeTableController() {
   };
 
   const updatePizzaType = (pizzaTypeId) => {
-     const actualPizzaType = allPizzaTypes.find(pizzaType => pizzaType._id === pizzaTypeId);
+    const actualPizzaType = allPizzaTypes.find(pizzaType => pizzaType._id === pizzaTypeId);
     setNewOrModifiedPizzaType(actualPizzaType)
   };
 

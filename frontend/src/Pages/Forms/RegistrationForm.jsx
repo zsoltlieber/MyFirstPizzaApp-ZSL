@@ -25,7 +25,7 @@ export function RegistrationForm() {
                 otherInfo: clientData.address.otherInfo || ""
             }],
         };
-        console.log(actualClientData);
+
         if (actualClientData !== undefined) {
 
             const registrationSave = async () => {

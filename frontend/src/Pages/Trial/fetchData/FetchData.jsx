@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const FetchData = (url) => {
-    
+
     const [data, setdata] = useState();
     const [loading, setLoding] = useState();
     const [error, setError] = useState();
@@ -31,9 +31,9 @@ const FetchData = (url) => {
         }
         setLoding(false)
     };
-    
+
     return { data, loading, error, reFetch }
-    
+
 }
 
 export default FetchData

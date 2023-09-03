@@ -4,7 +4,7 @@ import { MainContext } from "../../mainContext.js"
 const PizzaTypeTable = ({ deletePizzaType, updatePizzaType }) => {
 
   const { allPizzaTypes } = useContext(MainContext);
-  
+
   return (
     <>
       {allPizzaTypes

@@ -10,25 +10,24 @@ function ClientForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-         
-            const actualClient = {
-                "clientName": newOrModifiedClient.clientName,  // TODO nem írja át a nevét minden mást igen!!!
-                "email": newOrModifiedClient.email,
-                "password": newOrModifiedClient.password,
-                "phoneNumber": newOrModifiedClient.phoneNumber.split(","),
-                "address": [{
-                    "postCode": newOrModifiedClient.postCode,
-                    "city": newOrModifiedClient.city,
-                    "streetAndNumber": newOrModifiedClient.streetAndNumber,
-                    "otherInfo": newOrModifiedClient.otherInfo || ""
-                }],
-                "isActive": newOrModifiedClient.isActive || false,
-                "isAdmin": newOrModifiedClient.isAdmin || false,
-                "isMainAdmin": newOrModifiedClient.isMainAdmin || false
-            }
-            setNewOrModifiedClient(actualClient)
-       
-        
+
+        const actualClient = {
+            "clientName": newOrModifiedClient.clientName,  // TODO nem írja át a nevét minden mást igen!!!
+            "email": newOrModifiedClient.email,
+            "password": newOrModifiedClient.password,
+            "phoneNumber": newOrModifiedClient.phoneNumber.split(","),
+            "address": [{
+                "postCode": newOrModifiedClient.postCode,
+                "city": newOrModifiedClient.city,
+                "streetAndNumber": newOrModifiedClient.streetAndNumber,
+                "otherInfo": newOrModifiedClient.otherInfo || ""
+            }],
+            "isActive": newOrModifiedClient.isActive || false,
+            "isAdmin": newOrModifiedClient.isAdmin || false,
+            "isMainAdmin": newOrModifiedClient.isMainAdmin || false
+        }
+        setNewOrModifiedClient(actualClient)
+
         if (newOrModifiedClient.clientName !== ""
             && updatableClientId === "") {
             const saveOnServer = async () => {

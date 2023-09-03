@@ -15,7 +15,7 @@ function App() {
   const [allPizzaTypes, setAllPizzaTypes] = useState([]);
   const [pizzaIdToOrder, setPizzaIdToOrder] = useState('');
   const [rightColumnType, setRightColumnType] = useState("about");
-  const [itemIsActiveStatus, setItemIsActiveStatus] = useState(true) 
+  const [itemIsActiveStatus, setItemIsActiveStatus] = useState(true)
 
   //searchfield for trying this component ability
   const [searchField, setSearchField] = useState('');

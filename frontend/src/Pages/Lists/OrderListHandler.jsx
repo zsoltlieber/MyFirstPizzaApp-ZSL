@@ -79,8 +79,6 @@ const OrderListHandler = () => {
     setPreOrderList(actualOrder)
   };
 
-  console.log(listOfOrders !== undefined && listOfOrders.length > 0 && pizzaIdToOrder === "" && preOrderList.length < 1)
-
   return (
     <>
       {listOfOrders !== undefined && listOfOrders.length > 0 && pizzaIdToOrder === "" && preOrderList.length < 1
@@ -97,7 +95,6 @@ const OrderListHandler = () => {
               try {
                 const response = await fetch(actualUrl);
                 const data = await response.json();
-                console.log(data);
                 if (data) setOrderClientName(data.clientName);
               } catch (error) {
                 console.log("Problem with client name!");
@@ -124,7 +121,7 @@ const OrderListHandler = () => {
                   <tbody key={index1}>
                     <tr >
                       <td colSpan={3} align="left" style={{ color: "black", backgroundColor: "wheat" }}>
-                        <p style={{ alignItems: "center", marginBottom: "-5%",marginTop: "-5%" }}>{order.created.substring(0, 16).replace("T", " ")} {order.orderClientId}          </p>
+                        <p style={{ alignItems: "center", marginBottom: "-5%", marginTop: "-5%" }}>{order.created.substring(0, 16).replace("T", " ")} {order.orderClientId}          </p>
                       </td>
                     </tr>
                     {order.orderedItems.map((orderItem, index) => {

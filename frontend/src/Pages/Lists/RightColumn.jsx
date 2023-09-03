@@ -49,8 +49,8 @@ const RightColumn = ({ setSearchFieldChange }) => {
       <Context.Provider value={{
         newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
         newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
-        newOrModifiedPizzaType, setNewOrModifiedPizzaType, preOrderList, setPreOrderList, 
-        listOfOrders, setListOfOrders, 
+        newOrModifiedPizzaType, setNewOrModifiedPizzaType, preOrderList, setPreOrderList,
+        listOfOrders, setListOfOrders,
         messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, showOrderThanks, setShowOrderThanks,
         showMessageThanks, setShowMessageThanks, showTopMessageBox, setShowTopMessageBox
       }}>

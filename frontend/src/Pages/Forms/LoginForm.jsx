@@ -40,7 +40,7 @@ export const LoginForm = () => {
         setTimeout(() => {
           setRightColumnType("about")
         }, 1000);
-          }
+      }
     };
     loginToServer()
   }

@@ -12,7 +12,7 @@ export const MessageTableController = () => {
 
     const messagesFetch = async (url) => {
         const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
-    
+
         try {
             const response = await fetch(actualUrl);
 

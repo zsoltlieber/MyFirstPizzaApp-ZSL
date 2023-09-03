@@ -6,8 +6,8 @@ function PreOrderList() {
 
 
     const { pizzaIdToOrder } = useContext(MainContext);
-    const {  setListOfOrders, preOrderList, setPreOrderList, 
-        setShowOrderThanks,  setShowTopMessageBox } = useContext(Context);
+    const { setListOfOrders, preOrderList, setPreOrderList,
+        setShowOrderThanks, setShowTopMessageBox } = useContext(Context);
 
     const ordersUrl = '/api/orders';
     let totalCost = 0;
@@ -19,7 +19,7 @@ function PreOrderList() {
     if (preOrderList.orderedItems !== undefined) {
         totalCost = preOrderList.orderedItems.reduce((accu, items) => accu + (items.pricePerEach * items.quantity), 0)
     }
-   
+
     const sendOrder = () => {
         if (preOrderList.orderedItems.length > 0) {
             const addOrderToOrderList = async () => {
@@ -33,7 +33,7 @@ function PreOrderList() {
                 setListOfOrders(data);
                 setShowTopMessageBox(false);
                 setShowOrderThanks(true);
-                
+
                 setTimeout(() => {
                     setPreOrderList([]);
                     setShowOrderThanks(false);
@@ -52,7 +52,7 @@ function PreOrderList() {
 
     return (
         <div>
-            {preOrderList.orderedItems !== undefined && preOrderList.orderedItems.length > 0 
+            {preOrderList.orderedItems !== undefined && preOrderList.orderedItems.length > 0
                 ?
                 <div id="preorder-list">
                     <h5 style={{ textAlign: "center", margin: "2% 0% 2% 0%" }}>PRE-Order list</h5>
@@ -99,5 +99,3 @@ function PreOrderList() {
 }
 
 export default PreOrderList
-
-

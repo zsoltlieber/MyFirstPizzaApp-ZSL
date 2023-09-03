@@ -17,7 +17,7 @@ const PizzaTypeForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
     if (inputChecker() && newOrModifiedPizzaType._id === undefined) {
       const saveOnServer = async () => {
         if (newOrModifiedPizzaType !== undefined && newOrModifiedPizzaType._id === undefined) {
@@ -63,7 +63,7 @@ const PizzaTypeForm = () => {
           }
         }
       }
-      
+
       return updateOnServer(newOrModifiedPizzaType)
     }
     else { console.log("Wrong data - no modification!") }

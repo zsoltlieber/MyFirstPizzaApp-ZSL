@@ -7,7 +7,7 @@ const Header = () => {
     return (
         <>
             <div>
-        {/*         <h1> <a href="/" id="home" >HOME</a> </h1> */}
+                {/*         <h1> <a href="/" id="home" >HOME</a> </h1> */}
                 <h1>HOME</h1>
             </div>
 

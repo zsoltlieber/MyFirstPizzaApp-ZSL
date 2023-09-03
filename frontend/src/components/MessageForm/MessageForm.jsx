@@ -68,8 +68,6 @@ export const MessageForm = () => {
                         }, 5000);
                     }
                     const newMessageList = messageList.filter(message => message._id !== newOrModifiedMessage._id)
-                    console.log(newMessageList);
-                    console.log(newOrModifiedMessage._id);
                     setMessageList([...newMessageList, data]);
                     setNewOrModifiedMessage("");
                     console.log("Modified message was saved!")

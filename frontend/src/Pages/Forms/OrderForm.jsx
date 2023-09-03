@@ -6,7 +6,7 @@ import PreOrderList from '../../Pages/Lists/PreOrderList.jsx';
 export function OrderForm() {
 
     const { actualClientData, pizzaIdToOrder, setPizzaIdToOrder, allPizzaTypes } = useContext(MainContext);
-    const { listOfOrders, preOrderList, setPreOrderList, showOrderThanks,showTopMessageBox } = useContext(Context);
+    const { listOfOrders, preOrderList, setPreOrderList, showOrderThanks, showTopMessageBox } = useContext(Context);
 
     const [value, setValue] = useState(1);
     const [actualPizzaData, setActualPizzaData] = useState(undefined)
