@@ -8,6 +8,7 @@ const OrderListHandler = () => {
   const { listOfOrders, setListOfOrders, preOrderList, setPreOrderList } = useContext(Context);
 
   const ordersUrl = `/api/orders`
+  let totalCost = 0;
   let grandTotalCost = 0;
   let actualPizzaName = "";
   const [orderClientName, setOrderClientName] = useState("")
@@ -21,7 +22,7 @@ const OrderListHandler = () => {
 
   useEffect(() => {
     orderFetch(ordersUrl);
-  }, [pizzaIdToOrder]);
+  }, [preOrderList]);
 
   const deleteOrderFetch = (actualEndPoint, orderId) => {
 
@@ -78,6 +79,8 @@ const OrderListHandler = () => {
     setPreOrderList(actualOrder)
   };
 
+  console.log(listOfOrders !== undefined && listOfOrders.length > 0 && pizzaIdToOrder === "" && preOrderList.length < 1)
+
   return (
     <>
       {listOfOrders !== undefined && listOfOrders.length > 0 && pizzaIdToOrder === "" && preOrderList.length < 1
@@ -120,12 +123,15 @@ const OrderListHandler = () => {
                   </thead>
                   <tbody key={index1}>
                     <tr >
-                      <td colSpan={3} align="left" style={{ color: "black", backgroundColor: "wheat" }}>{order.created.substring(0, 16).replace("T", " ")}</td>
+                      <td colSpan={3} align="left" style={{ color: "black", backgroundColor: "wheat" }}>
+                        <p style={{ alignItems: "center", marginBottom: "-5%",marginTop: "-5%" }}>{order.created.substring(0, 16).replace("T", " ")} {order.orderClientId}          </p>
+                      </td>
                     </tr>
                     {order.orderedItems.map((orderItem, index) => {
+                      if (index === 0) totalCost = 0;
                       actualPizzaName = allPizzaTypes.find(pizza => pizza._id === orderItem.pizzaId)
                       if (actualPizzaName !== undefined) actualPizzaName = actualPizzaName.pizzaName;
-
+                      totalCost = totalCost + orderItem.quantity * orderItem.pricePerEach;
                       grandTotalCost = grandTotalCost + orderItem.quantity * orderItem.pricePerEach;
                       return (
                         <tr key={index}>
@@ -146,13 +152,14 @@ const OrderListHandler = () => {
                   </tbody >
                   <tfoot>
                     < tr>
-                      <td colSpan={3} align="left">Total payable: {grandTotalCost.toLocaleString('en-US')}.-Ft</td>
+                      <td colSpan={3} align="left">Payable: {totalCost.toLocaleString('en-US')}.-Ft</td>
                     </tr >
                   </tfoot>
                 </table>
               </>
             )
           })}
+          <td colSpan={3} align="left">Total payable: {grandTotalCost.toLocaleString('en-US')}.-Ft</td>
         </div>
         : <></>
       }

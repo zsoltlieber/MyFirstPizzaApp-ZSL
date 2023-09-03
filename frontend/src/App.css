@@ -387,10 +387,10 @@ input {
 }
 th {
   border-bottom: 1px solid black;
-}
+  }
+
 td {
   border-bottom: 1px solid rgb(0, 0, 0);
-  max-height: 5px;
 }
 
 #order-form,

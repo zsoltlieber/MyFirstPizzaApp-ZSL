@@ -31,12 +31,11 @@ function PreOrderList() {
                 const response = await fetch(ordersUrl, requestOptions);
                 const data = await response.json();
                 setListOfOrders(data);
-
                 setShowTopMessageBox(false);
                 setShowOrderThanks(true);
-                setPreOrderList([]);
-
+                
                 setTimeout(() => {
+                    setPreOrderList([]);
                     setShowOrderThanks(false);
                     setShowTopMessageBox(true);
                 }, 3000);
