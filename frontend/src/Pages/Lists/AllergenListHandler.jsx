@@ -1,16 +1,18 @@
 import { useEffect, useContext } from 'react';
-import { Context } from "./../../context.js"
-import { MainContext } from "./../../mainContext.js"
+import { Context } from "../../context.js"
+import { MainContext } from "../../mainContext.js"
 
 function AllergenListHandler() {
 
-  const { actualClientData, allAllergens, setAllAllergens } = useContext(MainContext);
+  const { actualClientData, allAllergens, setAllAllergens, itemIsActiveStatus } = useContext(MainContext);
   const { setUpdatableAllergenId, newOrModifiedAllergen, setNewOrModifiedAllergen } = useContext(Context);
 
   const allergenUrl = "/api/allergens"
-
+  
   const allergensFetch = async (url) => {
-    const response = await fetch(`${url}?isActive=true`);
+    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
+
+    const response = await fetch(actualUrl);
     const data = await response.json();
     if (data) setAllAllergens(data);
   };
@@ -74,7 +76,7 @@ function AllergenListHandler() {
     const actualAllergen = allAllergens.find(allergen => allergen._id === allergenId);
     setNewOrModifiedAllergen(actualAllergen)
   };
-  
+
   return (
     <>
       {allAllergens && allAllergens !== undefined && allAllergens !== null && allAllergens.length > 0

@@ -3,50 +3,51 @@ import bcrypt from 'bcryptjs';
 import createError from '../utils/error.js';
 
 export const registerClient = async (req, res, next) => {
-    const clientEmail = req.body.email;
 
     try {
-        getClientEmailList()
-
-        if (
-            req.body.clientName !== null &&
-            req.body.password !== null &&
-            req.body.email !== null &&
-            req.body.phoneNumber !== null &&
-            req.body.postCode !== null &&
-            req.body.city !== null &&
-            req.body.streatAndNumber !== null) {
-
-            const salt = bcrypt.genSaltSync(10);
-            const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-
-            const newClient = new Client(req.body);
-            newClient.password = hashedPassword;
-
-            await newClient.save();
-            res.status(200).json(newClient);
-            console.log(`${newClient.clientName} - ${newClient._id} - client was registered.`);
-
-        } else {
-            return next(createError(403, "Wrong data (client name or pasword not correct!"))
-        }
+        const actualClientEmail = req.body.email;
+        console.log(actualClientEmail);
 
         const getClientEmailList = async (req, res, next) => {
-            const clients = await Client.find()
-            checker(clients.map(client => client.email))
-        }
-        function checker(clientsEmailList) {
-            if (clientsEmailList.includes(clientEmail)) {
-                console.log("van már ilyen");
-                return next(createError(401, "There is another registered client on the given email!"))
+            const clients = await Client.find();
+            const clientsEmailList = clients.map(client => client.email);
+            if (!clientsEmailList.includes(actualClientEmail)) {
+
+                if (
+                    req.body.clientName !== null &&
+                    req.body.password !== null &&
+                    req.body.email !== null &&
+                    req.body.phoneNumber !== null &&
+                    req.body.address !== null
+                ) {
+                    const salt = bcrypt.genSaltSync(10);
+                    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+
+                    const newClient = new Client(req.body);
+                    newClient.password = hashedPassword;
+
+                    await newClient.save();
+                    res.status(200).json(newClient);
+                    console.log(`${newClient.clientName} - ${newClient._id} - client was registered.`);
+
+                }
+            }
+            else if (clientsEmailList.includes(actualClientEmail)) {
+                console.log("The email had been registered! Use log in, or register another email!")
+
+            }
+            else {
+                return next(createError(403, "Wrong data (client name or pasword not correct!"))
             }
         }
+        getClientEmailList(actualClientEmail)
     }
-
     catch (error) {
         next(error);
     }
 };
+
+
 
 export const getClients = async (req, res, next) => {
 
@@ -122,6 +123,21 @@ export const updateClientById = async (req, res, next) => {
     };
 };
 
+
+export const isRegisteredEMail = async (req, res, next) => {
+    try {
+        const mailList = (await Client.find()).map(client => client.email)
+        if (mailList.includes(req.body.email)) {
+            return next(createError(403, "The given email is in used, please log in or use another email!"))
+        } else {
+            res.status(200).json("Not used email!");
+        }
+    }
+    catch (error) {
+        next(error)
+    }
+};
+
 export const deleteClientById = async (req, res, next) => {
 
     try {
@@ -160,5 +176,6 @@ export default {
     getClients,
     getClientById,
     updateClientById,
-    deleteClientById
+    deleteClientById,
+    isRegisteredEMail
 }

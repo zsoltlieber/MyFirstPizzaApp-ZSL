@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { MainContext } from './../../mainContext.js'
+import { MainContext } from '../../mainContext.js'
 
 function CenterColumn() {
 

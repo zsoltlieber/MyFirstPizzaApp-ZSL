@@ -1,28 +1,21 @@
 import './App.css'
-import AllergenCheckList from './components/listComponents/AllergenCheckList.js'
-import CenterColumn from './components/listComponents/CenterColumn.js'
-import RighColumn from './components/listComponents/RightColumn.js'
-import Header from './components/listComponents/Header.js'
-import Footer from './components/listComponents/Footer.js'
-import { MainContext } from './mainContext'
+import AllergenCheckList from '../src/Pages/Lists/AllergenCheckList';
+import CenterColumn from '../src/Pages/Lists/CenterColumn';
+import RightColumn from '../src/Pages/Lists/RightColumn';
+import Header from '../src/Pages/Lists/Header';
+import Footer from '../src/Pages/Lists/Footer';
+import { MainContext } from './mainContext.js'
 import { React, useState } from 'react'
 
 function App() {
-
-  const emptyClient = {
-    clientName: "",
-    clientId: "",
-    staffStatus: false,
-    bossStatus: false
-  }
-
-  const [actualClientData, setActualClientData] = useState(emptyClient);
+  const [actualClientData, setActualClientData] = useState({});
   const [allClientData, setAllClientData] = useState([]);
   const [allAllergens, setAllAllergens] = useState([]);
   const [rejectedAllergens, setRejectedAllergens] = useState([]);
   const [allPizzaTypes, setAllPizzaTypes] = useState([]);
   const [pizzaIdToOrder, setPizzaIdToOrder] = useState('');
   const [rightColumnType, setRightColumnType] = useState("about");
+  const [itemIsActiveStatus, setItemIsActiveStatus] = useState(true) 
 
   //searchfield test
   const [searchField, setSearchField] = useState('');
@@ -39,7 +32,7 @@ function App() {
         actualClientData, setActualClientData, allClientData, setAllClientData,
         allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
         allPizzaTypes, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
-        rightColumnType, setRightColumnType,
+        rightColumnType, setRightColumnType, itemIsActiveStatus, setItemIsActiveStatus
       }}>
         <div id="header-container" >
           <Header />
@@ -47,11 +40,11 @@ function App() {
         <div id="main-container">
           <AllergenCheckList />
           <CenterColumn />
-          <RighColumn setSearchFieldChange={setSearchChange} />
+          <RightColumn setSearchFieldChange={setSearchChange} />
         </div>
       </MainContext.Provider>
       <div id="footer-container">
-      <Footer  />
+        <Footer />
       </div>
     </>
   );

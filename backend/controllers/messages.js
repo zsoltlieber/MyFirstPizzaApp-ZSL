@@ -24,12 +24,11 @@ export const createMessage = async (req, res, next) => {
 export const getMessages = async (req, res, next) => {
     try {
         let messages = null;
-        if (req.query.isActive === 'true') {
-            messages = (await Message.find()).filter((data) => data.isActive === true);
-        } else if (req.query.isActive === 'false') {
-            messages = (await Message.find()).filter((data) => data.isActive === false);
-        } else {
-            messages = await Message.find();
+        messages = await Message.find();
+        if (req.query.isActive === "true") {
+            messages = messages.filter((data) => data.isActive === true);
+        } else if (req.query.isActive === "false") {
+            messages = messages.filter((data) => data.isActive === false);
         }
         if (messages !== null) {
             res.status(200).json(messages);
@@ -59,7 +58,7 @@ export const getMessageById = async (req, res, next) => {
     }
 };
 
-export const updateMessageById = async (req, res, next) => {                            //TODO
+export const updateMessageById = async (req, res, next) => {
 
     try {
         const actualMessage = await Message.findById(req.params.id)
@@ -96,24 +95,10 @@ export const deleteMessageById = async (req, res, next) => {
     try {
         const actualMessage = await Message.findById(req.params.id)
         if (actualMessage !== null) {
-            if (req.client.isAdmin) {
-                const actualMessage = await Message.findById(req.params.id);
+            if (req.client.isMainAdmin) {
                 await Message.findByIdAndDelete(req.params.id);
                 res.status(200).json(`${req.params.id} - message has been deleted!`);
-            }
-            else if (req.client.isAdmin || !req.client.isAdmin && actualMessage.lastManipulatorId.match(req.client.id)) {
-                req.body = actualMessage;
-                req.body.lastManipulatorId = req.client.id;
-                req.body.isActive = false;
-                const updatedMessage = await Message.findByIdAndUpdate(
-                    req.params.id,
-                    { $set: req.body },
-                    { new: true }
-                );
-                if (updatedMessage !== null) {
-                    res.status(200).json(updatedMessage);
-                    console.log(`${updatedMessage._id} - ${updatedMessage.clientName} - message has been updated!`);
-                }
+                console.log(`${req.params.id} - message has been deleted!`);
             }
             else { return next(createError(403, "Not allowed to access that client data!")) }
         } else {

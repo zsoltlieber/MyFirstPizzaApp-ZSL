@@ -1,40 +1,65 @@
 import { useState, useContext } from "react";
-import { Context } from "../../context.js";
+import { MainContext } from "../../mainContext.js";
 
 export function RegistrationForm() {
 
-    const { setRightColumnType } = useContext(Context);
+    const { setRightColumnType } = useContext(MainContext);
 
     const registerUrl = '/api/clients/register'
 
     const [clientData, setClientData] = useState({});
-    const [showGreetBox, setShowGreetBox] = useState(false)
+    const [showRegistrationMessage, setShowRegistrationMessage] = useState(false)
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const registerOnServer = async () => {
+        const actualClientData = {
+            clientName: clientData.clientName,
+            email: clientData.email,
+            password: clientData.password,
+            phoneNumber: [clientData.phoneNumber],
+            address: [{
+                postCode: clientData.address.postCode,
+                city: clientData.address.city,
+                streetAndNumber: clientData.address.streetAndNumber,
+                otherInfo: clientData.address.otherInfo || ""
+            }],
+        };
+        console.log(actualClientData);
+
+        const registrationSave = async () => {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(clientData)
+                body: JSON.stringify(actualClientData)
             };
             const response = await fetch(registerUrl, requestOptions);
             const data = await response.json();
 
             setClientData(data);
-            setShowGreetBox(true);
+            setShowRegistrationMessage(true);
             setTimeout(() => {
                 setRightColumnType("login");
-                setShowGreetBox(false);
-            }, 3000);
+                setShowRegistrationMessage(false);
+            }, 2000);
         };
-        registerOnServer()
+        /*
+        const emailChecker = async () => {
+            const isRegisteredEmail = await fetch('/api/clients/isRegisteredEMail');
+            const isFreeEmail = await isRegisteredEmail.json();
+            if (isFreeEmail) {
+*/
+        registrationSave()
+        /*
+                   }
+           }
+           emailChecker();
+       */
     }
 
     return (
         <>
-            {!showGreetBox ?
+            {!showRegistrationMessage ?
                 <div id="registration-form">
                     <form onSubmit={handleSubmit}>
                         <h2>REGISTRATION FORM</h2>
@@ -64,10 +89,10 @@ export function RegistrationForm() {
                         </div>
                         <div>
                             <input type="text" id="streat-and-number" placeholder="streatAndNumber" required
-                                onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, streatAndNumber: e.target.value } }) }} />
+                                onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, streetAndNumber: e.target.value } }) }} />
                         </div>
                         <div>
-                            <input type="text" id="other-info" placeholder="otherInfo" required
+                            <input type="text" id="other-info" placeholder="otherInfo"
                                 onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, otherInfo: e.target.value } }) }} />
                         </div>
                         <div>
@@ -76,7 +101,7 @@ export function RegistrationForm() {
                     </form>
                 </div>
                 :
-                <div id="message-form">
+                <div id="registration-message">
                     <div>
                         <h4>DEAR <br />{clientData.clientName} we are very happy to see you!!</h4>
                         <h4>ORDER AND TASTE OUR PIZZAS :) !!</h4>

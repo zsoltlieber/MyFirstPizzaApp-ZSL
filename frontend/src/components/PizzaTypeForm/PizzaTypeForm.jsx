@@ -1,77 +1,83 @@
 import { useContext } from "react";
-import { Context } from "./../../context.js"
+import { Context } from "../../context.js"
+import { MainContext } from "../../mainContext.js"
 
-function PizzaTypeForm() {
+const PizzaTypeForm = () => {
 
-  const { updatablePizzaTypeId, setUpdatablePizzaTypeId,
-    newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(Context);
+  const { allPizzaTypes, setAllPizzaTypes } = useContext(MainContext);
+  const { newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(Context);
 
   const pizzaTypeUrl = "/api/pizzaTypes"
 
+  const inputChecker = () => {
+    return (newOrModifiedPizzaType.pizzaName !== "" && newOrModifiedPizzaType.ingredients !== "" &&
+      newOrModifiedPizzaType.price !== "" && newOrModifiedPizzaType.allergens !== "" &&
+      newOrModifiedPizzaType.src !== "")
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (newOrModifiedPizzaType.pizzaName !== "" && newOrModifiedPizzaType.ingredients !== "" &&
-      newOrModifiedPizzaType.price !== "" && newOrModifiedPizzaType.allergens !== "" &&
-      newOrModifiedPizzaType.src !== "" && updatablePizzaTypeId === "") {
-
+    
+    if (inputChecker() && newOrModifiedPizzaType._id === undefined) {
       const saveOnServer = async () => {
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newOrModifiedPizzaType)
-        };
-        const response = await fetch(pizzaTypeUrl, requestOptions);
-        const data = await response.json();
-        if (response.status !== 200) {
-          console.log(data)
-        }
-        else {
-          setUpdatablePizzaTypeId("");
-          setNewOrModifiedPizzaType({ pizzaName: "" });
-          console.log("New pizza type was saved!");
+        if (newOrModifiedPizzaType !== undefined && newOrModifiedPizzaType._id === undefined) {
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newOrModifiedPizzaType)
+          };
+          const response = await fetch(pizzaTypeUrl, requestOptions);
+          const data = await response.json();
+          if (response.status !== 200) {
+            console.log(data)
+          }
+          else {
+            setAllPizzaTypes([...allPizzaTypes, data])
+            setNewOrModifiedPizzaType([]);
+            console.log("New pizza type was saved!");
+          }
         }
       }
-      saveOnServer()
+
+      return saveOnServer(newOrModifiedPizzaType)
     }
-    else if (newOrModifiedPizzaType.pizzaName !== "" && newOrModifiedPizzaType.ingredients !== "" &&
-      newOrModifiedPizzaType.price !== "" && newOrModifiedPizzaType.allergens !== "" &&
-      newOrModifiedPizzaType.src !== "" && updatablePizzaTypeId !== "") {
-
+    else if (inputChecker() && newOrModifiedPizzaType._id !== "") {
       const updateOnServer = async () => {
-        const updatablePizzaTypeUrl = pizzaTypeUrl + "/" + updatablePizzaTypeId;
+        if (newOrModifiedPizzaType !== undefined && newOrModifiedPizzaType._id !== undefined) {
+          const updatablePizzaTypeUrl = `${pizzaTypeUrl}/${newOrModifiedPizzaType._id}`;
 
-        const requestOptions = {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newOrModifiedPizzaType)
-        };
-        const response = await fetch(updatablePizzaTypeUrl, requestOptions);
-        const data = await response.json();
-        if (response.status !== 200) {
-          console.log(data)
-        }
-        else {
-          setUpdatablePizzaTypeId("");
-          setNewOrModifiedPizzaType({ pizzaName: "" });
-          console.log("Modified pizza type was updated!")
+          const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newOrModifiedPizzaType)
+          };
+          const response = await fetch(updatablePizzaTypeUrl, requestOptions);
+          const data = await response.json();
+          if (response.status !== 200) {
+            console.log(data)
+          }
+          else {
+            setAllPizzaTypes([...allPizzaTypes, data])
+            setNewOrModifiedPizzaType({ pizzaName: "" });
+            console.log("Modified pizza type was updated!")
+          }
         }
       }
-      updateOnServer()
+      
+      return updateOnServer(newOrModifiedPizzaType)
     }
     else { console.log("Wrong data - no modification!") }
 
   }
 
   function cancelButton() {
-    setUpdatablePizzaTypeId("");
     setNewOrModifiedPizzaType({ pizzaName: "" })
   }
 
   return (
     <form id="pizza-type-form" onSubmit={handleSubmit}>
       <p style={{ fontSize: "20px", margin: "0" }} >
-        {updatablePizzaTypeId === ""
+        {newOrModifiedPizzaType._id === undefined
           ?
           "NEW PIZZA TYPE FORM"
           :
@@ -101,7 +107,7 @@ function PizzaTypeForm() {
 
         <div>
           <button type="submit" id="submit-btn" className="btn"  >
-            {updatablePizzaTypeId === ""
+            {newOrModifiedPizzaType._id === undefined
               ?
               "Submit"
               :

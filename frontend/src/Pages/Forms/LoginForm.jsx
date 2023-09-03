@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { MainContext } from './../../mainContext.js'
+import { MainContext } from '../../mainContext.js'
 
 export const LoginForm = () => {
   const { setActualClientData, setRightColumnType } = useContext(MainContext);
@@ -10,8 +10,8 @@ export const LoginForm = () => {
   const [showBoxes, setShowBoxes] = useState(1);
   const [loginErrorMessage, setLoginErrorMessage] = useState("")
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const loginToServer = async () => {
       const requestOptions = {
         method: 'POST',
@@ -65,7 +65,7 @@ export const LoginForm = () => {
         : showBoxes === 2 ?
           <div id="messages">
             <h2>{loginErrorMessage}!</h2>
-            <button value="signin" onClick={(event) => setRightColumnType(event.target.value)}>
+            <button value="signin" onClick={(e) => setRightColumnType(e.target.value)}>
               {loginErrorMessage.split(" ")[0] === "Wrong"
                 ? <p style={{ color: "red" }} >MODIFY EMAIL AND/OR PASSWORD!</p>
                 : <p style={{ color: "red" }} >PLEASE ENTER IN A REGISTER!</p>

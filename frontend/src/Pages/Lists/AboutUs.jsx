@@ -1,4 +1,4 @@
-import SearchBar from "../searchBarComponents/SearchBar"
+import SearchBar from "../Trial/SearchBar";
 
 export const AboutUs = ({ setSearchText }) => {
 //searchbar - test for my purpose

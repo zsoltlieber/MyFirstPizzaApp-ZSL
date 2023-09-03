@@ -6,7 +6,8 @@ import {
     getClients,
     getClientById,
     updateClientById,
-    deleteClientById
+    deleteClientById,
+    isRegisteredEMail
 } from '../controllers/clients.js';
 
 const clientsRouter = express.Router();
@@ -32,6 +33,8 @@ clientsRouter.get("/checkAdmin/:id", (req, res, next) => {
 */
 
 clientsRouter.post("/register", registerClient);
+
+clientsRouter.get("/isRegisteredEMail", isRegisteredEMail);
 
 clientsRouter.get("/", verifyAdmin, getClients);
 

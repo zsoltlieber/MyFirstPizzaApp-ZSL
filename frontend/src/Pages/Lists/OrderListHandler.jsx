@@ -4,46 +4,84 @@ import { Context } from "../../context.js"
 
 const OrderListHandler = () => {
 
-  const { actualClientData, allPizzaTypes, pizzaIdToOrder } = useContext(MainContext);
-  const { listOfOrders, setListOfOrders, showPreOrderList } = useContext(Context);
+  const { actualClientData, allPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder, itemIsActiveStatus  } = useContext(MainContext);
+  const { listOfOrders, setListOfOrders,  setPreOrderList, showPreOrderList } = useContext(Context);
 
   const ordersUrl = `/api/orders`
   let grandTotalCost = 0;
   let actualPizzaName = "";
 
   const orderFetch = async (url) => {
-    const response = await fetch(`${url}?isActive=true`);
+    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
+    const response = await fetch(actualUrl);
     const data = await response.json();
     if (data) setListOfOrders(data);
   };
 
   useEffect(() => {
     orderFetch(ordersUrl);
-  }, []);
+  }, [pizzaIdToOrder]);
 
-  const deleteOrderRow = (orderId, orderItemId) => {
+  const deleteOrderFetch = (actualEndPoint, orderId) => {
 
-    console.log(listOfOrders);
-    console.log(orderId)
-    console.log(orderItemId)
-    let originalOrders = listOfOrders.filter(orderItemId => orderItemId._id !== orderId)
-    const modifyOrder = listOfOrders.filter(orderItemId => orderItemId._id === orderId)
-    const modifyOrderItems = modifyOrder[0].orderedItems.filter(orderItemId => orderItemId._id !== orderItemId)
-    console.log(modifyOrderItems);
-    modifyOrder.orderedItems = modifyOrderItems;
-    console.log(modifyOrder[0]);
-    originalOrders.push(modifyOrder)
-    //setOrdersList([...originalOrders, modifyOrder])
-  }
-/*
-  console.log(listOfOrders && listOfOrders.length > 0 && !showPreOrderList);
-  console.log(listOfOrders );
-  console.log(listOfOrders.length > 0);
-  console.log(!showPreOrderList);
-*/
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    };
+    async function deleteOrder() {
+      const response = await fetch(actualEndPoint, requestOptions);
+      if (response.status === 200) {
+        const newOrderList = listOfOrders.filter(order => order._id !== orderId);
+        setListOfOrders(newOrderList)
+        console.log('Order delete was successful');
+      } else {
+        console.log("Problem with order delete!")
+      }
+    }
+    deleteOrder();
+  };
+
+  function removeOrderFetch(actualEndPoint, orderId) {
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ isActive: false })
+    };
+    async function removeOrder() {
+      const response = await fetch(actualEndPoint, requestOptions);
+      if (response.status === 200) {
+        const newOrderList = listOfOrders.filter(order => order._id !== orderId);
+        setListOfOrders(newOrderList)
+        console.log('Order remove was successful');
+      } else {
+        console.log("Do not want to modify other's order!")
+      }
+    }
+    removeOrder();
+  };
+
+  const deleteOrderRow = (orderId) => {
+    const actualEndPoint = ordersUrl + "/" + orderId;
+
+    if (actualClientData.bossStatus === true) {
+      deleteOrderFetch(actualEndPoint, orderId);
+    }
+    else if (actualClientData !== undefined && actualClientData.clientName !== "") {
+      removeOrderFetch(actualEndPoint, orderId);
+    }
+  };
+
+  const updateItem = (orderId) => {
+    setPizzaIdToOrder(orderId);
+    const actualOrder = listOfOrders.find(order => order._id === orderId);
+    setPreOrderList(actualOrder)
+  };
+
+  if (listOfOrders !== undefined && listOfOrders.length > 0) console.log(listOfOrders);
+  
   return (
     <div>
-      {listOfOrders && listOfOrders.length > 0 && !showPreOrderList
+      {listOfOrders!==undefined && listOfOrders.length > 0 && showPreOrderList
         ?
         < div id="order-list" >
           <div >
@@ -82,6 +120,7 @@ const OrderListHandler = () => {
                             <td>
                               <td>
                                 <button type="button" id="delete-btn" onClick={(e) => deleteOrderRow(order._id, orderItem._id)}>DEL </button>
+                                <button type='button' id="update-btn" value={order._id} onClick={(e) => updateItem(e.target.value)}>UPD</button>
                               </td>
                             </td>
                           </tr>

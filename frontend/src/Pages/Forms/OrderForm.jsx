@@ -1,15 +1,15 @@
 import { useEffect, useState, useContext } from 'react';
 import { MainContext } from "../../mainContext.js";
-import { Context } from './../../context.js'
-import PreOrderList from '../listComponents/PreOrderList.js';
+import { Context } from '../../context.js'
+import PreOrderList from '../../Pages/Lists/PreOrderList.jsx';
 
 export function OrderForm() {
 
     const { actualClientData, pizzaIdToOrder, setPizzaIdToOrder, allPizzaTypes } = useContext(MainContext);
-    const { setShowPreOrderList, showOrderThanks } = useContext(Context);
+    const { preOrderList, setPreOrderList,setShowPreOrderList, showOrderThanks } = useContext(Context);
 
     const [value, setValue] = useState(1);
-    const [actualPizzaData, setActualPizzaData, actualOrderItems, setActualOrderItems] = useState(undefined)
+    const [actualPizzaData, setActualPizzaData] = useState(undefined)
 
     const addActualOrderedItemToList = () => {
         setShowPreOrderList(true)
@@ -19,15 +19,15 @@ export function OrderForm() {
             "pricePerEach": actualPizzaData.price,
             "quantity": value !== undefined ? parseInt(value) : 1
         }
-        if (actualOrderItems.length === 0) {
-            setActualOrderItems({ orderedItems: [orderLine] });
-        } else {
 
-            const amendedActualOrderList = [...actualOrderItems.orderedItems, orderLine]
-            setActualOrderItems({ orderedItems: amendedActualOrderList });
+        if (preOrderList.orderedItems === undefined) {
+            setPreOrderList({ orderedItems: [orderLine] });
+        } else {
+            const amendedActualOrderList = [...preOrderList.orderedItems, orderLine]
+            setPreOrderList({ orderedItems: amendedActualOrderList });
         }
-        setPizzaIdToOrder("")
-        setActualPizzaData(undefined)
+        //setPizzaIdToOrder("")
+       // setActualPizzaData(undefined)
         setValue(1)
     }
 

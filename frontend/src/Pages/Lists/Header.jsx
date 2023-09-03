@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { MainContext } from './../../mainContext.js'
+import { MainContext } from '../../mainContext.js'
 
 const Header = () => {
     const { actualClientData, setActualClientData, setRightColumnType } = useContext(MainContext);
@@ -7,13 +7,14 @@ const Header = () => {
     return (
         <>
             <div>
-                <h1> <a href="/" id="home" >HOME</a> </h1>
+        {/*         <h1> <a href="/" id="home" >HOME</a> </h1> */}
+                <h1>HOME</h1>
             </div>
 
             <h1>THE BEST PIZZA Co.</h1>
 
             <div>
-                {actualClientData !== undefined && actualClientData.clientName !== ""
+                {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
                     ?
                     <h2>HELLO {actualClientData.clientName}</h2>
                     :
@@ -32,33 +33,26 @@ const Header = () => {
                         : <></>}
 
                 </div>
-                {actualClientData.clientName === ""
+                {actualClientData.clientName === undefined || actualClientData.clientName === ""
                     ?
                     <>
                         <button className="btn" value="signin" onClick={(e) => setRightColumnType(e.target.value)} >REGISTER</button >
                         <button className="btn" value="login" onClick={(e) => setRightColumnType(e.target.value)}>LOG IN</button >
                     </>
                     : <></>}
-                {actualClientData.clientName !== ""
+                {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
                     ?
                     <button className="btn" value="order-form" onClick={(e) => setRightColumnType(e.target.value)}>ORDER</button >
                     : <></>}
                 <button className="btn" value="message" onClick={(e) => setRightColumnType(e.target.value)}>MESSAGE</button >
                 <button className="btn" value="about" onClick={(e) => setRightColumnType(e.target.value)} >ABOUT</button >
-                {actualClientData.clientName !== ""
+                {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
                     ?
                     <button className="btn" value="logout" onClick={() => {
 
-                        const emptyClient = {
-                            clientName: "",
-                            clientId: "",
-                            staffStatus: false,
-                            bossStatus: false
-                        }
-
                         setTimeout(() => {
                             setRightColumnType("about")
-                            setActualClientData(emptyClient)
+                            setActualClientData({ clientName: "" });
                         }, 1000);
                     }} >LOG OUT</button >
                     : <></>}
