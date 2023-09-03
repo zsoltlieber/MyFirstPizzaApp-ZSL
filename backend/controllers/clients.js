@@ -3,10 +3,8 @@ import bcrypt from 'bcryptjs';
 import createError from '../utils/error.js';
 
 const getClientEmailList = async (actualClientEmail) => {
-    console.log(actualClientEmail);
     const clients = await Client.find();
     const clientsEmailList = clients.map(client => client.email);
-    console.log(clientsEmailList);
     return clientsEmailList.includes(actualClientEmail)
 }
 
@@ -46,8 +44,6 @@ export const registerClient = async (req, res, next) => {
         next(error);
     }
 };
-
-
 
 export const getClients = async (req, res, next) => {
 

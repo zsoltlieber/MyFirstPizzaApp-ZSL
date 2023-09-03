@@ -33,24 +33,16 @@ export const getOrders = async (req, res, next) => {
 
     try {
         let orders = null;
+        orders = await Order.find()
         if (!req.client.isAdmin) {
-            orders = (await Order.find()).filter((data) => {
-                data.isActive === true && data.orderClientId === req.client.id
-            });
-
-        }
-        if (req.query.isActive === 'true') {
-            orders = (await Order.find()).filter((data) => data.isActive === true);
+            orders = orders.filter((data) => { data.isActive === true && data.orderClientId === req.client.id });
+        } else if (req.query.isActive === 'true') {
+            orders = orders.filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {
-            orders = (await Order.find()).filter((data) => data.isActive === false);
-        } else {
-            orders = await Order.find();
+            orders = orders.filter((data) => data.isActive === false);
         }
 
         if (orders !== null) {
-            if (req.client.isAdmin === false) {
-                orders = orders.filter(order => order.orderClientId.match(req.client.id));
-            }
             res.status(200).json(orders);
         } else {
             res.status(200).json("No orders in the database!");
