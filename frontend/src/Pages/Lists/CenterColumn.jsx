@@ -33,7 +33,7 @@ function CenterColumn() {
 
   useEffect(() => {
     pizzaTypeFetch(pizzaTypesUrl)
-  }, [rejectedAllergens, actualPizzas]);
+  }, [rejectedAllergens]);
 
   function addPizzaIdToOrder(pizzaId) {
     setPizzaIdToOrder(pizzaId)

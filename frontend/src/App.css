@@ -372,9 +372,11 @@ input {
   border: 2px solid forestgreen;
   width: 95%;
   height: 70%;
+  max-height: fit-content;
   margin-left: 2%;
   overflow: auto;
 }
+
 
 #order-prelist-table {
   border: 2px solid forestgreen;
@@ -388,6 +390,7 @@ th {
 }
 td {
   border-bottom: 1px solid rgb(0, 0, 0);
+  max-height: 5px;
 }
 
 #order-form,
