@@ -3,16 +3,16 @@ import { MainContext } from '../../mainContext.js'
 
 function CenterColumn() {
 
-  const { rejectedAllergens, setPizzaIdToOrder, setAllPizzaTypes } = useContext(MainContext);
+  const { rejectedAllergens, setPizzaIdToOrder, setAllPizzaTypes, itemIsActiveStatus } = useContext(MainContext);
 
   const pizzaTypesUrl = '/api/pizzaTypes';
   const [actualPizzas, setActualPizzas] = useState({});
 
   const pizzaTypeFetch = async (url) => {
-
+    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
     let newPizzaList = [];
     let wrongPizza = 0;
-    const response = await fetch(`${url}?isActive=true`);
+    const response = await fetch(actualUrl);
     const data = await response.json();
     if (response.status === 200) {
       setAllPizzaTypes(data)
@@ -33,7 +33,7 @@ function CenterColumn() {
 
   useEffect(() => {
     pizzaTypeFetch(pizzaTypesUrl)
-  }, [rejectedAllergens]);
+  }, [rejectedAllergens, actualPizzas]);
 
   function addPizzaIdToOrder(pizzaId) {
     setPizzaIdToOrder(pizzaId)

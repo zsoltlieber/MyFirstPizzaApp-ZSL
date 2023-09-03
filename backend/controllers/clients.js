@@ -2,46 +2,46 @@ import Client from '../models/Client.js';
 import bcrypt from 'bcryptjs';
 import createError from '../utils/error.js';
 
+const getClientEmailList = async (actualClientEmail) => {
+    console.log(actualClientEmail);
+    const clients = await Client.find();
+    const clientsEmailList = clients.map(client => client.email);
+    console.log(clientsEmailList);
+    return clientsEmailList.includes(actualClientEmail)
+}
+
 export const registerClient = async (req, res, next) => {
+    const actualClientEmail = req.body.email;
 
     try {
-        const actualClientEmail = req.body.email;
-        console.log(actualClientEmail);
+        if (
+            !getClientEmailList(actualClientEmail) &&
+            req.body.clientName !== undefined &&
+            req.body.password !== undefined &&
+            req.body.email !== undefined &&
+            req.body.phoneNumber !== undefined &&
+            req.body.address !== undefined
+        ) {
+            const salt = bcrypt.genSaltSync(10);
+            const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-        const getClientEmailList = async (req, res, next) => {
-            const clients = await Client.find();
-            const clientsEmailList = clients.map(client => client.email);
-            if (!clientsEmailList.includes(actualClientEmail)) {
+            const newClient = new Client(req.body);
+            newClient.password = hashedPassword;
 
-                if (
-                    req.body.clientName !== null &&
-                    req.body.password !== null &&
-                    req.body.email !== null &&
-                    req.body.phoneNumber !== null &&
-                    req.body.address !== null
-                ) {
-                    const salt = bcrypt.genSaltSync(10);
-                    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+            await newClient.save();
+            res.status(200).json(newClient);
+            console.log(`${newClient.clientName} - ${newClient._id} - client was registered.`);
 
-                    const newClient = new Client(req.body);
-                    newClient.password = hashedPassword;
-
-                    await newClient.save();
-                    res.status(200).json(newClient);
-                    console.log(`${newClient.clientName} - ${newClient._id} - client was registered.`);
-
-                }
-            }
-            else if (clientsEmailList.includes(actualClientEmail)) {
-                console.log("The email had been registered! Use log in, or register another email!")
-
-            }
-            else {
-                return next(createError(403, "Wrong data (client name or pasword not correct!"))
-            }
         }
-        getClientEmailList(actualClientEmail)
+        else if (getClientEmailList(actualClientEmail) === true) {
+            console.log("The email had been registered! Use log in, or register another email!")
+
+        }
+        else {
+            return next(createError(200, "Wrong data (client name or pasword not correct!"))
+        }
     }
+
     catch (error) {
         next(error);
     }

@@ -4,8 +4,8 @@ import { Context } from "../../context.js"
 
 const OrderListHandler = () => {
 
-  const { actualClientData, allPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder, itemIsActiveStatus  } = useContext(MainContext);
-  const { listOfOrders, setListOfOrders,  setPreOrderList, showPreOrderList } = useContext(Context);
+  const { actualClientData, allPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder, itemIsActiveStatus } = useContext(MainContext);
+  const { listOfOrders, setListOfOrders, preOrderList, setPreOrderList } = useContext(Context);
 
   const ordersUrl = `/api/orders`
   let grandTotalCost = 0;
@@ -76,12 +76,10 @@ const OrderListHandler = () => {
     const actualOrder = listOfOrders.find(order => order._id === orderId);
     setPreOrderList(actualOrder)
   };
-
-  if (listOfOrders !== undefined && listOfOrders.length > 0) console.log(listOfOrders);
-  
+ 
   return (
-    <div>
-      {listOfOrders!==undefined && listOfOrders.length > 0 && showPreOrderList
+    <>
+      {listOfOrders !== undefined && listOfOrders.length > 0 && pizzaIdToOrder === "" && preOrderList.length < 1
         ?
         < div id="order-list" >
           <div >
@@ -97,6 +95,7 @@ const OrderListHandler = () => {
                   <th>Pizza name</th>
                   <th>Piece</th>
                   <th>Price each</th>
+                  <th></th>
                   <th></th>
                 </tr>
               </thead>
@@ -118,10 +117,10 @@ const OrderListHandler = () => {
                             <td>{orderItem.quantity} db</td>
                             <td>{orderItem.pricePerEach.toLocaleString('en-US')}.-Ft</td>
                             <td>
-                              <td>
-                                <button type="button" id="delete-btn" onClick={(e) => deleteOrderRow(order._id, orderItem._id)}>DEL </button>
-                                <button type='button' id="update-btn" value={order._id} onClick={(e) => updateItem(e.target.value)}>UPD</button>
-                              </td>
+                              <button type="button" id="delete-btn" onClick={(e) => deleteOrderRow(order._id, orderItem._id)}>DEL </button>
+                            </td>
+                            <td>
+                              <button type='button' id="update-btn" value={order._id} onClick={(e) => updateItem(e.target.value)}>UPD</button>
                             </td>
                           </tr>
                         )
@@ -138,20 +137,10 @@ const OrderListHandler = () => {
             </table>
           </div >
         </div >
-        :
-        <>
-          {pizzaIdToOrder === "" && listOfOrders.length < 1
-            ?
-            <div id="order-form">
-              <>
-                <h5>YOU DO NOT HAVE <br />ACTIVE ORDER !!</h5>
-                <h6>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</h6>
-              </>
-            </div>
-            : <></>}
-        </>
+        : <></>
       }
-    </div >
+
+    </ >
   )
 }
 

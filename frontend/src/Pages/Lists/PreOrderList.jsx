@@ -6,8 +6,8 @@ function PreOrderList() {
 
 
     const { pizzaIdToOrder } = useContext(MainContext);
-    const { listOfOrders, setListOfOrders, preOrderList, setPreOrderList, showPreOrderList,
-        setShowPreOrderList, setShowOrderThanks, setShowTopMessageBox } = useContext(Context);
+    const {  setListOfOrders, preOrderList, setPreOrderList, 
+        setShowOrderThanks,  setShowTopMessageBox } = useContext(Context);
 
     const ordersUrl = '/api/orders';
     let totalCost = 0;
@@ -33,9 +33,8 @@ function PreOrderList() {
                 setListOfOrders(data);
 
                 setShowTopMessageBox(false);
-                //setShowPreOrderList(false);
                 setShowOrderThanks(true);
-                //            setPreOrderList([]);
+                setPreOrderList([]);
 
                 setTimeout(() => {
                     setShowOrderThanks(false);
@@ -52,12 +51,9 @@ function PreOrderList() {
         setPreOrderList({ orderedItems: modifiedOrdersList });
     }
 
-    console.log(preOrderList.orderedItems !== undefined);
-    console.log(preOrderList.length > 0);
-    console.log(showPreOrderList);
     return (
         <div>
-            {preOrderList.orderedItems !== undefined && preOrderList.orderedItems.length > 0 && showPreOrderList
+            {preOrderList.orderedItems !== undefined && preOrderList.orderedItems.length > 0 
                 ?
                 <div id="preorder-list">
                     <h5 style={{ textAlign: "center", margin: "2% 0% 2% 0%" }}>PRE-Order list</h5>

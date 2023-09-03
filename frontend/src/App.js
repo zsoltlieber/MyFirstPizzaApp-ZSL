@@ -17,7 +17,7 @@ function App() {
   const [rightColumnType, setRightColumnType] = useState("about");
   const [itemIsActiveStatus, setItemIsActiveStatus] = useState(true) 
 
-  //searchfield test
+  //searchfield for trying this component ability
   const [searchField, setSearchField] = useState('');
 
   function setSearchChange(event) {

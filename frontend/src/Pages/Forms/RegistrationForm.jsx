@@ -26,35 +26,26 @@ export function RegistrationForm() {
             }],
         };
         console.log(actualClientData);
+        if (actualClientData !== undefined) {
 
-        const registrationSave = async () => {
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(actualClientData)
+            const registrationSave = async () => {
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(actualClientData)
+                };
+                const response = await fetch(registerUrl, requestOptions);
+                const data = await response.json();
+
+                setClientData(data);
+                setShowRegistrationMessage(true);
+                setTimeout(() => {
+                    setRightColumnType("login");
+                    setShowRegistrationMessage(false);
+                }, 2000);
             };
-            const response = await fetch(registerUrl, requestOptions);
-            const data = await response.json();
-
-            setClientData(data);
-            setShowRegistrationMessage(true);
-            setTimeout(() => {
-                setRightColumnType("login");
-                setShowRegistrationMessage(false);
-            }, 2000);
-        };
-        /*
-        const emailChecker = async () => {
-            const isRegisteredEmail = await fetch('/api/clients/isRegisteredEMail');
-            const isFreeEmail = await isRegisteredEmail.json();
-            if (isFreeEmail) {
-*/
-        registrationSave()
-        /*
-                   }
-           }
-           emailChecker();
-       */
+            registrationSave()
+        }
     }
 
     return (

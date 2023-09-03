@@ -6,13 +6,12 @@ import PreOrderList from '../../Pages/Lists/PreOrderList.jsx';
 export function OrderForm() {
 
     const { actualClientData, pizzaIdToOrder, setPizzaIdToOrder, allPizzaTypes } = useContext(MainContext);
-    const { preOrderList, setPreOrderList,setShowPreOrderList, showOrderThanks } = useContext(Context);
+    const { listOfOrders, preOrderList, setPreOrderList, showOrderThanks,showTopMessageBox } = useContext(Context);
 
     const [value, setValue] = useState(1);
     const [actualPizzaData, setActualPizzaData] = useState(undefined)
 
     const addActualOrderedItemToList = () => {
-        setShowPreOrderList(true)
         const orderLine = {
             "pizzaId": actualPizzaData._id,
             "pizzaName": actualPizzaData.pizzaName,
@@ -26,8 +25,7 @@ export function OrderForm() {
             const amendedActualOrderList = [...preOrderList.orderedItems, orderLine]
             setPreOrderList({ orderedItems: amendedActualOrderList });
         }
-        //setPizzaIdToOrder("")
-       // setActualPizzaData(undefined)
+        setPizzaIdToOrder("")
         setValue(1)
     }
 
@@ -38,35 +36,48 @@ export function OrderForm() {
         }
     }, [pizzaIdToOrder]);
 
-    
+
     return (
         <div id="order-container">
+            {showTopMessageBox && pizzaIdToOrder === ""
+                ?
+                <div id="order-top-message-box">
+                    {listOfOrders.length < 1
+                        ?
+                        <p>YOU DO NOT HAVE <br />ACTIVE ORDER !!</p>
+                        : <></>
+                    }
+                    <p>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</p>
+                </div>
+                : <></>}
             {pizzaIdToOrder !== ""
                 ?
-                <div id="order-form">
-                    <form >
-                        <h4 style={{ textAlign: "center", margin: "2% 0% 2% 0%" }}>ORDER FORM</h4>
-                        {actualPizzaData !== undefined
-                            ?
-                            <>
-                                < ul style={{ listStyleType: "none" }}>
-                                    <li style={{ marginLeft: "-3rem" }} className='order-element'>
-                                        {actualPizzaData.pizzaName} {actualPizzaData.price.toLocaleString('en-US')}.- Ft
-                                        <input style={{ width:"max-content", marginLeft: "10px" }} type="number" id="quantity" size="4" min={1}
-                                            max={5} value={value !== undefined ? value : 1}
-                                            onChange={(event) => setValue(event.target.value)}
-                                        />
-                                        <button type="button" className="btn" id="add-btn" onClick={addActualOrderedItemToList}>ADD</button>
-                                    </li>
-                                </ul>
-                                <PreOrderList />
-                            </>
-                            : <></>
-                        }
-                    </form >
-                </div >
+                <>
+                    <div id="order-form">
+                        <form >
+                            <h4 style={{ textAlign: "center", margin: "2% 0% 2% 0%" }}>ORDER FORM</h4>
+                            {actualPizzaData !== undefined
+                                ?
+                                <>
+                                    < ul style={{ listStyleType: "none" }}>
+                                        <li style={{ marginLeft: "-3rem" }} className='order-element'>
+                                            {actualPizzaData.pizzaName} {actualPizzaData.price.toLocaleString('en-US')}.- Ft
+                                            <input style={{ width: "max-content", marginLeft: "10px" }} type="number" id="quantity" size="4" min={1}
+                                                max={5} value={value !== undefined ? value : 1}
+                                                onChange={(event) => setValue(event.target.value)}
+                                            />
+                                            <button type="button" className="btn" id="add-btn" onClick={addActualOrderedItemToList}>ADD</button>
+                                        </li>
+                                    </ul>
+                                </>
+                                : <></>
+                            }
+                        </form >
+                    </div >
+                </>
                 : <></>
             }
+            <PreOrderList />
 
             {showOrderThanks
                 ?

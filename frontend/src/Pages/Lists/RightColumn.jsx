@@ -33,7 +33,6 @@ const RightColumn = ({ setSearchFieldChange }) => {
   const [newOrModifiedPizzaType, setNewOrModifiedPizzaType] = useState([]);//for new and updatable pizzaType
   const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
   const [preOrderList, setPreOrderList] = useState([]);
-  const [showPreOrderList, setShowPreOrderList] = useState(false) // show or not show total pre-list of orders
   const [showOrderThanks, setShowOrderThanks] = useState(false)
   const [messageList, setMessageList] = useState([]);
   const [newOrModifiedMessage, setNewOrModifiedMessage] = useState({});
@@ -51,7 +50,7 @@ const RightColumn = ({ setSearchFieldChange }) => {
         newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
         newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
         newOrModifiedPizzaType, setNewOrModifiedPizzaType, preOrderList, setPreOrderList, 
-        listOfOrders, setListOfOrders, showPreOrderList, setShowPreOrderList,
+        listOfOrders, setListOfOrders, 
         messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, showOrderThanks, setShowOrderThanks,
         showMessageThanks, setShowMessageThanks, showTopMessageBox, setShowTopMessageBox
       }}>
