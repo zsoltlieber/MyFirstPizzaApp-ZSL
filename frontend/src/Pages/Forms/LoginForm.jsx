@@ -22,7 +22,6 @@ export const LoginForm = () => {
       const data = await response.json();
       if (response.status !== 200) {
         setLoginErrorMessage(data.message)
-        console.log(data.message)
         setShowBoxes(2);
       }
       else {

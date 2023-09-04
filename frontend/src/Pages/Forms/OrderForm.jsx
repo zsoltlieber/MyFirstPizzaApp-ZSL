@@ -13,7 +13,7 @@ export function OrderForm() {
 
 
     const addActualOrderedItemToList = () => {
-        
+
         let amendedActualOrderList = []
 
         const orderLine = {
@@ -32,11 +32,11 @@ export function OrderForm() {
                 let modifyItem = preOrderList.orderedItems.find(item => item.pizzaId === orderLine.pizzaId);
                 modifyItem.quantity = modifyItem.quantity + orderLine.quantity;
                 amendedActualOrderList.push(modifyItem);
-                console.log(amendedActualOrderList);
             }
             else {
                 amendedActualOrderList = [...preOrderList.orderedItems, orderLine];
             }
+            amendedActualOrderList = amendedActualOrderList.sort((itemA, itemB) => itemA.pizzaName > itemB.pizzaName)
             setPreOrderList({ orderedItems: amendedActualOrderList })
         }
         setPizzaIdToOrder("")
@@ -50,12 +50,16 @@ export function OrderForm() {
         }
     }, [pizzaIdToOrder]);
 
+    const deleteItemFromForm = () => {
+        setPizzaIdToOrder("")
+    }
+
     return (
         <div id="order-container">
             {showTopMessageBox && pizzaIdToOrder === ""
                 ?
                 <div id="order-top-message-box">
-                    {listOfOrders !== undefined && listOfOrders.length < 1
+                    {listOfOrders.length < 1
                         ?
                         <p>YOU DO NOT HAVE <br />ACTIVE ORDER !!</p>
                         : <></>
@@ -80,6 +84,7 @@ export function OrderForm() {
                                                 onChange={(event) => setValue(event.target.value)}
                                             />
                                             <button type="button" className="btn" id="add-btn" onClick={addActualOrderedItemToList}>ADD</button>
+                                            <button type="button" className="btn" id="delete-btn" onClick={deleteItemFromForm}>X</button>
                                         </li>
                                     </ul>
                                 </>

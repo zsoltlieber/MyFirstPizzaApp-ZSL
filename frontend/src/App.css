@@ -308,7 +308,7 @@ input {
   overflow: auto;
 }
 
-#messages{
+#messages {
   background: rgba(157, 27, 16, 0.7);
   color: white;
   width: 95%;
@@ -377,7 +377,6 @@ input {
   overflow: auto;
 }
 
-
 #order-prelist-table {
   border: 2px solid forestgreen;
   width: 98%;
@@ -387,14 +386,13 @@ input {
 }
 th {
   border-bottom: 1px solid black;
-  }
+}
 
 td {
   border-bottom: 1px solid rgb(0, 0, 0);
 }
 
-#order-form,
-#preorder-list {
+#order-form {
   background-color: rgba(157, 27, 16, 0.7);
   width: 95%;
   color: white;
@@ -405,11 +403,25 @@ td {
   margin: 2%;
   overflow: auto;
 }
+
+#preorder-list {
+  background-color: rgba(157, 27, 16, 0.7);
+  width: 94%;
+  color: white;
+  font-size: large;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 1%;
+  margin: 2%;
+  overflow: auto;
+}
+
 #add-btn {
+  padding: 2%;
   background-color: green;
   color: white;
   width: 40px;
-  margin-left: "20px";
+  margin-left: "50px";
 }
 
 #delete-btn {

@@ -24,7 +24,7 @@ const OrderListHandler = () => {
     orderFetch(ordersUrl);
   }, [preOrderList]);
 
-  const deleteOrderFetch = (actualEndPoint, orderId) => {
+  const deleteOrderFetch = (actualEndPoint, orderId, deletedItemId) => {
 
     const requestOptions = {
       method: 'DELETE',
@@ -43,7 +43,7 @@ const OrderListHandler = () => {
     deleteOrder();
   };
 
-  function removeOrderFetch(actualEndPoint, orderId) {
+  function removeOrderFetch(actualEndPoint, orderId, deletedItemId) {
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -71,12 +71,6 @@ const OrderListHandler = () => {
     else if (actualClientData !== undefined && actualClientData.clientName !== "") {
       removeOrderFetch(actualEndPoint, orderId);
     }
-  };
-
-  const updateItem = (orderId) => {
-    setPizzaIdToOrder(orderId);
-    const actualOrder = listOfOrders.find(order => order._id === orderId);
-    setPreOrderList(actualOrder)
   };
 
   return (
@@ -108,7 +102,7 @@ const OrderListHandler = () => {
               <>
                 <p style={{ backgroundColor: "blue", width: "fit-content" }}>{orderClientName.toUpperCase()}</p>
 
-                <table id="order-list-table" style={{ listStyleType: "none", fontSize: "15px" }}>
+                <table id="order-list-table" style={{ listStyleType: "none", fontSize: "15px", height: "10px" }}>
                   <thead>
                     <tr>
                       <th>Pizza name</th>
@@ -119,9 +113,12 @@ const OrderListHandler = () => {
                     </tr>
                   </thead>
                   <tbody key={index1}>
-                    <tr >
-                      <td colSpan={3} align="left" style={{ color: "black", backgroundColor: "wheat" }}>
-                        <p style={{ alignItems: "center", marginBottom: "-5%", marginTop: "-5%" }}>{order.created.substring(0, 16).replace("T", " ")} {order.orderClientId}          </p>
+                    <tr>
+                      <td style={{ alignItems: "center", color: "black", backgroundColor: "lightskyblue", height: "10px" }}>{order.created.substring(0, 16).replace("T", " ")}
+                      </td>
+                      <td></td>
+                      <td>
+                        <button type="button" id="delete-btn" onClick={(e) => deleteOrderRow(order._id)}>DEL </button>
                       </td>
                     </tr>
                     {order.orderedItems.map((orderItem, index) => {
@@ -131,16 +128,10 @@ const OrderListHandler = () => {
                       totalCost = totalCost + orderItem.quantity * orderItem.pricePerEach;
                       grandTotalCost = grandTotalCost + orderItem.quantity * orderItem.pricePerEach;
                       return (
-                        <tr key={index}>
+                        <tr key={index} style={{ alignItems: "left", height: "10px" }}>
                           <td>{actualPizzaName}</td>
                           <td>{orderItem.quantity} db</td>
                           <td>{orderItem.pricePerEach.toLocaleString('en-US')}.-Ft</td>
-                          <td>
-                            <button type="button" id="delete-btn" onClick={(e) => deleteOrderRow(order._id, orderItem._id)}>DEL </button>
-                          </td>
-                          <td>
-                            <button type='button' id="update-btn" value={order._id} onClick={(e) => updateItem(e.target.value)}>UPD</button>
-                          </td>
                         </tr>
                       )
                     }
@@ -149,7 +140,7 @@ const OrderListHandler = () => {
                   </tbody >
                   <tfoot>
                     < tr>
-                      <td colSpan={3} align="left">Payable: {totalCost.toLocaleString('en-US')}.-Ft</td>
+                      <td colSpan={3} style={{ alignItems: "left", height: "10px" }}>Payable: {totalCost.toLocaleString('en-US')}.-Ft</td>
                     </tr >
                   </tfoot>
                 </table>
