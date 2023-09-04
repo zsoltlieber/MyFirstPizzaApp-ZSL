@@ -10,7 +10,7 @@ export const createMessage = async (req, res, next) => {
             const newMessage = new Message(req.body);
             const savedMessage = await newMessage.save();
             res.status(200).json(savedMessage);
-            console.log(`clientId: ${savedMessage.clientId} - messageId: ${savedMessage._id} - message has been saved!`);
+            console.log(`clientId: ${savedMessage.clientId} - messageId: ${savedMessage._id} - message was saved!`);
         } else {
             return next(createError(403, "Message is missing!"))
         }
@@ -63,7 +63,7 @@ export const updateMessageById = async (req, res, next) => {
     try {
         const actualMessage = await Message.findById(req.params.id)
         if (!req.client.isAdmin && !actualMessage.lastManipulatorId.match(req.client.id)) {
-            return next(createError(403, "Not allowed to access that client data!"))
+            return next(createError(403, "Not allowed to access that message data!"))
         }
         else {
             if (req.body.message !== undefined || req.body.message !== "") {

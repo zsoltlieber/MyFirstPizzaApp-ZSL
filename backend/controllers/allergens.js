@@ -9,7 +9,7 @@ export const createAllergen = async (req, res, next) => {
             const newAllergen = new Allergen(req.body);
             const savedAllergen = await newAllergen.save();
             res.status(200).json(savedAllergen);
-            console.log(`${savedAllergen.allergenName} - allergen saved!`);
+            console.log(`${savedAllergen.allergenName} - allergen was saved!`);
         } else {
             return next(createError(403, "Wrong data (allergen name is wrong or missing!"));
         }
@@ -24,12 +24,11 @@ export const getAllergens = async (req, res, next) => {
 
     try {
         let allergens = null;
+        allergens = await Allergen.find();
         if (req.query.isActive === 'true') {
-            allergens = (await Allergen.find()).filter((data) => data.isActive === true);
+            allergens = allergens.filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {
-            allergens = (await Allergen.find()).filter((data) => data.isActive === false);
-        } else {
-            allergens = await Allergen.find();
+            allergens = allergens.filter((data) => data.isActive === false);
         }
         if (allergens !== null) {
             res.status(200).json(allergens);
@@ -72,7 +71,7 @@ export const updateAllergenById = async (req, res, next) => {
                     { new: true });
 
                 res.status(200).json(updateAllergen);
-                console.log(`${updateAllergen.allergenName} - ${updateAllergen._id} - allergen updated!`);
+                console.log(`${updateAllergen.allergenName} - ${updateAllergen._id} - allergen was updated!`);
             } else {
                 return next(createError(403, "Wrong data (allergen name is wrong or missing!"));
             }
@@ -93,8 +92,8 @@ export const deleteAllergenById = async (req, res, next) => {
         if (actualAllergen !== null) {
             if (req.client.isMainAdmin) {
                 const deletedAllergen = await Allergen.findByIdAndDelete(req.params.id);
-                res.status(200).json(`${deletedAllergen._id} - allergen deleted!`);
-                console.log(`${deletedAllergen._id} - allergen deleted!`);
+                res.status(200).json(`${deletedAllergen._id} - allergen was deleted!`);
+                console.log(`${deletedAllergen._id} - allergen was deleted!`);
             }
             else {
                 req.body = actualAllergen;
@@ -107,7 +106,7 @@ export const deleteAllergenById = async (req, res, next) => {
                     { new: true });
 
                 res.status(200).json(updateAllergen);
-                console.log(`${updateAllergen.allergenName} - ${updateAllergen._id} - has been updated!`);
+                console.log(`${updateAllergen.allergenName} - ${updateAllergen._id} - has was updated!`);
             }
         }
         else {

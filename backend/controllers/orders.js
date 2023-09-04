@@ -19,7 +19,7 @@ export const createOrder = async (req, res, next) => {
             } else {
                 const savedOrder = await newOrder.save();
                 res.status(200).json(savedOrder);
-                console.log(`${savedOrder._id} - order has been saved!`)
+                console.log(`${savedOrder._id} - order was saved!`)
             }
         }
     }
@@ -80,7 +80,7 @@ export const updateOrderById = async (req, res, next) => {
     try {
         const actualOrder = await Order.findById(req.params.id);
         if (!req.client.isAdmin && !actualOrder.orderClientId.match(req.client.id)) {
-            return next(createError(403, "Not allowed to access that client data!"))
+            return next(createError(403, "Not allowed to access that order data!"))
         }
         else {
             req.body.lastManipulatorId = req.client.id;
@@ -90,7 +90,7 @@ export const updateOrderById = async (req, res, next) => {
                 { new: true }
             );
             res.status(200).json(updatedOrder);
-            console.log(`${updatedOrder._id} - order has been updated!`);
+            console.log(`${updatedOrder._id} - order was updated!`);
         }
     }
 
@@ -106,8 +106,8 @@ export const deleteOrderById = async (req, res, next) => {
         if (actualOrder !== null) {
             if (req.client.isMainAdmin) {
                 await Order.findByIdAndDelete(req.params.id);
-                res.status(200).json(`${req.params.id} - client has been deleted!`);
-                console.log(`${req.params.id} - client has been deleted!`);
+                res.status(200).json(`${req.params.id} - order was deleted!`);
+                console.log(`${req.params.id} - order was deleted!`);
             }
             else if (req.client.isAdmin || !req.client.isAdmin && actualOrder.orderClientId.match(req.client.id)) {
                 req.body = actualOrder;
@@ -119,9 +119,9 @@ export const deleteOrderById = async (req, res, next) => {
                     { new: true }
                 );
                 res.status(200).json(updatedOrder);
-                console.log(`${updatedOrder._id} - order has been updated!`);
+                console.log(`${updatedOrder._id} - order was updated!`);
             }
-            else { return next(createError(403, "Not allowed to access that client data!")) }
+            else { return next(createError(403, "Not allowed to access that order data!")) }
         }
         else {
             res.status(200).json("No order the given ID!");

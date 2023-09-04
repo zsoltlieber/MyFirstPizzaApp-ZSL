@@ -8,7 +8,7 @@ export const createPizzaType = async (req, res, next) => {
         const newPizzaType = new PizzaType(req.body);
         const savedPizzaType = await newPizzaType.save();
         res.status(200).json(savedPizzaType);
-        console.log(`${savedPizzaType.pizzaName} - ${savedPizzaType._id} - pizza type has been saved!`);
+        console.log(`${savedPizzaType.pizzaName} - ${savedPizzaType._id} - pizza type was saved!`);
     }
 
     catch (error) {
@@ -60,7 +60,7 @@ export const updatePizzaTypeById = async (req, res, next) => {
             { new: true }
         );
         res.status(200).json(updatePizzaType);
-        console.log(`${updatePizzaType.pizzaName} - ${updatePizzaType._id} - pizza type has been updated!`);
+        console.log(`${updatePizzaType.pizzaName} - ${updatePizzaType._id} - pizza type was updated!`);
     }
 
     catch (error) {
@@ -72,8 +72,8 @@ export const deletePizzaTypeById = async (req, res, next) => {
 
     try {
         await PizzaType.findByIdAndDelete(req.params.id);
-        res.status(200).json(`${req.params.id} - pizza type has been deleted!`);
-        console.log(`${req.params.id} - pizza type has been deleted!`);
+        res.status(200).json(`${req.params.id} - pizza type was deleted!`);
+        console.log(`${req.params.id} - pizza type was deleted!`);
     }
 
     catch (error) {

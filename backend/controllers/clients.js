@@ -106,7 +106,7 @@ export const updateClientById = async (req, res, next) => {
                         { new: true }
                     );
                     res.status(200).json(updatedClient);
-                    console.log(`${updatedClient.clientName} - ${updatedClient._id} - has been updated!`);
+                    console.log(`${updatedClient.clientName} - ${updatedClient._id} - client was updated!`);
                 }
             }
         } else {
@@ -140,8 +140,8 @@ export const deleteClientById = async (req, res, next) => {
         if (actualClient !== null) {
             if (req.client.isMainAdmin) {
                 await Client.findByIdAndDelete(req.params.id);
-                res.status(200).json(`${req.params.id} - client has been deleted!`);
-                console.log(`${req.params.id} - client has been deleted!`);
+                res.status(200).json(`${req.params.id} - client was deleted!`);
+                console.log(`${req.params.id} - client was deleted!`);
             }
             else if (req.client.isAdmin || !req.client.isAdmin && req.params.id.match(actualClient.client.id)) {
                 req.body = actualClient;
@@ -153,7 +153,7 @@ export const deleteClientById = async (req, res, next) => {
                     { new: true }
                 );
                 res.status(200).json(updatedClient);
-                console.log(`${updatedClient.clientName} - ${updatedClient._id} - has been updated!`);
+                console.log(`${updatedClient.clientName} - ${updatedClient._id} - client was updated!`);
             }
             else { return next(createError(403, "Not allowed to access that client data!")) }
         }
