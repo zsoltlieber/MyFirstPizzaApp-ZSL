@@ -11,7 +11,11 @@ export function OrderForm() {
     const [value, setValue] = useState(1);
     const [actualPizzaData, setActualPizzaData] = useState(undefined)
 
+
     const addActualOrderedItemToList = () => {
+        
+        let amendedActualOrderList = []
+
         const orderLine = {
             "pizzaId": actualPizzaData._id,
             "pizzaName": actualPizzaData.pizzaName,
@@ -21,9 +25,19 @@ export function OrderForm() {
 
         if (preOrderList.orderedItems === undefined) {
             setPreOrderList({ orderedItems: [orderLine] });
-        } else {
-            const amendedActualOrderList = [...preOrderList.orderedItems, orderLine]
-            setPreOrderList({ orderedItems: amendedActualOrderList });
+        }
+        else {
+            if (preOrderList.orderedItems.find(item => item.pizzaId === orderLine.pizzaId) !== undefined) {
+                amendedActualOrderList = preOrderList.orderedItems.filter(item => item.pizzaId !== orderLine.pizzaId);
+                let modifyItem = preOrderList.orderedItems.find(item => item.pizzaId === orderLine.pizzaId);
+                modifyItem.quantity = modifyItem.quantity + orderLine.quantity;
+                amendedActualOrderList.push(modifyItem);
+                console.log(amendedActualOrderList);
+            }
+            else {
+                amendedActualOrderList = [...preOrderList.orderedItems, orderLine];
+            }
+            setPreOrderList({ orderedItems: amendedActualOrderList })
         }
         setPizzaIdToOrder("")
         setValue(1)
@@ -36,18 +50,17 @@ export function OrderForm() {
         }
     }, [pizzaIdToOrder]);
 
-
     return (
         <div id="order-container">
             {showTopMessageBox && pizzaIdToOrder === ""
                 ?
                 <div id="order-top-message-box">
-                    {listOfOrders.length < 1
+                    {listOfOrders !== undefined && listOfOrders.length < 1
                         ?
                         <p>YOU DO NOT HAVE <br />ACTIVE ORDER !!</p>
                         : <></>
                     }
-                    <p>Please click on the wanted pizzacard <br />ADD TO BASKEN button!!</p>
+                    <p>Please click on wanted pizzacard's <br />ADD TO BASKEN button!!</p>
                 </div>
                 : <></>}
             {pizzaIdToOrder !== ""

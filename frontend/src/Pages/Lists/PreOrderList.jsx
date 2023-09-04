@@ -68,8 +68,8 @@ function PreOrderList() {
 
                             {preOrderList.orderedItems.map((order, index) => {
                                 return (
-                                    <tr>
-                                        <td key={index} style={{ textAlign: "left", marginLeft: "-3rem" }} className='order-element'>
+                                    <tr key={index}>
+                                        <td  style={{ textAlign: "left", marginLeft: "-3rem" }} className='order-element'>
                                             {order.pizzaName}
                                         </td>
                                         <td style={{ textAlign: "center" }} >{order.quantity}</td>
