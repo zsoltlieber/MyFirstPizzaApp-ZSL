@@ -1,5 +1,12 @@
 import registerClient from '../controllers/clients'
 
+const testClient = {
+    email: "client@client.hu",
+    password:"password"
+}
+
+console.log(testClient);
+
 test('the data is peanut butter', async () => {
     const data = await fetchData();
     expect(data).toBe('peanut butter');

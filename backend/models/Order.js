@@ -33,7 +33,6 @@ const OrderSchema = new Schema({
     lastManipulatorId: {                     //last modifier ID or initial ID
         type: String,
         require: true,
-        default: "initial"
     },
     created: {
         type: Date,
