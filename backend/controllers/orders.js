@@ -34,8 +34,9 @@ export const getOrders = async (req, res, next) => {
     try {
         let orders = null;
         orders = await Order.find()
+
         if (!req.client.isAdmin) {
-            orders = orders.filter((data) => { data.isActive === true && data.orderClientId === req.client.id });
+            orders = orders.filter((data) => data.isActive === true && data.orderClientId === req.client.id);
         } else if (req.query.isActive === 'true') {
             orders = orders.filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {
