@@ -1,11 +1,9 @@
 import { useContext } from "react";
-import { Context } from "../../context.js"
 import { MainContext } from "../../mainContext.js"
 
 const PizzaTypeForm = () => {
 
-  const { allPizzaTypes, setAllPizzaTypes } = useContext(MainContext);
-  const { newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(Context);
+  const { allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(MainContext);
 
   const pizzaTypeUrl = "/api/pizzaTypes"
 

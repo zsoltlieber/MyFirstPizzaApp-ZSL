@@ -13,6 +13,7 @@ function App() {
   const [allAllergens, setAllAllergens] = useState([]);
   const [rejectedAllergens, setRejectedAllergens] = useState([]);
   const [allPizzaTypes, setAllPizzaTypes] = useState([]);
+  const [newOrModifiedPizzaType, setNewOrModifiedPizzaType] = useState([]);//for new and updatable pizzaType
   const [pizzaIdToOrder, setPizzaIdToOrder] = useState('');
   const [rightColumnType, setRightColumnType] = useState("about");
   const [itemIsActiveStatus, setItemIsActiveStatus] = useState(true)
@@ -31,7 +32,8 @@ function App() {
       <MainContext.Provider value={{
         actualClientData, setActualClientData, allClientData, setAllClientData,
         allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
-        allPizzaTypes, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
+        allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType,
+        pizzaIdToOrder, setPizzaIdToOrder,
         rightColumnType, setRightColumnType, itemIsActiveStatus, setItemIsActiveStatus
       }}>
         <div id="header-container" >

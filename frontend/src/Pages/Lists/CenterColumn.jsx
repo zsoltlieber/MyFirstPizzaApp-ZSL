@@ -3,7 +3,7 @@ import { MainContext } from '../../mainContext.js'
 
 function CenterColumn() {
 
-  const { rejectedAllergens, setPizzaIdToOrder, setAllPizzaTypes, itemIsActiveStatus } = useContext(MainContext);
+  const { rejectedAllergens, setPizzaIdToOrder, setAllPizzaTypes, newOrModifiedPizzaType, itemIsActiveStatus } = useContext(MainContext);
 
   const pizzaTypesUrl = '/api/pizzaTypes';
   const [actualPizzas, setActualPizzas] = useState({});
@@ -33,7 +33,7 @@ function CenterColumn() {
 
   useEffect(() => {
     pizzaTypeFetch(pizzaTypesUrl)
-  }, [rejectedAllergens]);
+  }, [rejectedAllergens, newOrModifiedPizzaType]);
 
   function addPizzaIdToOrder(pizzaId) {
     setPizzaIdToOrder(pizzaId)

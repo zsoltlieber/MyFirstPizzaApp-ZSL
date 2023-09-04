@@ -1,12 +1,10 @@
 import { useContext, useEffect } from 'react';
-import { Context } from "../../context.js"
 import { MainContext } from "../../mainContext.js"
 import PizzaTypeTable from './PizzaTypeTable.jsx';
 
 function PizzaTypeTableController() {
 
-  const { actualClientData, allPizzaTypes, setAllPizzaTypes, itemIsActiveStatus } = useContext(MainContext);
-  const { newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(Context);
+  const { actualClientData, allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType, itemIsActiveStatus } = useContext(MainContext);
 
   const pizzaTypeUrl = "/api/pizzaTypes"
 

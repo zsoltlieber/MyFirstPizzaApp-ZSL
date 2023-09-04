@@ -22,7 +22,8 @@ const RightColumn = ({ setSearchFieldChange }) => {
   const {
     actualClientData, setActualClientData, allClientData, setAllClientData,
     allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
-    allPizzaTypes, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
+    allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType,
+    pizzaIdToOrder, setPizzaIdToOrder,
     rightColumnType, setRightColumnType, itemIsActiveStatus, setItemIsActiveStatus
   } = useContext(MainContext);
 
@@ -30,12 +31,11 @@ const RightColumn = ({ setSearchFieldChange }) => {
   const [updatableClientId, setUpdatableClientId] = useState("");
   const [newOrModifiedAllergen, setNewOrModifiedAllergen] = useState("");//for new and updatable allergen
   const [updatableAllergenId, setUpdatableAllergenId] = useState("");
-  const [newOrModifiedPizzaType, setNewOrModifiedPizzaType] = useState([]);//for new and updatable pizzaType
   const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
   const [preOrderList, setPreOrderList] = useState([]);
   const [showOrderThanks, setShowOrderThanks] = useState(false)
   const [messageList, setMessageList] = useState([]);
-  const [newOrModifiedMessage, setNewOrModifiedMessage] = useState({});
+  const [newOrModifiedMessage, setNewOrModifiedMessage] = useState([]);
   const [showMessageThanks, setShowMessageThanks] = useState(false);
   const [showTopMessageBox, setShowTopMessageBox] = useState(true);
 
@@ -43,14 +43,13 @@ const RightColumn = ({ setSearchFieldChange }) => {
     <MainContext.Provider value={{
       actualClientData, setActualClientData, allClientData, setAllClientData,
       allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
-      allPizzaTypes, setAllPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder,
+      allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType, pizzaIdToOrder, setPizzaIdToOrder,
       rightColumnType, setRightColumnType, itemIsActiveStatus, setItemIsActiveStatus
     }}>
       <Context.Provider value={{
         newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
         newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
-        newOrModifiedPizzaType, setNewOrModifiedPizzaType, preOrderList, setPreOrderList,
-        listOfOrders, setListOfOrders,
+        preOrderList, setPreOrderList, listOfOrders, setListOfOrders,
         messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, showOrderThanks, setShowOrderThanks,
         showMessageThanks, setShowMessageThanks, showTopMessageBox, setShowTopMessageBox
       }}>
