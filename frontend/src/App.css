@@ -1,35 +1,62 @@
+/* TODO 
+Task: mobile view will be responsive!
+*/
 body {
   background-image: url("../public/pizzeria.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.container {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-}
-
-.navbar {
+#header-container {
   position: fixed;
   left: 0;
   top: 0;
-  width: 98%;
+  width: 100%;
   height: 11%;
+  font-size: 90%;
   background-color: red;
   color: white;
   display: flex;
   align-items: center;
+  text-align: center;
   justify-content: space-between;
-  padding-left: 10px;
-  padding-inline-end: 30px;
 }
 
-#home {
-  text-decoration: none;
+#header-container div {
+  padding: 1%;
 }
 
-.footer {
+#header-btn-box {
+  width: 30%;
+}
+
+.btn {
+  width: 23%;
+  padding: 1%;
+  margin: 0.5%;
+  border: 1px solid black;
+  border-radius: 3px;
+  color: blue;
+  text-align: center;
+  align-items: center;
+  cursor: "pointer";
+}
+
+.btn:hover {
+  background-color: lightgreen;
+}
+
+#main-container {
+  position: fixed;
+  width: 97%;
+  height: 78%;
+  top: 11%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#footer-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -40,63 +67,64 @@ body {
   height: 9%;
   background-color: red;
   color: white;
-  font-size: 12px;
+  font-size: 120%;
 }
 
-.leftColumn {
+#footer-container h4 {
+  padding: 1%;
+  text-align: center;
+}
+
+#home {
+  text-decoration: none;
   color: white;
-  font-style: oblique;
-  position: fixed;
-  top: 11%;
-  left: 0%;
+}
+
+#home:hover {
+  color: blue;
+}
+
+#allergen-checker {
+  background: rgba(157, 27, 16, 0.7);
   width: 10%;
-  height: 80%;
-  border: 2px solid red;
+  height: 95%;
+  color: white;
   text-align: center;
   align-items: center;
-  overflow: scroll;
+  padding: 1%;
+  overflow: auto;
 }
 
-input.allergen-checkbox {
+input#allergen-checkbox {
   width: 26px;
   height: 26px;
 }
 
-.centerColumn {
-  position: fixed;
-  top: 11%;
-  left: 10%;
+#center-column {
   width: 60%;
-  height: 80%;
-  border: 2px solid green;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  border: 2px solid blue;
   display: flex;
   flex-wrap: wrap;
-  overflow: scroll;
+  overflow: auto;
 }
 
-.pizzaContainer {
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  width: 100%;
-  height: auto;
+#right-column {
+  width: 30%;
+  height: 100%;
+  text-align: center;
 }
 
-.pizzaCard {
+.pizza-card {
   width: 20rem;
-  height: 30rem;
-  margin: 10px;
-  margin-top: 20px;
+  height: fit-content;
+  margin: 1%;
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  overflow: visible;
+  overflow: auto;
   flex-direction: column;
   text-align: center;
   color: white;
@@ -106,12 +134,13 @@ input.allergen-checkbox {
   border: solid white 2px;
 }
 
-.pizzaCard div {
+.pizza-card div {
+  padding: 1%;
   align-items: center;
   flex: 1;
 }
 
-.pizzaPicture {
+.pizza-picture {
   margin-top: 5%;
   border-radius: 10px;
   max-height: 60%;
@@ -121,189 +150,368 @@ input.allergen-checkbox {
   border: solid purple 2px;
 }
 
-.pizzaName::first-line,
-.price::first-line,
-.ingredients::first-line,
-.allergenList::first-line {
-  text-decoration: underline;
-}
-.pizzaName,
+.pizza-name,
 .price,
 .ingredients,
-.allergenList {
-  width: 98%;
+.allergen-list {
   margin-top: 10px;
-  flex: 1;
-  text-align: center;
 }
 
-.addToBasket {
-  height: 40px;
+.pizza-name::first-line,
+.price::first-line,
+.ingredients::first-line,
+.allergen-list::first-line {
+  text-decoration: underline;
+}
+
+.add-to-basket {
   margin: 10px;
   color: rgb(157, 27, 16);
-  border: 2px solid blue;
   border-radius: 15px;
   background-color: white;
   font-size: larger;
-  scroll-padding-top: 1rem;
-  padding: 8pt;
+  padding: 6px;
 }
-.addToBasket:hover {
+
+.add-to-basket:hover {
   background-color: lightgreen;
   color: #000;
   opacity: 1;
 }
-.rightColumn {
-  position: fixed;
-  top: 11%;
-  right: 0%;
-  width: 29%;
-  height: 80%;
-  border: 2px solid green;
+
+#empty-pizza-list-message {
+  width: max-content;
+  color: white;
+  margin: 2%;
+  padding: 5% 10% 5% 10%;
+  border-radius: 20px;
+  background-color: red;
+  font-size: xx-large;
   text-align: center;
-  align-items: center;
-  border: 2px solid yellow;
-  font-size: 80%;
+  height: fit-content;
 }
 
-.btn {
-  width: 80px;
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 3px;
-  color: blue;
-  margin-right: 3px;
-  align-items: center;
-  text-align: center;
-  cursor: "pointer";
-}
-.btn:hover {
-  background-color: aquamarine;
-  color: gray;
-}
 input {
-  margin-top: 15px;
+  height: 25px;
+  width: 70%;
+  padding: 1%;
+  margin-bottom: 3%;
 }
 
 #login-form,
-#boss-page,
-#staff-page  {
+#registration-form,
+#message-form,
+#about-us {
+  margin-top: 2%;
   background: rgba(157, 27, 16, 0.7);
-  width: 80%;
-  height: 50%;
+  color: white;
+  width: 90%;
+  height: 92%;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 5%;
+  text-align: center;
+  overflow: auto;
+}
+
+#message-form {
+  margin-top: 2%;
+  background: rgba(157, 27, 16, 0.7);
+  color: white;
+  width: 90%;
+  height: fit-content;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 5%;
+  text-align: center;
+}
+
+#registration-message {
+  margin-top: 2%;
+  background: rgba(157, 27, 16, 0.7);
+  color: white;
+  width: 90%;
+  height: fit-content;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 5%;
+  text-align: center;
+}
+
+#about-us {
+  text-align: justify;
+}
+
+#boss-page,
+#staff-page {
+  background: rgba(157, 27, 16, 0.7);
+  color: white;
+  width: 85%;
+  max-height: max-content;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 2%;
+}
+
+.handler-btn {
+  margin: 15px;
+}
+
+.handler-btn :hover {
+  padding: 10px;
+  background-color: lightseagreen;
+}
+
+#allergen-form,
+#pizza-type-form,
+#client-form {
+  background: rgba(157, 27, 16, 0.7);
+  color: white;
+  font-size: medium;
+  max-height: 90%;
   border: solid 3px white;
   border-radius: 15px;
   padding: 10px;
-  margin: 10px;
-  margin-top: 20%;
+  margin-top: 2%;
+  align-items: left;
+  overflow: auto;
 }
 
-#login-form div {
-  font-size: 30px;
-  margin-top: 15px;
+#allergen-list {
+  background: rgba(157, 27, 16, 1.7);
+  width: 80%;
+  max-height: 65%;
+  padding: 10%;
+  text-align: left;
+  color: white;
+  border: solid 3px white;
+  border-radius: 15px;
+  margin-top: 5px;
+  overflow: auto;
+}
+
+#pizza-type-list,
+#client-list {
+  position: absolute;
+  top: 0.3%;
+  left: 0;
+  width: 65%;
+  max-height: 90%;
+  padding: 1%;
+  text-align: left;
+  background: rgba(157, 27, 16, 1);
+  color: white;
+  border: solid 3px white;
+  border-radius: 15px;
+  margin-top: 5px;
+  overflow: auto;
 }
 
 #messages {
   background: rgba(157, 27, 16, 0.7);
   color: white;
-  width: 80%;
+  width: 95%;
   height: 50%;
   border: solid 3px white;
   border-radius: 15px;
   padding: 10px;
-  margin: 10px;
-  margin-top: 20%;
+  margin-top: 2%;
 }
-.message-box {
-  width: 75%;
-  max-height: 270px;
+
+#order-top-message-box {
+  background: rgba(157, 27, 16, 0.7);
+  color: white;
+  width: 90%;
+  height: fit-content;
+  font-size: large;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 2%;
+  margin-left: 2%;
+}
+
+#message-list {
+  width: 90%;
+  max-height: 65%;
   padding: 20px 20px;
   text-align: left;
   background: rgba(157, 27, 16, 0.7);
   color: white;
   border: solid 3px white;
   border-radius: 15px;
-  margin: 10px;
-  overflow: scroll;
-}
-
-.message-box::first-line {
-  color: red;
-}
-
-#registration-form,
-#orderList,
-#message-form {
-  background: rgba(157, 27, 16, 0.7);
-  width: 80%;
-  height: 92%;
-  border: solid 3px white;
-  border-radius: 15px;
-  padding: 10px;
-  margin: 10px;
-}
-
-#registration-form div,
- #message-form div{
-  font-size: 30px;
   margin-top: 5px;
+  overflow: auto;
 }
 
-#about-us {
-  background: rgba(157, 27, 16, 0.7);
-  border-radius: 15px;
-  width: 85%;
-  height: 90%;
-  border: solid 3px white;
+#client-list-table,
+#message-list-table,
+#pizza-type-list-table {
+  list-style-type: none;
+}
+
+#order-container {
+  overflow: auto;
+}
+
+#order-list {
+  background-color: rgba(157, 27, 16, 0.7);
   color: white;
-  font-size: 15px;
-  text-align: justify;
-  overflow: scroll;
-  padding: 15px;
-  margin: 10px;
+  text-align: left;
+  width: 95%;
+  height: 75%;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 5px;
+  margin: 5px;
+  overflow: auto;
+}
+
+#order-list-table {
+  border: 2px solid forestgreen;
+  width: 95%;
+  height: 70%;
+  max-height: fit-content;
+  margin-left: 2%;
+  overflow: auto;
+}
+
+#order-prelist-table {
+  border: 2px solid forestgreen;
+  width: 98%;
+  height: fit-content;
+  margin-left: 1%;
+  overflow: auto;
+}
+th {
+  border-bottom: 1px solid black;
+}
+
+td {
+  border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+#order-form {
+  background-color: rgba(157, 27, 16, 0.7);
+  width: 95%;
+  color: white;
+  font-size: large;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 1%;
+  margin: 2%;
+  overflow: auto;
+}
+
+#preorder-list {
+  background-color: rgba(157, 27, 16, 0.7);
+  width: 94%;
+  color: white;
+  font-size: large;
+  border: solid 3px white;
+  border-radius: 15px;
+  padding: 1%;
+  margin: 2%;
+  overflow: auto;
+}
+
+#add-btn {
+  padding: 2%;
+  background-color: green;
+  color: white;
+  width: 40px;
+  margin-left: "50px";
+}
+
+#delete-btn {
+  padding: 2%;
+  background-color: red;
+  color: white;
+  border-radius: 2%;
+  width: 100%;
+  max-width: fit-content;
+}
+
+#submit-btn {
+  margin-top: 10px;
+}
+
+#update-btn {
+  padding: 2%;
+  background-color: lightblue;
+  color: white;
+  border-radius: 2%;
+  width: 100%;
+  max-width: fit-content;
+}
+
+#order-sender-btn {
+  background-color: rgb(209, 211, 78);
+  color: green;
+  width: 220px;
+  margin-left: "20px";
 }
 
 /* For mobile 640 Resolution */
-@media only screen and (min-device-width: 360px) and (max-device-width: 640px) {
+@media only screen and (max-width: 640px) {
   body {
     background-size: cover;
     background-repeat: repeat;
+    font-size: smaller;
   }
 
-  div.leftColumn {
-    font-size: 70%;
+  #header-btn-box {
+    width: 30%;
   }
+
+  .btn {
+    width: 48%;
+  }
+  #allergen-checker {
+    width: 19%;
+  }
+
+  #center-column {
+    width: 60%;
+  }
+
+  #right-column {
+    width: 50%;
+  }
+
+  input {
+    height: 10%;
+    width: 90%;
+  }
+
   input.allergen-checkbox {
     width: 30%;
     height: 30%;
   }
-  div.leftColumn::first-line {
-    font-style: normal;
-    font-size: 50%;
-  }
-  .pizzaCard {
+
+  .pizza-card {
     width: 80%;
-    height: 95%;
+    height: 80%;
   }
-  .pizzaPicture {
-    max-height: 40%;
-    max-width: 40%;
+  .pizza-picture {
+    max-height: 55%;
+    max-width: 55%;
   }
-  .pizzaName,
+  .pizza-name,
   .price,
   .ingredients,
-  .allergenList {
+  .allergen-list {
     border: solid purple 2px;
     margin-top: 5px;
     flex: 1;
     text-align: center;
   }
-  .addToBasket {
-    height: 20%;
-    font-size: 50%;
-  }
 
-  div.footer {
-    font-size: 6px;
+  #message-list {
+    width: 80%;
+  }
+  #message-list-table {
+    font-size: small;
   }
 }

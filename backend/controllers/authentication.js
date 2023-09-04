@@ -13,10 +13,9 @@ async function setLastManipulatorId(client, req, res, next) {
 export const login = async (req, res, next) => {
 
     try {
-        const client = await Client.findOne({ clientName: req.body.clientName });
+        const client = await Client.findOne({ email: req.body.email });
         if (!client) return next(createError(404, "Client not found!"));
-
-        const isPasswordCorrect = bcrypt.compare(req.body.password, client.password);
+        const isPasswordCorrect = bcrypt.compareSync(req.body.password, client.password);
         if (!isPasswordCorrect) return next(createError(400, "Wrong client name or password!"));
         setLastManipulatorId(client)
 

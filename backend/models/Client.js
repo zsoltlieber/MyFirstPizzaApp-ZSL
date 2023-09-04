@@ -3,15 +3,14 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ClientSchema = new Schema({
-    clientUuid: {
-        type: String,
-        require: true
-    },
     clientName: {
         type: String,
         require: true
     },
-    email: String,
+    email: {
+        type: String,
+        requre: true
+    },
     password: {
         type: String,
         require: true

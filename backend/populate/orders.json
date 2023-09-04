@@ -1,66 +1,8 @@
 [
     {
-        "orderClientId":"initial",
+        "orderClientId": "CHANCE FOR IMPORT DATA FROM EARLIER DATABASE :)",
         "orderId": 1,
-        "orderedItems": [
-            {
-                "pizzaId": "1",
-                "pricePerEach": 3900,
-                "quantity": 3
-            },
-            {
-                "pizzaId": "3",
-                "pricePerEach": 4900,
-                "quantity": 1
-            }
-        ]
-    },
-    {
-        "orderClientId": "initial",
-        "orderId": 2,
-        "orderedItems": [
-            {
-                "pizzaId": "2",
-                "pricePerEach": 5900,
-                "quantity": 1
-            },
-            {
-                "pizzaId": "3",
-                "pricePerEach": 4900,
-                "quantity": 1
-            }
-        ]
-    },
-    {
-        "orderClientId": "initial",
-        "orderId": 3,
-        "orderedItems": [
-            {
-                "pizzaId": "1",
-                "pricePerEach": 3900,
-                "quantity": 3
-            },
-            {
-                "pizzaId": "3",
-                "pricePerEach": 4900,
-                "quantity": 1
-            }
-        ]
-    },
-    {
-        "orderClientId": "initial",
-        "orderId": 4,
-        "orderedItems": [
-            {
-                "pizzaId": "2",
-                "pricePerEach": 3900,
-                "quantity": 3
-            },
-            {
-                "pizzaId": "1",
-                "pricePerEach": 4900,
-                "quantity": 1
-            }
-        ]
+        "orderedItems": [],
+        "isActive": false
     }
 ]

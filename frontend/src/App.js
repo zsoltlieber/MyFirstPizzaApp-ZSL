@@ -1,33 +1,55 @@
 import './App.css'
-import AllergensList from './components/listComponents/AllergensList.js'
-import CenterColumn from './components/listComponents/PizzaTypeColumn.js'
-import RighColumn from './components/mainPageBoxComponents/RightColumn.js'
-import Header from './components/listComponents/Header.js'
-import Footer from './components/listComponents/Footer.js'
-import { useState } from 'react'
+import AllergenCheckList from '../src/Pages/Lists/AllergenCheckList';
+import CenterColumn from '../src/Pages/Lists/CenterColumn';
+import RightColumn from '../src/Pages/Lists/RightColumn';
+import Header from '../src/Pages/Lists/Header';
+import Footer from '../src/Pages/Lists/Footer';
+import { MainContext } from './mainContext.js'
+import { React, useState } from 'react'
 
 function App() {
-
-  const [rightBlock, setRightBlock] = useState("about");
+  const [actualClientData, setActualClientData] = useState({});
+  const [allClientData, setAllClientData] = useState([]);
+  const [allAllergens, setAllAllergens] = useState([]);
   const [rejectedAllergens, setRejectedAllergens] = useState([]);
+  const [allPizzaTypes, setAllPizzaTypes] = useState([]);
+  const [newOrModifiedPizzaType, setNewOrModifiedPizzaType] = useState([]);//for new and updatable pizzaType
+  const [pizzaIdToOrder, setPizzaIdToOrder] = useState('');
+  const [rightColumnType, setRightColumnType] = useState("about");
+  const [itemIsActiveStatus, setItemIsActiveStatus] = useState(true)
 
-  const setRightBlockForm = (formId) => {
-    setRightBlock(formId);
-  }
+  //searchfield for trying this component ability
+  const [searchField, setSearchField] = useState('');
 
-  const setAllergens = (allergens) => {
-    setRejectedAllergens(allergens);
+  function setSearchChange(event) {
+    setSearchField(event.target.value);
+    console.log(event.target.value);
   }
+  if (searchField !== undefined && searchField !== "") console.log(searchField);
 
   return (
-    <div className="main-container">
-      <Header setRightBlock={setRightBlockForm} />
-      <AllergensList rejectedAllergens={setAllergens} />
-      <CenterColumn allergensSet={rejectedAllergens} />
-      <RighColumn rightBlockSet={rightBlock} />
-      <Footer />
-    </div>
+    <>
+      <MainContext.Provider value={{
+        actualClientData, setActualClientData, allClientData, setAllClientData,
+        allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
+        allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType,
+        pizzaIdToOrder, setPizzaIdToOrder,
+        rightColumnType, setRightColumnType, itemIsActiveStatus, setItemIsActiveStatus
+      }}>
+        <div id="header-container" >
+          <Header />
+        </div>
+        <div id="main-container">
+          <AllergenCheckList />
+          <CenterColumn />
+          <RightColumn setSearchFieldChange={setSearchChange} />
+        </div>
+      </MainContext.Provider>
+      <div id="footer-container">
+        <Footer />
+      </div>
+    </>
   );
 }
 
-export default App;
+export default App 

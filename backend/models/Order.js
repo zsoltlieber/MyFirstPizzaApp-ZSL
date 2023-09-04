@@ -3,15 +3,11 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
-    orderUuid: {
-        type: String,
-        require: true
-    },
     orderClientId: {
         type: String,
         require: true
     },
-    orderedItems: [[{
+    orderedItems: [{
         pizzaId: {
             type: String,
             require: true
@@ -29,7 +25,7 @@ const OrderSchema = new Schema({
             type: Boolean,
             default: false
         }
-    }]],
+    }],
     isActive: {
         type: Boolean,
         default: true
