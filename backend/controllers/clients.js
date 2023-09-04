@@ -5,15 +5,14 @@ import createError from '../utils/error.js';
 const getClientEmailList = async (actualClientEmail) => {
     const clients = await Client.find();
     const clientsEmailList = clients.map(client => client.email);
-    return clientsEmailList.includes(actualClientEmail)
+    return !clientsEmailList.includes(actualClientEmail)
 }
 
 export const registerClient = async (req, res, next) => {
     const actualClientEmail = req.body.email;
 
     try {
-        if (
-            !getClientEmailList(actualClientEmail) &&
+        if (getClientEmailList(actualClientEmail) &&
             req.body.clientName !== undefined &&
             req.body.password !== undefined &&
             req.body.email !== undefined &&
@@ -49,12 +48,12 @@ export const getClients = async (req, res, next) => {
 
     try {
         let clients = null;
+
+        clients = await Client.find();
         if (req.query.isActive === 'true') {
-            clients = (await Client.find()).filter((data) => data.isActive === true);
+            clients = clients.filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {
-            clients = (await Client.find()).filter((data) => data.isActive === false);
-        } else {
-            clients = await Client.find();
+            clients = clients.filter((data) => data.isActive === false);
         }
         if (clients !== null) {
             res.status(200).json(clients);

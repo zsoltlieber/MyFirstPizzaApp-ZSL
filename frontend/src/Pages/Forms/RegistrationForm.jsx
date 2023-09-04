@@ -27,7 +27,7 @@ export function RegistrationForm() {
         };
 
         if (actualClientData !== undefined) {
-
+            console.log(actualClientData);
             const registrationSave = async () => {
                 const requestOptions = {
                     method: 'POST',
@@ -36,7 +36,7 @@ export function RegistrationForm() {
                 };
                 const response = await fetch(registerUrl, requestOptions);
                 const data = await response.json();
-
+                console.log(data);
                 setClientData(data);
                 setShowRegistrationMessage(true);
                 setTimeout(() => {

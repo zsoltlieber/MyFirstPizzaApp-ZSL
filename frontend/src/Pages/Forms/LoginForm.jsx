@@ -51,11 +51,11 @@ export const LoginForm = () => {
         <form id="login-form" onSubmit={handleSubmit}>
           <div>
             <h2>LOGIN FORM</h2>
-            <input type="text" id="email" placeholder="client email" value={loginData.email} required
+            <input type="email" id="email" placeholder="client email" value={loginData.email} required
               onChange={(e) => { setLoginData({ ...loginData, email: e.target.value }) }} />
           </div>
           <div>
-            <input type="current-password" id="current-password" placeholder="password" required value={loginData.password}
+            <input type="password" id="current-password" placeholder="password" required value={loginData.password}
               onChange={(e) => { setLoginData({ ...loginData, password: e.target.value }) }} />
           </div>
           <div>
