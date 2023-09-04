@@ -27,7 +27,7 @@ export const MessageTable = ({ deleteMessageHandler, updateMessageHandler }) => 
                             return (
                                 <tbody key={index}>
                                     <tr>
-                                        <td><p>{message.clientName}</p></td>
+                                        <td><p>{index+1}.) {message.clientName}</p></td>
                                         <td><p style={{ marginTop: "0px", maxWidth: "95%" }}>{message.message}</p></td>
                                         {actualClientData.clientName !== undefined && (actualClientData.clientId === message.clientId || actualClientData.staffStatus === true)
                                             ?
@@ -36,7 +36,7 @@ export const MessageTable = ({ deleteMessageHandler, updateMessageHandler }) => 
                                                     <button type="button" id="delete-btn" value={message._id} onClick={(e) => deleteMessageHandler(e.target.value)}>DEL </button>
                                                 </td>
                                                 <td >
-                                                    <button type='button' id="update-btn" value={message._id} onClick={(e) => updateMessageHandler(e.target.value)}>UPD</button>
+                                                    <button type='button' id="update-btn" value={message._id} onClick={(e) => updateMessageHandler(index, e.target.value)}>UPD</button>
                                                 </td>
                                             </>
                                             : <></>}

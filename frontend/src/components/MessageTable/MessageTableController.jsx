@@ -74,8 +74,9 @@ export const MessageTableController = () => {
         }
     };
 
-    const updateMessage = (messageId) => {
+    const updateMessage = (index, messageId) => {
         const actualMessage = messageList.find(message => message._id === messageId);
+        actualMessage.message = `${(index + 1)}.) ${actualMessage.message}`;
         setNewOrModifiedMessage({ message: actualMessage.message, _id: messageId })
     };
 
