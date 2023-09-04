@@ -27,7 +27,7 @@ const RightColumn = ({ setSearchFieldChange }) => {
     rightColumnType, setRightColumnType, itemIsActiveStatus, setItemIsActiveStatus
   } = useContext(MainContext);
 
-  const [newOrModifiedClient, setNewOrModifiedClient] = useState([]); //for new and updatable client
+  const [newOrModifiedClient, setNewOrModifiedClient] = useState({}); //for new and updatable client
   const [updatableClientId, setUpdatableClientId] = useState("");
   const [newOrModifiedAllergen, setNewOrModifiedAllergen] = useState("");//for new and updatable allergen
   const [updatableAllergenId, setUpdatableAllergenId] = useState("");
