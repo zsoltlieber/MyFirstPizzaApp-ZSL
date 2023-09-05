@@ -39,7 +39,12 @@ https://code.visualstudio.com/docs/setup/linux
 https://code.visualstudio.com/docs/setup/windows
 ```
 
-### 2. You must have MongoDb connection
+### 2. Clone the aplication from GitHub repository
+```
+    git clone https://github.com/zsoltlieber/MyFirstPizzaApp-ZSL.git
+```
+
+### 3. You must have MongoDb connection
 Without MongoDb account you have to start with MongoDb registration and create a MongoDb account. 
 ```
 https://account.mongodb.com/account/register
@@ -48,11 +53,6 @@ With MongoDb account please copy the embedded 'template_env_file' as .env file o
 ```
 MONGO_URL=mongodb+srv://<username>:<password>@cluster0.bjwcssz.mongodb.net/<databasename>
 JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicGl6emFBcHAiLCJwYXNzd29yZCI6InBhc3N3b3JkIn0.GEMK9chTUlL_FlKM9GeKEwF6NnYJKUgNd3KGJDES33A
-```
-
-### 3. Clone the aplication from GitHub repository
-```
-    git clone https://github.com/zsoltlieber/MyFirstPizzaApp-ZSL.git
 ```
 
 ### 4. Chose backend directory as active one and run the orders below
