@@ -3,7 +3,7 @@
 ##### Purpose: showing that as a junior developer how I can solve a difficult MERN stack task
 
 ##### The APP is able to manage all relevant tasks
-(showing sellable products as a menu, client authorization, ordering, payment (future plan), message collecting from customers, manage admin tasks etc.).
+Showing sellable products as a menu, depends on set allergens, client authorization, ordering, message collecting from customers, manage admin tasks.
 
 ## Features
 1. **Client registration & Login**: It is needed to be registered and loged in if you want to order, or send message via this APP.
