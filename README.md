@@ -67,5 +67,6 @@ JWT=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicGl6emFBcHAiLCJwYXNzd29yZCI
 ### 5. Chose frontend directory as active one and run the orders below
 ```
     cd frontend
+    npm install
     npm start
 ```
