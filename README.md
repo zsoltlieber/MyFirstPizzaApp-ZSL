@@ -7,9 +7,11 @@ Showing sellable products as a menu, depends on set allergens, client authorizat
 
 ## Features
 1. **Client registration & Login**: It is needed to be registered and loged in if you want to order, or send message via this APP.
+2. **Client**: After log in can dealing with his order, message sending, but his delete only remove in reality.
 3. **Populate basic data**: The backend ensure basic data with running 'npm run populate' order.
-4. **Admin user(client)**: Only the admin user can delete anything, the normal user can only set inactive status of the items depends on its rights (order, client registration, meessage etc.)
-5. **Data access rights**: The access rights are checked on the backend side.
+4. **Admin user/STAFF**: Special client. Only the admin user can remove anything, in connection with his or other client's data but he can only set inactive status of the items.
+5. **Main admin/BOSS**: Special admin user. He can delete in reality.
+6. **Data access rights**: The access rights are checked on the backend side.
 
 ## Technological background:
 | Function | Solution |
