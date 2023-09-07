@@ -4,14 +4,16 @@ import { Context } from "../../context.js"
 
 const OrderListHandler = () => {
 
-  const { actualClientData, allPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder, itemIsActiveStatus } = useContext(MainContext);
-  const { listOfOrders, setListOfOrders, preOrderList, setPreOrderList } = useContext(Context);
+  const { actualClientData, allPizzaTypes, pizzaIdToOrder, itemIsActiveStatus } = useContext(MainContext);
+  const { listOfOrders, setListOfOrders, preOrderList } = useContext(Context);
 
   const ordersUrl = `/api/orders`
   let totalCost = 0;
   let grandTotalCost = 0;
   let actualPizzaName = "";
-  const [orderClientName, setOrderClientName] = useState("")
+
+  const [actualOrderClientId, setActualOrderClientId] = useState("");
+  const [actualOrderClientName, setActualOrderClientName] = useState("");
 
   const orderFetch = async (url) => {
     const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
@@ -24,7 +26,7 @@ const OrderListHandler = () => {
     orderFetch(ordersUrl);
   }, [preOrderList]);
 
-  const deleteOrderFetch = (actualEndPoint, orderId, deletedItemId) => {
+  const deleteOrderFetch = (actualEndPoint, orderId) => {
 
     const requestOptions = {
       method: 'DELETE',
@@ -73,6 +75,39 @@ const OrderListHandler = () => {
     }
   };
 
+  const fetchActualClientName = async () => {
+    const actualClientUrl = `/api/clients/${actualOrderClientId}`
+
+    try {
+      const response = await fetch(actualClientUrl);
+      const data = await response.json();
+      if (response.status === 200) {
+        console.log("itt " + data.clientName);
+        if (data.clientName !== undefined) setActualOrderClientName(data.clientName);
+      }
+    } catch (error) {
+      console.log("Problem with client name!");
+    }
+  }
+
+  useEffect(() => {
+    fetchActualClientName(actualOrderClientId)
+  }, [actualOrderClientId])
+
+  const actualClientNameSetter = () => {
+    listOfOrders.map(order => {
+      setActualOrderClientId(order.orderClientId)
+      let actualOrder = listOfOrders.find(presentOrder => presentOrder._id === order._id)
+      actualOrder.clientName = actualOrderClientName;
+    });
+    console.log("vége");
+    console.log(listOfOrders);
+  }
+
+  useEffect(() => {
+    actualClientNameSetter()
+  }, []);
+
   return (
     <>
       {listOfOrders !== undefined && listOfOrders.length > 0 && pizzaIdToOrder === "" && preOrderList.length < 1
@@ -83,27 +118,12 @@ const OrderListHandler = () => {
           <h2 style={{ textDecoration: "underline" }}>Current active orders list</h2>
           {listOfOrders.map((order, index1) => {
 
-            const actualClientName = async () => {
-              const actualId = order.orderClientId
-              const actualUrl = `/api/clients/${actualId}`
-              try {
-                const response = await fetch(actualUrl);
-                const data = await response.json();
-                if (data) setOrderClientName(data.clientName);
-              } catch (error) {
-                console.log("Problem with client name!");
-              }
-            };
-            if (orderClientName === undefined) {
-              actualClientName()
-            }
-
             return (
               <>
-                <p style={{ backgroundColor: "blue", width: "fit-content" }}>{orderClientName.toUpperCase()}</p>
+                <p style={{ backgroundColor: "blue", width: "fit-content" }}>{actualClientData.clientName.toUpperCase()}</p>
 
-                <table id="order-list-table" style={{ listStyleType: "none", fontSize: "15px", height: "10px" }}>
-                  <thead>
+                <table key={index1} id="order-list-table" style={{ listStyleType: "none", fontSize: "15px", height: "10px" }}>
+                  <thead key={index1}>
                     <tr>
                       <th>Pizza name</th>
                       <th>Piece</th>
@@ -112,9 +132,11 @@ const OrderListHandler = () => {
                       <th></th>
                     </tr>
                   </thead>
-                  <tbody key={index1}>
+                  <tbody>
                     <tr>
-                      <td style={{ alignItems: "center", color: "black", backgroundColor: "lightskyblue", height: "10px" }}>{order.created.substring(0, 16).replace("T", " ")}
+                      <td style={{ alignItems: "center", color: "black", backgroundColor: "lightskyblue", height: "10px" }}>
+                        {order.clientName}
+                        {order.created.substring(0, 16).replace("T", " ")}
                       </td>
                       <td></td>
                       <td>
