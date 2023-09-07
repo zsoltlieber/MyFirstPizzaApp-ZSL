@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { Context } from "../../context.js"
 import { MainContext } from "../../mainContext.js"
 import MesssageTable from "../../components/MessageTable/MessageTable.jsx"
@@ -6,7 +6,7 @@ import MesssageTable from "../../components/MessageTable/MessageTable.jsx"
 export const MessageTableController = () => {
 
     const { actualClientData, itemIsActiveStatus } = useContext(MainContext);
-    const { messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage } = useContext(Context);
+    const { messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, setOriginalMessage } = useContext(Context);
 
     const messageUrl = "/api/messages"
 
@@ -15,7 +15,6 @@ export const MessageTableController = () => {
 
         try {
             const response = await fetch(actualUrl);
-
             const data = await response.json();
             if (data) setMessageList(data);
         } catch (error) {
@@ -77,6 +76,7 @@ export const MessageTableController = () => {
     const updateMessage = (index, messageId) => {
         const actualMessage = messageList.find(message => message._id === messageId);
         actualMessage.message = `${(index + 1)}.) ${actualMessage.message}`;
+        setOriginalMessage(actualMessage.message)
         setNewOrModifiedMessage({ message: actualMessage.message, _id: messageId })
     };
 

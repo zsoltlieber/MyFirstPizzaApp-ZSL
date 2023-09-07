@@ -36,6 +36,7 @@ const RightColumn = ({ setSearchFieldChange }) => {
   const [showOrderThanks, setShowOrderThanks] = useState(false)
   const [messageList, setMessageList] = useState([]);
   const [newOrModifiedMessage, setNewOrModifiedMessage] = useState([]);
+  const [originalMessage, setOriginalMessage] = useState("");
   const [showMessageThanks, setShowMessageThanks] = useState(false);
   const [showTopMessageBox, setShowTopMessageBox] = useState(true);
 
@@ -50,7 +51,8 @@ const RightColumn = ({ setSearchFieldChange }) => {
         newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
         newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
         preOrderList, setPreOrderList, listOfOrders, setListOfOrders,
-        messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, showOrderThanks, setShowOrderThanks,
+        messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
+        originalMessage, setOriginalMessage, showOrderThanks, setShowOrderThanks,
         showMessageThanks, setShowMessageThanks, showTopMessageBox, setShowTopMessageBox
       }}>
         <div id='right-column'>

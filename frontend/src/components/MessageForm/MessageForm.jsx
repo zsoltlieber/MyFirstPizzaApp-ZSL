@@ -6,16 +6,19 @@ export const MessageForm = () => {
 
     const { actualClientData } = useContext(MainContext);
     const { messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
-        showMessageThanks, setShowMessageThanks } = useContext(Context);
+        originalMessage, setOriginalMessage, showMessageThanks, setShowMessageThanks } = useContext(Context);
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const messageUrl = "/api/messages"
-
         const actualMessage = {
             clientName: actualClientData.clientName,
-            message: newOrModifiedMessage.message
+            message: originalMessage !== ""
+                ?
+                originalMessage + " -> \n" + newOrModifiedMessage.message
+                :
+                newOrModifiedMessage.message
         }
 
         if (newOrModifiedMessage !== "" && newOrModifiedMessage._id === undefined) {
@@ -34,12 +37,14 @@ export const MessageForm = () => {
                 else {
                     if (actualClientData.isAdmin === false) {
                         setShowMessageThanks(true);
+                        setOriginalMessage("");
                         setTimeout(() => {
                             setShowMessageThanks(false);
                         }, 2000);
                     }
                     setMessageList([...messageList, data]);
-                    setNewOrModifiedMessage("");
+                    setNewOrModifiedMessage({});
+                    setOriginalMessage("")
                     console.log("New message was saved!")
                 }
             }
@@ -81,6 +86,7 @@ export const MessageForm = () => {
 
     function cancelButton() {
         setNewOrModifiedMessage({});
+        setOriginalMessage("")
     }
 
     return (
@@ -88,6 +94,11 @@ export const MessageForm = () => {
             {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
                 ?
                 <form id="message-form" onSubmit={handleSubmit} >
+                    {originalMessage !== undefined && originalMessage !== ""
+                        ?
+                        <p style={{ fontSize: "20px", marginTop: "0" }} > {originalMessage}</p>
+                        : <></>
+                    }
                     <p style={{ fontSize: "20px", marginTop: "0" }} >
                         {newOrModifiedMessage === undefined || newOrModifiedMessage._id === undefined
                             ?
