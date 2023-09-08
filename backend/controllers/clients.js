@@ -91,6 +91,13 @@ export const updateClientById = async (req, res, next) => {
 
     try {
         const actualClient = await Client.findById(req.params.id);
+        if (req.body.password === "") {
+            req.body.password = actualClient.password;
+        }
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+        req.body.password = hashedPassword;
+        
         if (actualClient !== null) {
             if (req.body.clientName !== undefined || req.body.clientName !== "") {
                 if (!req.client.isAdmin && !req.params.id.match(req.client.id)) {
@@ -98,8 +105,6 @@ export const updateClientById = async (req, res, next) => {
                 }
                 else {
                     req.body.lastManipulatorId = req.client.id;
-                    req.body.clientName = actualClient.clientName;
-                    req.body.password = actualClient.password;
                     const updatedClient = await Client.findByIdAndUpdate(
                         req.params.id,
                         { $set: req.body },
