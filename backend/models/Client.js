@@ -15,15 +15,17 @@ const ClientSchema = new Schema({
         type: String,
         require: true
     },
-    phoneNumber: [String],
-    address: [
-        {
-            postCode: String,
-            city: String,
-            streetAndNumber: String,
-            otherInfo: String
-        },
-    ],
+    phoneNumber: {
+        type: String,
+        require: true
+    },
+    address: {
+        postCode: String,
+        city: String,
+        streetAndNumber: String,
+        otherInfo: String
+    },
+
     isActive: {
         type: Boolean,
         default: true

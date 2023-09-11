@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import { Context } from "../../context.js"
+import { MainContext } from "../../mainContext.js";
 
 function ClientForm() {
+    const { setRightColumnType } = useContext(MainContext);
 
     const { newOrModifiedClient, setNewOrModifiedClient,
         updatableClientId, setUpdatableClientId } = useContext(Context);
@@ -15,12 +17,12 @@ function ClientForm() {
             "email": newOrModifiedClient.email,
             "password": newOrModifiedClient.password,
             "phoneNumber": newOrModifiedClient.phoneNumber,
-            "address": [{
+            "address": {
                 "postCode": newOrModifiedClient.postCode,
                 "city": newOrModifiedClient.city,
                 "streetAndNumber": newOrModifiedClient.streetAndNumber,
                 "otherInfo": newOrModifiedClient.otherInfo || ""
-            }],
+            },
             "isActive": newOrModifiedClient.isActive || false,
             "isAdmin": newOrModifiedClient.isAdmin || false,
             "isMainAdmin": newOrModifiedClient.isMainAdmin || false
@@ -67,7 +69,6 @@ function ClientForm() {
                 else {
                     setNewOrModifiedClient({ clientName: "" });
                     setUpdatableClientId("");
-                    console.log(data);
                     console.log("Modified client was saved!")
                 }
             }
@@ -86,13 +87,13 @@ function ClientForm() {
             clientName: "",
             email: "",
             password: "",
-            phoneNumber: [""],
-            address: [{
+            phoneNumber: "",
+            address: {
                 postCode: "",
                 city: "",
                 streetAndNumber: "",
                 otherInfo: ""
-            }],
+            },
         });
 
     return (
@@ -130,20 +131,20 @@ function ClientForm() {
                         ?
                         <>
                             <div>Post code:
-                                <input type="text" id="postCode" placeholder="post code" value={newOrModifiedClient.address[0].postCode || ""}
-                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address[0], postCode: e.target.value }) }} />
+                                <input type="text" id="postCode" placeholder="post code" value={newOrModifiedClient.address.postCode || ""}
+                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, postCode: e.target.value }) }} />
                             </div>
                             <div>City:
-                                <input type="text" id="city" placeholder="city" value={newOrModifiedClient.address[0].city || ""}
-                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address[0], city: e.target.value }) }} />
+                                <input type="text" id="city" placeholder="city" value={newOrModifiedClient.address.city || ""}
+                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, city: e.target.value }) }} />
                             </div>
                             <div>Str.&nr.:
-                                <input type="text" id="streetAndNumber" placeholder="street and number" value={newOrModifiedClient.address[0].streetAndNumber || ""}
-                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address[0], streetAndNumber: e.target.value }) }} />
+                                <input type="text" id="streetAndNumber" placeholder="street and number" value={newOrModifiedClient.address.streetAndNumber || ""}
+                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, streetAndNumber: e.target.value }) }} />
                             </div>
                             <div>Other:
-                                <input type="text" id="otherInfo" placeholder="other information" value={newOrModifiedClient.address[0].otherInfo || ""}
-                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address[0], otherInfo: e.target.value }) }} />
+                                <input type="text" id="otherInfo" placeholder="other information" value={newOrModifiedClient.address.otherInfo || ""}
+                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, otherInfo: e.target.value }) }} />
                             </div>
                         </> : <></>
                     }
@@ -168,6 +169,7 @@ function ClientForm() {
                                 "Update"}
                         </button>
                         <button type="button" id="submit-btn" className="btn" onClick={cancelButton}>Cancel</button>
+                        <button type='button' className="btn" value={"about"} onClick={(e) => setRightColumnType(e.target.value)}>BACK</button>
                     </div>
                 </div>
             </form>
