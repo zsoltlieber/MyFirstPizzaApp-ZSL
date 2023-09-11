@@ -25,6 +25,7 @@ export const LoginForm = () => {
         setShowBoxes(2);
       }
       else {
+        data.sort((itemA, itemB) => itemA.client._id > itemB.client._id);
         setClientData(data);
 
         const actualClient = {

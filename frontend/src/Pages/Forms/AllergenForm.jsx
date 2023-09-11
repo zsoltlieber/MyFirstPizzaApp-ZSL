@@ -4,7 +4,7 @@ import { Context } from "../../context.js"
 
 function AllergenForm() {
 
-  const { allAllergens } = useContext(MainContext);
+  const { allAllergens, setRightColumnType } = useContext(MainContext);
   const { newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId,
     setUpdatableAllergenId } = useContext(Context);
 
@@ -95,6 +95,7 @@ function AllergenForm() {
               "Update"}
           </button>
           <button type="button" id="submit-btn" className="btn" onClick={cancelButton}>Cancel</button>
+          <button type='button' className="btn" value={"about"} onClick={(e) => setRightColumnType(e.target.value)}>BACK</button>
         </div>
       </div>
     </form>

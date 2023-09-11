@@ -3,7 +3,7 @@ import { MainContext } from "../../mainContext.js"
 
 const PizzaTypeForm = () => {
 
-  const { allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(MainContext);
+  const { allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType, setRightColumnType } = useContext(MainContext);
 
   const pizzaTypeUrl = "/api/pizzaTypes"
 
@@ -30,6 +30,7 @@ const PizzaTypeForm = () => {
             console.log(data)
           }
           else {
+            data.sort((itemA, itemB) => itemA.pizzaName > itemB.pizzaName)
             setAllPizzaTypes([...allPizzaTypes, data])
             setNewOrModifiedPizzaType([]);
             console.log("New pizza type was saved!");
@@ -55,6 +56,7 @@ const PizzaTypeForm = () => {
             console.log(data)
           }
           else {
+            data.sort((itemA, itemB) => itemA.pizzaName > itemB.pizzaName)
             setAllPizzaTypes([...allPizzaTypes, data])
             setNewOrModifiedPizzaType({ pizzaName: "" });
             console.log("Modified pizza type was updated!")
@@ -112,6 +114,7 @@ const PizzaTypeForm = () => {
               "Update"}
           </button>
           <button type="button" id="submit-btn" className="btn" onClick={cancelButton}>Cancel</button>
+          <button type='button' className="btn" value={"about"} onClick={(e) => setRightColumnType(e.target.value)}>BACK</button>
         </div>
       </div>
     </form>
