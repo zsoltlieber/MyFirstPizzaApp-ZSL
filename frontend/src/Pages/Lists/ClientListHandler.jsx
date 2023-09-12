@@ -102,13 +102,13 @@ function ClientListHandler() {
               return (
                 <tbody key={index}>
                   <tr>
-                    <td><p>{client.clientName}</p></td>
-                    <td><p>{client.email}</p></td>
+                    <td><p style={{ width: "150px", textAlign: "left" }}>{client.clientName}</p></td>
+                    <td><p style={{ textAlign: "left" }}>{client.email}</p></td>
+                    <td><p style={{ width: "150px"}}>{client.phoneNumber}</p></td>
                     <td><p>-</p></td>
-                    <td><p>-</p></td>
-                    <td><p style={{ textAlign: "center" }}>{client.isActive ? "X" : "-"}</p></td>
-                    <td><p style={{ textAlign: "center" }}>{client.isAdmin ? "X" : "-"}</p></td>
-                    <td><p style={{ textAlign: "center" }}>{client.isMainAdmin ? "X" : "-"}</p></td>
+                    <td><p style={{ width: "80px"}}>{client.isActive ? "X" : "-"}</p></td>
+                    <td><p style={{ width: "80px"}}>{client.isAdmin ? "X" : "-"}</p></td>
+                    <td><p style={{ width: "80px"}}>{client.isMainAdmin ? "X" : "-"}</p></td>
 
                     <td >
                       <button type="button" id="delete-btn" value={client._id} onClick={(e) => deleteClientRow(e.target.value)}>DEL </button>

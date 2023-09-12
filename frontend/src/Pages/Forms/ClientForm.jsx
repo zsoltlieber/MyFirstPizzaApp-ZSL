@@ -127,27 +127,22 @@ function ClientForm() {
                         <input type="text" id="phoneNumber" placeholder="phone number" value={newOrModifiedClient.phoneNumber || ""}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, phoneNumber: e.target.value }) }} />
                     </div>
-                    {newOrModifiedClient.address !== undefined
-                        ?
-                        <>
-                            <div>Post code:
-                                <input type="text" id="postCode" placeholder="post code" value={newOrModifiedClient.address.postCode || ""}
-                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, postCode: e.target.value }) }} />
-                            </div>
-                            <div>City:
-                                <input type="text" id="city" placeholder="city" value={newOrModifiedClient.address.city || ""}
-                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, city: e.target.value }) }} />
-                            </div>
-                            <div>Str.&nr.:
-                                <input type="text" id="streetAndNumber" placeholder="street and number" value={newOrModifiedClient.address.streetAndNumber || ""}
-                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, streetAndNumber: e.target.value }) }} />
-                            </div>
-                            <div>Other:
-                                <input type="text" id="otherInfo" placeholder="other information" value={newOrModifiedClient.address.otherInfo || ""}
-                                    onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, otherInfo: e.target.value }) }} />
-                            </div>
-                        </> : <></>
-                    }
+                    <div>Post code:
+                        <input type="text" id="postCode" placeholder="post code" value={newOrModifiedClient.address !== undefined ? newOrModifiedClient.address.postCode : ""}
+                            onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, postCode: e.target.value }) }} />
+                    </div>
+                    <div>City:
+                        <input type="text" id="city" placeholder="city" value={newOrModifiedClient.address !== undefined ? newOrModifiedClient.address.city : ""}
+                            onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, city: e.target.value }) }} />
+                    </div>
+                    <div>Str.&nr.:
+                        <input type="text" id="streetAndNumber" placeholder="street and number" value={newOrModifiedClient.address !== undefined ? newOrModifiedClient.address.streetAndNumber : ""}
+                            onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, streetAndNumber: e.target.value }) }} />
+                    </div>
+                    <div>Other:
+                        <input type="text" id="otherInfo" placeholder="other information" value={newOrModifiedClient.address !== undefined ? newOrModifiedClient.address.otherInfo : ""}
+                            onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, otherInfo: e.target.value }) }} />
+                    </div>
                     <div>Active?
                         <input type="text" id="isActive" placeholder="isActive true/false" value={newOrModifiedClient.isActive || ""}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isActive: e.target.value }) }} />
