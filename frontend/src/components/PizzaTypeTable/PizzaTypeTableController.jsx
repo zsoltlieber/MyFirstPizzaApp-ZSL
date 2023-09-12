@@ -13,7 +13,6 @@ function PizzaTypeTableController() {
     try {
       const response = await fetch(actualUrl);
       const data = await response.json();
-      data.sort((itemA, itemB) => itemA.pizzaName > itemB.pizzaName)
       if (data) setAllPizzaTypes(data);
     } catch (error) {
       console.log("Problem with pizza type list!");
@@ -32,7 +31,6 @@ function PizzaTypeTableController() {
       const response = await fetch(`${pizzaTypeUrl}/${pizzaTypeId}`, requestOptions);
       if (response.status === 200) {
         const newPizzaList = allPizzaTypes.filter(pizza => pizza._id !== pizzaTypeId);
-        newPizzaList.sort((itemA, itemB) => itemA.pizza._id > itemB.pizza._id);
         setAllPizzaTypes(newPizzaList);
         console.log('Pizza delete was successful');
       }
@@ -52,7 +50,6 @@ function PizzaTypeTableController() {
       const response = await fetch(`${pizzaTypeUrl}/${pizzaTypeId}?isActive=${itemIsActiveStatus}`, requestOptions);
       if (response.status === 200) {
         const newPizzaList = allPizzaTypes.filter(pizza => pizza._id !== pizzaTypeId);
-        newPizzaList.sort((itemA, itemB) => itemA.pizza._id > itemB.pizza._id);
         setAllPizzaTypes(newPizzaList)
         console.log('Pizza remove was successful');
       }

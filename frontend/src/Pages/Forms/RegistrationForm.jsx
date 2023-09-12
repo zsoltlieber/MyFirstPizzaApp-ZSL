@@ -35,7 +35,6 @@ export function RegistrationForm() {
                 };
                 const response = await fetch(registerUrl, requestOptions);
                 const data = await response.json();
-                data.sort((itemA, itemB) => itemA.client._id > itemB.client._id);
                 setClientData(data);
                 setShowRegistrationMessage(true);
                 setTimeout(() => {

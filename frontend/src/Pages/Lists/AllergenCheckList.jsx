@@ -10,10 +10,7 @@ export const AllergenCheckList = () => {
   const allergensFetch = async (url) => {
     const response = await fetch(url);
     let data = await response.json();
-    if (data) {
-      data.sort((itemA, itemB) => itemA.allergenName > itemB.allergenName)
-      setAllAllergens(data);
-    }
+    if (data) setAllAllergens(data);
   };
 
   function allergenStatusHandler(allergenId, checkboxStatus) {

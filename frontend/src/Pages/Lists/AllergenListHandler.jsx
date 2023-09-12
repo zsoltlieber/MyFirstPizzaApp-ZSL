@@ -14,7 +14,6 @@ function AllergenListHandler() {
 
     const response = await fetch(actualUrl);
     const data = await response.json();
-    data.sort((itemA, itemB) => itemA.allergen._id > itemB.allergen._id);
     if (data) setAllAllergens(data);
   };
 
@@ -28,12 +27,11 @@ function AllergenListHandler() {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     };
-    
+
     async function deleteAllergen() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
         const newAllergenList = allAllergens.filter(allergen => allergen._id !== allergenId);
-        newAllergenList.sort((itemA, itemB) => itemA.allergen._id > itemB.allergen._id);
         setAllAllergens(newAllergenList)
         console.log('Delete successful');
       } else {
@@ -55,7 +53,6 @@ function AllergenListHandler() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
         const newAllergenList = allAllergens.filter(allergen => allergen._id !== allergenId);
-        newAllergenList.sort((itemA, itemB) => itemA.allergen._id > itemB.allergen._id);
         setAllAllergens(newAllergenList)
         console.log('Remove successful');
       } else {

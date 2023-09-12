@@ -13,7 +13,6 @@ function ClientListHandler() {
     const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
     const response = await fetch(actualUrl);
     const data = await response.json();
-    data.sort((itemA, itemB) => itemA.clientName > itemB.clientName)
     if (data) setAllClientData(data);
   };
 
@@ -31,7 +30,6 @@ function ClientListHandler() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
         const newClientList = allClientData.filter(client => client._id !== clientId);
-        newClientList.sort((itemA, itemB) => itemA.clientName > itemB.clientName)
         setAllClientData(newClientList)
         console.log('Client delete was successful');
       } else {
@@ -53,7 +51,6 @@ function ClientListHandler() {
       const response = await fetch(actualEndPoint, requestOptions);
       if (response.status === 200) {
         const newClientList = allClientData.filter(client => client._id !== clientId);
-        newClientList.sort((itemA, itemB) => itemA.clientName > itemB.clientName)
         setAllClientData(newClientList)
         console.log('Client remove was successful');
       } else {

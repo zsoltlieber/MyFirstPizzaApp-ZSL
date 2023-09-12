@@ -36,7 +36,6 @@ export function OrderForm() {
             else {
                 amendedActualOrderList = [...preOrderList.orderedItems, orderLine];
             }
-            amendedActualOrderList = amendedActualOrderList.sort((itemA, itemB) => itemA.pizzaName > itemB.pizzaName)
             setPreOrderList({ orderedItems: amendedActualOrderList })
         }
         setPizzaIdToOrder("")

@@ -30,14 +30,12 @@ const PizzaTypeForm = () => {
             console.log(data)
           }
           else {
-            data.sort((itemA, itemB) => itemA.pizzaName > itemB.pizzaName)
             setAllPizzaTypes([...allPizzaTypes, data])
             setNewOrModifiedPizzaType([]);
             console.log("New pizza type was saved!");
           }
         }
       }
-
       return saveOnServer(newOrModifiedPizzaType)
     }
     else if (inputChecker() && newOrModifiedPizzaType._id !== "") {
@@ -56,7 +54,6 @@ const PizzaTypeForm = () => {
             console.log(data)
           }
           else {
-            data.sort((itemA, itemB) => itemA.pizzaName > itemB.pizzaName)
             setAllPizzaTypes([...allPizzaTypes, data])
             setNewOrModifiedPizzaType({ pizzaName: "" });
             console.log("Modified pizza type was updated!")
