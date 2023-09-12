@@ -12,8 +12,7 @@ const OrderListHandler = () => {
   let grandTotalCost = 0;
   let actualPizzaName = "";
 
-  const [actualOrderClientId, setActualOrderClientId] = useState("");
-  const [actualOrderClientName, setActualOrderClientName] = useState("");
+  const [orderListWithName, setOrderListWithName] = useState([]);
 
   const orderFetch = async (url) => {
     const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
@@ -75,38 +74,35 @@ const OrderListHandler = () => {
     }
   };
 
-  const fetchActualClientName = async () => {
-    const actualClientUrl = `/api/clients/${actualOrderClientId}`
-
-    try {
-      const response = await fetch(actualClientUrl);
-      const data = await response.json();
-      if (response.status === 200) {
-        console.log("itt " + data.clientName);
-        if (data.clientName !== undefined) setActualOrderClientName(data.clientName);
+  const fetchActualClientName = async (actualOrder) => {
+    const actualClientUrl = `/api/clients/${actualOrder.orderClientId}`
+    while (actualOrder.clientName === undefined) {
+      try {
+        const response = await fetch(actualClientUrl);
+        const data = await response.json();
+        if (response.status === 200) {
+          console.log(data);
+          if (data.clientName !== undefined) {
+            actualOrder.clientName = data.clientName;
+            orderListWithName.push(actualOrder);
+            setOrderListWithName(orderListWithName);
+          }
+        }
+      } catch (error) {
+        console.log("Problem with client name!");
       }
-    } catch (error) {
-      console.log("Problem with client name!");
     }
   }
-
   useEffect(() => {
-    fetchActualClientName(actualOrderClientId)
-  }, [actualOrderClientId])
+    for (let i = 0; i < listOfOrders.length; i++) {
+      console.log(listOfOrders[i]);
+      fetchActualClientName(listOfOrders[i])
+    }
+  }, [])
 
-  const actualClientNameSetter = () => {
-    listOfOrders.map(order => {
-      setActualOrderClientId(order.orderClientId)
-      let actualOrder = listOfOrders.find(presentOrder => presentOrder._id === order._id)
-      actualOrder.clientName = actualOrderClientName;
-    });
-    console.log("vége");
-    console.log(listOfOrders);
-  }
-
-  useEffect(() => {
-    actualClientNameSetter()
-  }, []);
+  console.log("soradat");
+  console.log(listOfOrders);
+  console.log(orderListWithName);
 
   return (
     <>
@@ -123,7 +119,7 @@ const OrderListHandler = () => {
                 <p style={{ backgroundColor: "blue", width: "fit-content" }}>{actualClientData.clientName.toUpperCase()}</p>
 
                 <table key={index1} id="order-list-table" style={{ listStyleType: "none", fontSize: "15px", height: "10px" }}>
-                  <thead key={index1}>
+                  <thead >
                     <tr>
                       <th>Pizza name</th>
                       <th>Piece</th>

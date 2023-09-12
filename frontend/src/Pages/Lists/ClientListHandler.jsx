@@ -104,11 +104,11 @@ function ClientListHandler() {
                   <tr>
                     <td><p style={{ width: "150px", textAlign: "left" }}>{client.clientName}</p></td>
                     <td><p style={{ textAlign: "left" }}>{client.email}</p></td>
-                    <td><p style={{ width: "150px"}}>{client.phoneNumber}</p></td>
-                    <td><p>-</p></td>
-                    <td><p style={{ width: "80px"}}>{client.isActive ? "X" : "-"}</p></td>
-                    <td><p style={{ width: "80px"}}>{client.isAdmin ? "X" : "-"}</p></td>
-                    <td><p style={{ width: "80px"}}>{client.isMainAdmin ? "X" : "-"}</p></td>
+                    <td><p style={{ width: "150px" }}>{client.phoneNumber}</p></td>
+                    <td><p style={{ width: "250px", textAlign: "left" }}>{client.address.postCode},{client.address.city},{client.address.streetAndNumber},<br></br>{client.address.otherInfo}</p></td>
+                    <td><p style={{ width: "80px" }}>{client.isActive ? "X" : "-"}</p></td>
+                    <td><p style={{ width: "80px" }}>{client.isAdmin ? "X" : "-"}</p></td>
+                    <td><p style={{ width: "80px" }}>{client.isMainAdmin ? "X" : "-"}</p></td>
 
                     <td >
                       <button type="button" id="delete-btn" value={client._id} onClick={(e) => deleteClientRow(e.target.value)}>DEL </button>
