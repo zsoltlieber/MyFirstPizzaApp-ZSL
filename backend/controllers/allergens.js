@@ -25,6 +25,18 @@ export const getAllergens = async (req, res, next) => {
     try {
         let allergens = null;
         allergens = await Allergen.find();
+        allergens.sort((a, b) => {
+            if (a.allergenName < b.allergenName) {
+                return -1;
+            }
+
+            if (a.allergenName > b.allergenName) {
+                return 1;
+            }
+
+            return 0;
+        });
+        
         if (req.query.isActive === 'true') {
             allergens = allergens.filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {

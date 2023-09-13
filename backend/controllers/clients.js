@@ -50,6 +50,18 @@ export const getClients = async (req, res, next) => {
         let clients = null;
 
         clients = await Client.find();
+        clients.sort((a, b) => {
+            if (a.clientName < b.clientName) {
+                return -1;
+            }
+
+            if (a.clientName > b.clientName) {
+                return 1;
+            }
+
+            return 0;
+        });
+        
         if (req.query.isActive === 'true') {
             clients = clients.filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {

@@ -21,6 +21,17 @@ export const getPizzaTypes = async (req, res, next) => {
     try {
         let pizzaTypes = null;
         pizzaTypes = await PizzaType.find();
+        pizzaTypes.sort((a, b) => {
+            if (a.pizzaName < b.pizzaName) {
+                return -1;
+            }
+
+            if (a.pizzaName > b.pizzaName) {
+                return 1;
+            }
+
+            return 0;
+        });
         if (req.query.isActive === 'true') {
             pizzaTypes = pizzaTypes.filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {
