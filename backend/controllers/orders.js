@@ -35,6 +35,17 @@ export const getOrders = async (req, res, next) => {
         let orders = null;
         orders = await Order.find()
 
+        orders.sort((a, b) => {
+            if (a.orderClientId < b.orderClientId) {
+                return -1;
+            }
+
+            if (a.orderClientId > b.orderClientId) {
+                return 1;
+            }
+
+            return 0;
+        });
         if (!req.client.isAdmin) {
             orders = orders.filter((data) => data.isActive === true && data.orderClientId === req.client.id);
         } else if (req.query.isActive === 'true') {

@@ -18,7 +18,12 @@ const OrderListHandler = () => {
     const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
     const response = await fetch(actualUrl);
     const data = await response.json();
-    if (data) setListOfOrders(data);
+    if (data) {
+      if (data.length !== 0) {
+        data.map(order => fetchActualClientName(order));
+      }
+      setListOfOrders(data);
+    }
   };
 
   useEffect(() => {
@@ -81,11 +86,8 @@ const OrderListHandler = () => {
         const response = await fetch(actualClientUrl);
         const data = await response.json();
         if (response.status === 200) {
-          console.log(data);
           if (data.clientName !== undefined) {
             actualOrder.clientName = data.clientName;
-            orderListWithName.push(actualOrder);
-            setOrderListWithName(orderListWithName);
           }
         }
       } catch (error) {
@@ -93,16 +95,6 @@ const OrderListHandler = () => {
       }
     }
   }
-  useEffect(() => {
-    for (let i = 0; i < listOfOrders.length; i++) {
-      console.log(listOfOrders[i]);
-      fetchActualClientName(listOfOrders[i])
-    }
-  }, [])
-
-  console.log("soradat");
-  console.log(listOfOrders);
-  console.log(orderListWithName);
 
   return (
     <>
@@ -116,8 +108,7 @@ const OrderListHandler = () => {
 
             return (
               <>
-                <p style={{ backgroundColor: "blue", width: "fit-content" }}>{actualClientData.clientName.toUpperCase()}</p>
-
+                {order.clientName !== undefined ? <p> {order.clientName} </p>  : <></>}
                 <table key={index1} id="order-list-table" style={{ listStyleType: "none", fontSize: "15px", height: "10px" }}>
                   <thead >
                     <tr>
@@ -131,7 +122,6 @@ const OrderListHandler = () => {
                   <tbody>
                     <tr>
                       <td style={{ alignItems: "center", color: "black", backgroundColor: "lightskyblue", height: "10px" }}>
-                        {order.clientName}
                         {order.created.substring(0, 16).replace("T", " ")}
                       </td>
                       <td></td>
