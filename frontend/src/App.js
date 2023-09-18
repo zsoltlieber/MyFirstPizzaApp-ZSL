@@ -1,9 +1,9 @@
 import './App.css'
 import AllergenCheckList from '../src/Pages/Lists/AllergenCheckList';
 import CenterColumn from '../src/Pages/Lists/CenterColumn';
-import RightColumn from '../src/Pages/Lists/RightColumn';
-import Header from '../src/Pages/Lists/Header';
-import Footer from '../src/Pages/Lists/Footer';
+import RightColumn from '../src/Sections/RightColumn/RightColumn.jsx';
+import Header from '../src/Sections/Header/Header.jsx';
+import Footer from '../src/Sections/Footer/Footer.jsx';
 import { MainContext } from './mainContext.js'
 import { React, useState } from 'react'
 
