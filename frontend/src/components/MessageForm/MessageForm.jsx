@@ -108,7 +108,7 @@ export const MessageForm = () => {
                     </p>
                     <div>
                         <input type="text" id="message" placeholder="message"
-                            name="inputbox" value={newOrModifiedMessage.message || ""} required
+                            name="inputbox" value={newOrModifiedMessage.message} required
                             onChange={(e) => setNewOrModifiedMessage({ message: e.target.value })} />
                     </div>
                     <div>

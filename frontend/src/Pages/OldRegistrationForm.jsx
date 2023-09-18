@@ -24,7 +24,7 @@ export function RegistrationForm() {
                 postCode: newOrModifiedClient.address.postCode,
                 city: newOrModifiedClient.address.city,
                 streetAndNumber: newOrModifiedClient.address.streetAndNumber,
-                otherInfo: newOrModifiedClient.address.otherInfo || ""
+                otherInfo: newOrModifiedClient.address.otherInfo 
             }],
             isActive: newOrModifiedClient.isActive || false,
             isAdmin: newOrModifiedClient.isAdmin || false,
@@ -53,7 +53,7 @@ export function RegistrationForm() {
 
     function cancelButton() {
         setUpdatableClientId("");
-        setNewOrModifiedClient({ clientName: "" })
+        setNewOrModifiedClient([])
     }
 
     return (
@@ -70,7 +70,7 @@ export function RegistrationForm() {
                         </p>
                         <div>
                             <input type="text" id="client-name" placeholder="client name"
-                                value={newOrModifiedClient.clientName || ""} required
+                                value={newOrModifiedClient.clientName } required
                                 onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, clientName: e.target.value }) }} />
                         </div>
                         <div>
@@ -80,47 +80,47 @@ export function RegistrationForm() {
                         </div>
                         <div>
                             <input type="email" id="email" placeholder="email"
-                                value={newOrModifiedClient.email || ""} required
+                                value={newOrModifiedClient.email } required
                                 onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, email: e.target.value }) }} />
                         </div>
                         <div>
                             <input type="text" id="phone-number" placeholder="phoneNumber"
-                                value={newOrModifiedClient.phoneNumber || ""} required
+                                value={newOrModifiedClient.phoneNumber } required
                                 onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, phoneNumber: e.target.value }) }} />
                         </div>
                         <div>
                             <input type="text" id="post-code" placeholder="postCode"
-                                value={newOrModifiedClient.address[0].postCode || ""} required
+                                value={newOrModifiedClient.address[0].postCode } required
                                 onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: { ...newOrModifiedClient.address, postCode: e.target.value } }) }} />
                         </div>
                         <div>
                             <input type="text" id="city" placeholder="city"
-                                value={newOrModifiedClient.address[0].city || ""} required
+                                value={newOrModifiedClient.address[0].city } required
                                 onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: { ...newOrModifiedClient.address, city: e.target.value } }) }} />
                         </div>
                         <div>
                             <input type="text" id="streat-and-number" placeholder="streatAndNumber"
-                                value={newOrModifiedClient.address[0].streetAndNumber || ""} required
+                                value={newOrModifiedClient.address[0].streetAndNumber } required
                                 onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: { ...newOrModifiedClient.address, streetAndNumber: e.target.value } }) }} />
                         </div>
                         <div>
                             <input type="text" id="other-info" placeholder="otherInfo"
-                                value={newOrModifiedClient.address[0].otherInfo || ""}
+                                value={newOrModifiedClient.address[0].otherInfo }
                                 onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: { ...newOrModifiedClient.address, otherInfo: e.target.value } }) }} />
                         </div>
                         {actualClientData.isAdmin === true
                             ?
                             <>
                                 <div>Active?
-                                    <input type="text" id="isActive" placeholder="isActive true/false" value={newOrModifiedClient.isActive || ""}
+                                    <input type="text" id="isActive" placeholder="isActive true/false" value={newOrModifiedClient.isActive }
                                         onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isActive: e.target.value }) }} />
                                 </div>
                                 <div>Admin?
-                                    <input type="text" id="isAdmin" placeholder="isAdmin true/false" value={newOrModifiedClient.isAdmin || ""}
+                                    <input type="text" id="isAdmin" placeholder="isAdmin true/false" value={newOrModifiedClient.isAdmin }
                                         onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isAdmin: e.target.value }) }} />
                                 </div>
                                 <div>Boss ?
-                                    <input type="text" id="isMainAdmin" placeholder="isMainAdmin true/false" value={newOrModifiedClient.isMainAdmin || ""}
+                                    <input type="text" id="isMainAdmin" placeholder="isMainAdmin true/false" value={newOrModifiedClient.isMainAdmin }
                                         onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isMainAdmin: e.target.value }) }} />
                                 </div>
                             </>

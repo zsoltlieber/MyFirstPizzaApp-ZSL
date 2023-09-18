@@ -13,7 +13,7 @@ function ClientForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const actualClient = {
-            "clientName": newOrModifiedClient.clientName,  // TODO nem írja át a nevét minden mást igen!!!
+            "clientName": newOrModifiedClient.clientName, 
             "email": newOrModifiedClient.email,
             "password": newOrModifiedClient.password,
             "phoneNumber": newOrModifiedClient.phoneNumber,
@@ -21,7 +21,7 @@ function ClientForm() {
                 "postCode": newOrModifiedClient.postCode,
                 "city": newOrModifiedClient.city,
                 "streetAndNumber": newOrModifiedClient.streetAndNumber,
-                "otherInfo": newOrModifiedClient.otherInfo || ""
+                "otherInfo": newOrModifiedClient.otherInfo 
             },
             "isActive": newOrModifiedClient.isActive || false,
             "isAdmin": newOrModifiedClient.isAdmin || false,
@@ -55,7 +55,6 @@ function ClientForm() {
 
             const updateOnServer = async () => {
                 const updatableClientUrl = clientUrl + "/" + updatableClientId;
-                console.log(newOrModifiedClient);
                 const requestOptions = {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
@@ -79,7 +78,7 @@ function ClientForm() {
 
     function cancelButton() {
         setUpdatableClientId("");
-        setNewOrModifiedClient({ clientName: "" })
+        setNewOrModifiedClient([])
     }
 
     if (newOrModifiedClient === undefined)
@@ -109,22 +108,22 @@ function ClientForm() {
                 <div>
                     <div>
                         <label>Name: </label>
-                        <input type="text" id="clientName" placeholder="client name" value={newOrModifiedClient.clientName || ""}
+                        <input type="text" id="clientName" placeholder="client name" value={newOrModifiedClient.clientName }
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, clientName: e.target.value }) }} />
                     </div>
                     <div>
                         <label>Email: </label>
-                        <input type="text" id="email" placeholder="email" value={newOrModifiedClient.email || ""}
+                        <input type="text" id="email" placeholder="email" value={newOrModifiedClient.email }
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, email: e.target.value }) }} />
                     </div>
                     <div>
                         <label>Password: </label>
-                        <input type="password" id="password" placeholder="password" value={newOrModifiedClient.password || ""}
+                        <input type="password" id="password" placeholder="password" value={newOrModifiedClient.password }
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, password: e.target.value }) }} />
                     </div>
                     <div>
                         <label>Phone: </label>
-                        <input type="text" id="phoneNumber" placeholder="phone number" value={newOrModifiedClient.phoneNumber || ""}
+                        <input type="text" id="phoneNumber" placeholder="phone number" value={newOrModifiedClient.phoneNumber }
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, phoneNumber: e.target.value }) }} />
                     </div>
                     <div>Post code:
@@ -144,15 +143,15 @@ function ClientForm() {
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient.address, otherInfo: e.target.value }) }} />
                     </div>
                     <div>Active?
-                        <input type="text" id="isActive" placeholder="isActive true/false" value={newOrModifiedClient.isActive || ""}
+                        <input type="text" id="isActive" placeholder="isActive true/false" value={newOrModifiedClient.isActive }
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isActive: e.target.value }) }} />
                     </div>
                     <div>Admin?
-                        <input type="text" id="isAdmin" placeholder="isAdmin true/false" value={newOrModifiedClient.isAdmin || ""}
+                        <input type="text" id="isAdmin" placeholder="isAdmin true/false" value={newOrModifiedClient.isAdmin }
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isAdmin: e.target.value }) }} />
                     </div>
                     <div>Boss ?
-                        <input type="text" id="isMainAdmin" placeholder="isMainAdmin true/false" value={newOrModifiedClient.isMainAdmin || ""}
+                        <input type="text" id="isMainAdmin" placeholder="isMainAdmin true/false" value={newOrModifiedClient.isMainAdmin }
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isMainAdmin: e.target.value }) }} />
                     </div>
                     <div>
