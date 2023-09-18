@@ -94,6 +94,7 @@ const OrderListHandler = () => {
         console.log("Problem with client name!");
       }
     }
+    setOrderListWithName(actualOrder)
   }
 
   return (
@@ -108,7 +109,10 @@ const OrderListHandler = () => {
 
             return (
               <>
-                {order.clientName !== undefined ? <p> {order.clientName} </p>  : <></>}
+                {order.clientName !== undefined
+                  ?
+                  <p> {order.clientName} </p>
+                  : <></>}
                 <table key={index1} id="order-list-table" style={{ listStyleType: "none", fontSize: "15px", height: "10px" }}>
                   <thead >
                     <tr>
