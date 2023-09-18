@@ -37,13 +37,12 @@ export const MessageForm = () => {
                 else {
                     if (actualClientData.isAdmin === false) {
                         setShowMessageThanks(true);
-                        setOriginalMessage("");
                         setTimeout(() => {
                             setShowMessageThanks(false);
                         }, 2000);
                     }
                     setMessageList([...messageList, data]);
-                    setNewOrModifiedMessage({});
+                    setNewOrModifiedMessage({message:""});
                     setOriginalMessage("")
                     console.log("New message was saved!")
                 }
@@ -72,11 +71,11 @@ export const MessageForm = () => {
                             setShowMessageThanks(false);
                         }, 5000);
                     }
+                }
                     const newMessageList = messageList.filter(message => message._id !== newOrModifiedMessage._id)
                     setMessageList([...newMessageList, data]);
-                    setNewOrModifiedMessage("");
+                    setNewOrModifiedMessage({message:""});
                     console.log("Modified message was saved!")
-                }
             }
             updateOnServer()
         }
@@ -85,10 +84,10 @@ export const MessageForm = () => {
     }
 
     function cancelButton() {
-        setNewOrModifiedMessage({});
+        setNewOrModifiedMessage({message:""});
         setOriginalMessage("")
     }
-
+console.log(newOrModifiedMessage);
     return (
         <>
             {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
@@ -108,7 +107,13 @@ export const MessageForm = () => {
                     </p>
                     <div>
                         <input type="text" id="message" placeholder="message"
-                            name="inputbox" value={newOrModifiedMessage.message} required
+                            name="inputbox" value={
+                                newOrModifiedMessage._id === undefined
+                                    ?
+                                    newOrModifiedMessage.message
+                                    :
+                                    ""
+                            } required
                             onChange={(e) => setNewOrModifiedMessage({ message: e.target.value })} />
                     </div>
                     <div>
