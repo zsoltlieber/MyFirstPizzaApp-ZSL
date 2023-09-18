@@ -42,7 +42,7 @@ export const MessageForm = () => {
                         }, 2000);
                     }
                     setMessageList([...messageList, data]);
-                    setNewOrModifiedMessage({message:""});
+                    setNewOrModifiedMessage({ message: "" });
                     setOriginalMessage("")
                     console.log("New message was saved!")
                 }
@@ -72,10 +72,10 @@ export const MessageForm = () => {
                         }, 5000);
                     }
                 }
-                    const newMessageList = messageList.filter(message => message._id !== newOrModifiedMessage._id)
-                    setMessageList([...newMessageList, data]);
-                    setNewOrModifiedMessage({message:""});
-                    console.log("Modified message was saved!")
+                const newMessageList = messageList.filter(message => message._id !== newOrModifiedMessage._id)
+                setMessageList([...newMessageList, data]);
+                setNewOrModifiedMessage({ message: "" });
+                console.log("Modified message was saved!")
             }
             updateOnServer()
         }
@@ -84,10 +84,10 @@ export const MessageForm = () => {
     }
 
     function cancelButton() {
-        setNewOrModifiedMessage({message:""});
+        setNewOrModifiedMessage({ message: "" });
         setOriginalMessage("")
     }
-console.log(newOrModifiedMessage);
+
     return (
         <>
             {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
@@ -124,7 +124,7 @@ console.log(newOrModifiedMessage);
                                 :
                                 "Update"}
                         </button>
-                        <button type="button" id="submit-btn" className="btn" onClick={cancelButton}>Cancel</button>
+                        <button type="text"  className="btn" onClick={cancelButton}>Cancel</button>
                     </div>
                 </form>
                 : <h3 id="message-form" >ONLY REGISTERED CLIENT<br /> CAN SEND MESSAGE!</h3>}
