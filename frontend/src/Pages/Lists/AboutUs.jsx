@@ -1,5 +1,3 @@
-import SearchBar from "../Trial/SearchBar";
-
 export const AboutUs = ({ setSearchText }) => {
 
     return (
