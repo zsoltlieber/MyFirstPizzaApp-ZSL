@@ -1,17 +1,17 @@
 import { useState, useContext } from "react";
-import LoginForm from "../Forms/LoginForm";
-import RegistrationForm from "../Forms/RegistrationForm";
-import OrderForm from "../Forms/OrderForm";
-import OrderListHandler from "./OrderListHandler.jsx";
+import LoginForm from "../../Pages/Forms/LoginForm";
+import RegistrationForm from "../../Pages/Forms/RegistrationForm";
+import OrderForm from "../../Pages/Forms/OrderForm";
+import OrderListHandler from "../../Pages/Lists/OrderListHandler.jsx";
 import MessageForm from "../../components/MessageForm/MessageForm.jsx";
 import MessageTable from "../../components/MessageTable/MessageTableController.jsx";
 import AboutUs from "./AboutUs.jsx";
-import BossPage from "./BossPage.jsx";
+import BossPage from "../BossPage/BossPage.jsx";
 import StaffPage from "./StaffPage.jsx";
-import ClientForm from "../Forms/ClientForm";
-import ClientListHandler from "./ClientListHandler.jsx";
-import AllergenForm from "../Forms/AllergenForm";
-import AllergenListHandler from "./AllergenListHandler.jsx";
+import ClientForm from "../../Pages/Forms/ClientForm";
+import ClientListHandler from "../../Pages/Lists/ClientListHandler.jsx";
+import AllergenForm from "../../Pages/Forms/AllergenForm";
+import AllergenListHandler from "../../Pages/Lists/AllergenListHandler.jsx";
 import PizzaTypeForm from "../../components/PizzaTypeForm/PizzaTypeForm.jsx"
 import PizzaTypeTable from "../../components/PizzaTypeTable/PizzaTypeTableController.jsx";
 import { MainContext } from "../../mainContext.js";
