@@ -76,7 +76,7 @@ function PreOrderList() {
                                         <td style={{ textAlign: "center" }} >{order.quantity}</td>
                                         <td>{order.pricePerEach.toLocaleString('en-US')}.- Ft</td>
                                         <td>
-                                            <button type="button" id="delete-btn" onClick={(e) => deleteOrderRow(order.pizzaId)}>DEL </button>
+                                            <button type="text" id="delete-btn" onClick={(e) => deleteOrderRow(order.pizzaId)}>DEL </button>
                                         </td>
                                     </tr>
                                 )
@@ -89,7 +89,7 @@ function PreOrderList() {
                             </tr >
                         </tfoot>
                     </table>
-                    <button style={{ width: "100%" }} type="button" className="btn" id="order-sender-btn" onClick={sendOrder}>
+                    <button style={{ width: "100%" }} type="text" className="btn" id="order-sender-btn" onClick={sendOrder}>
                         SEND ORDER
                     </button>
                 </div>

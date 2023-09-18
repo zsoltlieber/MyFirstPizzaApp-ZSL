@@ -34,7 +34,7 @@ const PizzaTypeTable = ({ deletePizzaType, updatePizzaType }) => {
                     <td><p style={{ width: "20%" }}>{pizzaType.allergens}</p></td>
                     <td><p style={{ width: "10%" }}>Photo</p></td>
                     <td >
-                      <button type="button" id="delete-btn" value={pizzaType._id} onClick={(e) => deletePizzaType(e.target.value)}>DEL </button>
+                      <button type="text" id="delete-btn" value={pizzaType._id} onClick={(e) => deletePizzaType(e.target.value)}>DEL </button>
                     </td>
                     <td >
                       <button type='button' id="update-btn" value={pizzaType._id} onClick={(e) => updatePizzaType(e.target.value)}>UPD</button>

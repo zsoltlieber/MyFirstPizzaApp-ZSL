@@ -37,7 +37,7 @@ export const MessageTable = ({ deleteMessageHandler, updateMessageHandler }) => 
                                         {actualClientData.clientName !== undefined && (actualClientData.clientId === messageItem.clientId || actualClientData.staffStatus === true)
                                             ?
                                             <td >
-                                                <button type="button" id="delete-btn" value={messageItem._id} onClick={(e) => deleteMessageHandler(e.target.value)}>DEL </button>
+                                                <button type="text" id="delete-btn" value={messageItem._id} onClick={(e) => deleteMessageHandler(e.target.value)}>DEL </button>
                                             </td>
                                             : <td ></td>}
                                         {actualClientData.clientName !== undefined

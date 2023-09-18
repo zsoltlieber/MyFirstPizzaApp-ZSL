@@ -99,10 +99,10 @@ function AllergenListHandler() {
                   <tr>
                     <td><p>{allergen.allergenName}</p></td>
                     <td >
-                      <button type="button" id="delete-btn" value={allergen._id} onClick={(e) => deleteAllergenRow(e.target.value)}>DEL </button>
+                      <button type="text" id="delete-btn" value={allergen._id} onClick={(e) => deleteAllergenRow(e.target.value)}>DEL </button>
                     </td>
                     <td >
-                      <button type='button' id="update-btn" value={allergen._id} onClick={(e) => updateItem(e.target.value)}>UPD</button>
+                      <button type='text' id="update-btn" value={allergen._id} onClick={(e) => updateItem(e.target.value)}>UPD</button>
                     </td>
                   </tr>
                 </tbody>

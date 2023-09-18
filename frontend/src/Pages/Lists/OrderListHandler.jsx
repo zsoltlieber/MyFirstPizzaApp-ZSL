@@ -130,7 +130,7 @@ const OrderListHandler = () => {
                       </td>
                       <td></td>
                       <td>
-                        <button type="button" id="delete-btn" onClick={(e) => deleteOrderRow(order._id)}>DEL </button>
+                        <button type="text" id="delete-btn" onClick={(e) => deleteOrderRow(order._id)}>DEL </button>
                       </td>
                     </tr>
                     {order.orderedItems.map((orderItem, index) => {

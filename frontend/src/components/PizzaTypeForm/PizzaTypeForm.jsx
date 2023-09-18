@@ -110,7 +110,7 @@ const PizzaTypeForm = () => {
               :
               "Update"}
           </button>
-          <button type="button" id="submit-btn" className="btn" onClick={cancelButton}>Cancel</button>
+          <button type="text" className="btn" onClick={cancelButton}>Cancel</button>
           <button type='button' className="btn" value={"about"} onClick={(e) => setRightColumnType(e.target.value)}>BACK</button>
         </div>
       </div>

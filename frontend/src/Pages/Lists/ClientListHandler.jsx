@@ -111,10 +111,10 @@ function ClientListHandler() {
                     <td><p style={{ width: "80px" }}>{client.isMainAdmin ? "X" : "-"}</p></td>
 
                     <td >
-                      <button type="button" id="delete-btn" value={client._id} onClick={(e) => deleteClientRow(e.target.value)}>DEL </button>
+                      <button type="text" id="delete-btn" value={client._id} onClick={(e) => deleteClientRow(e.target.value)}>DEL </button>
                     </td>
                     <td >
-                      <button type='button' id="update-btn" value={client._id} onClick={(e) => updateItem(e.target.value)}>UPD</button>
+                      <button type='text' id="update-btn" value={client._id} onClick={(e) => updateItem(e.target.value)}>UPD</button>
                     </td>
                   </tr>
                 </tbody>

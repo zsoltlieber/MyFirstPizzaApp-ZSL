@@ -93,8 +93,8 @@ export function OrderForm() {
                                                 max={5} value={value !== undefined ? value : 1}
                                                 onChange={(event) => setValue(event.target.value)}
                                             />
-                                            <button type="button" className="btn" id="add-btn" onClick={addActualOrderedItemToList}>ADD</button>
-                                            <button type="button" className="btn" id="delete-btn" onClick={deleteItemFromForm}>X</button>
+                                            <button type="text" className="btn" id="add-btn" onClick={addActualOrderedItemToList}>ADD</button>
+                                            <button type="text" className="btn" id="delete-btn" onClick={deleteItemFromForm}>X</button>
                                         </li>
                                     </ul>
                                 </>
