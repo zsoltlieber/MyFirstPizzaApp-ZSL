@@ -7,31 +7,32 @@ export function RegistrationForm() {
 
     const registerUrl = '/api/clients/register'
 
-    const [clientData, setClientData] = useState({});
+    const emptyClient = {
+        clientName: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+        address: [{
+            postCode: "",
+            city: "",
+            streetAndNumber: "",
+            otherInfo: ""
+        }],
+    };
+
+    const [clientData, setClientData] = useState(emptyClient);
     const [showRegistrationMessage, setShowRegistrationMessage] = useState(false)
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const actualClientData = {
-            clientName: clientData.clientName,
-            email: clientData.email,
-            password: clientData.password,
-            phoneNumber: clientData.phoneNumber,
-            address: [{
-                postCode: clientData.address.postCode,
-                city: clientData.address.city,
-                streetAndNumber: clientData.address.streetAndNumber,
-                otherInfo: clientData.address.otherInfo
-            }],
-        };
-
-        if (actualClientData !== undefined) {
+        if (clientData !== undefined) {
             const registrationSave = async () => {
+                console.log(clientData);
                 const requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(actualClientData)
+                    body: JSON.stringify(clientData)
                 };
                 const response = await fetch(registerUrl, requestOptions);
                 const data = await response.json();
@@ -45,7 +46,7 @@ export function RegistrationForm() {
             registrationSave()
         }
     }
-
+    console.log(clientData);
     return (
         <>
             {!showRegistrationMessage ?
@@ -70,19 +71,19 @@ export function RegistrationForm() {
                         </div>
                         <div>
                             <input type="text" id="post-code" placeholder="postCode" required
-                                onChange={(e) => { setClientData({ ...clientData, address: [{ ...clientData.address, postCode: e.target.value }] }) }} />
+                                onChange={(e) => { setClientData((clientData) => ({ ...clientData, address: [{ ...clientData.address[0], postCode: e.target.value }] })) }} />
                         </div>
                         <div>
                             <input type="text" id="city" placeholder="city" required
-                                onChange={(e) => { setClientData({ ...clientData, address: [{ ...clientData.address, city: e.target.value }] }) }} />
+                                onChange={(e) => { setClientData((clientData) => ({ ...clientData, address: [{ ...clientData.address[0], city: e.target.value }] })) }} />
                         </div>
                         <div>
                             <input type="text" id="streat-and-number" placeholder="streatAndNumber" required
-                                onChange={(e) => { setClientData({ ...clientData, address: [{ ...clientData.address, streetAndNumber: e.target.value }] }) }} />
+                                onChange={(e) => { setClientData((clientData) => ({ ...clientData, address: [{ ...clientData.address[0], streetAndNumber: e.target.value }] })) }} />
                         </div>
                         <div>
-                            <input type="text" id="other-info" placeholder="otherInfo"
-                                onChange={(e) => { setClientData({ ...clientData, address: [{ ...clientData.address, otherInfo: e.target.value }] }) }} />
+                            <input type="text" id="other-info" placeholder="otherInfo" required
+                                onChange={(e) => { setClientData((clientData) => ({ ...clientData, address: [{ ...clientData.address[0], otherInfo: e.target.value }] })) }} />
                         </div>
                         <div>
                             <button type="submit" className="btn">LOGIN</button>

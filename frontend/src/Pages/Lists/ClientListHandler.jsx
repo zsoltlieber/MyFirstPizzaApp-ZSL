@@ -105,7 +105,7 @@ function ClientListHandler() {
                     <td><p style={{ width: "150px", textAlign: "left" }}>{client.clientName}</p></td>
                     <td><p style={{ textAlign: "left" }}>{client.email}</p></td>
                     <td><p style={{ width: "150px" }}>{client.phoneNumber}</p></td>
-                    <td><p style={{ width: "250px", textAlign: "left" }}>{client.address.postCode},{client.address.city},{client.address.streetAndNumber},<br></br>{client.address.otherInfo}</p></td>
+                    <td><p style={{ width: "250px", textAlign: "left" }}>{client.address[0].postCode},{client.address[0].city},{client.address[0].streetAndNumber},<br></br>{client.address[0].otherInfo}</p></td>
                     <td><p style={{ width: "80px" }}>{client.isActive ? "X" : "-"}</p></td>
                     <td><p style={{ width: "80px" }}>{client.isAdmin ? "X" : "-"}</p></td>
                     <td><p style={{ width: "80px" }}>{client.isMainAdmin ? "X" : "-"}</p></td>
