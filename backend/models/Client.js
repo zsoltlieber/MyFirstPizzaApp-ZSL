@@ -19,12 +19,12 @@ const ClientSchema = new Schema({
         type: String,
         require: true
     },
-    address: {
+    address: [{
         postCode: String,
         city: String,
         streetAndNumber: String,
         otherInfo: String
-    },
+    }],
 
     isActive: {
         type: Boolean,

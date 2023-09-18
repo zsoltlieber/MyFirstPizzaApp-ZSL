@@ -17,12 +17,12 @@ export function RegistrationForm() {
             clientName: clientData.clientName,
             email: clientData.email,
             password: clientData.password,
-            phoneNumber: [clientData.phoneNumber],
+            phoneNumber: clientData.phoneNumber,
             address: [{
                 postCode: clientData.address.postCode,
                 city: clientData.address.city,
                 streetAndNumber: clientData.address.streetAndNumber,
-                otherInfo: clientData.address.otherInfo || ""
+                otherInfo: clientData.address.otherInfo
             }],
         };
 
@@ -70,19 +70,19 @@ export function RegistrationForm() {
                         </div>
                         <div>
                             <input type="text" id="post-code" placeholder="postCode" required
-                                onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, postCode: e.target.value } }) }} />
+                                onChange={(e) => { setClientData({ ...clientData, address: [{ ...clientData.address, postCode: e.target.value }] }) }} />
                         </div>
                         <div>
                             <input type="text" id="city" placeholder="city" required
-                                onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, city: e.target.value } }) }} />
+                                onChange={(e) => { setClientData({ ...clientData, address: [{ ...clientData.address, city: e.target.value }] }) }} />
                         </div>
                         <div>
                             <input type="text" id="streat-and-number" placeholder="streatAndNumber" required
-                                onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, streetAndNumber: e.target.value } }) }} />
+                                onChange={(e) => { setClientData({ ...clientData, address: [{ ...clientData.address, streetAndNumber: e.target.value }] }) }} />
                         </div>
                         <div>
                             <input type="text" id="other-info" placeholder="otherInfo"
-                                onChange={(e) => { setClientData({ ...clientData, address: { ...clientData.address, otherInfo: e.target.value } }) }} />
+                                onChange={(e) => { setClientData({ ...clientData, address: [{ ...clientData.address, otherInfo: e.target.value }] }) }} />
                         </div>
                         <div>
                             <button type="submit" className="btn">LOGIN</button>
