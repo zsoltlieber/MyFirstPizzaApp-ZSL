@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { MainContext } from '../../mainContext.js'
 
 export const AllergenCheckList = () => {
@@ -8,9 +8,13 @@ export const AllergenCheckList = () => {
   const allergensUrl = "/api/allergens"
 
   const allergensFetch = async (url) => {
-    const response = await fetch(url);
-    let data = await response.json();
-    if (data) setAllAllergens(data);
+    try {
+      const response = await fetch(url);
+      let data = await response.json();
+      if (data.length !== 0) setAllAllergens(data);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   function allergenStatusHandler(allergenId, checkboxStatus) {
@@ -23,6 +27,7 @@ export const AllergenCheckList = () => {
   useEffect(() => {
     allergensFetch(allergensUrl);
   }, []);
+
 
   return (
     <div id='allergen-checker' >
