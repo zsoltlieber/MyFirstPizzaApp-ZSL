@@ -6,8 +6,9 @@ const Header = () => {
 
     return (
         <>
-            <div>
-                <h1> <a href="/" id="home" >HOME</a> </h1>
+            <div>{/* 
+                <h1> <a href="/" id="home" >HOME</a> </h1> */}
+                <h1> HOME </h1>
             </div>
 
             <h1>THE BEST PIZZA Co.</h1>

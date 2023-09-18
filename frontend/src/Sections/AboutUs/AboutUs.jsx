@@ -1,4 +1,4 @@
-export const AboutUs = ({ setSearchText }) => {
+export const AboutUs = () => {
 
     return (
         <div id="about-us">
