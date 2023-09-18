@@ -13,19 +13,10 @@ function App() {
   const [allAllergens, setAllAllergens] = useState([]);
   const [rejectedAllergens, setRejectedAllergens] = useState([]);
   const [allPizzaTypes, setAllPizzaTypes] = useState([]);
-  const [newOrModifiedPizzaType, setNewOrModifiedPizzaType] = useState([]);//for new and updatable pizzaType
+  const [newOrModifiedPizzaType, setNewOrModifiedPizzaType] = useState([]);
   const [pizzaIdToOrder, setPizzaIdToOrder] = useState('');
   const [rightColumnType, setRightColumnType] = useState("about");
   const [itemIsActiveStatus, setItemIsActiveStatus] = useState(true)
-
-  //searchfield for trying this component ability
-  const [searchField, setSearchField] = useState('');
-
-  function setSearchChange(event) {
-    setSearchField(event.target.value);
-    console.log(event.target.value);
-  }
-  if (searchField !== undefined && searchField !== "") console.log(searchField);
 
   return (
     <>
@@ -42,7 +33,7 @@ function App() {
         <div id="main-container">
           <AllergenCheckList />
           <CenterColumn />
-          <RightColumn setSearchFieldChange={setSearchChange} />
+          <RightColumn />
         </div>
       </MainContext.Provider>
       <div id="footer-container">

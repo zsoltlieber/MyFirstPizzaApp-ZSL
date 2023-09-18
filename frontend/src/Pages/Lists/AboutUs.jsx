@@ -1,10 +1,9 @@
 import SearchBar from "../Trial/SearchBar";
 
 export const AboutUs = ({ setSearchText }) => {
-    //searchbar - test for my purpose
+
     return (
         <div id="about-us">
-            <SearchBar setSearchTextChange={setSearchText} />
             <h2 style={{ textAlign: "center" }}>ABOUT US</h2>
             <h3>Family, Fresh, Fast</h3>
             <p>
