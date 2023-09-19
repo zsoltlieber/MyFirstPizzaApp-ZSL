@@ -6,13 +6,13 @@ function CenterColumn() {
 
   const { rejectedAllergens, setPizzaIdToOrder, setAllPizzaTypes, newOrModifiedPizzaType } = useContext(MainContext);
 
-  const itemIsActiveStatusHandler = useItemIsActiveStatus();
+  const { itemIsActiveStatus } = useItemIsActiveStatus();
 
   const pizzaTypesUrl = '/api/pizzaTypes';
   const [actualPizzas, setActualPizzas] = useState({});
 
   const pizzaTypeFetch = async (url) => {
-    const actualUrl = `${url}?isActive=${itemIsActiveStatusHandler.itemIsActiveStatus}`
+    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
     let newPizzaList = [];
     let wrongPizza = 0;
     const response = await fetch(actualUrl);

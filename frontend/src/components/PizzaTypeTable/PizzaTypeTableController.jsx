@@ -7,12 +7,12 @@ function PizzaTypeTableController() {
 
   const { actualClientData, allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(MainContext);
 
-const itemIsActiveStatusHandler = useItemIsActiveStatus()
+  const { itemIsActiveStatus } = useItemIsActiveStatus()
 
   const pizzaTypeUrl = "/api/pizzaTypes"
 
   const pizzaTypeFetch = async (url) => {
-    const actualUrl = `${url}?isActive=${itemIsActiveStatusHandler.itemIsActiveStatus}`
+    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
     try {
       const response = await fetch(actualUrl);
       const data = await response.json();
@@ -50,7 +50,7 @@ const itemIsActiveStatusHandler = useItemIsActiveStatus()
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isActive: false })
       };
-      const response = await fetch(`${pizzaTypeUrl}/${pizzaTypeId}?isActive=${itemIsActiveStatusHandler.itemIsActiveStatus}`, requestOptions);
+      const response = await fetch(`${pizzaTypeUrl}/${pizzaTypeId}?isActive=${itemIsActiveStatus}`, requestOptions);
       if (response.status === 200) {
         const newPizzaList = allPizzaTypes.filter(pizza => pizza._id !== pizzaTypeId);
         setAllPizzaTypes(newPizzaList)

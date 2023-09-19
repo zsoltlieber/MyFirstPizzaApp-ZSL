@@ -9,12 +9,12 @@ export const MessageTableController = () => {
     const { actualClientData } = useContext(MainContext);
     const { messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, setOriginalMessage } = useContext(Context);
 
-    const itemIsActiveStatusHandler = useItemIsActiveStatus();
+    const { itemIsActiveStatus } = useItemIsActiveStatus();
 
     const messageUrl = "/api/messages"
 
     const messagesFetch = async (url) => {
-        const actualUrl = `${url}?isActive=${itemIsActiveStatusHandler.itemIsActiveStatus}`
+        const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
 
         try {
             const response = await fetch(actualUrl);

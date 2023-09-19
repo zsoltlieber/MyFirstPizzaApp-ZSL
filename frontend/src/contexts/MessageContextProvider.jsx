@@ -1,35 +1,39 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import useItemIsActiveStatus from "./ItemIsActiveStatusContextProvider"
-    
+
 export const MessageContext = createContext();
 
 const MessageContextProvider = ({ children }) => {
-
-    const itemIsActiveStatusHandler = useItemIsActiveStatus();
     const [messageList, setMessageList] = useState([]);
     const [newOrModifiedMessage, setNewOrModifiedMessage] = useState([]);
     const [originalMessage, setOriginalMessage] = useState("");
     const [showMessageThanks, setShowMessageThanks] = useState(false);
     const [showTopMessageBox, setShowTopMessageBox] = useState(true);
 
+    const { itemIsActiveStatus } = useItemIsActiveStatus();
+
     const messageUrl = "/api/messages"
 
     const messagesFetch = async (url) => {
-        const actualUrl = `${url}?isActive=${itemIsActiveStatusHandler.itemIsActiveStatus}`
-
+        const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
+        
         try {
             const response = await fetch(actualUrl);
+            if (!response.ok) {
+                throw new Error("Failed to fetch message.");
+            }
             const data = await response.json();
-            if (data) setMessageList(data);
+            setMessageList(data);
         } catch (error) {
-            console.log("Problem with message list!");
+            console.error("Error fetching messages:", error.message);
         }
     };
-
+    
     useEffect(() => {
         messagesFetch(messageUrl);
-    }, [newOrModifiedMessage]);
+    }, [itemIsActiveStatus]);
 
+    /*
     async function deleteMessageFetch(removableMessageId) {
         try {
             const requestOptions = {
@@ -42,10 +46,12 @@ const MessageContextProvider = ({ children }) => {
                 const newMessageList = messageList.filter(message => message._id !== removableMessageId);
                 setMessageList(newMessageList)
                 console.log('Message delete was successful.');
+            } else {
+                throw new Error("Failed to delete message.")
             }
         }
         catch (error) {
-            console.log("Problem with message delete!")
+            console.error("Problem with message delete!", error.message)
         }
     };
 
@@ -67,22 +73,24 @@ const MessageContextProvider = ({ children }) => {
             console.log("Problem with message delete!")
         }
     };
-
-
+*/
+console.log(messageList);
     return (
         <MessageContext.Provider value={{
             messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
             originalMessage, setOriginalMessage, showMessageThanks, setShowMessageThanks,
             showTopMessageBox, setShowTopMessageBox,
-            deleteMessageFetch, removeMessageFetch
+     //       deleteMessageFetch, removeMessageFetch
         }}>
             {children}
         </MessageContext.Provider>
     )
 }
 
-export const useMessageContext = () => {
-    return useContext(MessageContext);
-}
+export const useMessageContext = () => useContext(MessageContext);
+
+//export const useMessagesFetch = () => useContext(MessageContext).messagesFetch();
+//export const useDeleteMessageFetch = (removableMessageId) => useContext(MessageContext).deleteMessageFetch(removableMessageId);
+//export const useRemoveMessageFetch = (removableMessageId) => useContext(MessageContext).removeMessageFetch(removableMessageId);
 
 export default MessageContextProvider

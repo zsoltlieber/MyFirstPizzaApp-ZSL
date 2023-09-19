@@ -5,15 +5,15 @@ import { useItemIsActiveStatus } from '../../contexts/ItemIsActiveStatusContextP
 
 function AllergenListHandler() {
 
-  const { actualClientData, allAllergens, setAllAllergens} = useContext(MainContext);
+  const { actualClientData, allAllergens, setAllAllergens } = useContext(MainContext);
   const { setUpdatableAllergenId, newOrModifiedAllergen, setNewOrModifiedAllergen } = useContext(Context);
 
-  const itemIsActiveStatusHandler = useItemIsActiveStatus();
+  const { itemIsActiveStatus } = useItemIsActiveStatus();
 
   const allergenUrl = "/api/allergens"
 
   const allergensFetch = async (url) => {
-    const actualUrl = `${url}?isActive=${itemIsActiveStatusHandler.itemIsActiveStatus}`
+    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
 
     const response = await fetch(actualUrl);
     const data = await response.json();

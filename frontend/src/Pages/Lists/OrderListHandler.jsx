@@ -8,7 +8,7 @@ const OrderListHandler = () => {
   const { actualClientData, allPizzaTypes, pizzaIdToOrder } = useContext(MainContext);
   const { listOfOrders, setListOfOrders, preOrderList } = useContext(Context);
 
-  const itemIsActiveStatusHandler = useItemIsActiveStatus();
+  const { itemIsActiveStatus } = useItemIsActiveStatus();
 
   const ordersUrl = `/api/orders`
   let totalCost = 0;
@@ -18,7 +18,7 @@ const OrderListHandler = () => {
   const [orderListWithName, setOrderListWithName] = useState([]);
 
   const orderFetch = async (url) => {
-    const actualUrl = `${url}?isActive=${itemIsActiveStatusHandler.itemIsActiveStatus}`
+    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
     const response = await fetch(actualUrl);
     const data = await response.json();
     if (data) {
