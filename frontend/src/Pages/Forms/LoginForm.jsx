@@ -11,7 +11,7 @@ export const LoginForm = () => {
   const [showBoxes, setShowBoxes] = useState(1);
   const [loginErrorMessage, setLoginErrorMessage] = useState("")
 
-  const rightColumnTypeHandler = useRightColumnType();
+  const { setRightColumnType } = useRightColumnType();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ export const LoginForm = () => {
         setShowBoxes(3);
 
         setTimeout(() => {
-          rightColumnTypeHandler.setRightColumnType("about")
+          setRightColumnType("about")
         }, 1000);
       }
     };
@@ -67,7 +67,7 @@ export const LoginForm = () => {
         : showBoxes === 2 ?
           <div id="messages">
             <h2>{loginErrorMessage}!</h2>
-            <button value="signin" onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)}>
+            <button value="signin" onClick={(e) => setRightColumnType(e.target.value)}>
               {loginErrorMessage.split(" ")[0] === "Wrong"
                 ? <p style={{ color: "red" }} >MODIFY EMAIL AND/OR PASSWORD!</p>
                 : <p style={{ color: "red" }} >PLEASE ENTER IN A REGISTER!</p>

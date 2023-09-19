@@ -17,6 +17,7 @@ import PizzaTypeTable from "../../components/PizzaTypeTable/PizzaTypeTableContro
 import { MainContext } from "../../mainContext.js";
 import { Context } from "../../context.js";
 import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvider";
+import MessageContextProvider from "../../contexts/MessageContextProvider";
 
 const RightColumn = ({ setSearchFieldChange }) => {
 
@@ -51,78 +52,77 @@ const RightColumn = ({ setSearchFieldChange }) => {
   const [listOfOrders, setListOfOrders] = useState([]);
   const [preOrderList, setPreOrderList] = useState([]);
   const [showOrderThanks, setShowOrderThanks] = useState(false)
-  const [messageList, setMessageList] = useState([]);
   const [newOrModifiedMessage, setNewOrModifiedMessage] = useState([]);
   const [originalMessage, setOriginalMessage] = useState("");
-  const [showMessageThanks, setShowMessageThanks] = useState(false);
-  const [showTopMessageBox, setShowTopMessageBox] = useState(true);
 
-  const rightColumnTypeHandler = useRightColumnType()
+  const { rightColumnType } = useRightColumnType()
 
   return (
-      <MainContext.Provider value={{
-        actualClientData, setActualClientData, allClientData, setAllClientData,
-        allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
-        allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType, pizzaIdToOrder, setPizzaIdToOrder,
+
+    <MainContext.Provider value={{
+      actualClientData, setActualClientData, allClientData, setAllClientData,
+      allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
+      allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType, pizzaIdToOrder, setPizzaIdToOrder,
+    }}>
+      <Context.Provider value={{
+        newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
+        newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
+        preOrderList, setPreOrderList, listOfOrders, setListOfOrders,
+        newOrModifiedMessage, setNewOrModifiedMessage,
+        originalMessage, setOriginalMessage, showOrderThanks, setShowOrderThanks,
       }}>
-        <Context.Provider value={{
-          newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
-          newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
-          preOrderList, setPreOrderList, listOfOrders, setListOfOrders,
-          messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
-          originalMessage, setOriginalMessage, showOrderThanks, setShowOrderThanks,
-          showMessageThanks, setShowMessageThanks, showTopMessageBox, setShowTopMessageBox
-        }}>
-          <div id='right-column'>
-            {rightColumnTypeHandler.rightColumnType === "login" ?
-              <LoginForm />
-              : <></>}
-            {rightColumnTypeHandler.rightColumnType === "signin" ?
-              <RegistrationForm />
-              : <></>}
-            {rightColumnTypeHandler.rightColumnType === "about" ?
-              <AboutUs setSearchText={setSearchFieldChange} />
-              : <></>}
-            {rightColumnTypeHandler.rightColumnType === "message" ?
-              <>
+        <div id='right-column'>
+          {rightColumnType === "login" ?
+            <LoginForm />
+            : <></>}
+          {rightColumnType === "signin" ?
+            <RegistrationForm />
+            : <></>}
+          {rightColumnType === "about" ?
+            <AboutUs setSearchText={setSearchFieldChange} />
+            : <></>}
+          {rightColumnType === "message" ?
+            <>
+              <MessageContextProvider>
                 <MessageForm />
                 <MessageTable />
-              </>
-              : <></>}
-            {rightColumnTypeHandler.rightColumnType === "order-form" ?
-              <>
-                <OrderForm />
-                <OrderListHandler />
-              </>
-              : <></>}
-            {rightColumnTypeHandler.rightColumnType === "staff" ?
-              <StaffPage />
-              : <></>}
-            {rightColumnTypeHandler.rightColumnType === "boss" ?
-              <BossPage />
-              : <></>}
-            {rightColumnTypeHandler.rightColumnType === "client-handler" ?
-              <>
-                <ClientForm />
-                <ClientListHandler />
-              </>
-              : <></>}
-            {rightColumnTypeHandler.rightColumnType === "allergen-handler" ?
-              <>
-                <AllergenForm />
-                <AllergenListHandler />
-              </>
-              : <></>}
-            {rightColumnTypeHandler.rightColumnType === "pizza-type-handler" ?
-              <>
-                <PizzaTypeForm />
-                <PizzaTypeTable />
-              </>
-              : <></>
-            }
-          </div>
-        </Context.Provider>
-      </MainContext.Provider>
+              </MessageContextProvider>
+            </>
+            : <></>}
+          {rightColumnType === "order-form" ?
+            <>
+              <OrderForm />
+              <OrderListHandler />
+            </>
+            : <></>}
+          {rightColumnType === "staff" ?
+            <StaffPage />
+            : <></>}
+          {rightColumnType === "boss" ?
+            <BossPage />
+            : <></>}
+          {rightColumnType === "client-handler" ?
+            <>
+              <ClientForm />
+              <ClientListHandler />
+            </>
+            : <></>}
+          {rightColumnType === "allergen-handler" ?
+            <>
+              <AllergenForm />
+              <AllergenListHandler />
+            </>
+            : <></>}
+          {rightColumnType === "pizza-type-handler" ?
+            <>
+              <PizzaTypeForm />
+              <PizzaTypeTable />
+            </>
+            : <></>
+          }
+        </div>
+      </Context.Provider>
+    </MainContext.Provider>
   )
 }
 

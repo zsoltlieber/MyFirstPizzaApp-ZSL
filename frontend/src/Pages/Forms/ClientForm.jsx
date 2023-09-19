@@ -6,8 +6,8 @@ function ClientForm() {
     const { newOrModifiedClient, setNewOrModifiedClient,
         updatableClientId, setUpdatableClientId } = useContext(Context);
 
-    const rightColumnTypeHandler = useRightColumnType();    
-    
+    const { setRightColumnType } = useRightColumnType()
+
     const emptyClient = {
         clientName: "",
         email: "",
@@ -28,7 +28,7 @@ function ClientForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-console.log(newOrModifiedClient);
+
         if (newOrModifiedClient.clientName !== ""
             && updatableClientId === "") {
             const saveOnServer = async () => {
@@ -152,7 +152,7 @@ console.log(newOrModifiedClient);
                                 "Update"}
                         </button>
                         <button type="text" className="btn" onClick={cancelButton}>Cancel</button>
-                        <button type="text" className="btn" value={"about"} onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)}>BACK</button>
+                        <button type="text" className="btn" value={"about"} onClick={(e) => setRightColumnType(e.target.value)}>BACK</button>
                     </div>
                 </div>
             </form>

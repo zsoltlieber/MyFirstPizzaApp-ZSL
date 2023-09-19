@@ -3,7 +3,7 @@ import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvide
 
 export function RegistrationForm() {
 
-    const rightColumnTypeHandler = useRightColumnType();
+    const { setRightColumnType } = useRightColumnType();
 
     const registerUrl = '/api/clients/register'
 
@@ -39,7 +39,7 @@ export function RegistrationForm() {
                 setClientData(data);
                 setShowRegistrationMessage(true);
                 setTimeout(() => {
-                    rightColumnTypeHandler.setRightColumnType("login");
+                    setRightColumnType("login");
                     setShowRegistrationMessage(false);
                 }, 2000);
             };

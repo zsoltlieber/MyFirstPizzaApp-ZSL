@@ -39,7 +39,8 @@ function App() {
                 <CenterColumn />
                 <RightColumn />
               </div>
-            </MainContext.Provider>
+          </MainContext.Provider>
+          
         </RightColumnTypeContextProvider>
       </ItemIsActiveStatusContextProvider>
       <div id="footer-container">

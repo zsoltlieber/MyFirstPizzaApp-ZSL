@@ -9,7 +9,7 @@ function AllergenForm() {
   const { newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId,
     setUpdatableAllergenId } = useContext(Context);
     
-  const rightColumnTypeHandler = useRightColumnType();
+  const { setRightColumnType } = useRightColumnType()
 
   const allergensUrl = "/api/allergens"
 
@@ -98,7 +98,7 @@ function AllergenForm() {
               "Update"}
           </button>
           <button type="text" className="btn" onClick={cancelButton}>Cancel</button>
-          <button type="text" className="btn" value={"about"} onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)}>BACK</button>
+          <button type="text" className="btn" value={"about"} onClick={(e) => setRightColumnType(e.target.value)}>BACK</button>
         </div>
       </div>
     </form>
