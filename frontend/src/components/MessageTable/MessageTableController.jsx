@@ -1,15 +1,14 @@
 import { useEffect, useContext } from 'react';
-import { Context } from "../../context.js"
 import { MainContext } from "../../mainContext.js"
 import MesssageTable from "../../components/MessageTable/MessageTable.jsx"
 import { useItemIsActiveStatus } from '../../contexts/ItemIsActiveStatusContextProvider.jsx';
+import { useMessageContext } from '../../contexts/MessageContextProvider.jsx';
 
 export const MessageTableController = () => {
 
     const { actualClientData } = useContext(MainContext);
-    const { messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, setOriginalMessage } = useContext(Context);
-
     const { itemIsActiveStatus } = useItemIsActiveStatus();
+    const { messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, setOriginalMessage } = useMessageContext();
 
     const messageUrl = "/api/messages"
 

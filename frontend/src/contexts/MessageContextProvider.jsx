@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react"
-import useItemIsActiveStatus from "./ItemIsActiveStatusContextProvider"
+import { useItemIsActiveStatus } from "./ItemIsActiveStatusContextProvider"
 
 export const MessageContext = createContext();
 
@@ -33,7 +33,7 @@ const MessageContextProvider = ({ children }) => {
         messagesFetch(messageUrl);
     }, [itemIsActiveStatus]);
 
-    /*
+    
     async function deleteMessageFetch(removableMessageId) {
         try {
             const requestOptions = {
@@ -73,8 +73,7 @@ const MessageContextProvider = ({ children }) => {
             console.log("Problem with message delete!")
         }
     };
-*/
-console.log(messageList);
+
     return (
         <MessageContext.Provider value={{
             messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
@@ -90,7 +89,7 @@ console.log(messageList);
 export const useMessageContext = () => useContext(MessageContext);
 
 //export const useMessagesFetch = () => useContext(MessageContext).messagesFetch();
-//export const useDeleteMessageFetch = (removableMessageId) => useContext(MessageContext).deleteMessageFetch(removableMessageId);
-//export const useRemoveMessageFetch = (removableMessageId) => useContext(MessageContext).removeMessageFetch(removableMessageId);
+export const useDeleteMessageFetch = (removableMessageId) => useContext(MessageContext).deleteMessageFetch(removableMessageId);
+export const useRemoveMessageFetch = (removableMessageId) => useContext(MessageContext).removeMessageFetch(removableMessageId);
 
 export default MessageContextProvider

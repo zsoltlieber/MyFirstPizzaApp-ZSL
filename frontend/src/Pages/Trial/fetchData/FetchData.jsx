@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 
-const FetchData = (url) => {
-
+const useFetchData = (url) => {
     const [data, setdata] = useState();
     const [loading, setLoding] = useState();
     const [error, setError] = useState();
+
     useEffect(() => {
         const dataFetch = async () => {
             setLoding(true)
@@ -33,7 +33,6 @@ const FetchData = (url) => {
     };
 
     return { data, loading, error, reFetch }
-
 }
 
-export default FetchData
+export default useFetchData
