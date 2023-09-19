@@ -16,6 +16,7 @@ import PizzaTypeForm from "../../components/PizzaTypeForm/PizzaTypeForm.jsx"
 import PizzaTypeTable from "../../components/PizzaTypeTable/PizzaTypeTableController.jsx";
 import { MainContext } from "../../mainContext.js";
 import { Context } from "../../context.js";
+import { useRightColumnType } from "../../contexts/RightColumnContextProvider";
 
 const RightColumn = ({ setSearchFieldChange }) => {
 
@@ -24,7 +25,6 @@ const RightColumn = ({ setSearchFieldChange }) => {
     allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
     allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType,
     pizzaIdToOrder, setPizzaIdToOrder,
-    rightColumnType, setRightColumnType, itemIsActiveStatus, setItemIsActiveStatus
   } = useContext(MainContext);
 
   const emptyClient = {
@@ -57,71 +57,72 @@ const RightColumn = ({ setSearchFieldChange }) => {
   const [showMessageThanks, setShowMessageThanks] = useState(false);
   const [showTopMessageBox, setShowTopMessageBox] = useState(true);
 
+  const rightColumnTypeHandler = useRightColumnType()
+
   return (
-    <MainContext.Provider value={{
-      actualClientData, setActualClientData, allClientData, setAllClientData,
-      allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
-      allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType, pizzaIdToOrder, setPizzaIdToOrder,
-      rightColumnType, setRightColumnType, itemIsActiveStatus, setItemIsActiveStatus
-    }}>
-      <Context.Provider value={{
-        newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
-        newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
-        preOrderList, setPreOrderList, listOfOrders, setListOfOrders,
-        messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
-        originalMessage, setOriginalMessage, showOrderThanks, setShowOrderThanks,
-        showMessageThanks, setShowMessageThanks, showTopMessageBox, setShowTopMessageBox
+      <MainContext.Provider value={{
+        actualClientData, setActualClientData, allClientData, setAllClientData,
+        allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
+        allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType, pizzaIdToOrder, setPizzaIdToOrder,
       }}>
-        <div id='right-column'>
-          {rightColumnType === "login" ?
-            <LoginForm />
-            : <></>}
-          {rightColumnType === "signin" ?
-            <RegistrationForm />
-            : <></>}
-          {rightColumnType === "about" ?
-            <AboutUs setSearchText={setSearchFieldChange} />
-            : <></>}
-          {rightColumnType === "message" ?
-            <>
-              <MessageForm />
-              <MessageTable />
-            </>
-            : <></>}
-          {rightColumnType === "order-form" ?
-            <>
-              <OrderForm />
-              <OrderListHandler />
-            </>
-            : <></>}
-          {rightColumnType === "staff" ?
-            <StaffPage />
-            : <></>}
-          {rightColumnType === "boss" ?
-            <BossPage />
-            : <></>}
-          {rightColumnType === "client-handler" ?
-            <>
-              <ClientForm />
-              <ClientListHandler />
-            </>
-            : <></>}
-          {rightColumnType === "allergen-handler" ?
-            <>
-              <AllergenForm />
-              <AllergenListHandler />
-            </>
-            : <></>}
-          {rightColumnType === "pizza-type-handler" ?
-            <>
-              <PizzaTypeForm />
-              <PizzaTypeTable />
-            </>
-            : <></>
-          }
-        </div>
-      </Context.Provider>
-    </MainContext.Provider>
+        <Context.Provider value={{
+          newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
+          newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
+          preOrderList, setPreOrderList, listOfOrders, setListOfOrders,
+          messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
+          originalMessage, setOriginalMessage, showOrderThanks, setShowOrderThanks,
+          showMessageThanks, setShowMessageThanks, showTopMessageBox, setShowTopMessageBox
+        }}>
+          <div id='right-column'>
+            {rightColumnTypeHandler.rightColumnType === "login" ?
+              <LoginForm />
+              : <></>}
+            {rightColumnTypeHandler.rightColumnType === "signin" ?
+              <RegistrationForm />
+              : <></>}
+            {rightColumnTypeHandler.rightColumnType === "about" ?
+              <AboutUs setSearchText={setSearchFieldChange} />
+              : <></>}
+            {rightColumnTypeHandler.rightColumnType === "message" ?
+              <>
+                <MessageForm />
+                <MessageTable />
+              </>
+              : <></>}
+            {rightColumnTypeHandler.rightColumnType === "order-form" ?
+              <>
+                <OrderForm />
+                <OrderListHandler />
+              </>
+              : <></>}
+            {rightColumnTypeHandler.rightColumnType === "staff" ?
+              <StaffPage />
+              : <></>}
+            {rightColumnTypeHandler.rightColumnType === "boss" ?
+              <BossPage />
+              : <></>}
+            {rightColumnTypeHandler.rightColumnType === "client-handler" ?
+              <>
+                <ClientForm />
+                <ClientListHandler />
+              </>
+              : <></>}
+            {rightColumnTypeHandler.rightColumnType === "allergen-handler" ?
+              <>
+                <AllergenForm />
+                <AllergenListHandler />
+              </>
+              : <></>}
+            {rightColumnTypeHandler.rightColumnType === "pizza-type-handler" ?
+              <>
+                <PizzaTypeForm />
+                <PizzaTypeTable />
+              </>
+              : <></>
+            }
+          </div>
+        </Context.Provider>
+      </MainContext.Provider>
   )
 }
 

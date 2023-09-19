@@ -1,16 +1,19 @@
 import { useEffect, useContext } from 'react';
 import { Context } from "../../context.js"
 import { MainContext } from "../../mainContext.js"
+import { useItemIsActiveStatus } from '../../contexts/ItemIsActiveStatusContextProvider.jsx';
 
 function AllergenListHandler() {
 
-  const { actualClientData, allAllergens, setAllAllergens, itemIsActiveStatus } = useContext(MainContext);
+  const { actualClientData, allAllergens, setAllAllergens} = useContext(MainContext);
   const { setUpdatableAllergenId, newOrModifiedAllergen, setNewOrModifiedAllergen } = useContext(Context);
+
+  const itemIsActiveStatusHandler = useItemIsActiveStatus();
 
   const allergenUrl = "/api/allergens"
 
   const allergensFetch = async (url) => {
-    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
+    const actualUrl = `${url}?isActive=${itemIsActiveStatusHandler.itemIsActiveStatus}`
 
     const response = await fetch(actualUrl);
     const data = await response.json();

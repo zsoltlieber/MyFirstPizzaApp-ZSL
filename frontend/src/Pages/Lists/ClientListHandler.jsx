@@ -1,16 +1,19 @@
 import { useEffect, useContext } from 'react';
 import { Context } from "../../context.js"
 import { MainContext } from "../../mainContext.js"
+import { useItemIsActiveStatus } from '../../contexts/ItemIsActiveStatusContextProvider.jsx';
 
 function ClientListHandler() {
 
-  const { actualClientData, allClientData, setAllClientData, itemIsActiveStatus } = useContext(MainContext);
+  const { actualClientData, allClientData, setAllClientData } = useContext(MainContext);
   const { setUpdatableClientId, newOrModifiedClient, setNewOrModifiedClient } = useContext(Context);
+
+  const itemIsActiveStatusHandler = useItemIsActiveStatus();
 
   const clientUrl = "/api/clients"
 
   const clientFetch = async (url) => {
-    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
+    const actualUrl = `${url}?isActive=${itemIsActiveStatusHandler.itemIsActiveStatus}`
     const response = await fetch(actualUrl);
     const data = await response.json();
     if (data) setAllClientData(data);

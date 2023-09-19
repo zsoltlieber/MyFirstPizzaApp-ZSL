@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
-import { MainContext } from "../../mainContext.js";
+import { useState } from "react";
+import { useRightColumnType } from "../../contexts/RightColumnContextProvider";
 
 export function RegistrationForm() {
 
-    const { setRightColumnType } = useContext(MainContext);
+    const rightColumnTypeHandler = useRightColumnType();
 
     const registerUrl = '/api/clients/register'
 
@@ -39,7 +39,7 @@ export function RegistrationForm() {
                 setClientData(data);
                 setShowRegistrationMessage(true);
                 setTimeout(() => {
-                    setRightColumnType("login");
+                    rightColumnTypeHandler.setRightColumnType("login");
                     setShowRegistrationMessage(false);
                 }, 2000);
             };

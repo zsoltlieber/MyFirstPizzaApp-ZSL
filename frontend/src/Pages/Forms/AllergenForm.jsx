@@ -1,12 +1,15 @@
 import { useContext } from "react";
 import { MainContext } from "../../mainContext.js"
 import { Context } from "../../context.js"
+import { useRightColumnType } from "../../contexts/RightColumnContextProvider.jsx";
 
 function AllergenForm() {
 
-  const { allAllergens, setRightColumnType } = useContext(MainContext);
+  const { allAllergens } = useContext(MainContext);
   const { newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId,
     setUpdatableAllergenId } = useContext(Context);
+    
+  const rightColumnTypeHandler = useRightColumnType();
 
   const allergensUrl = "/api/allergens"
 
@@ -95,7 +98,7 @@ function AllergenForm() {
               "Update"}
           </button>
           <button type="text" className="btn" onClick={cancelButton}>Cancel</button>
-          <button type="text" className="btn" value={"about"} onClick={(e) => setRightColumnType(e.target.value)}>BACK</button>
+          <button type="text" className="btn" value={"about"} onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)}>BACK</button>
         </div>
       </div>
     </form>

@@ -1,14 +1,17 @@
 import { useState, useContext } from 'react';
 import { MainContext } from '../../mainContext.js'
+import { useRightColumnType } from '../../contexts/RightColumnContextProvider.jsx';
 
 export const LoginForm = () => {
-  const { setActualClientData, setRightColumnType } = useContext(MainContext);
+  const { setActualClientData } = useContext(MainContext);
 
   const loginUrl = "/api/auth/login";
   const [loginData, setLoginData] = useState({})
   const [clientData, setClientData] = useState({});
   const [showBoxes, setShowBoxes] = useState(1);
   const [loginErrorMessage, setLoginErrorMessage] = useState("")
+
+  const rightColumnTypeHandler = useRightColumnType();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,7 +40,7 @@ export const LoginForm = () => {
         setShowBoxes(3);
 
         setTimeout(() => {
-          setRightColumnType("about")
+          rightColumnTypeHandler.setRightColumnType("about")
         }, 1000);
       }
     };
@@ -64,7 +67,7 @@ export const LoginForm = () => {
         : showBoxes === 2 ?
           <div id="messages">
             <h2>{loginErrorMessage}!</h2>
-            <button value="signin" onClick={(e) => setRightColumnType(e.target.value)}>
+            <button value="signin" onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)}>
               {loginErrorMessage.split(" ")[0] === "Wrong"
                 ? <p style={{ color: "red" }} >MODIFY EMAIL AND/OR PASSWORD!</p>
                 : <p style={{ color: "red" }} >PLEASE ENTER IN A REGISTER!</p>

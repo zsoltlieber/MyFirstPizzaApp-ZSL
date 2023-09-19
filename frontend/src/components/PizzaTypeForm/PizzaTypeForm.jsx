@@ -1,10 +1,13 @@
 import { useContext } from "react";
 import { MainContext } from "../../mainContext.js"
+import { useRightColumnType } from "../../contexts/RightColumnContextProvider.jsx";
 
 const PizzaTypeForm = () => {
 
-  const { allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType, setRightColumnType } = useContext(MainContext);
+  const { allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType } = useContext(MainContext);
 
+  const rightColumnTypeHandler = useRightColumnType();
+  
   const pizzaTypeUrl = "/api/pizzaTypes"
 
   const inputChecker = () => {
@@ -111,7 +114,7 @@ const PizzaTypeForm = () => {
               "Update"}
           </button>
           <button type="text" className="btn" onClick={cancelButton}>Cancel</button>
-          <button type='button' className="btn" value={"about"} onClick={(e) => setRightColumnType(e.target.value)}>BACK</button>
+          <button type='button' className="btn" value={"about"} onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)}>BACK</button>
         </div>
       </div>
     </form>

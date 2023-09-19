@@ -1,11 +1,14 @@
 import { useEffect, useContext, useState } from "react";
 import { MainContext } from "../../mainContext.js";
 import { Context } from "../../context.js"
+import { useItemIsActiveStatus } from "../../contexts/ItemIsActiveStatusContextProvider.jsx";
 
 const OrderListHandler = () => {
 
-  const { actualClientData, allPizzaTypes, pizzaIdToOrder, itemIsActiveStatus } = useContext(MainContext);
+  const { actualClientData, allPizzaTypes, pizzaIdToOrder } = useContext(MainContext);
   const { listOfOrders, setListOfOrders, preOrderList } = useContext(Context);
+
+  const itemIsActiveStatusHandler = useItemIsActiveStatus();
 
   const ordersUrl = `/api/orders`
   let totalCost = 0;
@@ -15,7 +18,7 @@ const OrderListHandler = () => {
   const [orderListWithName, setOrderListWithName] = useState([]);
 
   const orderFetch = async (url) => {
-    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
+    const actualUrl = `${url}?isActive=${itemIsActiveStatusHandler.itemIsActiveStatus}`
     const response = await fetch(actualUrl);
     const data = await response.json();
     if (data) {

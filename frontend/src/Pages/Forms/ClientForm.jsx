@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { Context } from "../../context.js"
-import { MainContext } from "../../mainContext.js";
+import { useRightColumnType } from "../../contexts/RightColumnContextProvider.jsx";
 
 function ClientForm() {
-    const { setRightColumnType } = useContext(MainContext);
-
     const { newOrModifiedClient, setNewOrModifiedClient,
         updatableClientId, setUpdatableClientId } = useContext(Context);
 
+    const rightColumnTypeHandler = useRightColumnType();    
+    
     const emptyClient = {
         clientName: "",
         email: "",
@@ -152,7 +152,7 @@ console.log(newOrModifiedClient);
                                 "Update"}
                         </button>
                         <button type="text" className="btn" onClick={cancelButton}>Cancel</button>
-                        <button type="text" className="btn" value={"about"} onClick={(e) => setRightColumnType(e.target.value)}>BACK</button>
+                        <button type="text" className="btn" value={"about"} onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)}>BACK</button>
                     </div>
                 </div>
             </form>

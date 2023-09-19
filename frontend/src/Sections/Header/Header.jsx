@@ -1,8 +1,10 @@
 import { useContext } from 'react'
 import { MainContext } from '../../mainContext.js'
+import { useRightColumnType } from '../../contexts/RightColumnContextProvider.jsx';
 
 const Header = () => {
-    const { actualClientData, setActualClientData, setRightColumnType } = useContext(MainContext);
+    const { actualClientData, setActualClientData } = useContext(MainContext);
+    const rightColumnTypeHandler = useRightColumnType();
 
     return (
         <>
@@ -25,33 +27,33 @@ const Header = () => {
 
                     {actualClientData.bossStatus === true
                         ?
-                        <button className="btn" value="boss" onClick={(e) => setRightColumnType(e.target.value)} >BOSS</button >
+                        <button className="btn" value="boss" onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)} >BOSS</button >
                         : <></>}
                     {actualClientData.bossStatus !== true && actualClientData.staffStatus === true
                         ?
-                        <button className="btn" value="staff" onClick={(e) => setRightColumnType(e.target.value)} >STAFF</button >
+                        <button className="btn" value="staff" onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)} >STAFF</button >
                         : <></>}
 
                 </div>
                 {actualClientData.clientName === undefined || actualClientData.clientName === ""
                     ?
                     <>
-                        <button className="btn" value="signin" onClick={(e) => setRightColumnType(e.target.value)} >REGISTER</button >
-                        <button className="btn" value="login" onClick={(e) => setRightColumnType(e.target.value)}>LOG IN</button >
+                        <button className="btn" value="signin" onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)} >REGISTER</button >
+                        <button className="btn" value="login" onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)}>LOG IN</button >
                     </>
                     : <></>}
                 {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
                     ?
-                    <button className="btn" value="order-form" onClick={(e) => setRightColumnType(e.target.value)}>ORDER</button >
+                    <button className="btn" value="order-form" onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)}>ORDER</button >
                     : <></>}
-                <button className="btn" value="message" onClick={(e) => setRightColumnType(e.target.value)}>MESSAGE</button >
-                <button className="btn" value="about" onClick={(e) => setRightColumnType(e.target.value)} >ABOUT</button >
+                <button className="btn" value="message" onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)}>MESSAGE</button >
+                <button className="btn" value="about" onClick={(e) => rightColumnTypeHandler.setRightColumnType(e.target.value)} >ABOUT</button >
                 {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
                     ?
                     <button className="btn" value="logout" onClick={() => {
 
                         setTimeout(() => {
-                            setRightColumnType("about")
+                            rightColumnTypeHandler.setRightColumnType("about")
                             setActualClientData({ clientName: "" });
                         }, 1000);
                     }} >LOG OUT</button >

@@ -1,15 +1,16 @@
-import { useEffect, useContext } from 'react';
-import { Context } from "../../context.js"
-import { MainContext } from "../../mainContext.js"
-import MesssageTable from "../../components/MessageTable/MessageTable.jsx"
-import { useItemIsActiveStatus } from '../../contexts/ItemIsActiveStatusContextProvider.jsx';
+import { createContext, useContext, useState, useEffect } from "react"
+import useItemIsActiveStatus from "./ItemIsActiveStatusContextProvider"
+    
+export const MessageContext = createContext();
 
-export const MessageTableController = () => {
-
-    const { actualClientData } = useContext(MainContext);
-    const { messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, setOriginalMessage } = useContext(Context);
+const MessageContextProvider = ({ children }) => {
 
     const itemIsActiveStatusHandler = useItemIsActiveStatus();
+    const [messageList, setMessageList] = useState([]);
+    const [newOrModifiedMessage, setNewOrModifiedMessage] = useState([]);
+    const [originalMessage, setOriginalMessage] = useState("");
+    const [showMessageThanks, setShowMessageThanks] = useState(false);
+    const [showTopMessageBox, setShowTopMessageBox] = useState(true);
 
     const messageUrl = "/api/messages"
 
@@ -67,27 +68,21 @@ export const MessageTableController = () => {
         }
     };
 
-    const deleteMessage = (messageId) => {
-        if (actualClientData.bossStatus === true) {
-            deleteMessageFetch(messageId);
-        }
-        else if (actualClientData !== undefined) {
-            removeMessageFetch(messageId);
-        }
-    };
-
-    const updateMessage = (index, messageId) => {
-        const actualMessage = messageList.find(message => message._id === messageId);
-        actualMessage.message = `${(index + 1)}.) ${actualMessage.message}`;
-        setOriginalMessage(actualMessage.message)
-        setNewOrModifiedMessage({ message: actualMessage.message, _id: messageId })
-    };
 
     return (
-        <>
-            <MesssageTable deleteMessageHandler={deleteMessage} updateMessageHandler={updateMessage} />
-        </ >
+        <MessageContext.Provider value={{
+            messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
+            originalMessage, setOriginalMessage, showMessageThanks, setShowMessageThanks,
+            showTopMessageBox, setShowTopMessageBox,
+            deleteMessageFetch, removeMessageFetch
+        }}>
+            {children}
+        </MessageContext.Provider>
     )
 }
 
-export default MessageTableController
+export const useMessageContext = () => {
+    return useContext(MessageContext);
+}
+
+export default MessageContextProvider
