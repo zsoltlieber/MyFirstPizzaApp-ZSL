@@ -7,7 +7,7 @@ import Footer from '../src/Sections/Footer/Footer.jsx';
 import { MainContext } from './mainContext.js'
 import { React, useState } from 'react'
 import ItemIsActiveStatusContextProvider from './contexts/ItemIsActiveStatusContextProvider';
-import RightColumnContextProvider from './contexts/RightColumnContextProvider';
+import RightColumnTypeContextProvider from './contexts/RightColumnTypeContextProvider';
 
 function App() {
   const [actualClientData, setActualClientData] = useState({});
@@ -21,24 +21,26 @@ function App() {
   return (
     <>
       <ItemIsActiveStatusContextProvider>
-        <RightColumnContextProvider>
+        <RightColumnTypeContextProvider>
 
-          <MainContext.Provider value={{
-            actualClientData, setActualClientData, allClientData, setAllClientData,
-            allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
-            allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType,
-            pizzaIdToOrder, setPizzaIdToOrder
-          }}>
-            <div id="header-container" >
-              <Header />
-            </div>
-            <div id="main-container">
-              <AllergenCheckList />
-              <CenterColumn />
-              <RightColumn />
-            </div>
-          </MainContext.Provider>
-        </RightColumnContextProvider>
+
+
+            <MainContext.Provider value={{
+              actualClientData, setActualClientData, allClientData, setAllClientData,
+              allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
+              allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType,
+              pizzaIdToOrder, setPizzaIdToOrder
+            }}>
+              <div id="header-container" >
+                <Header />
+              </div>
+              <div id="main-container">
+                <AllergenCheckList />
+                <CenterColumn />
+                <RightColumn />
+              </div>
+            </MainContext.Provider>
+        </RightColumnTypeContextProvider>
       </ItemIsActiveStatusContextProvider>
       <div id="footer-container">
         <Footer />

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRightColumnType } from "../../contexts/RightColumnContextProvider";
+import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvider";
 
 export function RegistrationForm() {
 
@@ -46,7 +46,7 @@ export function RegistrationForm() {
             registrationSave()
         }
     }
-    console.log(clientData);
+
     return (
         <>
             {!showRegistrationMessage ?

@@ -16,7 +16,7 @@ import PizzaTypeForm from "../../components/PizzaTypeForm/PizzaTypeForm.jsx"
 import PizzaTypeTable from "../../components/PizzaTypeTable/PizzaTypeTableController.jsx";
 import { MainContext } from "../../mainContext.js";
 import { Context } from "../../context.js";
-import { useRightColumnType } from "../../contexts/RightColumnContextProvider";
+import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvider";
 
 const RightColumn = ({ setSearchFieldChange }) => {
 

@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { MainContext } from '../../mainContext.js'
-import { useRightColumnType } from '../../contexts/RightColumnContextProvider.jsx';
+import { useRightColumnType } from '../../contexts/RightColumnTypeContextProvider.jsx';
 
 export const LoginForm = () => {
   const { setActualClientData } = useContext(MainContext);

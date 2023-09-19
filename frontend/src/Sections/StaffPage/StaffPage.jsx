@@ -1,4 +1,4 @@
-import { useRightColumnType } from "../../contexts/RightColumnContextProvider";
+import { useRightColumnType } from "../../contexts/TypeProvider";
 
 export const StaffPage = () => {
 

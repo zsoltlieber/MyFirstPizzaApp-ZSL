@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../../context.js"
-import { useRightColumnType } from "../../contexts/RightColumnContextProvider.jsx";
+import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvider.jsx";
 
 function ClientForm() {
     const { newOrModifiedClient, setNewOrModifiedClient,

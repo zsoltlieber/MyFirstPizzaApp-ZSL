@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { MainContext } from "../../mainContext.js"
 import { Context } from "../../context.js"
-import { useRightColumnType } from "../../contexts/RightColumnContextProvider.jsx";
+import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvider.jsx";
 
 function AllergenForm() {
 
