@@ -1,12 +1,12 @@
-import { useEffect, useContext } from 'react';
-import { MainContext } from "../../mainContext.js"
-import MesssageTable from "../../components/MessageTable/MessageTable.jsx"
+import { useEffect } from 'react';
 import { useItemIsActiveStatus } from '../../contexts/ItemIsActiveStatusContextProvider.jsx';
 import { useMessageContext } from '../../contexts/MessageContextProvider.jsx';
+import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
+import MesssageTable from "../../components/MessageTable/MessageTable.jsx"
 
 export const MessageTableController = () => {
 
-    const { actualClientData } = useContext(MainContext);
+    const { actualClientData } = useClientContext();
     const { itemIsActiveStatus } = useItemIsActiveStatus();
     const { messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage, setOriginalMessage } = useMessageContext();
 

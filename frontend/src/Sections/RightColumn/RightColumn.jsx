@@ -22,7 +22,7 @@ import MessageContextProvider from "../../contexts/MessageContextProvider";
 const RightColumn = ({ setSearchFieldChange }) => {
 
   const {
-    actualClientData, setActualClientData, allClientData, setAllClientData,
+    allClientData, setAllClientData,
     allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
     allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType,
     pizzaIdToOrder, setPizzaIdToOrder,
@@ -60,12 +60,10 @@ const RightColumn = ({ setSearchFieldChange }) => {
   return (
 
     <MainContext.Provider value={{
-      actualClientData, setActualClientData, allClientData, setAllClientData,
       allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
       allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType, pizzaIdToOrder, setPizzaIdToOrder,
     }}>
       <Context.Provider value={{
-        newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
         newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId, setUpdatableAllergenId,
         preOrderList, setPreOrderList, listOfOrders, setListOfOrders,
         newOrModifiedMessage, setNewOrModifiedMessage,

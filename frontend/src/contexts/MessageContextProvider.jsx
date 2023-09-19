@@ -4,13 +4,13 @@ import { useItemIsActiveStatus } from "./ItemIsActiveStatusContextProvider"
 export const MessageContext = createContext();
 
 const MessageContextProvider = ({ children }) => {
+    const { itemIsActiveStatus } = useItemIsActiveStatus();
+    
     const [messageList, setMessageList] = useState([]);
     const [newOrModifiedMessage, setNewOrModifiedMessage] = useState([]);
     const [originalMessage, setOriginalMessage] = useState("");
     const [showMessageThanks, setShowMessageThanks] = useState(false);
     const [showTopMessageBox, setShowTopMessageBox] = useState(true);
-
-    const { itemIsActiveStatus } = useItemIsActiveStatus();
 
     const messageUrl = "/api/messages"
 

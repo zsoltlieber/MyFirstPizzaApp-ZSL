@@ -8,10 +8,9 @@ import { MainContext } from './mainContext.js'
 import { React, useState } from 'react'
 import ItemIsActiveStatusContextProvider from './contexts/ItemIsActiveStatusContextProvider';
 import RightColumnTypeContextProvider from './contexts/RightColumnTypeContextProvider';
+import ClientContextProvider from './contexts/ClientContextProvider';
 
 function App() {
-  const [actualClientData, setActualClientData] = useState({});
-  const [allClientData, setAllClientData] = useState([]);
   const [allAllergens, setAllAllergens] = useState([]);
   const [rejectedAllergens, setRejectedAllergens] = useState([]);
   const [allPizzaTypes, setAllPizzaTypes] = useState([]);
@@ -22,11 +21,9 @@ function App() {
     <>
       <ItemIsActiveStatusContextProvider>
         <RightColumnTypeContextProvider>
-
-
+          <ClientContextProvider>
 
             <MainContext.Provider value={{
-              actualClientData, setActualClientData, allClientData, setAllClientData,
               allAllergens, setAllAllergens, rejectedAllergens, setRejectedAllergens,
               allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType,
               pizzaIdToOrder, setPizzaIdToOrder
@@ -39,8 +36,9 @@ function App() {
                 <CenterColumn />
                 <RightColumn />
               </div>
-          </MainContext.Provider>
-          
+            </MainContext.Provider>
+
+          </ClientContextProvider>
         </RightColumnTypeContextProvider>
       </ItemIsActiveStatusContextProvider>
       <div id="footer-container">

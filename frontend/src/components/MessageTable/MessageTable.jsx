@@ -1,10 +1,9 @@
-import { useContext } from 'react';
-import { MainContext } from "../../mainContext.js"
 import { useMessageContext } from '../../contexts/MessageContextProvider.jsx';
+import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 
 export const MessageTable = ({ deleteMessageHandler, updateMessageHandler }) => {
 
-    const { actualClientData } = useContext(MainContext);
+    const { actualClientData } = useClientContext();
     const { messageList, showMessageThanks } = useMessageContext()
     
     return (

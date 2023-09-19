@@ -2,10 +2,12 @@ import { useEffect, useContext } from 'react';
 import { Context } from "../../context.js"
 import { MainContext } from "../../mainContext.js"
 import { useItemIsActiveStatus } from '../../contexts/ItemIsActiveStatusContextProvider.jsx';
+import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 
 function AllergenListHandler() {
 
-  const { actualClientData, allAllergens, setAllAllergens } = useContext(MainContext);
+  const { actualClientData } = useClientContext();
+  const {  allAllergens, setAllAllergens } = useContext(MainContext);
   const { setUpdatableAllergenId, newOrModifiedAllergen, setNewOrModifiedAllergen } = useContext(Context);
 
   const { itemIsActiveStatus } = useItemIsActiveStatus();

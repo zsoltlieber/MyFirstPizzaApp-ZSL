@@ -1,14 +1,13 @@
-import { useEffect, useContext } from 'react';
-import { Context } from "../../context.js"
-import { MainContext } from "../../mainContext.js"
+import { useEffect } from 'react';
 import { useItemIsActiveStatus } from '../../contexts/ItemIsActiveStatusContextProvider.jsx';
+import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 
 function ClientListHandler() {
 
-  const { actualClientData, allClientData, setAllClientData } = useContext(MainContext);
-  const { setUpdatableClientId, newOrModifiedClient, setNewOrModifiedClient } = useContext(Context);
-
   const { itemIsActiveStatus } = useItemIsActiveStatus();
+  const { actualClientData, allClientData, setAllClientData,
+    setUpdatableClientId, newOrModifiedClient, setNewOrModifiedClient } = useClientContext();
+
 
   const clientUrl = "/api/clients"
 
