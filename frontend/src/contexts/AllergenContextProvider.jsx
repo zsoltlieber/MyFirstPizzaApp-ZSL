@@ -1,30 +1,40 @@
 import { createContext, useState, useEffect, useContext } from "react"
 import { useItemIsActiveStatus } from "./ItemIsActiveStatusContextProvider"
+import { useClientContext } from "./ClientContextProvider";
 
 export const AllergenContext = createContext();
 
 const AllergenContextProvider = ({ children }) => {
-
     const { itemIsActiveStatus } = useItemIsActiveStatus();
+    const { actualClientData } = useClientContext();
+
     const [allAllergens, setAllAllergens] = useState([]);
     const [rejectedAllergens, setRejectedAllergens] = useState([]);
     const [newOrModifiedAllergen, setNewOrModifiedAllergen] = useState("");
     const [updatableAllergenId, setUpdatableAllergenId] = useState("");
-    
+
 
     const allergenUrl = "/api/allergens"
-    
+
     const allergensFetch = async (url) => {
         const actualAllergenUrl = `${allergenUrl}?isActive=${itemIsActiveStatus}`
-        const response = await fetch(actualAllergenUrl);
-        const data = await response.json();
-        if (data) setAllAllergens(data);
-        /* empty array lehet, de undifined nem!!! */
+
+        try {
+            const response = await fetch(actualAllergenUrl);
+            if (!response.ok) {
+                throw new Error("Failed to fetch message.");
+            }
+            const data = await response.json();
+            if (data) setAllAllergens(data);
+            /* empty array lehet, de undifined nem!!! */
+        } catch (error) {
+            console.error("Error fetching allergens:", error.message);
+        }
     };
 
     useEffect(() => {
         allergensFetch(allergenUrl);
-    }, [itemIsActiveStatus]);
+    }, [newOrModifiedAllergen]);
 
     function allergenStatusHandler(allergenId, checkboxStatus) {
         const modifiedAllergen = allAllergens.find(allergen => allergen._id === allergenId)
@@ -53,7 +63,7 @@ const AllergenContextProvider = ({ children }) => {
             console.log("New allergen was saved!")
         }
     }
-   
+
     const updateOnServer = async () => {
         const updatableAllergenUrl = allergenUrl + "/" + updatableAllergenId;
 
@@ -74,55 +84,56 @@ const AllergenContextProvider = ({ children }) => {
         }
     }
 
-    function deleteAllergenFetch(actualEndPoint, allergenId) {
+    async function deleteAllergen(removableAllergenId) {
+        if (actualClientData.bossStatus === true) {
+            try {
+                const requestOptions = {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                };
 
-        const requestOptions = {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
-        };
+                const response = await fetch(`${allergenUrl}/${removableAllergenId}`, requestOptions);
+                if (response.status === 200) {
+                    const newAllergenList = allAllergens.filter(allergen => allergen._id !== removableAllergenId);
+                    setAllAllergens(newAllergenList)
+                    console.log('Allergen delete was successful');
+                } else {
+                    throw new Error("Failed to delete message.")
+                }
+            } catch (error) {
+                console.error("Problem with allergen delete!", error.message)
 
-        async function deleteAllergen() {
-            const response = await fetch(actualEndPoint, requestOptions);
-            if (response.status === 200) {
-                const newAllergenList = allAllergens.filter(allergen => allergen._id !== allergenId);
-                setAllAllergens(newAllergenList)
-                console.log('Delete successful');
-            } else {
-                console.log("Problem with allergen delete!")
+            }
+        } else {
+            try {
+                const removeableAllergenName = allAllergens.find(allergen => allergen._id === removableAllergenId).allergenName;
+                const requestOptions = {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ allergenName: removeableAllergenName, isActive: false })
+                };
+                const response = await fetch(`${allergenUrl}/${removableAllergenId}`, requestOptions);
+                if (response.status === 200) {
+                    const newAllergenList = allAllergens.filter(allergen => allergen._id !== removableAllergenId);
+                    setAllAllergens(newAllergenList)
+                    console.log('Allergen remove was successful');
+                } else {
+                    throw new Error("Failed to remove allergen.")
+                }
+            } catch (error) {
+                console.log("Problem with allergen remove!", error.message)
             }
         }
-        deleteAllergen();
     };
-
-    function removeAllergenFetch(actualEndPoint, allergenId) {
-
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ isActive: false })
-        };
-
-        async function removeAllergen() {
-            const response = await fetch(actualEndPoint, requestOptions);
-            if (response.status === 200) {
-                const newAllergenList = allAllergens.filter(allergen => allergen._id !== allergenId);
-                setAllAllergens(newAllergenList)
-                console.log('Remove successful');
-            } else {
-                console.log("Do not want to modify other's allergens!")
-            }
-        }
-        removeAllergen();
-    };
-
 
     return (
         <AllergenContext.Provider value={{
             allAllergens, setAllAllergens,
-            newOrModifiedAllergen, setNewOrModifiedAllergen,
             rejectedAllergens, setRejectedAllergens,
+            newOrModifiedAllergen, setNewOrModifiedAllergen,
+            updatableAllergenId, setUpdatableAllergenId,
             allergenStatusHandler,
-            deleteAllergenFetch, removeAllergenFetch,
+            deleteAllergen,
             saveOnServer, updateOnServer
         }}>
             {children}

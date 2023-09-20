@@ -24,7 +24,7 @@ const MessageContextProvider = ({ children }) => {
                 throw new Error("Failed to fetch message.");
             }
             const data = await response.json();
-            setMessageList(data);
+            if (data) setMessageList(data);
         } catch (error) {
             console.error("Error fetching messages:", error.message);
         }
@@ -32,7 +32,7 @@ const MessageContextProvider = ({ children }) => {
 
     useEffect(() => {
         messagesFetch(messageUrl);
-    }, [itemIsActiveStatus]);
+    }, [newOrModifiedMessage]);
 
     const updateMessage = (index, messageId) => {
         const actualMessage = messageList.find(message => message._id === messageId);
@@ -76,7 +76,7 @@ const MessageContextProvider = ({ children }) => {
                 }
             }
             catch (error) {
-                console.log("Problem with message delete!")
+                console.log("Problem with message remove!", error.message)
             }
         }
     };
