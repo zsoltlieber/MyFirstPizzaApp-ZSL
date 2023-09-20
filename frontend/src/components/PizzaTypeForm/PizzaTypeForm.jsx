@@ -30,7 +30,6 @@ const PizzaTypeForm = () => {
             console.log(data)
           }
           else {
-            setAllPizzaTypes([...allPizzaTypes, data])
             setNewOrModifiedPizzaType([]);
             console.log("New pizza type was saved!");
           }
@@ -39,7 +38,7 @@ const PizzaTypeForm = () => {
       return saveOnServer(newOrModifiedPizzaType)
     }
     else if (inputChecker() && newOrModifiedPizzaType._id !== "") {
-      
+
       const updateOnServer = async () => {
         if (newOrModifiedPizzaType !== undefined && newOrModifiedPizzaType._id !== undefined) {
           const updatablePizzaTypeUrl = `${pizzaTypeUrl}/${newOrModifiedPizzaType._id}`;
@@ -55,7 +54,6 @@ const PizzaTypeForm = () => {
             console.log(data)
           }
           else {
-            setAllPizzaTypes([...allPizzaTypes, data])
             setNewOrModifiedPizzaType({ pizzaName: "" });
             console.log("Modified pizza type was updated!")
           }

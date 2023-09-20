@@ -41,7 +41,7 @@ const PizzaTypeContextProvider = ({ children }) => {
 
     useEffect(() => {
         pizzaTypeFetch(pizzaTypeUrl)
-    }, []);
+    }, [newOrModifiedPizzaType]);
 
     const updatePizzaType = async (pizzaTypeId) => {
         const actualPizzaType = allPizzaTypes.find(pizzaType => pizzaType._id === pizzaTypeId);
@@ -61,7 +61,6 @@ const PizzaTypeContextProvider = ({ children }) => {
                 console.log(data)
             }
             else {
-                setAllPizzaTypes([...allPizzaTypes, data])
                 setNewOrModifiedPizzaType({ pizzaName: "" });
                 console.log("Modified pizza type was updated!")
             }

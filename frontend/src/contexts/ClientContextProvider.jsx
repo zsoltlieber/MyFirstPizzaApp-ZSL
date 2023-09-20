@@ -8,110 +8,82 @@ const ClientContextProvider = ({ children }) => {
     const { itemIsActiveStatus } = useItemIsActiveStatus();
     const [allClientData, setAllClientData] = useState([]);
     const [actualClientData, setActualClientData] = useState({});
-    const [newOrModifiedClient, setNewOrModifiedClient] = useState({}); 
+    const [newOrModifiedClient, setNewOrModifiedClient] = useState({});
     const [updatableClientId, setUpdatableClientId] = useState("");
 
     const clientUrl = "/api/clients"
-    
+
     const clientsFetch = async (url) => {
         const actualClientUrl = `${clientUrl}?isActive=${itemIsActiveStatus}`
-        const response = await fetch(actualClientUrl);
-        const data = await response.json();
-        if (data) setAllClientData(data);
-        /* empty array lehet, de undifined nem!!! */
+        try {
+            const response = await fetch(actualClientUrl);
+            if (!response.ok) {
+                throw new Error("Failed to fetch clients.");
+            }
+            const data = await response.json();
+            if (data) setAllClientData(data);
+            /* empty array lehet, de undifined nem!!! */
+        } catch (error) {
+            console.error("Error fetching clients:", error.message);
+        }
     };
-
+    
     useEffect(() => {
         clientsFetch(clientUrl);
-    }, []);
-
-    const saveOnServer = async () => {
-        console.log(newOrModifiedClient);
-        const registerClientUrl = clientUrl + "/register"
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newOrModifiedClient)
-        };
-        const response = await fetch(registerClientUrl, requestOptions);
-        const data = await response.json();
-        if (response.status !== 200) {
-            console.log(data);
-        }
-        else {
-            setNewOrModifiedClient({ clientName: "" });
-            setUpdatableClientId("");
-            console.log("New client was saved!")
-        }
-    }
-
-    const updateOnServer = async () => {
-        const updatableClientUrl = clientUrl + "/" + updatableClientId;
-        console.log(newOrModifiedClient);
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newOrModifiedClient)
-        };
-        const response = await fetch(updatableClientUrl, requestOptions);
-        const data = await response.json();
-        if (response.status !== 200) {
-            console.log(data)
-        }
-        else {
-            setNewOrModifiedClient({ clientName: "" });
-            setUpdatableClientId("");
-            console.log("Modified client was saved!")
-        }
-    }
-
-    function deleteClientFetch(actualEndPoint, clientId) {
-
-        const requestOptions = {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
-        };
-        async function deleteClient() {
-            const response = await fetch(actualEndPoint, requestOptions);
-            if (response.status === 200) {
-                const newClientList = allClientData.filter(client => client._id !== clientId);
-                setAllClientData(newClientList)
-                console.log('Client delete was successful');
-            } else {
-                console.log("Problem with client delete!")
-            }
-        }
-        deleteClient();
+    }, [newOrModifiedClient]);
+    
+    const updateClient = (clientId) => {
+        setUpdatableClientId(clientId);
+        const actualClient = allClientData.find(client => client._id === clientId);
+        setNewOrModifiedClient(actualClient)
     };
+    
+    async function deleteClient(removableClientId) {
+        if (actualClientData.bossStatus === true) {
+            try {
+                const requestOptions = {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                };
 
-    function removeClientFetch(actualEndPoint, clientId) {
+                const response = await fetch(`${clientUrl}/${removableClientId}`, requestOptions);
+                if (response.status === 200) {
+                    const newClientList = allClientData.filter(client => client._id !== removableClientId);
+                    setAllClientData(newClientList)
+                    console.log('Client delete was successful');
+                } else {
+                    throw new Error("Failed to delete client.");
+                }
+            } catch (error) {
+                console.error("Problem with client delete!", error.message)
+            }
+        } else {
+            try {
+                const requestOptions = {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ isActive: false })
+                };
 
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ isActive: false })
-        };
-        async function removeClient() {
-            const response = await fetch(actualEndPoint, requestOptions);
-            if (response.status === 200) {
-                const newClientList = allClientData.filter(client => client._id !== clientId);
-                setAllClientData(newClientList)
-                console.log('Client remove was successful');
-            } else {
-                console.log("Problem with client remove!")
+                const response = await fetch(`${clientUrl}/${removableClientId}`, requestOptions);
+                if (response.status === 200) {
+                    const newClientList = allClientData.filter(client => client._id !== removableClientId);
+                    setAllClientData(newClientList)
+                    console.log('Client remove was successful');
+                } else {
+                    throw new Error("Failed to remove message.")
+                }
+            } catch (error) {
+                console.log("Problem with client remove!", error.message)
             }
         }
-        removeClient();
     };
 
     return (
         <ClientContext.Provider value={{
-            actualClientData, setActualClientData,
-            allClientData, setAllClientData,
-            newOrModifiedClient, setNewOrModifiedClient,
-            updatableClientId, setUpdatableClientId,
-            saveOnServer, updateOnServer,
-            removeClientFetch, deleteClientFetch
+            allClientData, setAllClientData, actualClientData, setActualClientData,
+            newOrModifiedClient, setNewOrModifiedClient, updatableClientId, setUpdatableClientId,
+            updateClient, deleteClient
         }}>
             {children}
         </ClientContext.Provider>

@@ -73,6 +73,8 @@ const MessageContextProvider = ({ children }) => {
                     const newMessageList = messageList.filter(message => message._id !== removableMessageId);
                     setMessageList(newMessageList)
                     console.log('Message remove was successful');
+                } else {
+                    throw new Error("Failed to remove message.")
                 }
             }
             catch (error) {

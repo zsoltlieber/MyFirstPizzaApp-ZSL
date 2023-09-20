@@ -3,14 +3,14 @@ import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvide
 import LoginForm from "../../components/LoginForm/LoginForm.jsx";
 import RegistrationForm from "../../components/RegistrationForm/RegistrationForm.jsx";
 import OrderForm from "../../components/OrderForm/OrderForm.jsx";
-import OrderListHandler from "../../components/ClientTable/ClientListHandler.jsx";
+import OrderListHandler from "../../components/OrderTable/OrderListHandler.jsx";
 import MessageForm from "../../components/MessageForm/MessageForm.jsx";
 import MessageTable from "../../components/MessageTable/MessageTable.jsx";
 import AboutUs from "../AboutUs/AboutUs.jsx";
 import BossPage from "../BossPage/BossPage.jsx";
 import StaffPage from "../StaffPage/StaffPage.jsx";
 import ClientForm from "../../components/ClientForm/ClientForm.jsx";
-import ClientListHandler from "../../components//ClientTable/ClientListHandler.jsx";
+import ClientTable from "../../components/ClientTable/ClientTable.jsx";
 import AllergenForm from "../../components/AllergenForm/AllergenForm.jsx";
 import AllergenListHandler from "../../components/AllergenTable/AllergenTable.jsx";
 import PizzaTypeForm from "../../components/PizzaTypeForm/PizzaTypeForm.jsx"
@@ -54,7 +54,7 @@ const RightColumn = ({ setSearchFieldChange }) => {
       {rightColumnType === "client-handler" ?
         <>
           <ClientForm />
-          <ClientListHandler />
+          <ClientTable />
         </>
         : <></>}
       {rightColumnType === "allergen-handler" ?
