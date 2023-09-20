@@ -1,15 +1,10 @@
-import { useContext } from "react";
-import { MainContext } from "../../mainContext.js"
-import { Context } from "../../context.js"
 import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvider.jsx";
+import { useAllergenContext } from "../../contexts/AllergenContextProvider.jsx";
 
 function AllergenForm() {
-
-  const { allAllergens } = useContext(MainContext);
-  const { newOrModifiedAllergen, setNewOrModifiedAllergen, updatableAllergenId,
-    setUpdatableAllergenId } = useContext(Context);
-    
   const { setRightColumnType } = useRightColumnType()
+  const { allAllergens, newOrModifiedAllergen, setNewOrModifiedAllergen,
+    updatableAllergenId, setUpdatableAllergenId } = useAllergenContext();
 
   const allergensUrl = "/api/allergens"
 
