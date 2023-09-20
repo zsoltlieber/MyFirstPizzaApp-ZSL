@@ -18,10 +18,10 @@ export function OrderForm() {
         let amendedActualOrderList = []
 
         const orderLine = {
-            "pizzaId": actualPizzaData._id,
-            "pizzaName": actualPizzaData.pizzaName,
-            "pricePerEach": actualPizzaData.price,
-            "quantity": value !== undefined ? parseInt(value) : 1
+            pizzaId: actualPizzaData._id,
+            pizzaName: actualPizzaData.pizzaName,
+            pricePerEach: actualPizzaData.price,
+            quantity: value !== undefined ? parseInt(value) : 1
         }
 
         if (preOrderList.orderedItems === undefined) {

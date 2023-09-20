@@ -1,11 +1,14 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { useItemIsActiveStatus } from '../contexts/ItemIsActiveStatusContextProvider';
+import { useClientContext } from "./ClientContextProvider";
 
 export const OrderContext = createContext();
 
 const OrderContextProvider = ({ children }) => {
     const { itemIsActiveStatus } = useItemIsActiveStatus();
-    const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
+    const { actualClientData } = useClientContext();
+
+    const [listOfOrders, setListOfOrders] = useState([]);
     const [preOrderList, setPreOrderList] = useState([]);
     const [showOrderThanks, setShowOrderThanks] = useState(false);
 
@@ -15,50 +18,17 @@ const OrderContextProvider = ({ children }) => {
         const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
         const response = await fetch(actualUrl);
         const data = await response.json();
-        if (data) setListOfOrders(data);
+        if (data) {
+            if (data.length !== 0) {
+                data.map(order => fetchActualClientName(order));
+            }
+            setListOfOrders(data);
+        }
     };
 
     useEffect(() => {
         orderFetch(ordersUrl);
     }, [preOrderList]);
-
-    const deleteOrderFetch = (actualEndPoint, orderId) => {
-
-        const requestOptions = {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
-        };
-        async function deleteOrder() {
-            const response = await fetch(actualEndPoint, requestOptions);
-            if (response.status === 200) {
-                const newOrderList = listOfOrders.filter(order => order._id !== orderId);
-                setListOfOrders(newOrderList)
-                console.log('Order delete was successful');
-            } else {
-                console.log("Problem with order delete!")
-            }
-        }
-        deleteOrder();
-    };
-
-    function removeOrderFetch(actualEndPoint, orderId, deletedItemId) {
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ isActive: false })
-        };
-        async function removeOrder() {
-            const response = await fetch(actualEndPoint, requestOptions);
-            if (response.status === 200) {
-                const newOrderList = listOfOrders.filter(order => order._id !== orderId);
-                setListOfOrders(newOrderList)
-                console.log('Order remove was successful');
-            } else {
-                console.log("Do not want to modify other's order!")
-            }
-        }
-        removeOrder();
-    };
 
     const fetchActualClientName = async (actualOrder) => {
         const actualClientUrl = `/api/clients/${actualOrder.orderClientId}`
@@ -67,7 +37,6 @@ const OrderContextProvider = ({ children }) => {
                 const response = await fetch(actualClientUrl);
                 const data = await response.json();
                 if (response.status === 200) {
-                    console.log(data);
                     if (data.clientName !== undefined) {
                         actualOrder.clientName = data.clientName;
                     }
@@ -77,20 +46,54 @@ const OrderContextProvider = ({ children }) => {
             }
         }
     }
-    useEffect(() => {
-        for (let i = 0; i < listOfOrders.length; i++) {
-            console.log(listOfOrders[i]);
-            fetchActualClientName(listOfOrders[i])
-        }
-    }, [])
 
+    async function deleteOrder(removableOrderId) {
+        if (actualClientData.bossStatus === true) {
+            try {
+                const requestOptions = {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                };
+
+                const response = await fetch(`${ordersUrl}/${removableOrderId}`, requestOptions);
+                if (response.status === 200) {
+                    const newOrderList = listOfOrders.filter(order => order._id !== removableOrderId);
+                    setListOfOrders(newOrderList)
+                    console.log('Order delete was successful');
+                } else {
+                    throw new Error("Failed to delete order.")
+                }
+            } catch (error) {
+                console.log("Problem with order delete!", error.message)
+            }
+        } else {
+            try {
+                const requestOptions = {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ isActive: false })
+                };
+                const response = await fetch(`${ordersUrl}/${removableOrderId}`, requestOptions);
+                if (response.status === 200) {
+                    const newOrderList = listOfOrders.filter(order => order._id !== removableOrderId);
+                    setListOfOrders(newOrderList)
+                    console.log('Order remove was successful');
+                } else {
+                    throw new Error("Failed to remove order.")
+                }
+            }
+            catch (error) {
+                console.log("Problem with order remove!", error.message)
+            }
+        }
+    };
 
     return (
         <OrderContext.Provider value={{
             listOfOrders, setListOfOrders,
             preOrderList, setPreOrderList,
-            deleteOrderFetch, removeOrderFetch,
-            showOrderThanks, setShowOrderThanks
+            showOrderThanks, setShowOrderThanks,
+            deleteOrder
         }}>
             {children}
         </OrderContext.Provider>
