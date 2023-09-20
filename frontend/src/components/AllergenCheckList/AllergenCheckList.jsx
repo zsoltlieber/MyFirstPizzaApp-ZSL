@@ -1,9 +1,9 @@
-import { useEffect, useContext, useState } from 'react';
-import { MainContext } from '../../mainContext.js'
+import { useEffect,} from 'react';
+import { useAllergenContext } from '../../contexts/AllergenContextProvider';
 
 export const AllergenCheckList = () => {
 
-  const { allAllergens, setAllAllergens, setRejectedAllergens } = useContext(MainContext);
+  const { allAllergens, setAllAllergens, setRejectedAllergens } = useAllergenContext();
 
   const allergensUrl = "/api/allergens"
 

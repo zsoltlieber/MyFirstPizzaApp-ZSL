@@ -10,6 +10,7 @@ const AllergenContextProvider = ({ children }) => {
     const [rejectedAllergens, setRejectedAllergens] = useState([]);
     const [newOrModifiedAllergen, setNewOrModifiedAllergen] = useState("");
     const [updatableAllergenId, setUpdatableAllergenId] = useState("");
+    
 
     const allergenUrl = "/api/allergens"
     
