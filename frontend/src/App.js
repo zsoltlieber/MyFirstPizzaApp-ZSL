@@ -20,9 +20,11 @@ function App() {
           <ClientContextProvider>
             <AllergenContextProvider>
               <PizzaTypeContextProvider>
+
                 <div id="header-container" >
                   <Header />
                 </div>
+
                 <div id="main-container">
                   <OrderContextProvider>
                     <AllergenCheckList />
@@ -30,11 +32,13 @@ function App() {
                     <RightColumn />
                   </OrderContextProvider>
                 </div>
+
               </PizzaTypeContextProvider>
             </AllergenContextProvider>
           </ClientContextProvider>
         </RightColumnTypeContextProvider>
       </ItemIsActiveStatusContextProvider>
+      
       <div id="footer-container">
         <Footer />
       </div>
