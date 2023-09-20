@@ -18,27 +18,29 @@ function App() {
       <ItemIsActiveStatusContextProvider>
         <RightColumnTypeContextProvider>
           <ClientContextProvider>
+
+            <div id="header-container" >
+              <Header />
+            </div>
+
             <AllergenContextProvider>
               <PizzaTypeContextProvider>
+                <OrderContextProvider>
 
-                <div id="header-container" >
-                  <Header />
-                </div>
-
-                <div id="main-container">
-                  <OrderContextProvider>
+                  <div id="main-container">
                     <AllergenCheckList />
                     <PizzaTypeCards />
                     <RightColumn />
-                  </OrderContextProvider>
-                </div>
+                  </div>
 
+                </OrderContextProvider>
               </PizzaTypeContextProvider>
             </AllergenContextProvider>
+            
           </ClientContextProvider>
         </RightColumnTypeContextProvider>
       </ItemIsActiveStatusContextProvider>
-      
+
       <div id="footer-container">
         <Footer />
       </div>
