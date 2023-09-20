@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import { MainContext } from "../../mainContext.js"
+import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvider.jsx";
+import { usePizzaTypeContext } from "../../contexts/PizzaTypeContextProvider.jsx";
 
 const PizzaTypeForm = () => {
-
-  const { allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType, setRightColumnType } = useContext(MainContext);
+  const { setRightColumnType } = useRightColumnType()
+  const { allPizzaTypes, setAllPizzaTypes, newOrModifiedPizzaType, setNewOrModifiedPizzaType } = usePizzaTypeContext();
 
   const pizzaTypeUrl = "/api/pizzaTypes"
 
@@ -30,7 +30,6 @@ const PizzaTypeForm = () => {
             console.log(data)
           }
           else {
-            setAllPizzaTypes([...allPizzaTypes, data])
             setNewOrModifiedPizzaType([]);
             console.log("New pizza type was saved!");
           }
@@ -39,6 +38,7 @@ const PizzaTypeForm = () => {
       return saveOnServer(newOrModifiedPizzaType)
     }
     else if (inputChecker() && newOrModifiedPizzaType._id !== "") {
+
       const updateOnServer = async () => {
         if (newOrModifiedPizzaType !== undefined && newOrModifiedPizzaType._id !== undefined) {
           const updatablePizzaTypeUrl = `${pizzaTypeUrl}/${newOrModifiedPizzaType._id}`;
@@ -54,7 +54,6 @@ const PizzaTypeForm = () => {
             console.log(data)
           }
           else {
-            setAllPizzaTypes([...allPizzaTypes, data])
             setNewOrModifiedPizzaType({ pizzaName: "" });
             console.log("Modified pizza type was updated!")
           }

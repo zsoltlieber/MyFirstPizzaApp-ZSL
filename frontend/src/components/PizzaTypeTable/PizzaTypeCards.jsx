@@ -1,39 +1,39 @@
-import { useState, useEffect, useContext } from 'react';
-import { MainContext } from '../../mainContext.js'
+import { useEffect, useState } from 'react';
+import { usePizzaTypeContext } from '../../contexts/PizzaTypeContextProvider.jsx';
+import { useAllergenContext } from '../../contexts/AllergenContextProvider.jsx';
+import { useOrderContext } from '../../contexts/OrderContextProvider.jsx';
 
-function CenterColumn() {
+function PizzaTypeCards() {
 
-  const { rejectedAllergens, setPizzaIdToOrder, setAllPizzaTypes, newOrModifiedPizzaType, itemIsActiveStatus } = useContext(MainContext);
+  let { rejectedAllergens } = useAllergenContext();
+  const { allPizzaTypes, setPizzaIdToOrder } = usePizzaTypeContext();
 
-  const pizzaTypesUrl = '/api/pizzaTypes';
-  const [actualPizzas, setActualPizzas] = useState({});
+  const [actualPizzas, setActualPizzas] = useState([]);
 
-  const pizzaTypeFetch = async (url) => {
-    const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
-    let newPizzaList = [];
+  useEffect(() => {
+    let newPizzaList;
     let wrongPizza = 0;
-    const response = await fetch(actualUrl);
-    const data = await response.json();
-    if (response.status === 200) {
-      setAllPizzaTypes(data)
-      for (let i = 0; i < data.length; i++) {
+    if (rejectedAllergens.length === 0) {
+      newPizzaList = allPizzaTypes
+    }
+    else {
+      newPizzaList = [];
+
+      for (let i = 0; i < allPizzaTypes.length; i++) {
         for (let j = 0; j < rejectedAllergens.length; j++) {
-          if (data[i].allergens.includes(rejectedAllergens[j].allergenName)) {
+          if (allPizzaTypes[i].allergens.includes(rejectedAllergens[j].allergenName)) {
             wrongPizza++;
           }
         }
         if (wrongPizza < 1) {
-          newPizzaList.push(data[i])
+          newPizzaList.push(allPizzaTypes[i])
         }
         wrongPizza = 0;
       }
     }
     setActualPizzas(newPizzaList)
-  };
+  }, [allPizzaTypes, rejectedAllergens])
 
-  useEffect(() => {
-    pizzaTypeFetch(pizzaTypesUrl)
-  }, [rejectedAllergens, newOrModifiedPizzaType]);
 
   function addPizzaIdToOrder(pizzaId) {
     setPizzaIdToOrder(pizzaId)
@@ -66,4 +66,4 @@ function CenterColumn() {
   )
 }
 
-export default CenterColumn
+export default PizzaTypeCards

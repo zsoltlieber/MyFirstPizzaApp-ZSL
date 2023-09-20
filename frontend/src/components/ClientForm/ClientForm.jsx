@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import { Context } from "../../context.js"
-import { MainContext } from "../../mainContext.js";
+import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvider.jsx";
+import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 
 function ClientForm() {
-    const { setRightColumnType } = useContext(MainContext);
-
+    const { setRightColumnType } = useRightColumnType()
     const { newOrModifiedClient, setNewOrModifiedClient,
-        updatableClientId, setUpdatableClientId } = useContext(Context);
+        updatableClientId, setUpdatableClientId } = useClientContext();
+
 
     const emptyClient = {
         clientName: "",
@@ -28,7 +27,7 @@ function ClientForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-console.log(newOrModifiedClient);
+
         if (newOrModifiedClient.clientName !== ""
             && updatableClientId === "") {
             const saveOnServer = async () => {
@@ -114,7 +113,8 @@ console.log(newOrModifiedClient);
                         <input type="text" id="phoneNumber" placeholder="phone number" value={newOrModifiedClient.phoneNumber}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, phoneNumber: e.target.value }) }} />
                     </div>
-                    <div>Post code:
+
+                 {/*    <div>Post code:
                         <input type="text" id="postCode" placeholder="post code" value={newOrModifiedClient.address[0].postCode}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: [{ ...newOrModifiedClient.address[0], postCode: e.target.value }] }) }} />
                     </div>
@@ -130,7 +130,8 @@ console.log(newOrModifiedClient);
                     <div>Other:
                         <input type="text" id="otherInfo" placeholder="other information" value={newOrModifiedClient.address[0].otherInfo}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: [{ ...newOrModifiedClient.address[0], otherInfo: e.target.value }] }) }} />
-                    </div>
+                    </div> */}
+
                     <div>Active?
                         <input type="text" id="isActive" placeholder="isActive true/false" value={newOrModifiedClient.isActive}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isActive: e.target.value }) }} />

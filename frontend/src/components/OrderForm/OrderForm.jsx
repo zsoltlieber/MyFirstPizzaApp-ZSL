@@ -1,12 +1,14 @@
-import { useEffect, useState, useContext } from 'react';
-import { MainContext } from "../../mainContext.js";
-import { Context } from '../../context.js'
-import PreOrderList from '../../Pages/Lists/PreOrderList.jsx';
+import { useEffect, useState } from 'react';
+import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
+import { useOrderContext } from '../../contexts/OrderContextProvider.jsx';
+import { usePizzaTypeContext } from '../../contexts/PizzaTypeContextProvider.jsx';
+import PreOrderList from '../OrderTable/PreOrderList.jsx';
 
 export function OrderForm() {
-
-    const { actualClientData, pizzaIdToOrder, setPizzaIdToOrder, allPizzaTypes } = useContext(MainContext);
-    const { listOfOrders, preOrderList, setPreOrderList, showOrderThanks, showTopMessageBox } = useContext(Context);
+    const { actualClientData } = useClientContext();
+    const { allPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder } = usePizzaTypeContext();
+    const { listOfOrders, preOrderList, setPreOrderList, showOrderThanks,
+        showTopOrderMessageBox, setShowTopOrderMessageBox } = useOrderContext();
 
     const [value, setValue] = useState(1);
     const [actualPizzaData, setActualPizzaData] = useState(undefined)
@@ -66,7 +68,7 @@ export function OrderForm() {
 
     return (
         <div id="order-container">
-            {showTopMessageBox && pizzaIdToOrder === ""
+            {showTopOrderMessageBox && pizzaIdToOrder === ""
                 ?
                 <div id="order-top-message-box">
                     {listOfOrders.length < 1

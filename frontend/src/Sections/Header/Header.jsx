@@ -1,9 +1,10 @@
-import { useContext } from 'react'
-import { MainContext } from '../../mainContext.js'
+import { useRightColumnType } from '../../contexts/RightColumnTypeContextProvider.jsx';
+import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 
 const Header = () => {
-    const { actualClientData, setActualClientData, setRightColumnType } = useContext(MainContext);
-
+    const { setRightColumnType } = useRightColumnType();
+    const { actualClientData, setActualClientData } = useClientContext();
+    
     return (
         <>
             <div>{/* 

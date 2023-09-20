@@ -1,14 +1,17 @@
-import { useState, useContext } from 'react';
-import { MainContext } from '../../mainContext.js'
+import { useState } from 'react';
+import { useRightColumnType } from '../../contexts/RightColumnTypeContextProvider.jsx';
+import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 
 export const LoginForm = () => {
-  const { setActualClientData, setRightColumnType } = useContext(MainContext);
+  const { setActualClientData } = useClientContext();
 
   const loginUrl = "/api/auth/login";
   const [loginData, setLoginData] = useState({})
   const [clientData, setClientData] = useState({});
   const [showBoxes, setShowBoxes] = useState(1);
   const [loginErrorMessage, setLoginErrorMessage] = useState("")
+
+  const { setRightColumnType } = useRightColumnType();
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -1,11 +1,16 @@
-import { useEffect, useContext, useState } from "react";
-import { MainContext } from "../../mainContext.js";
-import { Context } from "../../context.js"
+import { useEffect,  useState } from "react";
+import { useItemIsActiveStatus } from "../../contexts/ItemIsActiveStatusContextProvider.jsx";
+import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
+import { useOrderContext } from '../../contexts/OrderContextProvider.jsx';
+import { usePizzaTypeContext } from "../../contexts/PizzaTypeContextProvider.jsx";
 
 const OrderListHandler = () => {
 
-  const { actualClientData, allPizzaTypes, pizzaIdToOrder, itemIsActiveStatus } = useContext(MainContext);
-  const { listOfOrders, setListOfOrders, preOrderList } = useContext(Context);
+  const { actualClientData } = useClientContext();
+  const { allPizzaTypes, pizzaIdToOrder } = usePizzaTypeContext();
+  const { listOfOrders, setListOfOrders, preOrderList } = useOrderContext();
+
+  const { itemIsActiveStatus } = useItemIsActiveStatus();
 
   const ordersUrl = `/api/orders`
   let totalCost = 0;

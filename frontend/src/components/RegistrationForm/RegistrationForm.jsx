@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
-import { MainContext } from "../../mainContext.js";
+import { useState } from "react";
+import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvider";
 
 export function RegistrationForm() {
 
-    const { setRightColumnType } = useContext(MainContext);
+    const { setRightColumnType } = useRightColumnType();
 
     const registerUrl = '/api/clients/register'
 
@@ -46,7 +46,7 @@ export function RegistrationForm() {
             registrationSave()
         }
     }
-    console.log(clientData);
+
     return (
         <>
             {!showRegistrationMessage ?

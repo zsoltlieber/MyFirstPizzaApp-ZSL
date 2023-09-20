@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import { Context } from "../../context.js";
-import { MainContext } from "../../mainContext.js";
+import { useMessageContext } from "../../contexts/MessageContextProvider.jsx";
+import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 
 export const MessageForm = () => {
 
-    const { actualClientData } = useContext(MainContext);
+    const { actualClientData } = useClientContext();
     const { messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
-        originalMessage, setOriginalMessage, showMessageThanks, setShowMessageThanks } = useContext(Context);
+        originalMessage, setOriginalMessage, showMessageThanks, setShowMessageThanks } = useMessageContext();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -124,7 +123,7 @@ export const MessageForm = () => {
                                 :
                                 "Update"}
                         </button>
-                        <button type="text"  className="btn" onClick={cancelButton}>Cancel</button>
+                        <button type="text" className="btn" onClick={cancelButton}>Cancel</button>
                     </div>
                 </form>
                 : <h3 id="message-form" >ONLY REGISTERED CLIENT<br /> CAN SEND MESSAGE!</h3>}
@@ -137,7 +136,6 @@ export const MessageForm = () => {
                     </div>
                     : <></>
             }
-
         </>
     )
 }

@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { MainContext } from "../../mainContext.js";
+import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvider";
 
 export const StaffPage = () => {
 
-    const { setRightColumnType } = useContext(MainContext);
-
+    const { setRightColumnType } = useRightColumnType();
+    
     return (
         <div id="staff-page" >
             <h2 >---  STAFF PAGE  ---</h2>
