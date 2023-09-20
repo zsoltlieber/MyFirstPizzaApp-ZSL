@@ -1,9 +1,8 @@
-import { useContext } from 'react';
-import { MainContext } from "../../mainContext.js"
+import { usePizzaTypeContext } from '../../contexts/PizzaTypeContextProvider.jsx';
 
-const PizzaTypeTable = ({ deletePizzaType, updatePizzaType }) => {
+const PizzaTypeTable = () => {
 
-  const { allPizzaTypes } = useContext(MainContext);
+  const { allPizzaTypes, updatePizzaType, deletePizzaType } = usePizzaTypeContext();
 
   return (
     <>

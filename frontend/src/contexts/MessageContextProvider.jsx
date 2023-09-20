@@ -62,7 +62,7 @@ const MessageContextProvider = ({ children }) => {
             catch (error) {
                 console.error("Problem with message delete!", error.message)
             }
-        } else if (actualClientData !== undefined) {
+        } else {
             try {
                 const requestOptions = {
                     method: 'PUT',
