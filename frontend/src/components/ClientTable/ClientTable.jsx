@@ -6,8 +6,6 @@ function ClientListHandler() {
 
   return (
     <>
-      {allClientData
-        ?
         < div id='client-list' >
           <p style={{ textAlign: "center", fontSize: "20px", margin: "0" }} >CLIENT LIST</p>
 
@@ -49,7 +47,6 @@ function ClientListHandler() {
             })}
           </table >
         </div>
-        : <></>}
     </ >
   )
 }
