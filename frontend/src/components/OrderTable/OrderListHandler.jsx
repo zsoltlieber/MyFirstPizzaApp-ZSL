@@ -9,8 +9,6 @@ const OrderListHandler = () => {
   let grandTotalCost = 0;
   let actualPizzaName = "";
 
-  console.log(listOfOrders);
-
   return (
     <>
       <div div id="order-list" >
