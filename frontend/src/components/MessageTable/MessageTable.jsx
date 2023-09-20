@@ -1,7 +1,7 @@
 import { useMessageContext } from '../../contexts/MessageContextProvider.jsx';
 import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 
-export const MessageTable = ({ deleteMessageHandler, updateMessageHandler }) => {
+export const MessageTable = () => {
 
     const { actualClientData } = useClientContext();
     const { messageList, updateMessage, deleteMessage } = useMessageContext();
