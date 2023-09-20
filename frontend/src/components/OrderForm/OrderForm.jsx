@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 import { useOrderContext } from '../../contexts/OrderContextProvider.jsx';
 import { usePizzaTypeContext } from '../../contexts/PizzaTypeContextProvider.jsx';
-import { useMessageContext } from '../../contexts/MessageContextProvider.jsx';
 import PreOrderList from '../OrderTable/PreOrderList.jsx';
 
 export function OrderForm() {
     const { actualClientData } = useClientContext();
     const { allPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder } = usePizzaTypeContext();
-    const { listOfOrders, preOrderList, setPreOrderList, showOrderThanks } = useOrderContext();
-    const [ showTopOrderMessageBox,setShoeOrderMessageBox]  = useMessageContext();
+    const { listOfOrders, preOrderList, setPreOrderList, showOrderThanks,
+        showTopOrderMessageBox, setShowTopOrderMessageBox } = useOrderContext();
 
     const [value, setValue] = useState(1);
     const [actualPizzaData, setActualPizzaData] = useState(undefined)

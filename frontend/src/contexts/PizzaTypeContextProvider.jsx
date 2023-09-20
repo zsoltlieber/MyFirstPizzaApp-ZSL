@@ -22,7 +22,7 @@ const PizzaTypeContextProvider = ({ children }) => {
         let wrongPizza = 0;
         const response = await fetch(actualUrl);
         const data = await response.json();
-        if (response.status === 200) {
+        if (response.status === 200 && data.length > 0) {
             setAllPizzaTypes(data)
             for (let i = 0; i < data.length; i++) {
                 for (let j = 0; j < rejectedAllergens.length; j++) {

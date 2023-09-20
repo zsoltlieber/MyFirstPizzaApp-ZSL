@@ -1,13 +1,13 @@
-import { useEffect, useContext, useState } from "react";
-import { MainContext } from "../../mainContext.js";
+import { useEffect,  useState } from "react";
 import { useItemIsActiveStatus } from "../../contexts/ItemIsActiveStatusContextProvider.jsx";
 import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 import { useOrderContext } from '../../contexts/OrderContextProvider.jsx';
+import { usePizzaTypeContext } from "../../contexts/PizzaTypeContextProvider.jsx";
 
 const OrderListHandler = () => {
 
   const { actualClientData } = useClientContext();
-  const {  allPizzaTypes, pizzaIdToOrder } = useContext(MainContext);
+  const { allPizzaTypes, pizzaIdToOrder } = usePizzaTypeContext();
   const { listOfOrders, setListOfOrders, preOrderList } = useOrderContext();
 
   const { itemIsActiveStatus } = useItemIsActiveStatus();

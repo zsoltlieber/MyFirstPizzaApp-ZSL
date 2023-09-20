@@ -1,9 +1,8 @@
-import { useContext } from 'react';
-import { MainContext } from '../../mainContext.js'
 import { useOrderContext } from '../../contexts/OrderContextProvider.jsx';
+import { usePizzaTypeContext } from '../../contexts/PizzaTypeContextProvider.jsx';
 
 function PreOrderList() {
-    const { pizzaIdToOrder } = useContext(MainContext);
+    const { pizzaIdToOrder } = usePizzaTypeContext();
     const { setListOfOrders, preOrderList, setPreOrderList,
         setShowOrderThanks, setShowOrderTopMessageBox } = useOrderContext();
 

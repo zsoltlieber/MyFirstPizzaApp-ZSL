@@ -6,8 +6,7 @@ import { useOrderContext } from '../../contexts/OrderContextProvider.jsx';
 function PizzaTypeCards() {
 
   let { rejectedAllergens } = useAllergenContext();
-  const { setPizzaIdToOrder } = useOrderContext();
-  const { allPizzaTypes } = usePizzaTypeContext();
+  const { allPizzaTypes, setPizzaIdToOrder } = usePizzaTypeContext();
 
   const [actualPizzas, setActualPizzas] = useState([]);
 

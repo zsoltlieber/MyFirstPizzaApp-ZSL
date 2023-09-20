@@ -21,23 +21,23 @@ const ClientContextProvider = ({ children }) => {
                 throw new Error("Failed to fetch clients.");
             }
             const data = await response.json();
-            if (data) setAllClientData(data);
+            if (data && data.length > 0) setAllClientData(data);
             /* empty array lehet, de undifined nem!!! */
         } catch (error) {
             console.error("Error fetching clients:", error.message);
         }
     };
-    
+
     useEffect(() => {
         clientsFetch(clientUrl);
     }, [newOrModifiedClient]);
-    
+
     const updateClient = (clientId) => {
         setUpdatableClientId(clientId);
         const actualClient = allClientData.find(client => client._id === clientId);
         setNewOrModifiedClient(actualClient)
     };
-    
+
     async function deleteClient(removableClientId) {
         if (actualClientData.bossStatus === true) {
             try {
