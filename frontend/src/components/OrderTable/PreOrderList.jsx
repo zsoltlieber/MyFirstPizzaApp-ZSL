@@ -4,7 +4,7 @@ import { usePizzaTypeContext } from '../../contexts/PizzaTypeContextProvider.jsx
 function PreOrderList() {
     const { pizzaIdToOrder } = usePizzaTypeContext();
     const { setListOfOrders, preOrderList, setPreOrderList,
-        setShowOrderThanks, setShowOrderTopMessageBox } = useOrderContext();
+        setShowOrderThanks } = useOrderContext();
 
     const ordersUrl = '/api/orders';
     let totalCost = 0;
@@ -28,13 +28,11 @@ function PreOrderList() {
                 const response = await fetch(ordersUrl, requestOptions);
                 const data = await response.json();
                 setListOfOrders(data);
-                setShowOrderTopMessageBox(false);
                 setShowOrderThanks(true);
 
                 setTimeout(() => {
                     setPreOrderList([]);
                     setShowOrderThanks(false);
-                    setShowOrderTopMessageBox(true);
                 }, 3000);
             };
             addOrderToOrderList()
