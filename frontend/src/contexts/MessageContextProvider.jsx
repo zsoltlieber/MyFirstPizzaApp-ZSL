@@ -12,7 +12,6 @@ const MessageContextProvider = ({ children }) => {
     const [newOrModifiedMessage, setNewOrModifiedMessage] = useState([]);
     const [originalMessage, setOriginalMessage] = useState("");
     const [showMessageThanks, setShowMessageThanks] = useState(false);
-    const [showTopMessageBox, setShowTopMessageBox] = useState(true);
 
     const messageUrl = "/api/messages"
 
@@ -86,7 +85,6 @@ const MessageContextProvider = ({ children }) => {
         <MessageContext.Provider value={{
             messageList, setMessageList, newOrModifiedMessage, setNewOrModifiedMessage,
             originalMessage, setOriginalMessage, showMessageThanks, setShowMessageThanks,
-            showTopMessageBox, setShowTopMessageBox,
             updateMessage, deleteMessage
         }}>
             {children}

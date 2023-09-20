@@ -1,13 +1,11 @@
 import { useContext } from 'react';
-import { Context } from '../../context.js'
 import { MainContext } from '../../mainContext.js'
+import { useOrderContext } from '../../contexts/OrderContextProvider.jsx';
 
 function PreOrderList() {
-
-
     const { pizzaIdToOrder } = useContext(MainContext);
     const { setListOfOrders, preOrderList, setPreOrderList,
-        setShowOrderThanks, setShowTopMessageBox } = useContext(Context);
+        setShowOrderThanks, setShowOrderTopMessageBox } = useOrderContext();
 
     const ordersUrl = '/api/orders';
     let totalCost = 0;
@@ -31,13 +29,13 @@ function PreOrderList() {
                 const response = await fetch(ordersUrl, requestOptions);
                 const data = await response.json();
                 setListOfOrders(data);
-                setShowTopMessageBox(false);
+                setShowOrderTopMessageBox(false);
                 setShowOrderThanks(true);
 
                 setTimeout(() => {
                     setPreOrderList([]);
                     setShowOrderThanks(false);
-                    setShowTopMessageBox(true);
+                    setShowOrderTopMessageBox(true);
                 }, 3000);
             };
             addOrderToOrderList()
