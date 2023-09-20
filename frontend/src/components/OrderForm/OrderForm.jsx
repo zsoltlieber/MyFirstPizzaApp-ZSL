@@ -7,8 +7,7 @@ import PreOrderList from '../OrderTable/PreOrderList.jsx';
 export function OrderForm() {
     const { actualClientData } = useClientContext();
     const { allPizzaTypes, pizzaIdToOrder, setPizzaIdToOrder } = usePizzaTypeContext();
-    const { listOfOrders, preOrderList, setPreOrderList, showOrderThanks,
-        showTopOrderMessageBox, setShowTopOrderMessageBox } = useOrderContext();
+    const { listOfOrders, preOrderList, setPreOrderList, showOrderThanks } = useOrderContext();
 
     const [value, setValue] = useState(1);
     const [actualPizzaData, setActualPizzaData] = useState(undefined)
@@ -68,7 +67,7 @@ export function OrderForm() {
 
     return (
         <div id="order-container">
-            {showTopOrderMessageBox && pizzaIdToOrder === ""
+            {pizzaIdToOrder === ""
                 ?
                 <div id="order-top-message-box">
                     {listOfOrders.length < 1

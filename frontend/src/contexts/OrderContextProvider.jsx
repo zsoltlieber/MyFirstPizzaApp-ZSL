@@ -8,7 +8,6 @@ const OrderContextProvider = ({ children }) => {
     const [listOfOrders, setListOfOrders] = useState([]);  //total list of orders
     const [preOrderList, setPreOrderList] = useState([]);
     const [showOrderThanks, setShowOrderThanks] = useState(false);
-    const [showOrderTopMessageBox, setShowOrderTopMessageBox] = useState(true);
 
     const ordersUrl = `/api/orders`
 
@@ -91,8 +90,7 @@ const OrderContextProvider = ({ children }) => {
             listOfOrders, setListOfOrders,
             preOrderList, setPreOrderList,
             deleteOrderFetch, removeOrderFetch,
-            showOrderThanks, setShowOrderThanks,
-            showOrderTopMessageBox, setShowOrderTopMessageBox
+            showOrderThanks, setShowOrderThanks
         }}>
             {children}
         </OrderContext.Provider>
