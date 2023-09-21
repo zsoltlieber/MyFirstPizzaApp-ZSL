@@ -3,7 +3,7 @@ import { useRightColumnType } from "../../contexts/RightColumnTypeContextProvide
 import LoginForm from "../../components/LoginForm/LoginForm.jsx";
 import RegistrationForm from "../../components/RegistrationForm/RegistrationForm.jsx";
 import OrderForm from "../../components/OrderForm/OrderForm.jsx";
-import OrderListHandler from "../../components/OrderTable/OrderListHandler.jsx";
+import OrderTable from "../../components/OrderTable/OrderTable.jsx";
 import MessageForm from "../../components/MessageForm/MessageForm.jsx";
 import MessageTable from "../../components/MessageTable/MessageTable.jsx";
 import AboutUs from "../AboutUs/AboutUs.jsx";
@@ -41,8 +41,8 @@ const RightColumn = ({ setSearchFieldChange }) => {
         : <></>}
       {rightColumnType === "order-form" ?
         <>
-            <OrderForm />
-            <OrderListHandler />
+          <OrderForm />
+          <OrderTable />
         </>
         : <></>}
       {rightColumnType === "staff" ?

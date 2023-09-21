@@ -4,11 +4,25 @@ import { useItemIsActiveStatus } from "./ItemIsActiveStatusContextProvider"
 export const ClientContext = createContext();
 
 const ClientContextProvider = ({ children }) => {
-
+    const emptyClient = {
+        clientName: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+        address: [{
+            postCode: "",
+            city: "",
+            streetAndNumber: "",
+            otherInfo: ""
+        }],
+        isActive: "",
+        isAdmin: "",
+        isMainAdmin: "",
+    };
     const { itemIsActiveStatus } = useItemIsActiveStatus();
     const [allClientData, setAllClientData] = useState([]);
-    const [actualClientData, setActualClientData] = useState({});
-    const [newOrModifiedClient, setNewOrModifiedClient] = useState({});
+    const [actualClientData, setActualClientData] = useState(emptyClient);
+    const [newOrModifiedClient, setNewOrModifiedClient] = useState(emptyClient);
     const [updatableClientId, setUpdatableClientId] = useState("");
 
     const clientUrl = "/api/clients"

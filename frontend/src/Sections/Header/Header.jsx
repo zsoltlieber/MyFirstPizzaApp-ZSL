@@ -4,7 +4,7 @@ import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 const Header = () => {
     const { setRightColumnType } = useRightColumnType();
     const { actualClientData, setActualClientData } = useClientContext();
-    
+
     return (
         <>
             <div>{/* 
@@ -53,7 +53,7 @@ const Header = () => {
 
                         setTimeout(() => {
                             setRightColumnType("about")
-                            setActualClientData({ clientName: "" });
+                            setActualClientData([]);
                         }, 1000);
                     }} >LOG OUT</button >
                     : <></>}
