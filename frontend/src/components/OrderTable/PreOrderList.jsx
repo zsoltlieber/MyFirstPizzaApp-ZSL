@@ -47,7 +47,7 @@ function PreOrderList() {
 
     return (
         <div>
-            {preOrderList.orderedItems && preOrderList.orderedItems.length > 0
+            {preOrderList.orderedItems  && preOrderList.orderedItems.length > 0
                 ?
                 <div id="preorder-list">
                     <h5 style={{  margin: "2% 0% 2% 0%" }}>PRE-Order list</h5>
@@ -61,10 +61,10 @@ function PreOrderList() {
                         </thead>
                         <tbody>
 
-                            {preOrderList.orderedItems.map((order, index) => {
+                            {preOrderList.orderedItems.map((order) => {
                                 
                                 return (
-                                    <tr key={index}>
+                                    <tr key={order._id}>
                                         <td style={{ textAlign: "left", marginLeft: "-3rem" }} className='order-element'>
                                             {order.pizzaName}
                                         </td>
@@ -88,7 +88,7 @@ function PreOrderList() {
                         SEND ORDER
                     </button>
                 </div>
-                : null
+                : <></>
             }
         </div>
     )

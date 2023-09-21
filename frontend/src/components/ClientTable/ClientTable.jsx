@@ -23,9 +23,9 @@ function ClientListHandler() {
                 <th></th>
               </tr>
             </thead>
-            {allClientData.map((client, index) => {
+            {allClientData.map((client) => {
               return (
-                <tbody key={index}>
+                <tbody key={client._id}>
                   <tr>
                     <td><p style={{ width: "150px", textAlign: "left" }}>{client.clientName}</p></td>
                     <td><p style={{ textAlign: "left" }}>{client.email}</p></td>

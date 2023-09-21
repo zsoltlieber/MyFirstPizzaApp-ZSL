@@ -1,7 +1,7 @@
 import { useOrderContext } from '../../contexts/OrderContextProvider.jsx';
 import { usePizzaTypeContext } from "../../contexts/PizzaTypeContextProvider.jsx";
 
-const OrderListHandler = () => {
+const OrderTable = () => {
   const { allPizzaTypes } = usePizzaTypeContext();
   const { listOfOrders, deleteOrder } = useOrderContext();
 
@@ -13,13 +13,13 @@ const OrderListHandler = () => {
     <>
       {listOfOrders.length > 0
         ?
-        <div div id="order-list" >
+        <div id="order-list" >
           <h2 style={{ textDecoration: "underline" }}>Current active orders list</h2>
           {listOfOrders.map((order) => {
             return (
-              <>
+              <div key={order._id}>
                 <p> {order.clientName} </p>
-                <table key={order._id} id="order-list-table" style={{ listStyleType: "none", fontSize: "15px", height: "10px" }}>
+                <table id="order-list-table" style={{ listStyleType: "none", fontSize: "15px", height: "10px" }}>
                   <thead >
                     <tr>
                       <th>Pizza name</th>
@@ -46,7 +46,7 @@ const OrderListHandler = () => {
                       totalCost = totalCost + orderItem.quantity * orderItem.pricePerEach;
                       grandTotalCost = grandTotalCost + orderItem.quantity * orderItem.pricePerEach;
                       return (
-                        <tr key={index} style={{ alignItems: "left", height: "10px" }}>
+                        <tr key={orderItem._id} style={{ alignItems: "left", height: "10px" }}>
                           <td>{actualPizzaName}</td>
                           <td>{orderItem.quantity} db</td>
                           <td>{orderItem.pricePerEach.toLocaleString('en-US')}.-Ft</td>
@@ -60,7 +60,7 @@ const OrderListHandler = () => {
                     </tr >
                   </tfoot>
                 </table>
-              </>
+              </div>
             )
           })}
           <td colSpan={3} align="left">Total payable: {grandTotalCost.toLocaleString('en-US')}.-Ft</td>
@@ -71,4 +71,4 @@ const OrderListHandler = () => {
   )
 }
 
-export default OrderListHandler
+export default OrderTable
