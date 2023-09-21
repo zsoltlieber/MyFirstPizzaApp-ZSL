@@ -28,7 +28,6 @@ export function RegistrationForm() {
 
         if (clientData !== undefined) {
             const registrationSave = async () => {
-                console.log(clientData);
                 const requestOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

@@ -82,10 +82,8 @@ function ClientForm() {
 
     if (newOrModifiedClient === undefined) setNewOrModifiedClient();
 
-    console.log(newOrModifiedClient);
-
     return (
-        
+
         <div id="client-form">
             <form onSubmit={handleSubmit}>
                 <p style={{ fontSize: "20px", margin: "0" }} >
@@ -117,7 +115,7 @@ function ClientForm() {
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, phoneNumber: e.target.value }) }} />
                     </div>
 
-                   <div>Post code:
+                    <div>Post code:
                         <input type="text" id="postCode" placeholder="post code" value={newOrModifiedClient.address[0].postCode}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: [{ ...newOrModifiedClient.address[0], postCode: e.target.value }] }) }} />
                     </div>
@@ -133,7 +131,7 @@ function ClientForm() {
                     <div>Other:
                         <input type="text" id="otherInfo" placeholder="other information" value={newOrModifiedClient.address[0].otherInfo}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: [{ ...newOrModifiedClient.address[0], otherInfo: e.target.value }] }) }} />
-                    </div> 
+                    </div>
 
                     <div>Active?
                         <input type="text" id="isActive" placeholder="isActive true/false" value={newOrModifiedClient.isActive}
