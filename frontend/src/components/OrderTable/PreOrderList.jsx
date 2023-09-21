@@ -88,7 +88,7 @@ function PreOrderList() {
                         SEND ORDER
                     </button>
                 </div>
-                : <></>
+                : null
             }
         </div>
     )

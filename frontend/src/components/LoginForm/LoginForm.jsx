@@ -79,7 +79,7 @@ export const LoginForm = () => {
               <p>DEAR <br />{clientData.name.toUpperCase()}<br /> we are very happy to see you!!</p>
               <p>ORDER AND TASTE OUR PIZZAS :) !</p>
             </div >
-            : <></>
+            : null
       }
     </div >
   )

@@ -24,13 +24,16 @@ const RightColumn = ({ setSearchFieldChange }) => {
     <div id='right-column'>
       {rightColumnType === "login" ?
         <LoginForm />
-        : <></>}
+        : null
+      }
       {rightColumnType === "signin" ?
         <RegistrationForm />
-        : <></>}
+        : null
+      }
       {rightColumnType === "about" ?
         <AboutUs setSearchText={setSearchFieldChange} />
-        : <></>}
+        : null
+      }
       {rightColumnType === "message" ?
         <>
           <MessageContextProvider>
@@ -38,37 +41,43 @@ const RightColumn = ({ setSearchFieldChange }) => {
             <MessageTable />
           </MessageContextProvider>
         </>
-        : <></>}
+        : null
+      }
       {rightColumnType === "order-form" ?
         <>
           <OrderForm />
           <OrderTable />
         </>
-        : <></>}
+        : null
+      }
       {rightColumnType === "staff" ?
         <StaffPage />
-        : <></>}
+        : null
+      }
       {rightColumnType === "boss" ?
         <BossPage />
-        : <></>}
+        : null
+      }
       {rightColumnType === "client-handler" ?
         <>
           <ClientForm />
           <ClientTable />
         </>
-        : <></>}
+        : null
+      }
       {rightColumnType === "allergen-handler" ?
         <>
           <AllergenForm />
           <AllergenListHandler />
         </>
-        : <></>}
+        : null
+      }
       {rightColumnType === "pizza-type-handler" ?
         <>
           <PizzaTypeForm />
           <PizzaTypeTable />
         </>
-        : <></>
+        : null
       }
     </div>
   )

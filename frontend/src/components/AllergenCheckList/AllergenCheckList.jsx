@@ -44,7 +44,7 @@ export const AllergenCheckList = () => {
             </div>
           )
         })
-        : <></>
+        : null
       }
     </div>
   )

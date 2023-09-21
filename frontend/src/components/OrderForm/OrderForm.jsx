@@ -73,11 +73,12 @@ export function OrderForm() {
                     {listOfOrders.length < 1
                         ?
                         <p>YOU DO NOT HAVE <br />ACTIVE ORDER !!</p>
-                        : <></>
+                        : null
                     }
                     <p>Please click on wanted pizzacard's <br />ADD TO BASKEN button!!</p>
                 </div>
-                : <></>}
+                : null
+            }
             {pizzaIdToOrder !== ""
                 ?
                 <>
@@ -99,12 +100,12 @@ export function OrderForm() {
                                         </li>
                                     </ul>
                                 </>
-                                : <></>
+                                : null
                             }
                         </form >
                     </div >
                 </>
-                : <></>
+                : null
             }
             <PreOrderList />
 
@@ -114,7 +115,7 @@ export function OrderForm() {
                     <h4>DEAR <br />{actualClientData.clientName} thanks for your order!!</h4>
                     <h4>WE WELL DELIVER YOUR PIZZA SOON :) !!</h4>
                 </div>
-                : <></>
+                : null
             }
         </div>
     )

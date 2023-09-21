@@ -44,7 +44,8 @@ const PizzaTypeTable = () => {
             })}
           </table >
         </div>
-        : <></>}
+        : null
+      }
     </ >
   )
 }

@@ -95,7 +95,7 @@ export const MessageForm = () => {
                     {originalMessage !== undefined && originalMessage !== ""
                         ?
                         <p style={{ fontSize: "20px", marginTop: "0" }} > {originalMessage}</p>
-                        : <></>
+                        : null
                     }
                     <p style={{ fontSize: "20px", marginTop: "0" }} >
                         {newOrModifiedMessage === undefined || newOrModifiedMessage._id === undefined
@@ -134,7 +134,7 @@ export const MessageForm = () => {
                     <div>
                         <h1 id="message-form">We appreciate <br /> if you sent your opinion <br /> about our pizzas!</h1>
                     </div>
-                    : <></>
+                    : null
             }
         </>
     )

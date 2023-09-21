@@ -42,7 +42,8 @@ function AllergenListHandler() {
             })}
           </table >
         </div>
-        : <></>}
+        : null
+      }
     </ >
   )
 }

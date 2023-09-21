@@ -27,11 +27,13 @@ const Header = () => {
                     {actualClientData.bossStatus === true
                         ?
                         <button className="btn" value="boss" onClick={(e) => setRightColumnType(e.target.value)} >BOSS</button >
-                        : <></>}
+                        : null
+                    }
                     {actualClientData.bossStatus !== true && actualClientData.staffStatus === true
                         ?
                         <button className="btn" value="staff" onClick={(e) => setRightColumnType(e.target.value)} >STAFF</button >
-                        : <></>}
+                        : null
+                    }
 
                 </div>
                 {actualClientData.clientName === undefined || actualClientData.clientName === ""
@@ -40,11 +42,13 @@ const Header = () => {
                         <button className="btn" value="signin" onClick={(e) => setRightColumnType(e.target.value)} >REGISTER</button >
                         <button className="btn" value="login" onClick={(e) => setRightColumnType(e.target.value)}>LOG IN</button >
                     </>
-                    : <></>}
+                    : null
+                }
                 {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
                     ?
                     <button className="btn" value="order-form" onClick={(e) => setRightColumnType(e.target.value)}>ORDER</button >
-                    : <></>}
+                    : null
+                }
                 <button className="btn" value="message" onClick={(e) => setRightColumnType(e.target.value)}>MESSAGE</button >
                 <button className="btn" value="about" onClick={(e) => setRightColumnType(e.target.value)} >ABOUT</button >
                 {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
@@ -56,7 +60,8 @@ const Header = () => {
                             setActualClientData([]);
                         }, 1000);
                     }} >LOG OUT</button >
-                    : <></>}
+                    : null
+                }
             </div>
         </ >
     )

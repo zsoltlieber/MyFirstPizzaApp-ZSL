@@ -52,9 +52,7 @@ const OrderListHandler = () => {
                           <td>{orderItem.pricePerEach.toLocaleString('en-US')}.-Ft</td>
                         </tr>
                       )
-                    }
-                    )
-                    }
+                    })}
                   </tbody >
                   <tfoot>
                     < tr>
@@ -67,7 +65,8 @@ const OrderListHandler = () => {
           })}
           <td colSpan={3} align="left">Total payable: {grandTotalCost.toLocaleString('en-US')}.-Ft</td>
         </div>
-        : null}
+        : null
+      }
     </ >
   )
 }

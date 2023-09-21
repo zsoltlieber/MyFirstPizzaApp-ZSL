@@ -22,7 +22,8 @@ export const MessageTable = () => {
                                     <th></th>
                                     <th></th>
                                 </>
-                                : <></>}
+                                : null
+                            }
                         </tr>
                     </thead>
                     {messageList.map((messageItem, index) => {
@@ -42,7 +43,8 @@ export const MessageTable = () => {
                                         <td>
                                             <button type='button' id="update-btn" value={messageItem._id} onClick={(e) => updateMessage(index, e.target.value)}>UPD</button>
                                         </td>
-                                        : <></>}
+                                        : null
+                                    }
                                 </tr>
                             </tbody>
                         )
