@@ -7,29 +7,13 @@ export const OrderContext = createContext();
 const OrderContextProvider = ({ children }) => {
     const { itemIsActiveStatus } = useItemIsActiveStatus();
     const { actualClientData } = useClientContext();
-
+    
     const [listOfOrders, setListOfOrders] = useState([]);
     const [preOrderList, setPreOrderList] = useState([]);
     const [showOrderThanks, setShowOrderThanks] = useState(false);
-
+    
     const ordersUrl = `/api/orders`
-
-    const orderFetch = async (url) => {
-        const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
-        const response = await fetch(actualUrl);
-        const data = await response.json();
-        if (data) {
-            if (data.length !== 0) {
-                data.map(order => fetchActualClientName(order));
-            }
-            setListOfOrders(data);
-        }
-    };
-
-    useEffect(() => {
-        orderFetch(ordersUrl);
-    }, [preOrderList]);
-
+    
     const fetchActualClientName = async (actualOrder) => {
         const actualClientUrl = `/api/clients/${actualOrder.orderClientId}`
         while (actualOrder.clientName === undefined) {
@@ -46,6 +30,23 @@ const OrderContextProvider = ({ children }) => {
             }
         }
     }
+    
+    const orderFetch = async (url) => {
+        const actualUrl = `${url}?isActive=${itemIsActiveStatus}`
+        const response = await fetch(actualUrl);
+        const data = await response.json();
+        if (data) {
+            if (data.length !== 0) {
+                data.map(order => fetchActualClientName(order));
+            }
+            setListOfOrders(data);
+        }
+    };
+
+    useEffect(() => {
+        orderFetch(ordersUrl);
+    }, [actualClientData, preOrderList]);
+
 
     async function deleteOrder(removableOrderId) {
         if (actualClientData.bossStatus === true) {
@@ -75,7 +76,7 @@ const OrderContextProvider = ({ children }) => {
                 };
                 const response = await fetch(`${ordersUrl}/${removableOrderId}`, requestOptions);
                 if (response.status === 200) {
-                    const newOrderList = listOfOrders.filter(order => order._id !== removableOrderId);
+                   const newOrderList = listOfOrders.filter(order => order._id !== removableOrderId);
                     setListOfOrders(newOrderList)
                     console.log('Order remove was successful');
                 } else {

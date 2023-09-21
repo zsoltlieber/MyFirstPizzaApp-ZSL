@@ -47,7 +47,7 @@ function PreOrderList() {
 
     return (
         <div>
-            {preOrderList.orderedItems !== undefined && preOrderList.orderedItems.length > 0
+            {preOrderList.orderedItems && preOrderList.orderedItems.length > 0
                 ?
                 <div id="preorder-list">
                     <h5 style={{  margin: "2% 0% 2% 0%" }}>PRE-Order list</h5>
