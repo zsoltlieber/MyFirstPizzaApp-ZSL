@@ -72,3 +72,8 @@ JWT=<public/private key >
     npm install
     npm start
 ```
+### TODO
+- follow the baking and delivery status,
+- invoicing,
+- better message handling,
+- writing unit tests.
