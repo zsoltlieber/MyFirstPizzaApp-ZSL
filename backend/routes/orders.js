@@ -19,6 +19,6 @@ ordersRouter.get("/:id", verifyClient, getOrderById);
 
 ordersRouter.put("/:id", verifyClient, updateOrderById);
 
-ordersRouter.delete("/:id", verifyClient, deleteOrderById);
+ordersRouter.delete("/:id", verifyMainAdmin, deleteOrderById);
 
 export default ordersRouter;
