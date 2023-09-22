@@ -15,7 +15,7 @@ const AllergenSchema = new Schema({
         type: Boolean,
         default: false
     },
-    lastManipulatorId: {                     //last modifier ID or initial ID
+    lastManipulatorId: {                     
         type: String,
         require: true,
         default: "initial"

@@ -9,7 +9,6 @@ export const verifyToken = (req, res, next) => {
     }
     jwt.verify(jwtToken, process.env.JWT, (error, client) => {
         if (error) return next(createError(403, "Token is not valid!"));
-        //if token is valid
         req.client = client;
         next();
     });
@@ -26,7 +25,6 @@ export const verifyClient = (req, res, next) => {
     });
 };
 
-//client for staff
 export const verifyAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.client.isAdmin) {
@@ -37,7 +35,6 @@ export const verifyAdmin = (req, res, next) => {
     });
 };
 
-//client for manager
 export const verifyMainAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.client.isMainAdmin) {

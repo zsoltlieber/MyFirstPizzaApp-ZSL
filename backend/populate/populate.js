@@ -18,7 +18,7 @@ const mongoUrl = process.env.MONGO_URL;
 
 if (!mongoUrl) {
     console.error("Missing MONGO_URL environment variable");
-    process.exit(1); // exit program
+    process.exit(1); 
 }
 
 const populateAllergens = async () => {

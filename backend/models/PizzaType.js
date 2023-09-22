@@ -21,7 +21,7 @@ const PizzaTypeSchema = new Schema({
         type: Boolean,
         default: true
     },
-    lastManipulatorId: {                     //last modifier ID or initial ID
+    lastManipulatorId: {                  
         type: String,
         require: true,
         default: "initial"
