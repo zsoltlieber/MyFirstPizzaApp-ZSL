@@ -151,27 +151,12 @@ export const deleteClientById = async (req, res, next) => {
     try {
         const actualClient = await Client.findById(req.params.id);
         if (actualClient !== null) {
-            if (req.client.isMainAdmin) {
+            if (!actualClient.isMainAdmin) {
                 await Client.findByIdAndDelete(req.params.id);
                 res.status(200).json(`${req.params.id} - client was deleted!`);
                 console.log(`${req.params.id} - client was deleted!`);
             }
-            else if (req.client.isAdmin || !req.client.isAdmin && req.params.id.match(actualClient.client.id)) {
-                req.body = actualClient;
-                req.body.lastManipulatorId = req.client.id;
-                req.body.isActive = false
-                const updatedClient = await Client.findByIdAndUpdate(
-                    req.params.id,
-                    { $set: req.body },
-                    { new: true }
-                );
-                res.status(200).json(updatedClient);
-                console.log(`${updatedClient.clientName} - ${updatedClient._id} - client was updated!`);
-            }
             else { return next(createError(403, "Not allowed to access that client data!")) }
-        }
-        else {
-            res.status(200).json("No client the given ID!");
         }
     }
     catch (error) {
