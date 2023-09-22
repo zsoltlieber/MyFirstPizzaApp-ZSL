@@ -34,7 +34,7 @@ export const AllergenCheckList = () => {
       <div>
         <h4>CLICK YOUR ALLERGENS</h4>
       </div>
-      {allAllergens && allAllergens !== undefined
+      {allAllergens
         ? allAllergens.map((allergen, index) => {
           return (
             <div key={index}>

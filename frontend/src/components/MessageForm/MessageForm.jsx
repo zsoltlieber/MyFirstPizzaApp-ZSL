@@ -48,7 +48,7 @@ export const MessageForm = () => {
             }
             saveOnServer()
         }
-        else if (newOrModifiedMessage !== "" && newOrModifiedMessage._id !== undefined) {
+        else if (newOrModifiedMessage._id && newOrModifiedMessage !== "") {
 
             const updateOnServer = async () => {
                 const updatableMessageUrl = messageUrl + "/" + newOrModifiedMessage._id;
@@ -89,10 +89,10 @@ export const MessageForm = () => {
 
     return (
         <>
-            {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
+            {actualClientData.clientName && actualClientData.clientName !== ""
                 ?
                 <form id="message-form" onSubmit={handleSubmit} >
-                    {originalMessage !== undefined && originalMessage !== ""
+                    {originalMessage && originalMessage !== ""
                         ?
                         <p style={{ fontSize: "20px", marginTop: "0" }} > {originalMessage}</p>
                         : null

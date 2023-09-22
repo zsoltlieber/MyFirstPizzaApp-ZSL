@@ -47,7 +47,7 @@ const PizzaTypeContextProvider = ({ children }) => {
         const actualPizzaType = allPizzaTypes.find(pizzaType => pizzaType._id === pizzaTypeId);
         setNewOrModifiedPizzaType(actualPizzaType)
 
-        if (newOrModifiedPizzaType !== undefined && newOrModifiedPizzaType._id !== undefined) {
+        if (newOrModifiedPizzaType  && newOrModifiedPizzaType._id ) {
             const updatablePizzaTypeUrl = `${pizzaTypeUrl}/${newOrModifiedPizzaType._id}`;
 
             const requestOptions = {

@@ -26,7 +26,7 @@ export function RegistrationForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (clientData !== undefined) {
+        if (clientData ) {
             const registrationSave = async () => {
                 const requestOptions = {
                     method: 'POST',

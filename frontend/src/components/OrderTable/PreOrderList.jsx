@@ -13,7 +13,7 @@ function PreOrderList() {
         pizzaIdToOrder(undefined)
     }
 
-    if (preOrderList.orderedItems !== undefined) {
+    if (preOrderList.orderedItems ) {
         totalCost = preOrderList.orderedItems.reduce((accu, items) => accu + (items.pricePerEach * items.quantity), 0)
     }
 

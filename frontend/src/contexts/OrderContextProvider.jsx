@@ -21,7 +21,7 @@ const OrderContextProvider = ({ children }) => {
                 const response = await fetch(actualClientUrl);
                 const data = await response.json();
                 if (response.status === 200) {
-                    if (data.clientName !== undefined) {
+                    if (data.clientName ) {
                         actualOrder.clientName = data.clientName;
                     }
                 }
@@ -37,7 +37,7 @@ const OrderContextProvider = ({ children }) => {
         const data = await response.json();
         if (data) {
             if (data.length !== 0) {
-                data.map(order => fetchActualClientName(order));
+               data.map(order => fetchActualClientName(order));
             }
             setListOfOrders(data);
         }

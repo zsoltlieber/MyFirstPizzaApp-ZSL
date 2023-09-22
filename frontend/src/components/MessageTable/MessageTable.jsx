@@ -16,7 +16,7 @@ export const MessageTable = () => {
                         <tr>
                             <th>NAME</th>
                             <th>MESSAGE</th>
-                            {actualClientData.clientName !== undefined
+                            {actualClientData.clientName
                                 ?
                                 <>
                                     <th></th>
@@ -32,13 +32,13 @@ export const MessageTable = () => {
                                 <tr key={index}>
                                     <td><p>{index + 1}.) {messageItem.clientName}</p></td>
                                     <td><p style={{ marginTop: "0px", maxWidth: "95%" }}>{messageItem.message}</p></td>
-                                    {actualClientData.clientName !== undefined && (actualClientData.clientId === messageItem.clientId || actualClientData.staffStatus === true)
+                                    {actualClientData.clientName && (actualClientData.clientId === messageItem.clientId || actualClientData.staffStatus === true)
                                         ?
                                         <td >
                                             <button type="text" id="delete-btn" value={messageItem._id} onClick={(e) => deleteMessage(e.target.value)}>DEL </button>
                                         </td>
                                         : <td ></td>}
-                                    {actualClientData.clientName !== undefined
+                                    {actualClientData.clientName
                                         ?
                                         <td>
                                             <button type='button' id="update-btn" value={messageItem._id} onClick={(e) => updateMessage(index, e.target.value)}>UPD</button>

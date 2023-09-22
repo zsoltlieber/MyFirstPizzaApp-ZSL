@@ -42,7 +42,7 @@ const OrderTable = () => {
                     {order.orderedItems.map((orderItem, index) => {
                       if (index === 0) totalCost = 0;
                       actualPizzaName = allPizzaTypes.find(pizza => pizza._id === orderItem.pizzaId)
-                      if (actualPizzaName !== undefined) actualPizzaName = actualPizzaName.pizzaName;
+                      if (actualPizzaName ) actualPizzaName = actualPizzaName.pizzaName;
                       totalCost = totalCost + orderItem.quantity * orderItem.pricePerEach;
                       grandTotalCost = grandTotalCost + orderItem.quantity * orderItem.pricePerEach;
                       return (

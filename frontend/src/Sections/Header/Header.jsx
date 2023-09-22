@@ -15,7 +15,7 @@ const Header = () => {
             <h1>THE BEST PIZZA Co.</h1>
 
             <div>
-                {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
+                {actualClientData.clientName  && actualClientData.clientName !== ""
                     ?
                     <h2>HELLO {actualClientData.clientName}</h2>
                     :
@@ -44,14 +44,14 @@ const Header = () => {
                     </>
                     : null
                 }
-                {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
+                {actualClientData.clientName  && actualClientData.clientName !== ""
                     ?
                     <button className="btn" value="order-form" onClick={(e) => setRightColumnType(e.target.value)}>ORDER</button >
                     : null
                 }
                 <button className="btn" value="message" onClick={(e) => setRightColumnType(e.target.value)}>MESSAGE</button >
                 <button className="btn" value="about" onClick={(e) => setRightColumnType(e.target.value)} >ABOUT</button >
-                {actualClientData.clientName !== undefined && actualClientData.clientName !== ""
+                {actualClientData.clientName  && actualClientData.clientName !== ""
                     ?
                     <button className="btn" value="logout" onClick={() => {
 

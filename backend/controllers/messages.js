@@ -66,7 +66,7 @@ export const updateMessageById = async (req, res, next) => {
             return next(createError(403, "Not allowed to access that message data!"))
         }
         else {
-            if (req.body.message !== undefined || req.body.message !== "") {
+            if (req.body.message && req.body.message === "") {
                 req.body.lastManipulatorId = req.client.id;
                 const updatedMessage = await Message.findByIdAndUpdate(
                     req.params.id,

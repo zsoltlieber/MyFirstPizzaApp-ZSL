@@ -13,7 +13,7 @@ function AllergenListHandler() {
 
   return (
     <>
-      {allAllergens && allAllergens !== undefined && allAllergens !== null && allAllergens.length > 0
+      {allAllergens && allAllergens !== null && allAllergens.length > 0
         ?
         < div id='allergen-list' >
           <p style={{ textAlign: "center", fontSize: "20px", margin: "0" }} >ALLERGEN LIST</p>

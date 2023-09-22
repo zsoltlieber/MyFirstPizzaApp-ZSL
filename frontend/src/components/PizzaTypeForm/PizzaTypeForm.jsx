@@ -18,7 +18,7 @@ const PizzaTypeForm = () => {
 
     if (inputChecker() && newOrModifiedPizzaType._id === undefined) {
       const saveOnServer = async () => {
-        if (newOrModifiedPizzaType !== undefined && newOrModifiedPizzaType._id === undefined) {
+        if (newOrModifiedPizzaType  && newOrModifiedPizzaType._id === undefined) {
           const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -40,7 +40,7 @@ const PizzaTypeForm = () => {
     else if (inputChecker() && newOrModifiedPizzaType._id !== "") {
 
       const updateOnServer = async () => {
-        if (newOrModifiedPizzaType !== undefined && newOrModifiedPizzaType._id !== undefined) {
+        if (newOrModifiedPizzaType  && newOrModifiedPizzaType._id ) {
           const updatablePizzaTypeUrl = `${pizzaTypeUrl}/${newOrModifiedPizzaType._id}`;
 
           const requestOptions = {

@@ -21,14 +21,14 @@ export function OrderForm() {
             pizzaId: actualPizzaData._id,
             pizzaName: actualPizzaData.pizzaName,
             pricePerEach: actualPizzaData.price,
-            quantity: value !== undefined ? parseInt(value) : 1
+            quantity: value ? parseInt(value) : 1
         }
 
         if (preOrderList.orderedItems === undefined) {
             setPreOrderList({ orderedItems: [orderLine] });
         }
         else {
-            if (preOrderList.orderedItems.find(item => item.pizzaId === orderLine.pizzaId) !== undefined) {
+            if (preOrderList.orderedItems.find(item => item.pizzaId === orderLine.pizzaId)) {
                 amendedActualOrderList = preOrderList.orderedItems.filter(item => item.pizzaId !== orderLine.pizzaId);
                 let modifyItem = preOrderList.orderedItems.find(item => item.pizzaId === orderLine.pizzaId);
                 modifyItem.quantity = modifyItem.quantity + orderLine.quantity;
@@ -55,7 +55,7 @@ export function OrderForm() {
     }
 
     useEffect(() => {
-        if (pizzaIdToOrder !== undefined) {
+        if (pizzaIdToOrder) {
             const actualPizza = allPizzaTypes.filter(pizza => pizza._id === pizzaIdToOrder);
             setActualPizzaData(actualPizza[0]);
         }
@@ -85,14 +85,14 @@ export function OrderForm() {
                     <div id="order-form">
                         <form >
                             <h4 style={{ textAlign: "center", margin: "2% 0% 2% 0%" }}>ORDER FORM</h4>
-                            {actualPizzaData !== undefined
+                            {actualPizzaData
                                 ?
                                 <>
                                     < ul style={{ listStyleType: "none" }}>
                                         <li style={{ marginLeft: "-3rem" }} className='order-element'>
                                             {actualPizzaData.pizzaName} {actualPizzaData.price.toLocaleString('en-US')}.- Ft
                                             <input style={{ width: "max-content", marginLeft: "10px" }} type="number" id="quantity" size="4" min={1}
-                                                max={5} value={value !== undefined ? value : 1}
+                                                max={5} value={value ? value : 1}
                                                 onChange={(event) => setValue(event.target.value)}
                                             />
                                             <button type="text" className="btn" id="add-btn" onClick={addActualOrderedItemToList}>ADD</button>

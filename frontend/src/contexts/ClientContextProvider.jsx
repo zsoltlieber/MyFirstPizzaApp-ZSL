@@ -5,19 +5,12 @@ export const ClientContext = createContext();
 
 const ClientContextProvider = ({ children }) => {
     const emptyClient = {
-        clientName: "",
-        email: "",
-        password: "",
-        phoneNumber: "",
         address: [{
             postCode: "",
             city: "",
             streetAndNumber: "",
             otherInfo: ""
         }],
-        isActive: "",
-        isAdmin: "",
-        isMainAdmin: "",
     };
     const { itemIsActiveStatus } = useItemIsActiveStatus();
     const [allClientData, setAllClientData] = useState([]);

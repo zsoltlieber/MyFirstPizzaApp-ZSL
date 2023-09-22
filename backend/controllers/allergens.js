@@ -4,7 +4,7 @@ import createError from '../utils/error.js';
 export const createAllergen = async (req, res, next) => {
 
     try {
-        if (req.body.allergenName !== undefined && req.body.allergenName !== "") {
+        if (req.body.allergenName && req.body.allergenName !== "") {
             req.body.lastManipulatorId = req.client.id;
             const newAllergen = new Allergen(req.body);
             const savedAllergen = await newAllergen.save();
@@ -36,7 +36,7 @@ export const getAllergens = async (req, res, next) => {
 
             return 0;
         });
-        
+
         if (req.query.isActive === 'true') {
             allergens = allergens.filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {
@@ -75,7 +75,7 @@ export const updateAllergenById = async (req, res, next) => {
         const actualAllergen = await Allergen.findById(req.params.id);
         if (actualAllergen !== null) {
 
-            if (req.body.allergenName !== undefined && req.body.allergenName !== "") {
+            if (req.body.allergenName && req.body.allergenName !== "") {
                 req.body.lastManipulatorId = req.client.id;
                 const updateAllergen = await Allergen.findByIdAndUpdate(
                     req.params.id,

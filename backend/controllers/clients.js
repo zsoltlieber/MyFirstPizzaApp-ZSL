@@ -13,11 +13,11 @@ export const registerClient = async (req, res, next) => {
 
     try {
         if (getClientEmailList(actualClientEmail) &&
-            req.body.clientName !== undefined &&
-            req.body.password !== undefined &&
-            req.body.email !== undefined &&
-            req.body.phoneNumber !== undefined &&
-            req.body.address !== undefined
+            req.body.clientName &&
+            req.body.password &&
+            req.body.email &&
+            req.body.phoneNumber &&
+            req.body.address
         ) {
             const salt = bcrypt.genSaltSync(10);
             const hashedPassword = bcrypt.hashSync(req.body.password, salt);
@@ -61,7 +61,7 @@ export const getClients = async (req, res, next) => {
 
             return 0;
         });
-        
+
         if (req.query.isActive === 'true') {
             clients = clients.filter((data) => data.isActive === true);
         } else if (req.query.isActive === 'false') {
@@ -109,9 +109,9 @@ export const updateClientById = async (req, res, next) => {
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.password, salt);
         req.body.password = hashedPassword;
-        
+
         if (actualClient !== null) {
-            if (req.body.clientName !== undefined || req.body.clientName !== "") {
+            if (req.body.clientName  || req.body.clientName !== "") {
                 if (!req.client.isAdmin && !req.params.id.match(req.client.id)) {
                     return next(createError(403, "Not allowed to access that client data!"))
                 }
