@@ -66,21 +66,17 @@ export const updateMessageById = async (req, res, next) => {
             return next(createError(403, "Not allowed to access that message data!"))
         }
         else {
-            if (req.body.message && req.body.message === "") {
+            if (!req.body.message) {
                 req.body.lastManipulatorId = req.client.id;
                 const updatedMessage = await Message.findByIdAndUpdate(
                     req.params.id,
                     { $set: req.body },
                     { new: true }
                 );
-                if (updatedMessage !== null) {
-                    res.status(200).json(updatedMessage);
-                    console.log(`${updatedMessage._id} - ${updatedMessage.clientName} - message has been updated!`);
-                } else {
-                    res.status(200).json("No message the given ID!");
-                }
+                res.status(200).json(updatedMessage);
+                console.log(`${updatedMessage._id} - ${updatedMessage.clientName} - message has been updated!`);
             } else {
-                return next(createError(403, "Message is missing!"))
+                res.status(200).json("No updatable message!");
             }
         }
     }
