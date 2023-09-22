@@ -28,8 +28,7 @@ const ClientContextProvider = ({ children }) => {
                 throw new Error("Failed to fetch clients.");
             }
             const data = await response.json();
-            if (data && data.length > 0) setAllClientData(data);
-            /* empty array lehet, de undifined nem!!! */
+            if (data) setAllClientData(data);
         } catch (error) {
             console.error("Error fetching clients:", error.message);
         }
