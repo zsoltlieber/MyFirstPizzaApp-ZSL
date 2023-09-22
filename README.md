@@ -1,6 +1,6 @@
 # MY FIRST PIZZA APP for pizza bakers and sellers and hungry pizza eaters :)
-###  -- PETPROJECT! --
-##### Purpose: showing that as a junior developer how I can solve a difficult MERN stack task
+
+##### Petproject which present how I work in a MERN stack project as a codewriter alone
 
 ##### The APP is able to manage all relevant tasks
 Showing sellable products as a menu, depends on set allergens, client authorization, ordering, message collecting from customers, manage admin tasks.
