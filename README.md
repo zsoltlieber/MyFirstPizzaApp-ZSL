@@ -1,4 +1,4 @@
-# MY FIRST PIZZA APP for pizza bakers and sellers and hungry pizza eaters :)
+# MY FIRST PIZZA APP for pizza bakers and sellers and hungry pizza eaters with an old fashioned design :)
 
 ##### Petproject which present how I work in a MERN stack project as a codewriter alone
 
@@ -8,7 +8,7 @@ Showing sellable products as a menu, depends on set allergens, client authorizat
 ## Features
 1. **Client registration & Login**: It is needed to be registered and loged in if you want to order, or send message via this APP.
 2. **Client**: After log in can dealing with his order, message sending, but his delete only remove in reality.
-3. **Populate basic data**: The backend ensure basic data with running 'npm run populate' order.
+3. **Populate basic data**: The backend ensure basic data for testing of the code running -> with 'npm run populate' order.
 4. **Admin user/STAFF**: Special client. Only the admin user can remove anything, in connection with his or other client's data but he can only set inactive status of the items.
 5. **Main admin/BOSS**: Special admin user. He can delete in reality.
 6. **Data access rights**: The access rights are checked on the backend side.
@@ -73,7 +73,7 @@ JWT=<public/private key >
     npm start
 ```
 ### TODO
-- follow the baking and delivery status,
-- invoicing,
-- better message handling,
-- writing unit tests.
+- write code to follow the baking and delivery status of products,
+- write code for invoice handling,
+- write better message handling,
+- write unit tests.
