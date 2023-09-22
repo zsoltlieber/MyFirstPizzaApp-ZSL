@@ -2,10 +2,12 @@ import { useClientContext } from "../../contexts/ClientContextProvider.jsx";
 
 function ClientListHandler() {
 
-  const { allClientData,   updateClient, deleteClient } = useClientContext();
+  const { allClientData, updateClient, deleteClient } = useClientContext();
 
   return (
     <>
+      {allClientData
+        ?
         < div id='client-list' >
           <p style={{ textAlign: "center", fontSize: "20px", margin: "0" }} >CLIENT LIST</p>
 
@@ -47,6 +49,7 @@ function ClientListHandler() {
             })}
           </table >
         </div>
+        : null}
     </ >
   )
 }

@@ -2,17 +2,17 @@ import Client from '../models/Client.js';
 import bcrypt from 'bcryptjs';
 import createError from '../utils/error.js';
 
-const getClientEmailList = async (actualClientEmail) => {
+const isEmailExist = async (actualClientEmail) => {
     const clients = await Client.find();
     const clientsEmailList = clients.map(client => client.email);
-    return !clientsEmailList.includes(actualClientEmail)
+    return clientsEmailList.includes(actualClientEmail)
 }
 
 export const registerClient = async (req, res, next) => {
     const actualClientEmail = req.body.email;
 
     try {
-        if (getClientEmailList(actualClientEmail) &&
+        if (!isEmailExist(actualClientEmail) &&
             req.body.clientName &&
             req.body.password &&
             req.body.email &&
@@ -30,15 +30,11 @@ export const registerClient = async (req, res, next) => {
             console.log(`${newClient.clientName} - ${newClient._id} - client was registered.`);
 
         }
-        else if (getClientEmailList(actualClientEmail) === true) {
-            console.log("The email had been registered! Use log in, or register another email!")
-
-        }
         else {
-            return next(createError(200, "Wrong data (client name or pasword not correct!"))
+            console.log("The email had been registered!")
+            return next(createError(200, "The email had been registered! Use log in, or register another email!"))
         }
     }
-
     catch (error) {
         next(error);
     }
@@ -111,7 +107,7 @@ export const updateClientById = async (req, res, next) => {
         req.body.password = hashedPassword;
 
         if (actualClient !== null) {
-            if (req.body.clientName  || req.body.clientName !== "") {
+            if (req.body.clientName || req.body.clientName !== "") {
                 if (!req.client.isAdmin && !req.params.id.match(req.client.id)) {
                     return next(createError(403, "Not allowed to access that client data!"))
                 }
