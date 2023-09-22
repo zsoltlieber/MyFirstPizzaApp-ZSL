@@ -95,53 +95,46 @@ function ClientForm() {
                 </p>
                 <div>
                     <div>
-                        <label>Name: </label>
                         <input type="text" id="clientName" placeholder="client name" value={newOrModifiedClient.clientName}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, clientName: e.target.value }) }} />
                     </div>
                     <div>
-                        <label>Email: </label>
                         <input type="text" id="email" placeholder="email" value={newOrModifiedClient.email}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, email: e.target.value }) }} />
                     </div>
                     <div>
-                        <label>Password: </label>
                         <input type="password" id="password" placeholder="password" value={newOrModifiedClient.password}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, password: e.target.value }) }} />
                     </div>
                     <div>
-                        <label>Phone: </label>
                         <input type="text" id="phoneNumber" placeholder="phone number" value={newOrModifiedClient.phoneNumber}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, phoneNumber: e.target.value }) }} />
                     </div>
-
-                    <div>Post code:
+                    <div>
                         <input type="text" id="postCode" placeholder="post code" value={newOrModifiedClient.address[0].postCode}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: [{ ...newOrModifiedClient.address[0], postCode: e.target.value }] }) }} />
                     </div>
-
-                    <div>City:
+                    <div>
                         <input type="text" id="city" placeholder="city" value={newOrModifiedClient.address[0].city}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: [{ ...newOrModifiedClient.address[0], city: e.target.value }] }) }} />
                     </div>
-                    <div>Str.&nr.:
+                    <div>
                         <input type="text" id="streetAndNumber" placeholder="street and number" value={newOrModifiedClient.address[0].streetAndNumber}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: [{ ...newOrModifiedClient.address[0], streetAndNumber: e.target.value }] }) }} />
                     </div>
-                    <div>Other:
+                    <div>
                         <input type="text" id="otherInfo" placeholder="other information" value={newOrModifiedClient.address[0].otherInfo}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, address: [{ ...newOrModifiedClient.address[0], otherInfo: e.target.value }] }) }} />
                     </div>
-
-                    <div>Active?
+                    <div>
                         <input type="text" id="isActive" placeholder="isActive true/false" value={newOrModifiedClient.isActive}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isActive: e.target.value }) }} />
                     </div>
-                    <div>Admin?
+                    <div>
                         <input type="text" id="isAdmin" placeholder="isAdmin true/false" value={newOrModifiedClient.isAdmin}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isAdmin: e.target.value }) }} />
                     </div>
-                    <div>Boss ?
+                    <div>
                         <input type="text" id="isMainAdmin" placeholder="isMainAdmin true/false" value={newOrModifiedClient.isMainAdmin}
                             onChange={(e) => { setNewOrModifiedClient({ ...newOrModifiedClient, isMainAdmin: e.target.value }) }} />
                     </div>
@@ -157,8 +150,8 @@ function ClientForm() {
                         <button type="text" className="btn" value={"about"} onClick={(e) => setRightColumnType(e.target.value)}>BACK</button>
                     </div>
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
     )
 }
 
