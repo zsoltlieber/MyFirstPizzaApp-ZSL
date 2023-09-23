@@ -84,7 +84,7 @@ const ClientContextProvider = ({ children }) => {
                     setAllClientData(newClientList)
                     console.log('Client remove was successful');
                 } else {
-                    throw new Error("Failed to remove message.")
+                    throw new Error("Failed to remove client.")
                 }
             } catch (error) {
                 console.log("Problem with client remove!", error.message)

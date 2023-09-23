@@ -43,7 +43,7 @@ const OrderContextProvider = ({ children }) => {
 
     useEffect(() => {
         orderFetch(ordersUrl);
-    }, [actualClientData, preOrderList]);
+    }, [preOrderList]);
 
 
     async function deleteOrder(removableOrderId) {

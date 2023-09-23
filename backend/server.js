@@ -43,7 +43,7 @@ app.use((err, req, res, next) => {
         success: false,
         status: errorStatus,
         message: errorMessage,
-        stack: err.stack,   //developer feature for detailed error information
+        //stack: err.stack,   //developer feature for detailed error information
     });
 })
 

@@ -18,9 +18,9 @@ function ClientForm() {
             streetAndNumber: "",
             otherInfo: ""
         }],
-        isActive: "",
-        isAdmin: "",
-        isMainAdmin: "",
+        isActive: true,
+        isAdmin: false,
+        isMainAdmin: false
     };
 
     const clientUrl = "/api/clients"
@@ -45,7 +45,7 @@ function ClientForm() {
                 else {
                     setNewOrModifiedClient(emptyClient);
                     setUpdatableClientId("");
-                    console.log("New client was saved!")
+                    console.log(data)
                 }
             }
             saveOnServer()
