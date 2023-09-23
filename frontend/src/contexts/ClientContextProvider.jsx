@@ -5,6 +5,7 @@ export const ClientContext = createContext();
 
 const ClientContextProvider = ({ children }) => {
     const emptyClient = {
+        clientName: "",
         address: [{
             postCode: "",
             city: "",
@@ -21,9 +22,8 @@ const ClientContextProvider = ({ children }) => {
     const clientUrl = "/api/clients"
 
     const clientsFetch = async (url) => {
-        const actualClientUrl = `${clientUrl}?isActive=${itemIsActiveStatus}`
         try {
-            const response = await fetch(actualClientUrl);
+            const response = await fetch(url);
             if (!response.ok) {
                 throw new Error("Failed to fetch clients.");
             }
@@ -35,8 +35,16 @@ const ClientContextProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        clientsFetch(clientUrl);
-    }, [newOrModifiedClient]);
+        let actualClientUrl = "";
+        if (actualClientData && actualClientData.isAdmin) {
+            actualClientUrl = `${clientUrl}?isActive=${itemIsActiveStatus}`
+            clientsFetch(actualClientUrl);
+        } else if (actualClientData && actualClientData._id) {
+            actualClientUrl = `${clientUrl}/${actualClientData._id}?isActive=${itemIsActiveStatus}`
+            clientsFetch(actualClientUrl);
+        }
+
+    }, [actualClientData, newOrModifiedClient]);
 
     const updateClient = (clientId) => {
         setUpdatableClientId(clientId);
