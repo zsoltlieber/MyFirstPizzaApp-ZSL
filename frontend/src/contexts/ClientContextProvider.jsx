@@ -5,7 +5,6 @@ export const ClientContext = createContext();
 
 const ClientContextProvider = ({ children }) => {
     const emptyClient = {
-        clientName: "",
         address: [{
             postCode: "",
             city: "",
@@ -15,7 +14,7 @@ const ClientContextProvider = ({ children }) => {
     };
     const { itemIsActiveStatus } = useItemIsActiveStatus();
     const [allClientData, setAllClientData] = useState([]);
-    const [actualClientData, setActualClientData] = useState(emptyClient);
+    const [actualClientData, setActualClientData] = useState({});
     const [newOrModifiedClient, setNewOrModifiedClient] = useState(emptyClient);
     const [updatableClientId, setUpdatableClientId] = useState("");
 
@@ -33,18 +32,18 @@ const ClientContextProvider = ({ children }) => {
             console.error("Error fetching clients:", error.message);
         }
     };
-
+    
     useEffect(() => {
         let actualClientUrl = "";
-        if (actualClientData && actualClientData.isAdmin) {
+        if (actualClientData && (actualClientData.staffStatus || actualClientData.bossStatus)) {
             actualClientUrl = `${clientUrl}?isActive=${itemIsActiveStatus}`
             clientsFetch(actualClientUrl);
-        } else if (actualClientData && actualClientData._id) {
+        } else if (actualClientData && actualClientData.clientId) {
             actualClientUrl = `${clientUrl}/${actualClientData._id}?isActive=${itemIsActiveStatus}`
             clientsFetch(actualClientUrl);
         }
 
-    }, [actualClientData, newOrModifiedClient]);
+    }, [actualClientData,newOrModifiedClient]);
 
     const updateClient = (clientId) => {
         setUpdatableClientId(clientId);
