@@ -1,4 +1,10 @@
+<a name="readme-top"></a>
+[![zsoltlieber][zsoltlieber-linkedin-shield]][zsoltlieber-linkedin-url]
+
 # MY FIRST PIZZA APP for pizza bakers and sellers and hungry pizza eaters with an old fashioned design :)
+
+[zsoltlieber-linkedin-shield]: https://img.shields.io/badge/-zsoltlieber-black.svg?style=for-the-badge&logo=linkedin&colorB=A15
+[zsoltlieber-linkedin-url]: https://www.linkedin.com/in/zsolt-levai-6a30b316b/
 
 ##### Petproject which present how I work in a MERN stack project as a codewriter alone
 
